@@ -1,0 +1,13 @@
+# Local external dependency checkout. See post2exe/EXTERNAL_DEPS.md.
+post2exe/tree-sitter-verus/
+
+# Python caches and generated local artifacts.
+__pycache__/
+*.py[cod]
+
+# Build outputs that should not be committed.
+target/
+build/
+*.so
+*.o
+*.rlib

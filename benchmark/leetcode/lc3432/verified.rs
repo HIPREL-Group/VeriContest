@@ -1,0 +1,82 @@
+use vstd::prelude::*;
+
+fn main() {}
+
+verus! {
+
+pub struct Solution;
+
+pub open spec fn spec_sum(nums: Seq<i32>, k: int) -> int
+    decreases k,
+{
+    if k <= 0 {
+        0
+    } else {
+        spec_sum(nums, k - 1) + nums[k - 1] as int
+    }
+}
+
+pub open spec fn spec_count_partitions(nums: Seq<i32>, n: int) -> int {
+    if spec_sum(nums, n) % 2 == 0 {
+        n - 1
+    } else {
+        0
+    }
+}
+
+proof fn lemma_sum_bounds(nums: Seq<i32>, k: int)
+    requires
+        0 <= k <= nums.len(),
+        forall |i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 100,
+    ensures
+        k <= spec_sum(nums, k) <= 100 * k,
+    decreases k,
+{
+    if k <= 0 {
+    } else {
+        lemma_sum_bounds(nums, k - 1);
+        assert(100 * (k - 1) + 100 == 100 * k) by(nonlinear_arith);
+    }
+}
+
+impl Solution {
+    pub fn count_partitions(nums: Vec<i32>) -> (result: i32)
+        requires
+            2 <= nums.len() <= 100,
+            forall |i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 100,
+        ensures
+            result == spec_count_partitions(nums@, nums.len() as int),
+    {
+        let n = nums.len();
+        let mut total: i32 = 0;
+        let mut i: usize = 0;
+        while i < n
+            invariant
+                n == nums.len(),
+                2 <= n <= 100,
+                forall |j: int| 0 <= j < nums.len() ==> 1 <= #[trigger] nums[j] <= 100,
+                0 <= i <= n,
+                total as int == spec_sum(nums@, i as int),
+                i as i32 <= total <= 100 * i as i32,
+            decreases n - i,
+        {
+            proof {
+                lemma_sum_bounds(nums@, (i + 1) as int);
+            }
+            total += nums[i];
+            i += 1;
+        }
+        assert(total as int == spec_sum(nums@, n as int));
+        assert(total >= 2);
+        assert((total as u32) as int == total as int);
+        if (total as u32) % 2 == 0 {
+            assert(spec_sum(nums@, n as int) % 2 == 0);
+            (n - 1) as i32
+        } else {
+            assert(spec_sum(nums@, n as int) % 2 != 0);
+            0
+        }
+    }
+}
+
+} 

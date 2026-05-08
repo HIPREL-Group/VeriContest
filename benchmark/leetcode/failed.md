@@ -1,0 +1,75 @@
+# Failed Benchmarks
+
+Problems where a verified Verus proof could not be completed.
+
+- lc2
+- lc3
+- lc4
+- lc5
+- lc15
+- lc36
+- lc48
+- lc137
+- lc201
+- lc204
+- lc206
+- lc228
+- lc233
+- lc252
+- lc256
+- lc259
+- lc263
+- lc264
+- lc265
+- lc279
+- lc299
+- lc300
+- lc304
+- lc309
+- lc313
+- lc318
+- lc319
+- lc322
+- lc324
+- lc376
+- lc442
+- lc553
+- lc848
+- lc862
+- lc881
+- lc927
+- lc989
+- lc995
+- lc1005 — Maximize Sum Of Array After K Negations: proof not completed
+- lc1029 — Two City Scheduling: DP-to-semantic assignment bridge proof intractable
+- lc1267
+- lc1354 — Construct Target Array With Multiple Sums: forward ↔ backward equivalence proof intractable
+- lc1380
+- lc1471
+- lc1478 — Allocate Mailboxes: contiguity + median optimality unproven in Verus
+- lc1499
+- lc1504 — Count Submatrices With All Ones: bijective counting bridge proof intractable
+- lc1526
+- lc1536 — Minimum Swaps to Arrange a Binary Grid: greedy optimality exchange argument intractable
+- lc1537 — Get the Maximum Score: two-pointer to path choice bridge proof intractable
+- lc1552
+- lc1557
+- lc1605
+- lc1611
+- lc1642 — Design Circular Deque: 13 heap-related assumes intractable in Verus
+- lc1687 — Delivering Boxes from Storage to Ports: monotone deque invariants too complex
+- lc1710 — Maximum Units on a Truck: greedy optimality proof breaks under Verus 0.2026.04.03
+- lc1846 — Maximum Element After Decreasing and Rearranging: greedy witness + optimality bridge intractable
+- lc1877 — Minimize Maximum Pair Sum in Array: proof not completed
+- lc1986 — Minimum Number of Work Sessions to Finish the Tasks: proof not completed
+- lc1997 — First Day Where You Have Been in All the Rooms: proof not completed
+- lc2012
+- lc2201
+- lc2221
+- lc2256
+- lc2295
+- lc2363
+- lc3264
+- lc3289
+- lc3345
+- lc3349

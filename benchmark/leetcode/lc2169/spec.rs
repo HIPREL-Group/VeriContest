@@ -1,0 +1,30 @@
+use vstd::prelude::*;
+
+fn main() {}
+
+verus! {
+pub struct Solution;
+
+pub open spec fn count_ops(a: int, b: int) -> int
+    decreases a + b
+{
+    if a <= 0 || b <= 0 {
+        0
+    } else if a >= b {
+        1 + count_ops(a - b, b)
+    } else {
+        1 + count_ops(a, b - a)
+    }
+}
+
+impl Solution {
+    pub fn count_operations(num1: i32, num2: i32) -> (result: i32)
+        requires
+            0 <= num1 && 0 <= num2,
+            num1 as int + num2 as int <= 200000,
+        ensures
+            result == count_ops(num1 as int, num2 as int),
+    {
+    }
+}
+}
