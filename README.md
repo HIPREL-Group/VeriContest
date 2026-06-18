@@ -25,7 +25,7 @@ benchmark/
   extended/         # 61 verified problems excluded from the main benchmark
 lemmas/             # Reusable Verus proof lemmas (arithmetic, bits, sequences)
 skills/             # Authoring guides and scripts for adding new problems
-verus/              # Bundled Verus toolchain (invoked as ./verus/verus)
+verus/              # Bundled Verus toolchain, Linux x86-64 (invoked as ./verus/verus)
 post2exe/           # Postcondition-testing component
 ```
 
