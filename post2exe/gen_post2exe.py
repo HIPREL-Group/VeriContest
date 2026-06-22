@@ -60,8 +60,8 @@ sys.modules[_gen_test_post_spec.name] = gtp
 _gen_test_post_spec.loader.exec_module(gtp)
 
 _lang = ts.Language(str(VERUS_SO), "verus")
-_parser = ts.Parser()
-_parser.set_language(_lang)
+_parser = ts.Parser(_lang)
+
 
 
 @dataclass
