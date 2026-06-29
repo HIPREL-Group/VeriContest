@@ -52,7 +52,7 @@ Python setup from the repo root:
 
 ```bash
 cd /path/to/VeriContest
-pip install tree-sitter
+pip install "tree-sitter>=0.22"
 pip install -e post2exe/tree-sitter-verus
 ```
 

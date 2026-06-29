@@ -34,17 +34,12 @@ import re
 import subprocess
 import sys
 
-import warnings
-
-warnings.filterwarnings("ignore", category=FutureWarning, module="tree_sitter")
-
 import tree_sitter as ts
-import tree_sitter_verus as tsv  # noqa: F401
+import tree_sitter_verus as tsv
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 BENCH_ROOT = REPO_ROOT / "benchmark"
 VERUS_BIN = REPO_ROOT / "verus" / "verus"
-VERUS_SO = Path(__file__).resolve().parent / "tree-sitter-verus" / "verus.so"
 GEN_TEST_POST_PATH = Path(__file__).resolve().parent / "gen_test_post.py"
 
 # Load `gen_test_post.py` as a module instead of shelling out to it.  This keeps
@@ -59,7 +54,7 @@ gtp = importlib.util.module_from_spec(_gen_test_post_spec)
 sys.modules[_gen_test_post_spec.name] = gtp
 _gen_test_post_spec.loader.exec_module(gtp)
 
-_lang = ts.Language(str(VERUS_SO), "verus")
+_lang = ts.Language(tsv.language())
 _parser = ts.Parser(_lang)
 
 
