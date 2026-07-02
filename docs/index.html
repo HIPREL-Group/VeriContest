@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VeriContest: A Competitive-Programming Benchmark for Verifiable Code Generation</title>
+  <meta name="description" content="VeriContest is a competitive-programming benchmark for verifiable code generation in Rust with Verus: 946 problems pairing natural-language descriptions with expert-validated formal specifications, judge-accepted code, and Verus-checked proofs.">
+
+  <meta property="og:title" content="VeriContest: A Competitive-Programming Benchmark for Verifiable Code Generation">
+  <meta property="og:description" content="946 problems pairing natural-language descriptions with expert-validated formal specifications, judge-accepted Rust code, and Verus-checked proofs.">
+  <meta property="og:type" content="website">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <link rel="stylesheet" href="./static/style.css">
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<nav class="navbar site-nav is-fixed-top" role="navigation">
+  <div class="container is-max-widescreen">
+    <div class="navbar-brand">
+      <a class="navbar-item brand-text" href="#top">VeriContest</a>
+      <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu">
+        <span></span><span></span><span></span>
+      </a>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+      <div class="navbar-end">
+        <a class="navbar-item nav-link" href="#abstract">Abstract</a>
+        <a class="navbar-item nav-link" href="#gap">Capability Gap</a>
+        <a class="navbar-item nav-link" href="#explorer">Explore</a>
+        <a class="navbar-item nav-link" href="#leaderboard">Leaderboard</a>
+        <a class="navbar-item nav-link" href="#scaling">Scaling</a>
+        <a class="navbar-item nav-link" href="#dataset">Dataset</a>
+        <a class="navbar-item nav-link" href="#citation">Cite</a>
+        <a class="navbar-item" href="https://github.com/HIPREL-Group/VeriContest">
+          <span class="icon"><i class="fab fa-github"></i></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<span id="top"></span>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero-vc">
+  <div class="hero-bg"></div>
+  <div class="container is-max-desktop has-text-centered hero-inner">
+    <span class="tag venue-tag">Rust &middot; Verus &middot; Verifiable Code Generation</span>
+    <h1 class="title is-2 publication-title">
+      VeriContest: A Competitive-Programming Benchmark for Verifiable Code Generation
+    </h1>
+
+    <div class="publication-authors">
+      <span class="author-block"><a href="https://gax-c.github.io/" target="_blank" rel="noopener">Zichen Xie</a><sup>1</sup>,</span>
+      <span class="author-block"><a href="https://mrigank.in/" target="_blank" rel="noopener">Mrigank Pawagi</a><sup>2</sup>,</span>
+      <span class="author-block">Yuxin Liu<sup>3</sup>,</span>
+      <span class="author-block">Aaditi Rai<sup>1</sup>,</span>
+      <span class="author-block"><a href="https://slz2003.github.io/" target="_blank" rel="noopener">Lize Shao</a><sup>1</sup>,</span>
+      <span class="author-block">John Berberian Jr.<sup>1</sup>,</span>
+      <span class="author-block">Sicong Che<sup>4</sup>,</span>
+      <span class="author-block"><a href="https://wenxiwang.github.io/" target="_blank" rel="noopener">Wenxi Wang</a><sup>1</sup></span>
+    </div>
+
+    <div class="publication-affiliation">
+      <span><sup>1</sup>University of Virginia</span> &nbsp;
+      <span><sup>2</sup>Indian Institute of Science</span> &nbsp;
+      <span><sup>3</sup>Rice University</span> &nbsp;
+      <span><sup>4</sup>Independent Researcher</span>
+    </div>
+
+    <div class="publication-links">
+      <a href="https://arxiv.org/abs/2605.08553" class="button is-rounded link-btn">
+        <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span>
+      </a>
+      <a href="https://arxiv.org/pdf/2605.08553" class="button is-rounded link-btn">
+        <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span>
+      </a>
+      <a href="https://github.com/HIPREL-Group/VeriContest" class="button is-rounded link-btn">
+        <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
+      </a>
+      <a href="https://huggingface.co/datasets/Gax-c/VeriContest" class="button is-rounded link-btn">
+        <span class="icon">&#129303;</span><span>Dataset</span>
+      </a>
+    </div>
+
+    <!-- key highlights -->
+    <div class="highlights reveal">
+      <div class="hl-card">
+        <span class="hl-icon"><i class="fas fa-layer-group"></i></span>
+        <p class="hl-num"><span>946</span></p>
+        <p class="hl-title">Verified problems</p>
+        <p class="hl-sub">Competitive-programming tasks from LeetCode &amp; Codeforces, each with ground-truth spec, code &amp; proof.</p>
+      </div>
+      <div class="hl-card">
+        <span class="hl-icon"><i class="fas fa-shield-halved"></i></span>
+        <p class="hl-title">Algorithm-level verification</p>
+        <p class="hl-sub">Real contest algorithms proved correct in Rust with Verus, well beyond toy snippets.</p>
+      </div>
+      <div class="hl-card">
+        <span class="hl-icon"><i class="fas fa-code"></i></span>
+        <p class="hl-title">Verifiable code generation</p>
+        <div class="hl-pills">
+          <span>SpecGen</span><span>CodeGen</span><span>ProofGen</span>
+        </div>
+        <p class="hl-sub">The full pipeline, evaluated both in isolation and end-to-end.</p>
+      </div>
+      <div class="hl-card">
+        <span class="hl-icon"><i class="fas fa-clipboard-check"></i></span>
+        <p class="hl-title">Rigorous quality validation</p>
+        <p class="hl-sub">Automated testing (Post2Exe) <em>and</em> at least two expert human reviews per problem.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABSTRACT ===================== -->
+<section class="section" id="abstract">
+  <div class="container is-max-desktop reveal">
+    <div class="section-head">
+      <span class="section-icon"><i class="fas fa-align-left"></i></span>
+      <h2 class="section-title">Abstract</h2>
+    </div>
+    <div class="content has-text-justified abstract-body">
+      <p>
+        Large language models can generate useful code from natural language,
+        but their outputs come without correctness guarantees. Verifiable code
+        generation offers a path beyond testing by requiring models to produce
+        not only executable code, but also formal specifications and
+        machine-checkable proofs. Progress in this direction, however, is
+        difficult to measure: existing benchmarks are often small, focus on only
+        one part of the pipeline, lack ground-truth proofs or rigorous
+        specification validation, or target verification settings far from
+        mainstream software development. We present <strong>VeriContest</strong>,
+        a benchmark of <strong>946 competitive-programming problems</strong> from
+        LeetCode and Codeforces for verifiable code generation in Rust with
+        <a href="https://github.com/verus-lang/verus">Verus</a>. Each problem
+        pairs a natural-language description with expert-validated formal
+        specifications, judge-accepted Rust code, Verus-checked proofs, and
+        positive and negative test suites. VeriContest is constructed through a
+        three-phase pipeline that scales from manually verified seed problems to
+        semi-automated expansion with human-in-the-loop review. To further
+        strengthen benchmark quality, we use testing as an additional
+        quality-assurance layer for validating postcondition completeness.
+      </p>
+      <p>
+        VeriContest supports isolated and compositional evaluation of
+        specification generation, code generation, proof generation, and
+        end-to-end verified program synthesis. Evaluating ten state-of-the-art
+        models reveals a sharp gap between coding ability and verifiable code
+        generation: the strongest model reaches <strong>92.18%</strong> on
+        natural-language-to-code generation, but only <strong>48.31%</strong> on
+        specification generation, <strong>13.95%</strong> on proof generation,
+        and <strong>5.29%</strong> end-to-end. These results identify proof and
+        specification generation as the central bottlenecks for models and
+        establish VeriContest as a rigorous platform for measuring and training
+        future systems that generate code with machine-checkable correctness.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CAPABILITY GAP ===================== -->
+<section class="section has-bg-tint" id="gap">
+  <div class="container is-max-desktop reveal">
+    <div class="section-head">
+      <span class="section-icon"><i class="fas fa-arrow-trend-down"></i></span>
+      <h2 class="section-title">The Capability Gap</h2>
+    </div>
+    <p class="has-text-centered section-sub">
+      Models that write excellent code stumble when asked to <em>prove</em> it
+      correct. Pick a model to see how its accuracy collapses across the pipeline.
+    </p>
+
+    <div class="field is-grouped is-grouped-centered mb-4">
+      <div class="control">
+        <div class="select is-rounded">
+          <select id="gapModel"></select>
+        </div>
+      </div>
+      <div class="control">
+        <label class="checkbox compare-toggle">
+          <input type="checkbox" id="gapCompare"> Overlay best-in-class
+        </label>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <canvas id="gapChart" height="120"></canvas>
+    </div>
+    <p class="has-text-centered section-sub is-size-7 mt-3">
+      pass@1 accuracy (%) across the four evaluation tasks.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== PROBLEM EXPLORER ===================== -->
+<section class="section" id="explorer">
+  <div class="container is-max-widescreen reveal">
+    <div class="section-head">
+      <span class="section-icon"><i class="fas fa-compass"></i></span>
+      <h2 class="section-title">Explore the Benchmark</h2>
+    </div>
+    <p class="has-text-centered section-sub">
+      A sample of real problems. Each couples a natural-language statement with a
+      ground-truth specification, judge-accepted code, and a Verus-checked proof.
+    </p>
+
+    <div class="explorer-controls">
+      <div class="filter-chips" data-filter="source">
+        <span class="chip is-active" data-val="all">All sources</span>
+        <span class="chip" data-val="LeetCode">LeetCode</span>
+        <span class="chip" data-val="Codeforces">Codeforces</span>
+      </div>
+    </div>
+
+    <div class="columns explorer-body">
+      <div class="column is-one-third">
+        <div class="problem-list" id="problemList"></div>
+      </div>
+      <div class="column">
+        <div class="problem-detail box" id="problemDetail">
+          <p class="has-text-grey has-text-centered p-6">Select a problem to view its artifacts.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LEADERBOARD ===================== -->
+<section class="section has-bg-tint" id="leaderboard">
+  <div class="container is-max-widescreen reveal">
+    <div class="section-head">
+      <span class="section-icon"><i class="fas fa-ranking-star"></i></span>
+      <h2 class="section-title">Leaderboard</h2>
+    </div>
+    <p class="has-text-centered section-sub">
+      pass@1 accuracy (%) of ten state-of-the-art models. Click a column to sort;
+      filter by provider or search. <strong>Bold</strong> marks the best per column.
+    </p>
+
+    <div class="level is-mobile lb-toolbar">
+      <div class="level-left">
+        <div class="filter-chips" id="lbProviders"></div>
+      </div>
+      <div class="level-right">
+        <div class="control has-icons-left">
+          <input class="input is-rounded is-small" type="text" id="lbSearch" placeholder="Filter models&hellip;">
+          <span class="icon is-left"><i class="fas fa-search"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lb-card">
+      <table class="table is-fullwidth" id="lbTable">
+        <colgroup>
+          <col class="col-rank">
+          <col class="col-model">
+          <col class="col-metric">
+          <col class="col-metric">
+          <col class="col-metric">
+          <col class="col-metric">
+          <col class="col-metric">
+          <col class="col-metric">
+        </colgroup>
+        <thead>
+          <tr class="group-row">
+            <th rowspan="2" class="is-vcentered rank-th">#</th>
+            <th rowspan="2" class="sortable is-vcentered col-sep" data-key="model">Model <i class="fas fa-sort sort-ic"></i></th>
+            <th class="group-th col-sep" title="Specification generation: produce the formal spec (pre/postconditions) from the problem.">SpecGen</th>
+            <th colspan="3" class="group-th col-sep" title="Code generation: write judge-accepted Rust under different inputs.">CodeGen</th>
+            <th class="group-th col-sep" title="Proof generation: given the spec and code, produce a Verus proof.">ProofGen</th>
+            <th class="group-th col-sep" title="End-to-end verified synthesis: produce spec, code, and proof from the problem alone.">End-to-End</th>
+          </tr>
+          <tr class="sub-row">
+            <th class="sortable sub-th col-sep" data-key="nl2spec" title="natural language → specification">nl&rarr;spec <i class="fas fa-sort sort-ic"></i></th>
+            <th class="sortable sub-th col-sep" data-key="nl2code" title="natural language → code">nl&rarr;code <i class="fas fa-sort sort-ic"></i></th>
+            <th class="sortable sub-th" data-key="spec2code" title="specification → code">spec&rarr;code <i class="fas fa-sort sort-ic"></i></th>
+            <th class="sortable sub-th" data-key="nlspec2code" title="natural language + specification → code">nl+spec&rarr;code <i class="fas fa-sort sort-ic"></i></th>
+            <th class="sortable sub-th col-sep" data-key="proof" title="specification + code → proof">spec+code&rarr;proof <i class="fas fa-sort sort-ic"></i></th>
+            <th class="sortable sub-th col-sep" data-key="e2e" title="natural language → spec + code + proof (fully verified)">nl&rarr;verified <i class="fas fa-sort sort-ic"></i></th>
+          </tr>
+        </thead>
+        <tbody id="lbBody"></tbody>
+      </table>
+    </div>
+    <div class="lb-defs">
+      <span><b>SpecGen</b>: generate the formal specification (nl&rarr;spec)</span>
+      <span><b>CodeGen</b>: generate code from the problem and/or spec</span>
+      <span><b>ProofGen</b>: prove given code meets the spec (spec+code&rarr;proof)</span>
+      <span><b>End-to-End</b>: spec, code &amp; proof from scratch (nl&rarr;verified)</span>
+    </div>
+    <p class="has-text-centered has-text-grey is-size-7 mt-2">
+      All values are pass@1 (%) as reported in the paper; <b class="best-key">bold</b>
+      marks the best in each column. Want to add a model? Open a pull request on
+      <a href="https://github.com/HIPREL-Group/VeriContest">GitHub</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== SCALING (SAMPLING + REPAIR) ===================== -->
+<section class="section" id="scaling">
+  <div class="container is-max-desktop reveal">
+    <div class="section-head">
+      <span class="section-icon"><i class="fas fa-arrow-trend-up"></i></span>
+      <h2 class="section-title">Scaling Proof Generation</h2>
+    </div>
+    <p class="has-text-centered section-sub">
+      Proof generation is the hardest task, but it is not a hard ceiling. Two
+      test-time strategies steadily lift proof accuracy as we spend more
+      compute: drawing more independent samples (<b>pass@k</b>) and iteratively
+      repairing failed proofs (<b>repair@k</b>).
+    </p>
+
+    <div class="columns scaling-grid">
+      <div class="column">
+        <div class="chart-card">
+          <div class="chart-head">
+            <span class="chart-title"><i class="fas fa-clone"></i> Sampling</span>
+            <span class="chart-note">pass@k over k samples</span>
+          </div>
+          <canvas id="passChart"></canvas>
+        </div>
+      </div>
+      <div class="column">
+        <div class="chart-card">
+          <div class="chart-head">
+            <span class="chart-title"><i class="fas fa-screwdriver-wrench"></i> Proof Repair</span>
+            <span class="chart-note">repair@k over k repair rounds</span>
+          </div>
+          <canvas id="repairChart"></canvas>
+        </div>
+      </div>
+    </div>
+    <p class="has-text-centered has-text-grey is-size-7 mt-3">
+      Task: spec&nbsp;+&nbsp;code&nbsp;&rarr;&nbsp;proof. Accuracy is pass@1 (%);
+      k ranges from 1 to 20.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== DATASET / PIPELINE ===================== -->
+<section class="section has-bg-tint" id="dataset">
+  <div class="container is-max-desktop reveal">
+    <div class="section-head">
+      <span class="section-icon"><i class="fas fa-database"></i></span>
+      <h2 class="section-title">Inside the Dataset</h2>
+    </div>
+
+    <div class="columns is-vcentered mb-5">
+      <div class="column is-two-fifths">
+        <div class="chart-card">
+          <canvas id="compChart" height="220"></canvas>
+        </div>
+      </div>
+      <div class="column">
+        <div class="content">
+          <p>
+            VeriContest spans <strong>946 main problems</strong> (690 from
+            LeetCode and 256 from Codeforces), plus an
+            <strong>extended</strong> set of 61 verified problems held out of the
+            main evaluation. Every problem ships with the same artifacts:
+          </p>
+          <ul class="artifact-list">
+            <li><span class="art-badge">description.md</span> natural-language statement</li>
+            <li><span class="art-badge">spec.rs</span> ground-truth pre/postconditions</li>
+            <li><span class="art-badge">code.rs</span> judge-accepted Rust</li>
+            <li><span class="art-badge">verified.rs</span> Verus-checked proof</li>
+            <li><span class="art-badge">tests</span> positive &amp; negative suites</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="title is-5 has-text-centered mt-6">How VeriContest Is Built</h3>
+    <div class="columns pipeline">
+      <div class="column">
+        <div class="box pipeline-box has-text-centered">
+          <span class="pipeline-icon"><i class="fas fa-seedling"></i></span>
+          <span class="tag is-dark is-rounded">Phase 1</span>
+          <p><strong>Seed problems</strong><br>91 problems manually built with sound, complete specs, code, and proofs.</p>
+        </div>
+      </div>
+      <div class="column pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+      <div class="column">
+        <div class="box pipeline-box has-text-centered">
+          <span class="pipeline-icon"><i class="fas fa-people-arrows"></i></span>
+          <span class="tag is-dark is-rounded">Phase 2</span>
+          <p><strong>Semi-automated expansion</strong><br>Scaled to 946 problems with human-in-the-loop review.</p>
+        </div>
+      </div>
+      <div class="column pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+      <div class="column">
+        <div class="box pipeline-box has-text-centered">
+          <span class="pipeline-icon"><i class="fas fa-vials"></i></span>
+          <span class="tag is-dark is-rounded">Phase 3</span>
+          <p><strong>Testcase validation</strong><br>Positive/negative tests validate postcondition completeness.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="title is-5 has-text-centered mt-5">Five Quality Dimensions</h3>
+    <div class="tags is-centered quality-tags">
+      <span class="tag is-medium"><i class="fas fa-check"></i>&nbsp; Code correctness &amp; efficiency</span>
+      <span class="tag is-medium"><i class="fas fa-check"></i>&nbsp; Specification soundness</span>
+      <span class="tag is-medium"><i class="fas fa-check"></i>&nbsp; Specification completeness</span>
+      <span class="tag is-medium"><i class="fas fa-check"></i>&nbsp; Specification review</span>
+      <span class="tag is-medium"><i class="fas fa-check"></i>&nbsp; High-quality test cases</span>
+    </div>
+    <p class="has-text-centered section-sub mt-4">
+      Completeness is further checked by <strong>Post2Exe</strong>, which
+      translates Verus postconditions into executable Rust and runs them on
+      negative test cases.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== CITATION ===================== -->
+<section class="section" id="citation">
+  <div class="container is-max-desktop reveal">
+    <div class="section-head">
+      <span class="section-icon"><i class="fas fa-quote-right"></i></span>
+      <h2 class="section-title">Citation</h2>
+    </div>
+    <div class="bibtex-wrap">
+      <button class="button is-small is-rounded copy-btn" id="copyBib">
+        <span class="icon"><i class="fas fa-copy"></i></span><span>Copy</span>
+      </button>
+<pre id="bibtex"><code>@article{xie2026vericontest,
+  title   = {VeriContest: A Competitive-Programming Benchmark for Verifiable Code Generation},
+  author  = {Xie, Zichen and Pawagi, Mrigank and Liu, Yuxin and Rai, Aaditi and
+             Shao, Lize and Berberian Jr, John and Che, Sicong and Wang, Wenxi},
+  journal = {arXiv preprint arXiv:2605.08553},
+  year    = {2026}
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container has-text-centered content">
+    <p>
+      Code &amp; tooling under <strong>Apache-2.0</strong>; benchmark artifacts
+      under <strong>CC-BY-4.0</strong>. Problem statements derive from LeetCode
+      and Codeforces and remain subject to their source terms.
+    </p>
+    <p class="is-size-7 has-text-grey">
+      Layout inspired by academic project-page conventions; built as a
+      dependency-light static site.
+    </p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+<script src="./static/data.js"></script>
+<script src="./static/main.js"></script>
+</body>
+</html>
