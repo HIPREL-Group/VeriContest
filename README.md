@@ -6,7 +6,7 @@ Competitive-Programming Benchmark for Verifiable Code Generation"**
 ([arXiv:2605.08553](https://arxiv.org/abs/2605.08553)).
 
 Project website:
-**[hiprel-group.github.io/VeriContest](https://hiprel-group.github.io/VeriContest/)**.
+[hiprel-group.github.io/VeriContest](https://hiprel-group.github.io/VeriContest/).
 
 The benchmark contains 946 main benchmark problems: 690 from LeetCode and 256
 from Codeforces. Each problem pairs a natural-language description with
