@@ -118,8 +118,9 @@ body {
   margin-top: 2.6rem; text-align: left;
 }
 .hl-card {
+  display: flex; flex-direction: column;
   background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
-  padding: 1.2rem 1.1rem 1.3rem; position: relative; overflow: hidden;
+  padding: 1.35rem 1.2rem; position: relative; overflow: hidden;
   box-shadow: var(--shadow);
   transition: transform .15s, box-shadow .15s;
 }
@@ -128,15 +129,29 @@ body {
   content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
   background: linear-gradient(90deg, var(--accent), var(--accent-soft));
 }
-.hl-icon { font-size: 1.4rem; color: var(--accent); }
-.hl-num { font-size: 2.3rem; font-weight: 800; color: var(--accent); line-height: 1; margin-top: 0.35rem; }
-.hl-title { font-weight: 800; font-size: 1rem; margin-top: 0.55rem; letter-spacing: -0.01em; }
-.hl-sub { color: var(--muted); font-size: 0.82rem; margin-top: 0.4rem; line-height: 1.5; }
-.hl-pills { display: flex; gap: 0.35rem; margin-top: 0.55rem; flex-wrap: wrap; }
-.hl-pills span {
+.hl-head {
+  display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.7rem;
+}
+.hl-icon {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: 12px;
+  background: rgba(181,18,27,0.09); color: var(--accent); font-size: 1.25rem;
+}
+.hl-title {
+  flex: 1; margin: 0;
+  font-weight: 800; font-size: 1.05rem; letter-spacing: -0.01em; line-height: 1.2;
+}
+.hl-figure { color: var(--accent); font-size: 1.5em; font-weight: 800; }
+.hl-sub {
+  color: var(--muted); font-size: 0.84rem; line-height: 1.5;
+  flex: 1 1 auto; margin-bottom: 0.85rem;
+}
+.hl-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: auto; }
+.hl-chips span {
   font-size: 0.68rem; font-weight: 700; color: var(--accent);
   background: rgba(181,18,27,0.08); border: 1px solid rgba(181,18,27,0.18);
-  border-radius: 999px; padding: 0.12rem 0.55rem;
+  border-radius: 999px; padding: 0.14rem 0.6rem;
 }
 @media (max-width: 900px) { .highlights { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 520px) { .highlights { grid-template-columns: 1fr; } }

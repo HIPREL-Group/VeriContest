@@ -91,28 +91,44 @@
     <!-- key highlights -->
     <div class="highlights reveal">
       <div class="hl-card">
-        <span class="hl-icon"><i class="fas fa-layer-group"></i></span>
-        <p class="hl-num"><span>946</span></p>
-        <p class="hl-title">Verified problems</p>
-        <p class="hl-sub">Competitive-programming tasks from LeetCode &amp; Codeforces, each with ground-truth spec, code &amp; proof.</p>
-      </div>
-      <div class="hl-card">
-        <span class="hl-icon"><i class="fas fa-shield-halved"></i></span>
-        <p class="hl-title">Algorithm-level verification</p>
-        <p class="hl-sub">Real contest algorithms proved correct in Rust with Verus, well beyond toy snippets.</p>
-      </div>
-      <div class="hl-card">
-        <span class="hl-icon"><i class="fas fa-code"></i></span>
-        <p class="hl-title">Verifiable code generation</p>
-        <div class="hl-pills">
-          <span>SpecGen</span><span>CodeGen</span><span>ProofGen</span>
+        <div class="hl-head">
+          <span class="hl-icon"><i class="fas fa-layer-group"></i></span>
+          <p class="hl-title"><span class="hl-figure">946</span> verified problems</p>
         </div>
-        <p class="hl-sub">The full pipeline, evaluated both in isolation and end-to-end.</p>
+        <p class="hl-sub">Competitive-programming tasks, each paired with a ground-truth specification, code, and Verus proof.</p>
+        <div class="hl-chips">
+          <span>690 LeetCode</span><span>256 Codeforces</span>
+        </div>
       </div>
       <div class="hl-card">
-        <span class="hl-icon"><i class="fas fa-clipboard-check"></i></span>
-        <p class="hl-title">Rigorous quality validation</p>
-        <p class="hl-sub">Automated testing (Post2Exe) <em>and</em> at least two expert human reviews per problem.</p>
+        <div class="hl-head">
+          <span class="hl-icon"><i class="fas fa-shield-halved"></i></span>
+          <p class="hl-title">Algorithm-level verification</p>
+        </div>
+        <p class="hl-sub">Real contest algorithms proved correct in Verus, going well beyond the usual toy examples.</p>
+        <div class="hl-chips">
+          <span>Rust</span><span>Verus</span><span>Competitive Programming</span>
+        </div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-head">
+          <span class="hl-icon"><i class="fas fa-code"></i></span>
+          <p class="hl-title">Verifiable code generation</p>
+        </div>
+        <p class="hl-sub">The full pipeline, evaluated on each task in isolation and composed together end-to-end.</p>
+        <div class="hl-chips">
+          <span>SpecGen</span><span>CodeGen</span><span>ProofGen</span><span>End-to-End</span>
+        </div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-head">
+          <span class="hl-icon"><i class="fas fa-clipboard-check"></i></span>
+          <p class="hl-title">Rigorous quality validation</p>
+        </div>
+        <p class="hl-sub">Every problem is validated by automated testing and reviewed by at least two human experts.</p>
+        <div class="hl-chips">
+          <span>Post2Exe tests</span><span>2+ expert reviews</span>
+        </div>
       </div>
     </div>
   </div>
@@ -127,19 +143,20 @@
     </div>
     <div class="content has-text-justified abstract-body">
       <p>
-        Large language models can generate useful code from natural language,
-        but their outputs come without correctness guarantees. Verifiable code
-        generation offers a path beyond testing by requiring models to produce
-        not only executable code, but also formal specifications and
-        machine-checkable proofs. Progress in this direction, however, is
-        difficult to measure: existing benchmarks are often small, focus on only
-        one part of the pipeline, lack ground-truth proofs or rigorous
-        specification validation, or target verification settings far from
-        mainstream software development. We present <strong>VeriContest</strong>,
-        a benchmark of <strong>946 competitive-programming problems</strong> from
-        LeetCode and Codeforces for verifiable code generation in Rust with
+        Large language models can now generate useful code from natural
+        language, but their outputs still come without correctness guarantees.
+        Verifiable code generation offers a path beyond testing by requiring
+        models to produce not only executable code, but also formal
+        specifications and machine-checkable proofs. Progress in this direction,
+        however, is difficult to measure: existing benchmarks are often small,
+        focus on only one part of the pipeline, lack ground-truth proofs or
+        rigorous specification validation, or target verification settings far
+        from mainstream software development. We present
+        <strong>VeriContest</strong>, a benchmark of
+        <strong>946 competitive-programming problems</strong> from LeetCode and
+        Codeforces for verifiable code generation in Rust with
         <a href="https://github.com/verus-lang/verus">Verus</a>. Each problem
-        pairs a natural-language description with expert-validated formal
+        pairs a natural language description with expert-validated formal
         specifications, judge-accepted Rust code, Verus-checked proofs, and
         positive and negative test suites. VeriContest is constructed through a
         three-phase pipeline that scales from manually verified seed problems to
@@ -148,17 +165,18 @@
         quality-assurance layer for validating postcondition completeness.
       </p>
       <p>
-        VeriContest supports isolated and compositional evaluation of
+        VeriContest supports both isolated and compositional evaluation of
         specification generation, code generation, proof generation, and
         end-to-end verified program synthesis. Evaluating ten state-of-the-art
-        models reveals a sharp gap between coding ability and verifiable code
-        generation: the strongest model reaches <strong>92.18%</strong> on
+        models reveals a sharp gap between ordinary coding ability and verifiable
+        code generation: the strongest model reaches <strong>92.18%</strong> on
         natural-language-to-code generation, but only <strong>48.31%</strong> on
         specification generation, <strong>13.95%</strong> on proof generation,
         and <strong>5.29%</strong> end-to-end. These results identify proof and
-        specification generation as the central bottlenecks for models and
-        establish VeriContest as a rigorous platform for measuring and training
-        future systems that generate code with machine-checkable correctness.
+        specification generation as the central bottlenecks for current models
+        and establish VeriContest as a rigorous platform for measuring and
+        training future systems that generate code with machine-checkable
+        correctness.
       </p>
     </div>
   </div>
@@ -447,10 +465,6 @@
       Code &amp; tooling under <strong>Apache-2.0</strong>; benchmark artifacts
       under <strong>CC-BY-4.0</strong>. Problem statements derive from LeetCode
       and Codeforces and remain subject to their source terms.
-    </p>
-    <p class="is-size-7 has-text-grey">
-      Layout inspired by academic project-page conventions; built as a
-      dependency-light static site.
     </p>
   </div>
 </footer>
