@@ -1,21 +1,35 @@
 impl Solution {
-    pub fn reverse(x: u32) -> u32 {
-        let mut res: u32 = 0;
-        let mut cur: u32 = x;
+    pub fn reverse(x: i32) -> i32
+    {
+        if x == i32::MIN {
+            return 0;
+        }
+        let neg = x < 0;
+        let mut cur: i32 = if neg { -x } else { x };
+        let mut res: i32 = 0;
 
-        while cur != 0 {
+        while cur != 0
+        {
             match res.checked_mul(10) {
-                None => return 0,
+                None => {
+                    return 0;
+                },
                 Some(tmp) => match tmp.checked_add(cur % 10) {
-                    None => return 0,
+                    None => {
+                        return 0;
+                    },
                     Some(fine) => {
                         res = fine;
-                    }
+                    },
                 },
             }
             cur = cur / 10;
         }
 
-        res
+        if neg {
+            -res
+        } else {
+            res
+        }
     }
 }
