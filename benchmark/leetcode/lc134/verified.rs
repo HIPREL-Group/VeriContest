@@ -40,6 +40,11 @@ impl Solution {
             1 <= gas.len() <= 100_000,
             forall|i: int| 0 <= i < gas.len() ==> 0 <= #[trigger] gas[i] <= 10_000,
             forall|i: int| 0 <= i < cost.len() ==> 0 <= #[trigger] cost[i] <= 10_000,
+            forall|s1: int, s2: int|
+                (#[trigger] Self::can_complete_from(gas@, cost@, s1)
+                    && #[trigger] Self::can_complete_from(gas@, cost@, s2)
+                    && 0 <= s1 < gas.len() && 0 <= s2 < gas.len())
+                    ==> s1 == s2,
         ensures
             -1 <= result < gas.len() as i32,
             result == -1 ==> !(exists|s: int| 0 <= s < gas.len() && Self::can_complete_from(gas@, cost@, s)),
