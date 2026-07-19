@@ -29,6 +29,7 @@ benchmark/
 lemmas/             # Reusable Verus proof lemmas (arithmetic, bits, sequences)
 skills/             # Authoring guides and scripts for adding new problems
 verus/              # Bundled Verus toolchain, Linux x86-64 (invoked as ./verus/verus)
+test_gen/           # Test case generation pipeline (positive and negative)
 post2exe/           # Postcondition-testing component
 ```
 
@@ -136,6 +137,23 @@ instance reviewed by at least two human experts:
 - **High-quality test cases**: the dataset includes comprehensive positive and
   negative test cases for evaluating code correctness and specification
   completeness.
+
+## Test Case Generation
+
+`test_gen/` holds the pipeline that produces the test suites described above,
+covering Phase 3 of the construction pipeline.
+
+Positive cases (`testcases.jsonl`) come from two Verus-verified input generators
+per problem, one random and one adversarial. Each generator carries the problem's
+precondition as its own postcondition and must pass Verus verification, so every
+generated input is proven to satisfy the precondition rather than sampled and
+filtered. Expected outputs are computed with the judge-accepted code.
+
+Negative cases (`mutated_testcases.jsonl`) pair each of those same inputs with a
+wrong output, so preconditions still hold. They are produced in three stages:
+semantic mutation (LLM-written buggy variants of the reference solution),
+syntactic mutation (cargo-mutants AST edits), and direct perturbation of the
+reference output.
 
 ## Post2Exe
 

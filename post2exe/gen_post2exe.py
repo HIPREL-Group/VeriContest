@@ -34,6 +34,10 @@ import re
 import subprocess
 import sys
 
+import warnings
+
+warnings.filterwarnings("ignore", category=FutureWarning, module="tree_sitter")
+
 import tree_sitter as ts
 import tree_sitter_verus as tsv
 

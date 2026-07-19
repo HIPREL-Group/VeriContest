@@ -1,0 +1,4 @@
+# Must match Verus's bundled rustc (see `verus/verus --version` → Toolchain) so
+# `libserde*.rlib` in target/debug/deps links when Verus compiles tests/gen.rs.
+[toolchain]
+channel = "1.94.0"
