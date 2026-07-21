@@ -59,7 +59,15 @@ stdin/stdout handling.
 - `spec.rs`: The ground-truth formal specification. It contains preconditions,
   which state the properties inputs must satisfy, and postconditions, which
   specify the desired relationship between inputs and outputs.
-- `code.rs`: Ground-truth Rust code accepted by the online judge.
+- `code.rs`: Ground-truth Rust code accepted by the online judge. Since the
+  benchmark is built to align with Verus, `code.rs` is not always directly
+  compilable if submitted as-is to the LeetCode platform:
+  1. Some syntax that Verus accepts is not plain-Rust compatible (for example
+     certain string operations, and `.set()` on arrays/vectors in place of index
+     assignment).
+  2. Some LeetCode problems reference self-defined data structures that cannot
+     be reused directly from the reference; these are re-declared in the
+     benchmark files for completeness.
 - `code_spec.rs`: The code and specification artifact used for proof-generation
   task.
 - `verified.rs`: The full Verus-vefified programs with specifications, code, and 
