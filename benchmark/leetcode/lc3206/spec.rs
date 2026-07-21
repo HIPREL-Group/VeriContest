@@ -1,6 +1,10 @@
 use vstd::prelude::*;
 
+fn main() {}
+
 verus! {
+
+pub struct Solution;
 
 pub open spec fn spec_prev(i: int, n: int) -> int
 {
@@ -37,13 +41,15 @@ pub open spec fn spec_number_of_alternating_groups(colors: Seq<i32>) -> int
     spec_count_alternating(colors, colors.len() as int)
 }
 
-fn number_of_alternating_groups(colors: Vec<i32>) -> (result: i32)
-    requires
-        3 <= colors.len() <= 100,
-        forall|i: int| 0 <= i < colors.len() ==> 0 <= #[trigger] colors[i] <= 1,
-    ensures
-        result as int == spec_number_of_alternating_groups(colors@),
-{
+impl Solution {
+    pub fn number_of_alternating_groups(colors: Vec<i32>) -> (result: i32)
+        requires
+            3 <= colors.len() <= 100,
+            forall|i: int| 0 <= i < colors.len() ==> 0 <= #[trigger] colors[i] <= 1,
+        ensures
+            result as int == spec_number_of_alternating_groups(colors@),
+    {
+    }
 }
 
 }

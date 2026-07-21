@@ -1,6 +1,10 @@
 use vstd::prelude::*;
 
+fn main() {}
+
 verus! {
+
+pub struct Solution;
 
 pub open spec fn spec_count_tested(bp: Seq<i32>, k: int, tested: int) -> int
     decreases bp.len() - k,
@@ -37,43 +41,43 @@ proof fn lemma_count_tested_bounds(bp: Seq<i32>, k: int, tested: int)
     }
 }
 
-fn count_tested_devices(battery_percentages: Vec<i32>) -> (result: i32)
-    requires
-        1 <= battery_percentages.len() <= 100,
-        forall|i: int| 0 <= i < battery_percentages.len() ==> 0 <= #[trigger] battery_percentages[i] <= 100,
-    ensures
-        result as int == spec_count_tested_devices(battery_percentages@),
-{
-    let n = battery_percentages.len();
-    let mut tested = 0i32;
-    let mut i = 0;
-
-    proof {
-        lemma_count_tested_bounds(battery_percentages@, 0, 0);
-    }
-
-    while i < n
-        invariant
-            0 <= i <= n,
-            n == battery_percentages.len(),
-            1 <= n <= 100,
-            forall|j: int| 0 <= j < battery_percentages.len() ==> 0 <= #[trigger] battery_percentages@[j] <= 100,
-            0 <= tested <= 100,
-            spec_count_tested(battery_percentages@, i as int, tested as int) == spec_count_tested_devices(battery_percentages@),
-        decreases n - i,
+impl Solution {
+    pub fn count_tested_devices(battery_percentages: Vec<i32>) -> (result: i32)
+        requires
+            1 <= battery_percentages.len() <= 100,
+            forall|i: int| 0 <= i < battery_percentages.len() ==> 0 <= #[trigger] battery_percentages[i] <= 100,
+        ensures
+            result as int == spec_count_tested_devices(battery_percentages@),
     {
+        let n = battery_percentages.len();
+        let mut tested = 0i32;
+        let mut i = 0;
+
         proof {
-            lemma_count_tested_bounds(battery_percentages@, (i + 1) as int, if battery_percentages@[i as int] > tested as int { tested as int + 1 } else { tested as int });
+            lemma_count_tested_bounds(battery_percentages@, 0, 0);
         }
 
-        if battery_percentages[i] > tested {
-            tested = tested + 1;
+        while i < n
+            invariant
+                0 <= i <= n,
+                n == battery_percentages.len(),
+                1 <= n <= 100,
+                forall|j: int| 0 <= j < battery_percentages.len() ==> 0 <= #[trigger] battery_percentages@[j] <= 100,
+                0 <= tested <= 100,
+                spec_count_tested(battery_percentages@, i as int, tested as int) == spec_count_tested_devices(battery_percentages@),
+            decreases n - i,
+        {
+            proof {
+                lemma_count_tested_bounds(battery_percentages@, (i + 1) as int, if battery_percentages@[i as int] > tested as int { tested as int + 1 } else { tested as int });
+            }
+
+            if battery_percentages[i] > tested {
+                tested = tested + 1;
+            }
+            i = i + 1;
         }
-        i = i + 1;
+        tested
     }
-    tested
 }
 
 }
-
-fn main() {}

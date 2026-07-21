@@ -1,7 +1,10 @@
 use vstd::prelude::*;
 
+fn main() {}
+
 verus! {
 
+pub struct Solution;
 
 pub open spec fn spec_inc(nums: Seq<i32>, i: int) -> int
     decreases i,
@@ -57,42 +60,44 @@ pub open spec fn spec_longest_monotonic_subarray(nums: Seq<i32>) -> int
     }
 }
 
-fn longest_monotonic_subarray(nums: Vec<i32>) -> (result: i32)
-    requires
-        nums.len() > 0,
-        nums.len() <= 50,
-        forall|i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 50,
-    ensures
-        result as int == spec_longest_monotonic_subarray(nums@),
-{
-    let n = nums.len();
-    if n == 0 {
-        return 0;
-    }
-    let mut best = 1i32;
-    let mut inc = 1i32;
-    let mut dec = 1i32;
-    let mut i = 1;
-    while i < n
-        decreases n - i,
+impl Solution {
+    pub fn longest_monotonic_subarray(nums: Vec<i32>) -> (result: i32)
+        requires
+            nums.len() > 0,
+            nums.len() <= 50,
+            forall|i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 50,
+        ensures
+            result as int == spec_longest_monotonic_subarray(nums@),
     {
-        if nums[i] > nums[i - 1] {
-            inc = inc + 1;
-        } else {
-            inc = 1;
+        let n = nums.len();
+        if n == 0 {
+            return 0;
         }
-        if nums[i] < nums[i - 1] {
-            dec = dec + 1;
-        } else {
-            dec = 1;
+        let mut best = 1i32;
+        let mut inc = 1i32;
+        let mut dec = 1i32;
+        let mut i = 1;
+        while i < n
+            decreases n - i,
+        {
+            if nums[i] > nums[i - 1] {
+                inc = inc + 1;
+            } else {
+                inc = 1;
+            }
+            if nums[i] < nums[i - 1] {
+                dec = dec + 1;
+            } else {
+                dec = 1;
+            }
+            let cur = if inc > dec { inc } else { dec };
+            if cur > best {
+                best = cur;
+            }
+            i = i + 1;
         }
-        let cur = if inc > dec { inc } else { dec };
-        if cur > best {
-            best = cur;
-        }
-        i = i + 1;
+        best
     }
-    best
 }
 
 }

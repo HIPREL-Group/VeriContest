@@ -1,7 +1,10 @@
 use vstd::prelude::*;
 
+fn main() {}
+
 verus! {
 
+pub struct Solution;
 
 pub open spec fn spec_inc(nums: Seq<i32>, i: int) -> int
     decreases i,
@@ -57,14 +60,16 @@ pub open spec fn spec_longest_monotonic_subarray(nums: Seq<i32>) -> int
     }
 }
 
-fn longest_monotonic_subarray(nums: Vec<i32>) -> (result: i32)
-    requires
-        nums.len() > 0,
-        nums.len() <= 50,
-        forall|i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 50,
-    ensures
-        result as int == spec_longest_monotonic_subarray(nums@),
-{
+impl Solution {
+    pub fn longest_monotonic_subarray(nums: Vec<i32>) -> (result: i32)
+        requires
+            nums.len() > 0,
+            nums.len() <= 50,
+            forall|i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 50,
+        ensures
+            result as int == spec_longest_monotonic_subarray(nums@),
+    {
+    }
 }
 
 }

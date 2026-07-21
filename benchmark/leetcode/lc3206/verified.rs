@@ -1,6 +1,10 @@
 use vstd::prelude::*;
 
+fn main() {}
+
 verus! {
+
+pub struct Solution;
 
 pub open spec fn spec_prev(i: int, n: int) -> int
 {
@@ -83,42 +87,42 @@ proof fn lemma_next_mod(i: int, n: int)
     }
 }
 
-fn number_of_alternating_groups(colors: Vec<i32>) -> (result: i32)
-    requires
-        3 <= colors.len() <= 100,
-        forall|i: int| 0 <= i < colors.len() ==> 0 <= #[trigger] colors[i] <= 1,
-    ensures
-        result as int == spec_number_of_alternating_groups(colors@),
-{
-    let n = colors.len();
-    let mut count = 0i32;
-    let mut i = 0;
-    while i < n
-        invariant
-            0 <= i <= n,
-            n == colors.len(),
-            3 <= n <= 100,
-            forall|j: int| 0 <= j < colors.len() ==> 0 <= #[trigger] colors@[j] <= 1,
-            count as int == spec_count_alternating(colors@, i as int),
-            0 <= count <= 100,
-        decreases n - i,
+impl Solution {
+    pub fn number_of_alternating_groups(colors: Vec<i32>) -> (result: i32)
+        requires
+            3 <= colors.len() <= 100,
+            forall|i: int| 0 <= i < colors.len() ==> 0 <= #[trigger] colors[i] <= 1,
+        ensures
+            result as int == spec_number_of_alternating_groups(colors@),
     {
-        proof {
-            lemma_count_bounds(colors@, (i + 1) as int);
-            lemma_prev_mod(i as int, n as int);
-            lemma_next_mod(i as int, n as int);
-        }
+        let n = colors.len();
+        let mut count = 0i32;
+        let mut i = 0;
+        while i < n
+            invariant
+                0 <= i <= n,
+                n == colors.len(),
+                3 <= n <= 100,
+                forall|j: int| 0 <= j < colors.len() ==> 0 <= #[trigger] colors@[j] <= 1,
+                count as int == spec_count_alternating(colors@, i as int),
+                0 <= count <= 100,
+            decreases n - i,
+        {
+            proof {
+                lemma_count_bounds(colors@, (i + 1) as int);
+                lemma_prev_mod(i as int, n as int);
+                lemma_next_mod(i as int, n as int);
+            }
 
-        let prev = (i + n - 1) % n;
-        let next = (i + 1) % n;
-        if colors[i] != colors[prev] && colors[i] != colors[next] {
-            count = count + 1;
+            let prev = (i + n - 1) % n;
+            let next = (i + 1) % n;
+            if colors[i] != colors[prev] && colors[i] != colors[next] {
+                count = count + 1;
+            }
+            i = i + 1;
         }
-        i = i + 1;
+        count
     }
-    count
 }
 
 }
-
-fn main() {}

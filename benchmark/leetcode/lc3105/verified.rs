@@ -1,7 +1,10 @@
 use vstd::prelude::*;
 
+fn main() {}
+
 verus! {
 
+pub struct Solution;
 
 pub open spec fn spec_inc(nums: Seq<i32>, i: int) -> int
     decreases i,
@@ -109,69 +112,69 @@ proof fn lemma_best_bounds(nums: Seq<i32>, k: int)
     }
 }
 
-fn longest_monotonic_subarray(nums: Vec<i32>) -> (result: i32)
-    requires
-        nums.len() > 0,
-        nums.len() <= 50,
-        forall|i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 50,
-    ensures
-        result as int == spec_longest_monotonic_subarray(nums@),
-{
-    let n = nums.len();
-    if n == 0 {
-        return 0;
-    }
-    let mut best = 1i32;
-    let mut inc = 1i32;
-    let mut dec = 1i32;
-    let mut i = 1;
-
-    proof {
-        lemma_inc_bounds(nums@, 0);
-        lemma_dec_bounds(nums@, 0);
-        lemma_best_bounds(nums@, 0);
-    }
-
-    while i < n
-        invariant
-            1 <= i <= n,
-            n == nums.len(),
-            n > 0,
-            n <= 50,
-            forall|j: int| 0 <= j < nums.len() ==> 1 <= #[trigger] nums@[j] <= 50,
-            inc as int == spec_inc(nums@, (i - 1) as int),
-            dec as int == spec_dec(nums@, (i - 1) as int),
-            best as int == spec_best(nums@, (i - 1) as int),
-            1 <= inc <= 50,
-            1 <= dec <= 50,
-            1 <= best <= 50,
-        decreases n - i,
+impl Solution {
+    pub fn longest_monotonic_subarray(nums: Vec<i32>) -> (result: i32)
+        requires
+            nums.len() > 0,
+            nums.len() <= 50,
+            forall|i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 50,
+        ensures
+            result as int == spec_longest_monotonic_subarray(nums@),
     {
+        let n = nums.len();
+        if n == 0 {
+            return 0;
+        }
+        let mut best = 1i32;
+        let mut inc = 1i32;
+        let mut dec = 1i32;
+        let mut i = 1;
+
         proof {
-            lemma_inc_bounds(nums@, i as int);
-            lemma_dec_bounds(nums@, i as int);
-            lemma_best_bounds(nums@, i as int);
+            lemma_inc_bounds(nums@, 0);
+            lemma_dec_bounds(nums@, 0);
+            lemma_best_bounds(nums@, 0);
         }
 
-        if nums[i] > nums[i - 1] {
-            inc = inc + 1;
-        } else {
-            inc = 1;
+        while i < n
+            invariant
+                1 <= i <= n,
+                n == nums.len(),
+                n > 0,
+                n <= 50,
+                forall|j: int| 0 <= j < nums.len() ==> 1 <= #[trigger] nums@[j] <= 50,
+                inc as int == spec_inc(nums@, (i - 1) as int),
+                dec as int == spec_dec(nums@, (i - 1) as int),
+                best as int == spec_best(nums@, (i - 1) as int),
+                1 <= inc <= 50,
+                1 <= dec <= 50,
+                1 <= best <= 50,
+            decreases n - i,
+        {
+            proof {
+                lemma_inc_bounds(nums@, i as int);
+                lemma_dec_bounds(nums@, i as int);
+                lemma_best_bounds(nums@, i as int);
+            }
+
+            if nums[i] > nums[i - 1] {
+                inc = inc + 1;
+            } else {
+                inc = 1;
+            }
+            if nums[i] < nums[i - 1] {
+                dec = dec + 1;
+            } else {
+                dec = 1;
+            }
+            let cur = if inc > dec { inc } else { dec };
+            if cur > best {
+                best = cur;
+            }
+            i = i + 1;
         }
-        if nums[i] < nums[i - 1] {
-            dec = dec + 1;
-        } else {
-            dec = 1;
-        }
-        let cur = if inc > dec { inc } else { dec };
-        if cur > best {
-            best = cur;
-        }
-        i = i + 1;
+        best
     }
-    best
 }
 
 }
-
-fn main() {}

@@ -1,6 +1,10 @@
 use vstd::prelude::*;
 
+fn main() {}
+
 verus! {
+
+pub struct Solution;
 
 pub open spec fn spec_prev(i: int, n: int) -> int
 {
@@ -37,27 +41,29 @@ pub open spec fn spec_number_of_alternating_groups(colors: Seq<i32>) -> int
     spec_count_alternating(colors, colors.len() as int)
 }
 
-fn number_of_alternating_groups(colors: Vec<i32>) -> (result: i32)
-    requires
-        3 <= colors.len() <= 100,
-        forall|i: int| 0 <= i < colors.len() ==> 0 <= #[trigger] colors[i] <= 1,
-    ensures
-        result as int == spec_number_of_alternating_groups(colors@),
-{
-    let n = colors.len();
-    let mut count = 0i32;
-    let mut i = 0;
-    while i < n
-        decreases n - i,
+impl Solution {
+    pub fn number_of_alternating_groups(colors: Vec<i32>) -> (result: i32)
+        requires
+            3 <= colors.len() <= 100,
+            forall|i: int| 0 <= i < colors.len() ==> 0 <= #[trigger] colors[i] <= 1,
+        ensures
+            result as int == spec_number_of_alternating_groups(colors@),
     {
-        let prev = (i + n - 1) % n;
-        let next = (i + 1) % n;
-        if colors[i] != colors[prev] && colors[i] != colors[next] {
-            count = count + 1;
+        let n = colors.len();
+        let mut count = 0i32;
+        let mut i = 0;
+        while i < n
+            decreases n - i,
+        {
+            let prev = (i + n - 1) % n;
+            let next = (i + 1) % n;
+            if colors[i] != colors[prev] && colors[i] != colors[next] {
+                count = count + 1;
+            }
+            i = i + 1;
         }
-        i = i + 1;
+        count
     }
-    count
 }
 
 }
