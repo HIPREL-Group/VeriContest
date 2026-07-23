@@ -15,6 +15,24 @@ impl Solution {
         &&& forall |i: int, j: int| 0 <= i < j < skills.len() ==> skills[i] != skills[j]
     }
 
+    pub open spec fn winner_from(skills: Seq<i32>, k: int, i: int, cur: int, win: int) -> int
+        decreases skills.len() - i
+    {
+        if win >= k {
+            cur
+        } else if i >= skills.len() {
+            cur
+        } else if skills[i] > skills[cur] {
+            Self::winner_from(skills, k, i + 1, i, 1)
+        } else {
+            Self::winner_from(skills, k, i + 1, cur, win + 1)
+        }
+    }
+
+    pub open spec fn winner(skills: Seq<i32>, k: int) -> int {
+        Self::winner_from(skills, k, 1, 0, 0)
+    }
+
     pub fn find_winning_player(skills: Vec<i32>, k: i32) -> (result: i32)
         requires
             2 <= skills.len() <= 100000,
@@ -23,20 +41,18 @@ impl Solution {
             forall |i: int, j: int| 0 <= i < j < skills.len() ==> skills[i] != skills[j],
         ensures
             Self::valid_winner_spec(skills@, k as int, result as int),
+            result as int == Self::winner(skills@, k as int),
     {
         let n = skills.len();
         let mut champ = 0usize;
         let mut win = 0i64;
         let mut j = 1usize;
-        while j < n {
+        while j < n && win < k as i64 {
             if skills[j] > skills[champ] {
                 champ = j;
                 win = 0;
             }
             win = win.checked_add(1).unwrap_or(win);
-            if win == k as i64 {
-                break;
-            }
             j += 1;
         }
         champ as i32

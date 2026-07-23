@@ -7,44 +7,58 @@ verus! {
 pub struct Solution;
 
 impl Solution {
-    pub open spec fn all_ge_k(nums: Seq<i32>, k: int) -> bool {
-        forall |i: int| 0 <= i < nums.len() ==> nums[i] as int >= k
-    }
 
-    pub open spec fn count_lt_prefix(nums: Seq<i32>, k: int, end: int) -> int
-        decreases end,
-    {
-        if end <= 0 {
-            0
-        } else {
-            Self::count_lt_prefix(nums, k, end - 1)
-                + if (nums[end - 1] as int) < k { 1int } else { 0int }
-        }
-    }
+pub open spec fn is_desc(s: Seq<int>) -> bool {
+    forall|i: int, j: int| 0 <= i <= j < s.len() ==> s[i] >= s[j]
+}
 
-    pub open spec fn count_lt_k(nums: Seq<i32>, k: int) -> int {
-        Self::count_lt_prefix(nums, k, nums.len() as int)
-    }
+pub open spec fn to_int_seq(s: Seq<i32>) -> Seq<int>
+    decreases s.len()
+{
+    if s.len() == 0 { Seq::empty() }
+    else { Self::to_int_seq(s.drop_last()).push(s.last() as int) }
+}
 
-    pub open spec fn min_operations_spec(nums: Seq<i32>, k: int, res: int) -> bool {
-        &&& 2 <= nums.len() <= 200_000
-        &&& 1 <= k <= 1_000_000_000
-        &&& forall |i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 1_000_000_000
-        &&& 0 <= res < nums.len()
-        &&& (Self::all_ge_k(nums, k) <==> res == 0)
-        &&& (Self::count_lt_k(nums, k) == 1 ==> res == 1)
-        &&& res <= Self::count_lt_k(nums, k)
-    }
+pub open spec fn insert_desc(s: Seq<int>, v: int) -> Seq<int>
+    decreases s.len()
+{
+    if s.len() == 0 { seq![v] }
+    else if v >= s[0] { seq![v].add(s) }
+    else { seq![s[0]].add(Self::insert_desc(s.subrange(1, s.len() as int), v)) }
+}
 
-    pub fn min_operations(nums: Vec<i32>, k: i32) -> (res: i32)
-        requires
-            2 <= nums.len() <= 200_000,
-            1 <= k <= 1_000_000_000,
-            forall |i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 1_000_000_000,
-        ensures
-            Self::min_operations_spec(nums@, k as int, res as int),
-    {
+pub open spec fn ssort(s: Seq<int>) -> Seq<int>
+    decreases s.len()
+{
+    if s.len() == 0 { Seq::empty() }
+    else { Self::insert_desc(Self::ssort(s.drop_last()), s.last()) }
+}
+
+pub open spec fn merge_ops_n(s: Seq<int>, k: int, n: nat) -> int
+    decreases n
+{
+    if n == 0 { 0 }
+    else if s.len() < 2 { 0 }
+    else if s[s.len() - 1] >= k { 0 }
+    else {
+        1 + Self::merge_ops_n(Self::insert_desc(s.subrange(0, s.len() - 2), 2 * s[s.len() - 1] + s[s.len() - 2]), k, (n - 1) as nat)
     }
+}
+
+pub open spec fn merge_ops(s: Seq<int>, k: int) -> int {
+    Self::merge_ops_n(s, k, s.len())
+}
+
+pub fn min_operations(nums: Vec<i32>, k: i32) -> (res: i32)
+    requires
+        2 <= nums.len() <= 200_000,
+        1 <= k <= 1_000_000_000,
+        forall|i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 1_000_000_000,
+    ensures
+        res as int == Self::merge_ops(Self::ssort(Self::to_int_seq(nums@)), k as int),
+{
+}
+
 }
 
 }

@@ -45,8 +45,8 @@ impl Solution {
             a.len() == n,
             forall|i: int| 0 <= i < a.len() ==> #[trigger] a[i] <= 1000u32,
         ensures
-            (result == -1i64) <==> (count_odd_at_even(a@) != count_even_at_odd(a@)),
-            result >= 0 ==> result == count_odd_at_even(a@),
+            count_odd_at_even(a@) == count_even_at_odd(a@) ==> result == count_odd_at_even(a@),
+            count_odd_at_even(a@) != count_even_at_odd(a@) ==> result == -1i64,
     {
         let mut odd_at_even: i64 = 0;
         let mut even_at_odd: i64 = 0;

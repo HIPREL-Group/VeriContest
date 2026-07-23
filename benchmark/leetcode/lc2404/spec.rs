@@ -24,7 +24,7 @@ impl Solution {
             forall |i: int| 0 <= i < nums.len() ==> 0 <= #[trigger] nums[i] <= 100_000,
         ensures 
             ((res == -1) && (forall |i: int| 0 <= i < nums.len() ==> nums[i] % 2 == 1)) || 
-            ((res % 2 == 0) && (forall |i: int| 0 <= i < nums.len() && nums[i] % 2 == 0 
+            ((res % 2 == 0) && (exists |j: int| 0 <= j < nums.len() && nums[j] == res) && (forall |i: int| 0 <= i < nums.len() && nums[i] % 2 == 0
                 ==> ((Self::count_occurrences(nums@, nums[i]) < Self::count_occurrences(nums@, res)) || 
                 (Self::count_occurrences(nums@, nums[i]) == Self::count_occurrences(nums@, res) && res <= nums[i])))),
     {

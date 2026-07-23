@@ -32,6 +32,7 @@ pub open spec fn valid_for_penalty(n: usize, k: i32, s: Seq<char>, a: Seq<i32>, 
 }
 
 pub open spec fn is_optimal_penalty(n: usize, k: i32, s: Seq<char>, a: Seq<i32>, ans: i32) -> bool {
+    0 <= ans &&
     valid_for_penalty(n, k, s, a, ans) &&
     (forall|p2: i32| 0 <= p2 && p2 < ans ==> !valid_for_penalty(n, k, s, a, p2))
 }
