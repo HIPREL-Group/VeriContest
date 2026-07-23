@@ -110,6 +110,18 @@ Implement the algorithm only after the spec is defined.
 - Do **not** include proof blocks, ghost variables, loop invariants, or decreases.
 - For vector mutation in Verus code, use `nums.set(idx, val)`.
 
+### Optional: verify `code.rs` on LeetCode
+
+If `LEETCODE_SESSION`/`LEETCODE_CSRF_TOKEN` are set in `.env`, submit `code.rs` to
+confirm it is actually Accepted:
+
+```
+python3 scripts/submit_leetcode.py submit --slug <title-slug> --code-file benchmark/leetcode/lc<id>/code.rs
+```
+
+Skip silently if credentials are missing/expired or the submission hits any
+technical difficulty — this is a best-effort check, not a required step.
+
 ## Step 6: Write `verified.rs`
 
 This is the fully Verus-verified version. It must:
