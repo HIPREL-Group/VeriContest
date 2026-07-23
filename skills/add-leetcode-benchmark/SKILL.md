@@ -89,6 +89,19 @@ clauses directly from the problem description's constraints and expected output,
 not from the algorithm you plan to write. A good spec is one that an independent
 implementation could also satisfy.
 
+### Sanity-check the spec
+
+Screen the spec for adequacy defects before investing in the proof:
+
+```
+python3 -m spec_testing.run_sanity lc<id>
+```
+
+It prints a per-flag report and exits `0` clean / `1` flagged / `3` unsupported. Act on what it prints:
+- `vacuity` failure or `SEED_PRE_REFUTED` → real spec bug (contradictory/wrong `requires`); fix `spec.rs` and re-run.
+- A static `S*` flag is heuristic: fix only if the spec truly under-specifies the problem; otherwise it may be description-faithful — note why and move on.
+- `3` (unsupported spec shape) is not a bug; proceed.
+
 ## Step 5: Write `code.rs` and `code_spec.rs` from `spec.rs`
 
 Implement the algorithm only after the spec is defined.
@@ -175,6 +188,20 @@ algorithm:
 python3 scripts/check_consistency.py benchmark/leetcode/lc<id>
 ```
 It must report no inconsistencies.
+
+### Symbolic spec test
+
+With the code files now final and consistent, test the spec against generated correct/wrong outputs (uses `code.rs` as reference):
+
+```
+python3 -m spec_testing.run_symbolic lc<id>
+```
+
+It prints per-case verdicts plus any `FINDING` lines, and exits `0` clean / `1` findings / `3` unsupported. Every finding is Verus-backed (zero false positives), so act on each:
+- `soundness` → spec rejects a correct output (`requires`/`ensures` too strong).
+- `incompleteness` → spec accepts a wrong output (`ensures` too weak).
+
+Fix `spec.rs`, re-align `code_spec.rs`/`verified.rs`, then re-run **with `--force`** (it skips otherwise) until clean. `3` (unsupported) is not a finding; proceed.
 
 ## Step 8: Final Cleanup and Validation
 

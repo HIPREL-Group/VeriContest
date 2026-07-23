@@ -16,3 +16,8 @@ build/
 # ./verus/verus needs to run. Keep them tracked.
 !verus/*.so
 !verus/*.rlib
+
+# spec_testing runtime
+spec_testing/work/
+spec_testing/**/__pycache__/
+spec_testing/results/

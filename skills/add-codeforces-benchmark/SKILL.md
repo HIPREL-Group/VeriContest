@@ -223,6 +223,33 @@ python3 scripts/check_consistency_cf.py benchmark/codeforces/cf<contestId><index
 ```
 It must report no inconsistencies.
 
+### Sanity-check the spec
+
+Screen the spec for adequacy defects:
+
+```
+python3 -m spec_testing.run_sanity cf<contestId><index>
+```
+
+It prints a per-flag report and exits `0` clean / `1` flagged / `3` unsupported. Act on what it prints:
+- `vacuity` failure or `SEED_PRE_REFUTED` → real spec bug (contradictory/wrong `requires`); fix `spec.rs` and re-run.
+- A static `S*` flag is heuristic: fix only if the spec truly under-specifies the problem; otherwise it may be description-faithful — note why and move on.
+- `3` (unsupported spec shape) is not a bug; proceed.
+
+### Symbolic spec test
+
+Once sanity is clean, test the spec against generated correct/wrong outputs (uses `main.rs` as reference):
+
+```
+python3 -m spec_testing.run_symbolic cf<contestId><index>
+```
+
+It prints per-case verdicts plus any `FINDING` lines, and exits `0` clean / `1` findings / `3` unsupported. Every finding is Verus-backed (zero false positives), so act on each:
+- `soundness` → spec rejects a correct output (`requires`/`ensures` too strong).
+- `incompleteness` → spec accepts a wrong output (`ensures` too weak).
+
+Fix `spec.rs`, re-align `code_spec.rs`/`verified.rs`, then re-run **with `--force`** (it skips otherwise) until clean. `3` (unsupported) is not a finding; proceed.
+
 ## Step 8: Final Cleanup and Validation
 
 1. For `description.md`, ensure the formatting is clean and well-structured.

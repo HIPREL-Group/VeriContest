@@ -1,0 +1,67 @@
+# spec_testing configuration. All knobs live here; modules read them via
+# common.config.get(section, key, default).
+
+[paths]
+verus_bin = "auto"       # "auto" => REPO_ROOT/verus/verus(.exe), else $VERUS, else which("verus")
+rustc_bin = "C:/Users/anamu/.rustup/toolchains/1.95.0-x86_64-pc-windows-gnu/bin/rustc.exe"
+
+[run]
+seed = 20260713
+verus_timeout_s = 300    # wall cap per Verus invocation
+z3_memory_mb = 8192      # hard Z3 memory cap (0 = unlimited); runaway proofs become UNDECIDED
+
+[testgen]                # deterministic case generation (symbolic/casegen.py)
+drv_timeout_s = 10       # per reference-driver run
+build_timeout_s = 60     # per driver build
+n_pos_min = 8            # positives kept after dedupe: prefer PROVED, fill UNKNOWN below this
+n_pos_max = 10
+gen_stress_slots = 1     # positives allowed above symbolic.size_cap (exec-mutation value only)
+n_code_mutants = 10      # exec-mutation mutants that must BUILD (drawn from a 4x pool)
+mutant_build_timeout_s = 120
+mutant_run_timeout_s = 5
+k_outmut_per_pos = 8     # output-mutant draws per positive (pre-dedupe pool)
+k_cross = 20             # cross-case draws (pre-dedupe pool)
+neg_min = 20             # backfill past per-source caps up to neg_max when below this
+neg_max = 30
+neg_cap_exec_mut = 15    # per-source caps, priority order exec_mut > outmut > cross
+neg_cap_outmut = 10
+neg_cap_cross = 8
+
+[pregate]                # three-way precondition gate (sanity seed check + casegen)
+rlimit = 30
+batch = 8                # inputs per Verus file
+size_cap = 256           # larger inputs get verdict unknown, unrendered
+
+[sanity]
+vacuity_rlimit = 10
+
+[symbolic]               # probe engine (symbolic/probes.py, symbolic/stage.py)
+workers = 0              # 0 => min(8, cpu-2); Verus is CPU-bound, never oversubscribe
+problem_timeout_s = 300      # hard per-problem wall budget; then remaining -> UNDECIDED(problem_timeout)
+rlimits = [10, 100, 600]     # positives (soundness side): full ladder
+neg_rlimits = [10, 100]      # negatives: rejections almost always decide at low rlimit
+hard_rlimits = [10]          # expected-hard (QUANT/FUEL) cases: one cheap attempt only
+batch_size = 10              # cases per attempt-1 Verus file (1 disables batching; exec never batches)
+batch_timeout_s = 180        # wall cap for one batched attempt-1 run
+attempt_timeout_s = 180      # wall cap per Verus run inside the ladder
+compute_timeout_s = 15       # `by (compute)` decides fast or not at all
+hint_cap = 64                # max per-element ground hints per container
+size_cap = 128               # max container payload per case for symbolic probes
+fuel_hard_threshold = 32     # recursion depth beyond which UNDECIDED => reason fuel_hard
+determinism_rlimit = 60      # only run for non-scalar/mut-ref returns (judge covers scalars)
+determinism_timeout_s = 180  # wall cap for the determinism proof
+# Kinds whose judge assumes a unique correct answer, so an accepted output that
+# differs from the reference establishes wrongness (scalar int/bool/char returns
+# only; &mut in-place problems always need the spec-determinism proof). This is
+# the ONLY channel that can detect an incomplete (too-weak) spec: a too-weak spec
+# is non-deterministic, so the determinism proof can never confirm it. Codeforces
+# is included for scalar returns — nearly all such CF problems are unique-answer;
+# the residual risk is a spuriously-flagged genuinely-multi-answer scalar problem
+# ("print any k such that …"), which is rare. Drop "codeforces" here for provable
+# zero incompleteness FP at the cost of no CF incompleteness detection.
+assume_unique_answer_kinds = ["leetcode", "extended", "codeforces"]
+
+[harness]                # shared Verus rendering knobs (common/)
+fuel_cap = 200           # reveal_with_fuel ceiling
+exists_saturation = true # ground-term saturation for int-bound exists posts
+exists_sat_budget = 128  # max ground-term bindings per probe
