@@ -106,7 +106,8 @@ def parse_signature_from_region(
                 continue
             raise ValueError(f"cannot parse arg fragment: {p!r}")
         n, t = p.split(":", 1)
-        args.append((n.strip(), t.strip()))
+        n = re.sub(r"^mut\s+", "", n.strip())
+        args.append((n, t.strip()))
 
     rest = text[close_paren + 1 :]
     ret = "()"
