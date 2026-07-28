@@ -4,15 +4,12 @@ impl Solution {
         let mut champ = 0usize;
         let mut win = 0i64;
         let mut j = 1usize;
-        while j < n {
+        while j < n && win < k as i64 {
             if skills[j] > skills[champ] {
                 champ = j;
                 win = 0;
             }
             win = win.checked_add(1).unwrap_or(win);
-            if win == k as i64 {
-                break;
-            }
             j += 1;
         }
         champ as i32

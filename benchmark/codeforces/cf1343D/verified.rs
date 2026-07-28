@@ -473,11 +473,13 @@ impl Solution {
             0 <= ans && ans <= n as i64,
             forall|x: i64| 2 <= x && x <= 2 * k ==>
                 ans as int <= total_cost(a@, n, k, x),
+            exists|x: i64| 2 <= x && x <= 2 * k && ans as int == total_cost(a@, n, k, x),
     {
         let tables = Solution::build_tables(n, k, &a);
         let diff = tables.0;
         let exact = tables.1;
         let mut ans = n as i64;
+        let ghost mut best_x: i64 = 0;
         let mut cover: i64 = 0;
         let mut x: usize = 2;
         let limit = (2 * k) as usize;
@@ -501,6 +503,9 @@ impl Solution {
                 0 <= ans && ans <= n as i64,
                 cover as int == cover_count_rec(a@, n, k, (x - 1) as i64, (n / 2) as int),
                 forall|y: i64| 2 <= y && y < x as i64 ==> ans as int <= total_cost(a@, n, k, y),
+                best_x == 0 ==> (x == 2 && ans == n as i64),
+                best_x != 0 ==> (2 <= best_x && best_x <= 2 * k
+                    && ans as int == total_cost(a@, n, k, best_x)),
             decreases limit + 1 - x
         {
             proof {
@@ -537,8 +542,14 @@ impl Solution {
                 assert(cost as int == total_cost(a@, n, k, x as i64));
                 assert(0 <= cost <= n as i64);
             }
+            let ghost ans_before = ans;
             if cost < ans {
                 ans = cost;
+            }
+            proof {
+                if best_x == 0 || cost < ans_before {
+                    best_x = x as i64;
+                }
             }
             proof {
                 assert(ans as int <= total_cost(a@, n, k, x as i64));
@@ -557,6 +568,10 @@ impl Solution {
             assert forall|y: i64| 2 <= y && y <= 2 * k implies ans as int <= total_cost(a@, n, k, y) by {
                 assert(y < x as i64);
             };
+            assert(limit >= 2);
+            assert(best_x != 0);
+            assert(2 <= best_x && best_x <= 2 * k && ans as int == total_cost(a@, n, k, best_x));
+            assert(exists|xx: i64| 2 <= xx && xx <= 2 * k && ans as int == total_cost(a@, n, k, xx));
         }
         ans
     }

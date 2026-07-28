@@ -54,6 +54,7 @@ impl Solution {
             Self::total_sum(a@) <= i64::MAX,
             Self::total_sum(b@) <= i64::MAX,
         ensures
+            result >= -1,
             (result == -1) == (Self::total_sum(a@) != Self::total_sum(b@)),
             result >= 0 ==> result >= 1,
             result >= 0 ==> exists|pa: Seq<int>, pb: Seq<int>|

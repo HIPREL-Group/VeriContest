@@ -39,6 +39,7 @@ impl Solution {
             0 <= ans && ans <= n as i64,
             forall|x: i64| 2 <= x && x <= 2 * k ==>
                 ans as int <= total_cost(a@, n, k, x),
+            exists|x: i64| 2 <= x && x <= 2 * k && ans as int == total_cost(a@, n, k, x),
     {
     }
 }
