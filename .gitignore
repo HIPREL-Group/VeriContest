@@ -5,6 +5,11 @@ post2exe/tree-sitter-verus/
 __pycache__/
 *.py[cod]
 
+# Local secrets. The LeetCode submission script reads LEETCODE_SESSION /
+# LEETCODE_CSRF_TOKEN from a .env at the repo root; never commit it.
+.env
+.env.*
+
 # Build outputs that should not be committed.
 target/
 build/

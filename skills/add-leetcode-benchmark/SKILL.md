@@ -115,8 +115,10 @@ Implement the algorithm only after the spec is defined.
 If `LEETCODE_SESSION`/`LEETCODE_CSRF_TOKEN` are set in `.env`, submit `code.rs` to
 confirm it is actually Accepted:
 
+Run from the repository root:
+
 ```
-python3 scripts/submit_leetcode.py submit --slug <title-slug> --code-file benchmark/leetcode/lc<id>/code.rs
+python3 skills/add-leetcode-benchmark/scripts/submit_leetcode.py submit --slug <title-slug> --code-file benchmark/leetcode/lc<id>/code.rs
 ```
 
 Skip silently if credentials are missing/expired or the submission hits any
