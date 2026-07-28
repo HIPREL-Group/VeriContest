@@ -4389,6 +4389,25 @@ def _widen_direct_post_param_type(spec_type: str) -> str:
     return "int" if inner.strip() in PRIM_INTS | {"int", "nat"} else spec_type
 
 
+_TYPED_INT_CONST_RE = re.compile(
+    r"\b(?:i8|i16|i32|i128|isize|u8|u16|u32|u64|u128|usize)::(?:MIN|MAX|BITS)\b"
+    r"|\b\d+(?:i8|i16|i32|i128|isize|u8|u16|u32|u64|u128|usize)\b"
+)
+
+
+def _cast_narrow_int_literals_to_i64(clause: str) -> str:
+    """Wrap fixed-width int consts/literals so they typecheck against the
+    i64 every scalar param is already widened to by
+    `_widen_direct_post_param_type`.  `extract_requires_clauses` /
+    `extract_ensures_clauses` copy clause text verbatim from the source
+    spec, so a bound like `i32::MIN <= x` keeps its pre-widening i32 type
+    and mismatches once `x` becomes i64.  Note: this matches the existing
+    widen-everything-to-i64 behavior (also lossy for u64/u128 bounds
+    above i64::MAX) rather than introducing wider handling.
+    """
+    return _TYPED_INT_CONST_RE.sub(lambda m: f"({m.group(0)} as i64)", clause)
+
+
 def _render_direct_requires_text(
     method_name: str,
     sig: gtp.Signature,
@@ -4413,7 +4432,7 @@ def _render_direct_requires_text(
     body_lines = []
     for idx, clause in enumerate(requires_clauses):
         prefix = "    " if idx == 0 else "    && "
-        body_lines.append(f"{prefix}({clause})")
+        body_lines.append(f"{prefix}({_cast_narrow_int_literals_to_i64(clause)})")
     body = "\n".join(body_lines) if body_lines else "    true"
 
     params_block = ",\n".join(params_text)
@@ -4459,7 +4478,7 @@ def _render_direct_postcondition_text(
     body_lines = []
     for idx, clause in enumerate(ensures_clauses):
         prefix = "    " if idx == 0 else "    && "
-        body_lines.append(f"{prefix}({clause})")
+        body_lines.append(f"{prefix}({_cast_narrow_int_literals_to_i64(clause)})")
     body = "\n".join(body_lines) if body_lines else "    true"
 
     params_block = ",\n".join(params_text)
