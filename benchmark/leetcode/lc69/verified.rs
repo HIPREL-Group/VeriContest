@@ -7,7 +7,6 @@ verus! {
 pub struct Solution;
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn my_sqrt(x: i32) -> (res: i32) 
         requires 
             0 <= x <= i32::MAX, 
@@ -37,6 +36,7 @@ impl Solution {
                 i > j ==> i == j + 1,
                 found ==> ((i + j) / 2) * ((i + j) / 2) == num, 
                 found ==> ((i + j) / 2 + 1) * ((i + j) / 2 + 1) > num,
+            decreases j - i + 1, if found { 0int } else { 1int },
         {
             let mid = (i + j) / 2;
             

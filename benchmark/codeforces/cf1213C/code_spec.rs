@@ -38,7 +38,6 @@ pub open spec fn spec_book_reading_sum(n: int, m: int) -> int
 }
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn book_reading_digit_sum(n: u64, m: u64) -> (r: u64)
         requires
             1 <= n <= 10_000_000_000_000_000,

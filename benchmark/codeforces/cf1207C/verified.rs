@@ -309,7 +309,6 @@ proof fn lemma_spec_si0_step_tuple(p1: int, p2: int, a: int, b: int)
 pub struct Solution;
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn gas_pipeline(n: usize, a: i64, b: i64, s: Vec<i32>) -> (res: i64)
         requires
             2 <= n <= 200_000,

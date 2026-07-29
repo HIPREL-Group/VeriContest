@@ -15,7 +15,6 @@ impl Solution {
         1 <= k <= nums.len() && !Self::seq_contains(nums, k)
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn find_disappeared_numbers(nums: Vec<i32>) -> (result: Vec<i32>)
         requires
             nums.len() >= 1,

@@ -57,7 +57,6 @@ impl Solution {
         else { Self::spec_min(Self::matrix_min_abs(matrix, i - 1), Self::row_min_abs(matrix[i - 1]@, matrix[i - 1].len() as int)) }
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn max_matrix_sum(matrix: Vec<Vec<i32>>) -> (result: i64)
         requires
             2 <= matrix.len() <= 250,

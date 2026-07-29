@@ -33,7 +33,6 @@ impl Solution {
                     && Self::segment_has_color(s, l, r, 2)
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn possible_picture(cells: Vec<i32>) -> (res: bool)
         requires
             1 <= cells.len() <= 100000,

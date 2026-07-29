@@ -12,7 +12,6 @@ impl Solution {
         exists|k: nat| pow(k as int, 2) == num
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn is_perfect_square(num: i32) -> bool
         requires
             1 <= num <= i32::MAX,
@@ -43,6 +42,7 @@ impl Solution {
                 r <= n,
                 l <= r + 1,
                 forall |k: nat| pow(k as int, 2) == n ==> l <= k <= r,
+            decreases r - l + 1,
         {
             let mid: i64 = l + (r - l) / 2;
 

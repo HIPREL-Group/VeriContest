@@ -116,7 +116,6 @@ proof fn lemma_no_dup_cnt(s: Seq<i32>, cnt: Seq<i32>)
 }
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn min_ops_to_all_zero(a: Vec<i32>) -> (res: i32)
         requires
             2 <= a.len() <= 100,

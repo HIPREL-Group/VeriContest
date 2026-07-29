@@ -71,7 +71,6 @@ impl Solution {
         }
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn verse_for_santa(n: usize, s: i64, a: Vec<i64>) -> (res: i32)
         requires
             1 <= n <= 100000,

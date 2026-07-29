@@ -51,7 +51,6 @@ pub open spec fn spec_answer(a: Seq<i32>, kk: int) -> int {
 pub struct Solution;
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn light_switches(a: Vec<i32>, period: u32) -> (result: i32)
         requires
             a.len() >= 1,

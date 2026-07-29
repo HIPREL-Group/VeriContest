@@ -69,7 +69,6 @@ impl Solution {
         Self::best_value_upto(a, x, k, a.len() as int + 1)
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     fn max_sum_for_len(a: &Vec<i64>, len: usize) -> (res: i64) {
         let n = a.len();
         let mut j: usize = 0;
@@ -92,7 +91,6 @@ impl Solution {
         best_len
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     fn best_answer_from_best(best: &Vec<i64>, x: i64, k: usize) -> (res: i64) {
         let n = best.len() - 1;
         let mut cur: i64 = -1_000_000_000_000;
@@ -109,7 +107,6 @@ impl Solution {
         cur
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn increase_subarray_sums(a: Vec<i64>, x: i64) -> (res: Vec<i64>)
         requires
             1 <= a.len() <= 5000,

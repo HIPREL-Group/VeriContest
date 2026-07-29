@@ -42,7 +42,6 @@ pub open spec fn spec_best_score(b: Seq<i32>) -> int {
 }
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn best_running_miles(b: &Vec<i32>) -> (result: i64)
         requires
             3 <= b.len() <= 100_000,

@@ -74,7 +74,6 @@ pub open spec fn spec_meme_answer(A: int, B: int) -> int {
 }
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn meme_pair_count(a_max: i64, b_max: i64) -> (res: i64)
         requires
             1 <= a_max <= 1_000_000_000,

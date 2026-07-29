@@ -21,7 +21,6 @@ impl Solution {
         }
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn smallest_absent(nums: Vec<i32>) -> (res: i32)
         requires
             1 <= nums.len() <= 100,

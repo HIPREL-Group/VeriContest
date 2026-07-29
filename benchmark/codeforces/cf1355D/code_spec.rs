@@ -40,7 +40,6 @@ impl Solution {
                 && Self::block_sum(a, lo, hi) != s - k
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn construct_game(n: i64, s: i64) -> (result: Option<(Vec<i64>, i64)>)
         requires
             1 <= n <= s <= 1_000_000,

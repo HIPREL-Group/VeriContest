@@ -435,7 +435,6 @@ impl Solution {
         Self::lemma_no_composite_interval_implies_no_pair(l, r);
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn non_coprime_split(l: i32, r: i32) -> (res: Option<(i32, i32)>)
         requires
             l >= 1,

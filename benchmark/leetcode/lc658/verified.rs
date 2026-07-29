@@ -13,7 +13,6 @@ impl Solution {
         da < db || (da == db && a < b)
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn find_closest_elements(arr: Vec<i32>, k: i32, x: i32) -> (result: Vec<i32>)
         requires
             1 <= k <= arr.len() as i32,

@@ -152,7 +152,6 @@ impl Solution {
         }
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn check_record(s: String) -> (res: bool)
         requires
             1 <= s@.len() <= 1_000,
@@ -186,6 +185,7 @@ impl Solution {
                     Self::abs_count(s@.take(i as int)) >= 2 ||
                     Self::has_three_consec_late(s@.take(i as int))
                 ),
+            decreases len - i,
         {
             let c = s.as_str().get_char(i);
 

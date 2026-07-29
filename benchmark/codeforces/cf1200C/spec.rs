@@ -33,7 +33,6 @@ impl Solution {
         }
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn corridor_same_component(
         n: i64,
         m: i64,

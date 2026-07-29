@@ -57,7 +57,6 @@ impl Solution {
         Self::spec_count_starts_prefix(nums, lower, upper, nums.len() as int)
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     fn sort_count(
         sums: &mut Vec<i64>,
         buf: &mut Vec<i64>,

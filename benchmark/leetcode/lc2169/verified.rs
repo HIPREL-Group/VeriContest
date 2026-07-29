@@ -57,7 +57,6 @@ proof fn count_ops_le(a: int, b: int)
 }
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn count_operations(num1: i32, num2: i32) -> (result: i32)
         requires
             0 <= num1 && 0 <= num2,
@@ -78,6 +77,7 @@ impl Solution {
                 0 <= ops as int <= 200000,
                 ops as int + count_ops(a as int, b as int) == count_ops(num1 as int, num2 as int),
                 num1 as int + num2 as int <= 200000
+            decreases a + b
         {
             proof {
                 count_ops_ge1(a as int, b as int);

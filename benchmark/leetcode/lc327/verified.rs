@@ -122,7 +122,6 @@ impl Solution {
         }
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn count_range_sum(nums: Vec<i32>, lower: i32, upper: i32) -> (res: i32)
         requires
             1 <= nums.len() <= 100000,
@@ -149,6 +148,7 @@ impl Solution {
                 ans as int == Self::spec_count_starts_prefix(nums@, lower as int, upper as int, i as int),
                 0 <= ans,
                 Self::spec_count_range_sum(nums@, lower as int, upper as int) <= i32::MAX,
+            decreases n - i, 
         {
             proof {
                 Self::lemma_prefix_mono(nums@, lower as int, upper as int, i as int, n as int);
@@ -177,6 +177,7 @@ impl Solution {
                     -2147483648 * ((j as int) - (i as int)) <= s as int,
                     s as int <= 2147483647 * ((j as int) - (i as int)),
                     Self::spec_count_range_sum(nums@, lower as int, upper as int) <= i32::MAX,
+                decreases n - j,
             {
                 proof {
                     assert(-2147483648 <= nums[j as int] <= 2147483647);
@@ -339,7 +340,6 @@ impl Solution {
 
 #[cfg(any())]
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     fn sort_count(
         sums: &mut Vec<i64>,
         buf: &mut Vec<i64>,

@@ -257,7 +257,6 @@ impl Solution {
         Solution::total_hamming_distance_spec_add_acc(nums, i, j + 1, dist);
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn total_hamming_distance(nums: Vec<i32>) -> (res: i32)
         requires
             1 <= nums.len() <= 10000,
@@ -284,6 +283,7 @@ impl Solution {
                     (i + 1) as nat,
                     0,
                 ),
+            decreases n - i,
         {
             let mut j = i + 1;
             let ghost i_val = i;
@@ -303,6 +303,7 @@ impl Solution {
                         j as nat,
                         0,
                     ),
+                decreases n - j,
             {
                 proof {
                     Self::lemma_xor_nonneg(nums[i as int], nums[j as int]);

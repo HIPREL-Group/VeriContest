@@ -7,7 +7,6 @@ verus! {
 pub struct Solution;
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn detect_capital_use(word: String) -> (res: bool) 
         requires
             1 <= word@.len() <= 100,
@@ -34,6 +33,7 @@ impl Solution {
                 0 <= i <= len,
                 all_upper ==> forall |j: int| 0 <= j < i ==> ('A' <= word@[j] && word@[j] <= 'Z'),
                 !all_upper ==> exists |j: int| 0 <= j < i && !('A' <= word@[j] && word@[j] <= 'Z'),
+            decreases len - i,
         {
             let c = word.as_str().get_char(i);
             if !(c >= 'A' && c <= 'Z') {
@@ -57,6 +57,7 @@ impl Solution {
                 0 <= i <= len,
                 all_lower ==> forall |j: int| 0 <= j < i ==> ('a' <= word@[j] && word@[j] <= 'z'),
                 !all_lower ==> exists |j: int| 0 <= j < i && !('a' <= word@[j] && word@[j] <= 'z'),
+            decreases len - i,
         {
             let c = word.as_str().get_char(i);
             if !(c >= 'a' && c <= 'z') {
@@ -86,6 +87,7 @@ impl Solution {
                 1 <= i <= len,
                 rest_lower ==> forall |j: int| 1 <= j < i ==> ('a' <= word@[j] && word@[j] <= 'z'),
                 !rest_lower ==> exists |j: int| 1 <= j < i && !('a' <= word@[j] && word@[j] <= 'z'),
+            decreases len - i,
         {
             let c = word.as_str().get_char(i);
             if !(c >= 'a' && c <= 'z') {

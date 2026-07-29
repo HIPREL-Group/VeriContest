@@ -103,7 +103,6 @@ impl Solution {
     {
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn find_min_moves(machines: Vec<i32>) -> (result: i32)
         requires
             1 <= machines.len() <= 10000,
@@ -128,6 +127,7 @@ impl Solution {
                 forall|k: int| 0 <= k < n as int ==> 0 <= #[trigger] machines[k] <= 100000,
                 total as int == Self::sum_seq(machines@.subrange(0, i as int)),
                 0 <= total as int <= 100000 * i as int,
+            decreases n - i,
         {
             proof { assert(i < n); }
             let old_i = i;
@@ -219,6 +219,7 @@ impl Solution {
                     Self::feasible_k(machines@, avg as int, k2)
                     && #[trigger] Self::trig(k2) == k2
                     ==> res as int <= k2,
+            decreases n - i,
         {
             let old_i = i;
             let old_balance = balance;

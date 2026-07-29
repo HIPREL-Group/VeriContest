@@ -45,7 +45,6 @@ impl Solution {
         (start as i64) <= (r as i64) && (l as i64) <= (start as i64) + (d as i64) - 1
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn overlap_count(start: i32, d: i32, left: &Vec<i32>, right: &Vec<i32>) -> (res: i32)
         requires
             1 <= d,
@@ -67,6 +66,7 @@ impl Solution {
                 0 <= j <= left.len(),
                 0 <= cnt <= j as i32,
                 cnt as int == Self::spec_overlap_count_prefix(start as int, d as int, left@, right@, j as int),
+            decreases left.len() - j,
         {
             if Self::overlaps_window(start, d, left[j], right[j]) {
                 cnt = cnt + 1;
@@ -81,7 +81,6 @@ impl Solution {
         cnt
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn best_start_days(n: i32, d: i32, left: Vec<i32>, right: Vec<i32>) -> (res: (i32, i32))
         requires
             1 <= n,
@@ -200,6 +199,7 @@ impl Solution {
                         && #[trigger] Self::spec_overlap_count(s, d as int, left@, right@)
                             == Self::spec_overlap_count(best_mom as int, d as int, left@, right@)
                         ==> best_mom as int <= s,
+            decreases m - start + 1, 
         {
             let cnt = Self::overlap_count(start, d, &left, &right);
             let old_best_bro = best_bro;

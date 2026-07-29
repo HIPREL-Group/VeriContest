@@ -161,7 +161,6 @@ proof fn lemma_spec_max2_exec_order(a: int, b: int, ax: i64, bx: i64)
 }
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn best_running_miles(b: &Vec<i32>) -> (result: i64)
         requires
             3 <= b.len() <= 100_000,

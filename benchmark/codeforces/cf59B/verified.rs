@@ -100,7 +100,6 @@ proof fn lemma_final_matches_spec(a: Seq<i32>, total: i32, min_odd: i32)
 }
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn max_loving_petals(a: Vec<i32>) -> (result: i32)
         requires
             1 <= a.len() <= 100,
@@ -123,6 +122,7 @@ impl Solution {
                 0 <= total,
                 total as int <= i as int * 100,
                 min_odd == 101 || (1 <= min_odd && min_odd <= 100),
+            decreases n - i, 
         {
             proof {
                 lemma_spec_sum_prefix_succ(a@, i as int);

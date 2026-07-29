@@ -11,7 +11,6 @@ impl Solution {
         exists |i: int| 0 <= i < nums.len() && nums[i] as int == value
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn missing_multiple(nums: Vec<i32>, k: i32) -> (result: i32)
         requires
             1 <= nums.len() <= 100,

@@ -89,7 +89,6 @@ proof fn lemma_zero_run_len_le_index(a: Seq<i32>, idx: int)
 }
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn longest_blank_space(a: &Vec<i32>) -> (result: i32)
         requires
             1 <= a.len() && a.len() <= 100,

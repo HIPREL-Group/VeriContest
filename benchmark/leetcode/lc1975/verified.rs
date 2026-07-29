@@ -61,7 +61,6 @@ impl Solution {
         ensures Self::spec_min(a, Self::spec_min(b, c)) == Self::spec_min(Self::spec_min(a, b), c)
     {}
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn max_matrix_sum(matrix: Vec<Vec<i32>>) -> (result: i64)
         requires
             2 <= matrix.len() <= 250,

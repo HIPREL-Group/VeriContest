@@ -20,7 +20,6 @@ impl Solution {
         }
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn sequential_digits(low: i32, high: i32) -> (result: Vec<i32>)
         requires
             10 <= low <= high <= 1000000000,

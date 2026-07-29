@@ -30,7 +30,6 @@ impl Solution {
         &&& result == Self::min_end_from(x, x, n - 1, 0)
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn min_end(n: i32, x: i32) -> (result: i64)
         requires
             1 <= n <= 100_000_000,
@@ -53,6 +52,7 @@ impl Solution {
                 result <= 9_223_372_036_854_775_807i64,
                 Self::min_end_from(x as int, result as int, remaining as int, pos as int)
                     == Self::min_end_from(x as int, x as int, n as int - 1, 0),
+            decreases 63 - pos, remaining,
         {
             assert(0 <= pos < 63);
             let position = 1i64 << pos;

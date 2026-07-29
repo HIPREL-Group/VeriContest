@@ -56,7 +56,6 @@ impl Solution {
         }
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn num_special(mat: Vec<Vec<i32>>) -> (res: i32)
         requires
             1 <= mat.len() <= 100,
@@ -82,7 +81,7 @@ impl Solution {
                 row_sums@.len() == i as int,
                 forall |r: int| 0 <= r < i as int ==> (#[trigger] row_sums@[r]) as int == Self::count_ones_in_row(mat@, r, n as int),
                 forall |r: int| 0 <= r < i as int ==> 0 <= (#[trigger] row_sums@[r]) <= n as i32,
-            decreases m - i
+            decreases m - i, 
         {
             let mut s: i32 = 0;
             let mut j: usize = 0;
@@ -98,7 +97,7 @@ impl Solution {
                     forall |r: int, c: int| 0 <= r < mat.len() && 0 <= c < mat[r].len() ==> #[trigger] mat[r][c] == 0 || mat[r][c] == 1,
                     0 <= s as int <= j as int,
                     s as int == Self::count_ones_in_row(mat@, i as int, j as int),
-                decreases n - j
+                decreases n - j, 
             {
                 proof {
                     assert(Self::count_ones_in_row(mat@, i as int, (j + 1) as int)
@@ -127,7 +126,7 @@ impl Solution {
                 col_sums@.len() == j as int,
                 forall |c: int| 0 <= c < j as int ==> (#[trigger] col_sums@[c]) as int == Self::count_ones_in_col(mat@, c, m as int),
                 forall |c: int| 0 <= c < j as int ==> 0 <= (#[trigger] col_sums@[c]) <= m as i32,
-            decreases n - j
+            decreases n - j, 
         {
             let mut s: i32 = 0;
             let mut k: usize = 0;
@@ -143,7 +142,7 @@ impl Solution {
                     forall |r: int, c: int| 0 <= r < mat.len() && 0 <= c < mat[r].len() ==> #[trigger] mat[r][c] == 0 || mat[r][c] == 1,
                     0 <= s as int <= k as int,
                     s as int == Self::count_ones_in_col(mat@, j as int, k as int),
-                decreases m - k
+                decreases m - k, 
             {
                 proof {
                     assert(Self::count_ones_in_col(mat@, j as int, (k + 1) as int)
@@ -174,6 +173,7 @@ impl Solution {
                 0 <= i <= m,
                 0 <= count as int <= i as int * n as int,
                 count as int == Self::count_special_in_grid(mat@, n as int, i as int),
+            decreases m - i,
         {
             let mut j: usize = 0;
             while j < n

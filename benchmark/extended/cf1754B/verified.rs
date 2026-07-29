@@ -109,7 +109,6 @@ proof fn lemma_seq_matches_spec(s: Seq<i32>, n: int)
 pub struct Solution;
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn optimal_permutation(n: i32) -> (res: Vec<i32>)
         requires
             2 <= n <= 1000,

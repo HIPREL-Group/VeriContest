@@ -231,7 +231,6 @@ impl Solution {
         reveal_with_fuel(Solution::intersection_list, 2);
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn interval_intersection(
         first_list: Vec<Vec<i32>>,
         second_list: Vec<Vec<i32>>,

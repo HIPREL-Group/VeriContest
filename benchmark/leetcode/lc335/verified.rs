@@ -52,7 +52,6 @@ impl Solution {
         exists|i: int| 0 <= i < distance.len() && Self::crossing_at(distance, i)
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn is_self_crossing(distance: Vec<i32>) -> (result: bool)
         requires
             1 <= distance.len() <= 100000,
@@ -77,6 +76,7 @@ impl Solution {
                 forall|k: int| 0 <= k < distance.len() ==> 1 <= #[trigger] distance[k] <= 100000,
                 3 <= i <= n,
                 forall|j: int| 0 <= j < i as int ==> !Self::crossing_at(distance@, j),
+            decreases n - i,
         {
             let di = distance[i] as i64;
             let d_im1 = distance[i - 1] as i64;

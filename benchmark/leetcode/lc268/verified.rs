@@ -11,7 +11,6 @@ impl Solution {
         exists |j: int| 0 <= j < nums.len() && #[trigger] nums[j] == value
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn missing_number(nums: Vec<i32>) -> (res: i32) 
         requires
             1 <= nums.len() <= 10_000, 
@@ -36,6 +35,7 @@ impl Solution {
                 exists |k: int| 0 <= k <= nums.len() && !(#[trigger] Self::contains(nums@, k as i32)),
                 forall |k: int| 0 <= k < candidate ==> #[trigger] Self::contains(nums@, k as i32),
                 found_missing ==> (0 <= candidate <= nums.len() && forall |j: int| 0 <= j < nums.len() ==> nums[j] != candidate),
+            decreases n - candidate, if found_missing { 0int } else { 1int },
         {
             let mut exists_in_nums = false;
             let mut ix = 0;
@@ -53,6 +53,7 @@ impl Solution {
                     0 <= ix <= nums.len(),
                     exists_in_nums ==> exists |j: int| 0 <= j < ix && nums[j] == candidate,
                     !exists_in_nums ==> forall |j: int| 0 <= j < ix ==> nums[j] != candidate,
+                decreases nums.len() - ix, if exists_in_nums { 0int } else { 1int },
             {
                 if nums[ix] == candidate {
                     exists_in_nums = true;

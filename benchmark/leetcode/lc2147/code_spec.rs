@@ -57,7 +57,6 @@ impl Solution {
         }
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn number_of_ways(corridor: String) -> (result: i32)
         requires
             1 <= corridor@.len() <= 100_000,

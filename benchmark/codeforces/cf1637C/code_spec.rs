@@ -55,7 +55,6 @@ impl Solution {
         }
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn minimum_stone_operations(a: Vec<i64>) -> (r: Option<i64>)
         requires
             3 <= a.len() <= 100_000,

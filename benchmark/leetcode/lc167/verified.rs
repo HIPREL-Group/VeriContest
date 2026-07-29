@@ -7,7 +7,6 @@ verus! {
 pub struct Solution;
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn two_sum(numbers: Vec<i32>, target: i32) -> (res: Vec<i32>) 
         requires
             2 <= numbers.len() <= 10_000, 
@@ -71,6 +70,7 @@ impl Solution {
                 !solution_found ==> forall|i: int, j: int|
                     (0 <= i < first && second < j < numbers.len()) ==> numbers[i] + numbers[j] != target,
                 (exists|i: int, j: int| first <= i < j <= second && numbers[i] + numbers[j] == target) ==> first < second,
+            decreases second - first, if solution_found { 0int } else { 1int },
         {
             if numbers[first] + numbers[second] == target {
                 res[0] = first as i32 + 1; 

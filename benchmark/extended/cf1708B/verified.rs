@@ -102,7 +102,6 @@ proof fn lemma_not_feasible(n: int, l: int, r: int, k_bad: int)
 }
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn construct_gcd_array(n: usize, l: i32, r: i32) -> (res: (bool, Vec<i32>))
         requires
             1 <= n <= 100_000,

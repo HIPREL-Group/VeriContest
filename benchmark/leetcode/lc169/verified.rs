@@ -26,7 +26,6 @@ impl Solution {
         assert(s.push(elem).drop_last() =~= s);
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn majority_element(nums: Vec<i32>) -> (res: i32) 
         requires 
             1 <= nums.len() <= 50_000, 
@@ -54,6 +53,7 @@ impl Solution {
                 threshold == n / 2,
                 found ==> Self::count_occurrences(nums@, candidate) > nums.len() / 2,
                 !found ==> forall |k: int| 0 <= k < i ==> Self::count_occurrences(nums@, nums[k]) <= nums.len() / 2,
+            decreases nums.len() - i, if found { 0int } else { 1int },
         {
             let mut count = 0;
             candidate = nums[i];

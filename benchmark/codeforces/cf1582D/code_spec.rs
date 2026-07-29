@@ -34,7 +34,6 @@ impl Solution {
         &&& Self::dot(a, b) == 0
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn construct_coeffs(a: Vec<i32>) -> (b: Vec<i32>)
         requires
             2 <= a.len() <= 100000,

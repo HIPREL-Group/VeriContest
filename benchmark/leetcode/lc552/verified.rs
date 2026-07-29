@@ -86,7 +86,6 @@ impl Solution {
         )
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn check_record(n: i32) -> (result: i32)
         requires
             1 <= n <= 100000,
@@ -119,6 +118,7 @@ impl Solution {
                 s10 as int == Self::count10(i as int),
                 s11 as int == Self::count11(i as int),
                 s12 as int == Self::count12(i as int),
+            decreases n as usize - i,
         {
             let t00 = (s00 + s01 + s02) % m;
             let t01 = s00;

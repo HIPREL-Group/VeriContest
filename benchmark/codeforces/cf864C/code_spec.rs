@@ -72,7 +72,6 @@ pub open spec fn spec_journey_leg_partitions_route(a: int, f: int, s: int) -> bo
 }
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn min_bus_refuels(a: i64, b: i64, f: i64, k: usize) -> (r: i64)
         requires
             0 < f < a <= 1_000_000,

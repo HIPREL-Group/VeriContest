@@ -39,7 +39,6 @@ pub open spec fn spec_min_ops_answer(s: Seq<i32>) -> int {
 }
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn min_ops_to_all_zero(a: Vec<i32>) -> (res: i32)
         requires
             2 <= a.len() <= 100,

@@ -198,7 +198,6 @@ impl Solution {
         counts
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn minimum_groups(owners: Vec<i64>, k: i64) -> (res: i64)
         requires
             2 <= owners.len() <= 200000,

@@ -164,7 +164,6 @@ impl Solution {
         }
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     fn max_sum_for_len(a: &Vec<i64>, len: usize) -> (res: i64)
         requires
             1 <= a.len() <= 5000,
@@ -266,7 +265,6 @@ impl Solution {
         best_len
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     fn best_answer_from_best(best: &Vec<i64>, x: i64, k: usize) -> (res: i64)
         requires
             1 <= best.len() <= 5001,
@@ -340,7 +338,6 @@ impl Solution {
         cur
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn increase_subarray_sums(a: Vec<i64>, x: i64) -> (res: Vec<i64>)
         requires
             1 <= a.len() <= 5000,

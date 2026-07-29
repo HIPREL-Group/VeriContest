@@ -39,7 +39,6 @@ pub open spec fn max_zero_run_upto(a: Seq<i32>, hi: int) -> int
 }
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn longest_blank_space(a: &Vec<i32>) -> (result: i32)
         requires
             1 <= a.len() && a.len() <= 100,

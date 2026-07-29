@@ -73,7 +73,6 @@ impl Solution {
 
 
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn number_of_good_partitions(nums: Vec<i32>) -> (result: i32)
         requires
             1 <= nums.len() <= 100_000,

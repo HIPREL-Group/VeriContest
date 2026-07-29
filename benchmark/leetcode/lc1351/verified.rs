@@ -27,7 +27,6 @@ impl Solution {
         }
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn count_negatives(grid: Vec<Vec<i32>>) -> (res: i32)
         requires
             1 <= grid.len() <= 100,
@@ -52,6 +51,7 @@ impl Solution {
                 0 <= i <= m,
                 0 <= count as int <= i as int * n as int,
                 count as int == Self::count_neg_in_grid(grid@, i as int),
+            decreases m - i, 
         {
             let mut j = 0;
             while j < n

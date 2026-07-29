@@ -52,7 +52,6 @@ pub open spec fn min_balance_ops_f(c0: int, c1: int, c2: int, tgt: int, fuel: na
 }
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn min_moves_balance_remainders(a: Vec<i32>) -> (result: i32)
         requires
             3 <= a.len() && a.len() <= 30_000,

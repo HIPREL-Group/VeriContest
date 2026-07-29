@@ -128,7 +128,6 @@ impl Solution {
     }
 
     #[verifier::loop_isolation(false)]
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn kth_smallest_prime_fraction(arr: Vec<i32>, k: i32) -> (result: Vec<i32>)
         requires
             2 <= arr.len() <= 1000,
@@ -159,6 +158,7 @@ impl Solution {
 
             let mut iter = 0usize;
             while iter < 64
+                decreases 64 - iter,
             {
                 let mid = (low + high) / 2.0f64;
                 let mut count = 0i32;
@@ -168,8 +168,10 @@ impl Solution {
                 let mut i = 0usize;
                 let mut j = 1usize;
                 while j < n
+                    decreases n - j,
                 {
                     while i < j && (arr[i] as f64) <= mid * (arr[j] as f64)
+                        decreases j - i,
                     {
                         if (arr[i] as i64) * (best_den as i64) > (best_num as i64) * (arr[j] as i64) {
                             best_num = arr[i];

@@ -45,7 +45,6 @@ impl Solution {
         Self::spec_min_patches_from(nums, n as nat, 0nat, 1nat)
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn min_patches(nums: Vec<i32>, n: i32) -> (res: i32)
         requires
             1 <= nums.len() <= 1000,
@@ -74,6 +73,7 @@ impl Solution {
                 patches + 1 <= miss,
                 patches as nat + Self::spec_min_patches_from(nums@, n as nat, i as nat, miss as nat)
                     == Self::spec_min_patches(nums@, n as int),
+            decreases target - miss + 2147483647,
         {
             if i < nums.len() && (nums[i] as i64) <= miss {
                 proof {

@@ -13,7 +13,6 @@ impl Solution {
             2 <= d && a % d == 0 && b % d == 0
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn non_coprime_split(l: i32, r: i32) -> (res: Option<(i32, i32)>)
         requires
             l >= 1,

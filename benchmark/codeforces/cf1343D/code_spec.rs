@@ -28,7 +28,6 @@ pub open spec fn total_cost(a: Seq<i64>, n: usize, k: i64, x: i64) -> int {
 pub struct Solution;
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     fn build_tables(n: usize, k: i64, a: &Vec<i64>) -> (res: (Vec<i64>, Vec<i64>))
         requires
             2 <= n && n <= 200000,
@@ -67,7 +66,6 @@ impl Solution {
         (diff, exact)
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn constant_palindrome_sum(n: usize, k: i64, a: Vec<i64>) -> (ans: i64)
         requires
             2 <= n && n <= 200000,

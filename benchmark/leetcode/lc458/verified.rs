@@ -57,7 +57,6 @@ impl Solution {
         acc
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn poor_pigs(buckets: i32, minutes_to_die: i32, minutes_to_test: i32) -> (result: i32)
         requires
             1 <= buckets <= 1000,
@@ -84,6 +83,7 @@ impl Solution {
                 pigs as int <= capacity as int,
                 capacity as int == Self::spec_pow(states as int, pigs as nat),
                 forall |r: int| 0 <= r < pigs as int ==> (#[trigger] Self::spec_pow(states as int, r as nat)) < buckets as int,
+            decreases buckets - capacity + i32::MAX,
         {
             let old_capacity = capacity;
             let old_pigs = pigs;
@@ -105,13 +105,9 @@ impl Solution {
                     == states as int * Self::spec_pow(states as int, old_pigs as nat));
                 assert(capacity as int == old_capacity as int * states as int);
                 assert(capacity as int == Self::spec_pow(states as int, pigs as nat));
-                // The old invariant gives us forall r < old_pigs: spec_pow < buckets
-                // We also know spec_pow(states, old_pigs) < buckets (from capacity < buckets before update)
-                // So forall r < pigs (= old_pigs + 1): spec_pow < buckets
                 assert(Self::spec_pow(states as int, old_pigs as nat) < buckets as int);
                 assert forall |r: int| 0 <= r < pigs as int implies (#[trigger] Self::spec_pow(states as int, r as nat)) < buckets as int by {
                     if r < old_pigs as int {
-                        // from old invariant
                     } else {
                         assert(r == old_pigs as int);
                     }

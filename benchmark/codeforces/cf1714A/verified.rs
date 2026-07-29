@@ -30,7 +30,6 @@ impl Solution {
         }
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn min_wait_minutes(now: i32, alarms: Vec<i32>) -> (res: i32)
         requires
             0 <= now < 1440,
