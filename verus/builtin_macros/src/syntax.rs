@@ -143,7 +143,7 @@ fn split_off_proof_note_attrs(attrs: Vec<Attribute>) -> (Vec<Attribute>, Vec<Att
     let (mut proof_note_attrs, other_attrs): (Vec<Attribute>, Vec<Attribute>) =
         attrs.into_iter().partition(|attr| {
             path_matches_idents(&attr.path(), &["verifier", "proof_note"])
-                || path_matches_idents(&attr.path(), &["verifier", "custom_err"])
+                || path_matches_idents(&attr.path(), &["verifier", "proof_note_custom_err"])
         });
     for attr in &mut proof_note_attrs {
         attr.style = verus_syn::AttrStyle::Outer;
@@ -4021,34 +4021,7 @@ impl VisitMut for Visitor {
     }
 
     fn visit_block_mut(&mut self, block: &mut Block) {
-        fn visit_items_in_block(stmts: &mut Vec<Stmt>, mut f: impl FnMut(&mut Vec<Item>)) {
-            let block_stmts = std::mem::replace(stmts, vec![]);
-            for stmt in block_stmts {
-                match stmt {
-                    stmt @ Stmt::Item(Item::BroadcastUse(_)) => {
-                        stmts.push(stmt);
-                    }
-                    Stmt::Item(item) => {
-                        let mut items = vec![item];
-                        f(&mut items);
-                        stmts.extend(items.into_iter().map(Stmt::Item));
-                    }
-                    stmt => {
-                        stmts.push(stmt);
-                    }
-                }
-            }
-        }
-
         let mut stmts: Vec<Stmt> = Vec::new();
-        let has_pre_post_items = block.stmts.iter().any(|s| match s {
-            Stmt::Item(Item::BroadcastUse(_)) => false,
-            Stmt::Item(_) => true,
-            _ => false,
-        });
-        if has_pre_post_items {
-            visit_items_in_block(&mut block.stmts, |items| self.visit_items_prefilter(items));
-        }
         let block_stmts = std::mem::replace(&mut block.stmts, vec![]);
         for mut stmt in block_stmts {
             let (skip, extra_stmts) = self.visit_stmt_extend(&mut stmt);
@@ -4059,9 +4032,6 @@ impl VisitMut for Visitor {
         }
         block.stmts = stmts;
         visit_block_mut(self, block);
-        if has_pre_post_items {
-            visit_items_in_block(&mut block.stmts, |items| self.visit_items_post(items));
-        }
     }
 
     fn visit_type_param_mut(&mut self, p: &mut verus_syn::TypeParam) {

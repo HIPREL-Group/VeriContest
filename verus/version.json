@@ -1,12 +1,12 @@
 {
   "verus": {
     "profile": "release",
-    "version": "0.2026.05.05.d03e906",
+    "version": "0.2026.04.10.01bf489",
     "platform": {
       "os": "linux",
       "arch": "x86_64"
     },
-    "toolchain": "1.95.0-x86_64-unknown-linux-gnu",
-    "commit": "d03e9063f15af2b5d1668be45bb7ccd5e8544f4c"
+    "toolchain": "1.94.0-x86_64-unknown-linux-gnu",
+    "commit": "01bf489a0479ecb1f4278e9c82b3c0981684e7f6"
   }
 }

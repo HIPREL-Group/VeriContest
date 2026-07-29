@@ -488,9 +488,9 @@ pub assume_specification<T, A: Allocator>[ Vec::<T, A>::into_iter ](vec: Vec<T, 
 
 pub broadcast proof fn lemma_vec_obeys_eq_spec<T: PartialEq>()
     requires
-        super::super::laws_eq::obeys_eq::<T>(),
+        super::super::laws_eq::obeys_eq_spec::<T>(),
     ensures
-        #[trigger] super::super::laws_eq::obeys_eq::<Vec<T>>(),
+        #[trigger] super::super::laws_eq::obeys_eq_spec::<Vec<T>>(),
 {
     broadcast use {axiom_spec_len, super::super::seq::group_seq_axioms};
     reveal(super::super::laws_eq::obeys_eq_spec_properties);

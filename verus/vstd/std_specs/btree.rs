@@ -1,5 +1,5 @@
 //! This code adds specifications for the standard-library types
-//! `alloc::collections::BTreeMap` and `alloc::collections::BTreeSet`.
+//! `std::collections::BTreeMap` and `std::collections::BTreeSet`.
 //!
 //! The specification is only meaningful when the `Key` obeys our [`Ord`] model,
 //! as specified by [`super::super::laws_cmp::obeys_cmp_spec`].
@@ -8,19 +8,18 @@
 //! about the behavior of `BTreeMap` and `BTreeSet` into the ambient
 //! reasoning context by broadcasting the group
 //! `vstd::std_specs::btree::group_btree_axioms`.
-use super::super::laws_cmp::obeys_cmp;
+use super::super::laws_cmp::obeys_cmp_spec;
 use super::super::prelude::*;
 use super::cmp::OrdSpec;
 
 use alloc::alloc::Allocator;
-use alloc::boxed::Box;
-use alloc::collections::btree_map;
-use alloc::collections::btree_map::{Keys, Values};
-use alloc::collections::btree_set;
-use alloc::collections::{BTreeMap, BTreeSet};
 use core::borrow::Borrow;
 use core::marker::PhantomData;
 use core::option::Option;
+use std::collections::btree_map;
+use std::collections::btree_map::{Keys, Values};
+use std::collections::btree_set;
+use std::collections::{BTreeMap, BTreeSet};
 
 verus! {
 
@@ -34,14 +33,14 @@ verus! {
 /// See also [`axiom_key_obeys_cmp_spec_meaning`].
 pub uninterp spec fn key_obeys_cmp_spec<Key: ?Sized>() -> bool;
 
-/// For types that are ordered, [`key_obeys_cmp_spec`] is equivalent to [`obeys_cmp`].
+/// For types that are ordered, [`key_obeys_cmp_spec`] is equivalent to [`obeys_cmp_spec`].
 pub broadcast axiom fn axiom_key_obeys_cmp_spec_meaning<K: Ord>()
     ensures
-        #[trigger] key_obeys_cmp_spec::<K>() <==> obeys_cmp::<K>(),
+        #[trigger] key_obeys_cmp_spec::<K>() <==> obeys_cmp_spec::<K>(),
 ;
 
 /// Whether a sequence is ordered in increasing order.
-/// This only has meaning if `K: Ord` and [`obeys_cmp::<K>`].
+/// This only has meaning if `K: Ord` and [`obeys_cmp_spec::<K>`].
 ///
 /// See [`axiom_increasing_seq_meaning`] for an interpretation of this predicate.
 pub uninterp spec fn increasing_seq<K>(s: Seq<K>) -> bool;
@@ -49,14 +48,14 @@ pub uninterp spec fn increasing_seq<K>(s: Seq<K>) -> bool;
 /// An interpretation for the [`increasing_seq`] predicate.
 pub broadcast axiom fn axiom_increasing_seq_meaning<K: Ord>(s: Seq<K>)
     requires
-        obeys_cmp::<K>(),
+        obeys_cmp_spec::<K>(),
     ensures
         #[trigger] increasing_seq(s) <==> forall|i, j|
             0 <= i < j < s.len() ==> s[i].cmp_spec(&s[j]) is Less,
 ;
 
 /// Specifications for the behavior of
-/// [`alloc::collections::btree_map::Keys`](https://doc.rust-lang.org/alloc/collections/btree_map/struct.Keys.html).
+/// [`std::collections::btree_map::Keys`](https://doc.rust-lang.org/std/collections/btree_map/struct.Keys.html).
 #[verifier::external_type_specification]
 #[verifier::external_body]
 #[verifier::accept_recursive_types(Key)]
@@ -163,7 +162,7 @@ impl<'a, Key, Value> View for KeysGhostIterator<'a, Key, Value> {
 }
 
 /// Specifications for the behavior of
-/// [`alloc::collections::btree_map::Values`](https://doc.rust-lang.org/alloc/collections/btree_map/struct.Values.html).
+/// [`std::collections::btree_map::Values`](https://doc.rust-lang.org/std/collections/btree_map/struct.Values.html).
 #[verifier::external_type_specification]
 #[verifier::external_body]
 #[verifier::accept_recursive_types(Key)]
@@ -422,7 +421,7 @@ pub assume_specification<'a, Key, Value, A: Allocator + Clone>[ BTreeMap::<Key, 
         },
 ;
 
-/// Specifications for the behavior of [`alloc::collections::BTreeMap`](https://doc.rust-lang.org/alloc/collections/struct.BTreeMap.html).
+/// Specifications for the behavior of [`std::collections::BTreeMap`](https://doc.rust-lang.org/std/collections/struct.BTreeMap.html).
 ///
 /// We model a `BTreeMap` as having a view of type `Map<Key, Value>`, which reflects the current state of the map.
 ///
@@ -628,7 +627,7 @@ pub assume_specification<Key: Ord, Value, A: Allocator + Clone>[ BTreeMap::<
     A,
 >::insert ](m: &mut BTreeMap<Key, Value, A>, k: Key, v: Value) -> (result: Option<Value>)
     ensures
-        obeys_cmp::<Key>() ==> {
+        obeys_cmp_spec::<Key>() ==> {
             &&& m@ == old(m)@.insert(k, v)
             &&& match result {
                 Some(v) => old(m)@.contains_key(k) && v == old(m)[k],
@@ -676,7 +675,7 @@ pub assume_specification<
 >[ BTreeMap::<Key, Value, A>::contains_key::<Q> ](m: &BTreeMap<Key, Value, A>, k: &Q) -> (result:
     bool)
     ensures
-        obeys_cmp::<Key>() ==> result == contains_borrowed_key(m@, k),
+        obeys_cmp_spec::<Key>() ==> result == contains_borrowed_key(m@, k),
 ;
 
 // The specification for `get` has a parameter `key: &Q` where you'd
@@ -726,7 +725,7 @@ pub assume_specification<
     &'a Value,
 >)
     ensures
-        obeys_cmp::<Key>() ==> match result {
+        obeys_cmp_spec::<Key>() ==> match result {
             Some(v) => maps_borrowed_key_to_value(m@, k, *v),
             None => !contains_borrowed_key(m@, k),
         },
@@ -782,7 +781,7 @@ pub assume_specification<
 >[ BTreeMap::<Key, Value, A>::remove::<Q> ](m: &mut BTreeMap<Key, Value, A>, k: &Q) -> (result:
     Option<Value>)
     ensures
-        obeys_cmp::<Key>() ==> {
+        obeys_cmp_spec::<Key>() ==> {
             &&& borrowed_key_removed(old(m)@, m@, k)
             &&& match result {
                 Some(v) => maps_borrowed_key_to_value(old(m)@, k, v),
@@ -937,12 +936,12 @@ impl<'a, Key> View for SetIterGhostIterator<'a, Key> {
     }
 }
 
-/// Specifications for the behavior of [`alloc::collections::BTreeSet`](https://doc.rust-lang.org/alloc/collections/struct.BTreeSet.html).
+/// Specifications for the behavior of [`std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html).
 ///
 /// We model a `BTreeSet` as having a view of type `Set<Key>`, which reflects the current state of the set.
 ///
-/// These specifications are only meaningful if `obeys_cmp::<Key>()` hold.
-/// See [`obeys_cmp`] for information on use with primitive types and custom types.
+/// These specifications are only meaningful if `obeys_cmp_spec::<Key>()` hold.
+/// See [`obeys_cmp_spec`] for information on use with primitive types and custom types.
 ///
 /// Axioms about the behavior of BTreeSet are present in the broadcast group `vstd::std_specs::btree::group_btree_axioms`.
 #[verifier::external_type_specification]
@@ -1011,7 +1010,7 @@ pub assume_specification<Key: Ord, A: Allocator + Clone>[ BTreeSet::<Key, A>::in
     k: Key,
 ) -> (result: bool)
     ensures
-        obeys_cmp::<Key>() ==> {
+        obeys_cmp_spec::<Key>() ==> {
             &&& m@ == old(m)@.insert(k)
             &&& result == !old(m)@.contains(k)
         },
@@ -1048,7 +1047,7 @@ pub assume_specification<Key: Borrow<Q> + Ord, A: Allocator + Clone, Q: Ord + ?S
     A,
 >::contains ](m: &BTreeSet<Key, A>, k: &Q) -> (result: bool)
     ensures
-        obeys_cmp::<Key>() ==> result == set_contains_borrowed_key(m@, k),
+        obeys_cmp_spec::<Key>() ==> result == set_contains_borrowed_key(m@, k),
 ;
 
 // The specification for `get` has a parameter `key: &Q` where you'd
@@ -1088,7 +1087,7 @@ pub assume_specification<
     Q: Ord + ?Sized,
 >[ BTreeSet::<Key, A>::get::<Q> ](m: &'a BTreeSet<Key, A>, k: &Q) -> (result: Option<&'a Key>)
     ensures
-        obeys_cmp::<Key>() ==> match result {
+        obeys_cmp_spec::<Key>() ==> match result {
             Some(v) => sets_borrowed_key_to_key(m@, k, v),
             None => !set_contains_borrowed_key(m@, k),
         },
@@ -1132,7 +1131,7 @@ pub assume_specification<Key: Borrow<Q> + Ord, A: Allocator + Clone, Q: Ord + ?S
     A,
 >::remove::<Q> ](m: &mut BTreeSet<Key, A>, k: &Q) -> (result: bool)
     ensures
-        obeys_cmp::<Key>() ==> {
+        obeys_cmp_spec::<Key>() ==> {
             &&& sets_differ_by_borrowed_key(old(m)@, m@, k)
             &&& result == set_contains_borrowed_key(old(m)@, k)
         },

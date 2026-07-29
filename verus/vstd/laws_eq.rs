@@ -14,15 +14,9 @@ pub open spec fn obeys_eq_spec_properties<T: PartialEq>() -> bool {
         x.eq_spec(&y) && #[trigger] y.eq_spec(&z) ==> #[trigger] x.eq_spec(&z)
 }
 
-pub open spec fn obeys_eq<T: PartialEq>() -> bool {
+pub open spec fn obeys_eq_spec<T: PartialEq>() -> bool {
     &&& T::obeys_eq_spec()
     &&& obeys_eq_spec_properties::<T>()
-}
-
-#[deprecated(note = "`laws_eq::obeys_eq_spec` has been renamed to `laws_eq::obeys_eq`")]
-#[verifier::inline]
-pub open spec fn obeys_eq_spec<T: PartialEq>() -> bool {
-    obeys_eq::<T>()
 }
 
 #[verifier::opaque]
@@ -61,7 +55,7 @@ macro_rules! primitive_laws_eq {
 
             pub broadcast proof fn lemma_obeys_eq_spec()
                 ensures
-                    #[trigger] obeys_eq::<$n>(),
+                    #[trigger] obeys_eq_spec::<$n>(),
             {
                 reveal(obeys_eq_spec_properties);
             }
@@ -128,9 +122,9 @@ primitive_laws_eq!(isize, isize_laws);
 
 pub broadcast proof fn lemma_ref_obeys_eq_spec<T: PartialEq>()
     requires
-        obeys_eq::<T>(),
+        obeys_eq_spec::<T>(),
     ensures
-        #[trigger] obeys_eq::<&T>(),
+        #[trigger] obeys_eq_spec::<&T>(),
 {
     reveal(obeys_eq_spec_properties);
 }
@@ -166,9 +160,9 @@ pub broadcast proof fn lemma_ref_obeys_deep_eq<T: PartialEq + DeepView>()
 
 pub broadcast proof fn lemma_option_obeys_eq_spec<T: PartialEq>()
     requires
-        obeys_eq::<T>(),
+        obeys_eq_spec::<T>(),
     ensures
-        #[trigger] obeys_eq::<Option<T>>(),
+        #[trigger] obeys_eq_spec::<Option<T>>(),
 {
     reveal(obeys_eq_spec_properties);
 }

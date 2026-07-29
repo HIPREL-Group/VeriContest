@@ -30,10 +30,7 @@ impl<V, T: Future<Output = V>> FutureAdditionalSpecFns<V> for T {
 
 // Do not call this function. Call the regular Rust `await` keyword instead.
 #[verifier::external_body]
-fn exec_await<F: Future>(
-    #[allow(unused_variables)]
-    future: F,
-) -> (ret: F::Output)
+fn exec_await<F: Future>(future: F) -> (ret: F::Output)
     ensures
         future.awaited() == true,
         ret == future@,
