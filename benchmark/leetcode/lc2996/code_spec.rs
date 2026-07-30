@@ -39,7 +39,6 @@ impl Solution {
         Self::prefix_sum(nums, Self::sequential_prefix_len(nums) as int)
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn missing_integer(nums: Vec<i32>) -> (res: i32)
         requires
             1 <= nums.len() <= 50,

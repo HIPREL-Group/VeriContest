@@ -15,7 +15,6 @@ impl Solution {
         exists |i: int| 0 <= i < nums.len() && #[trigger] nums[i] == v
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn find_final_value(nums: Vec<i32>, original: i32) -> (result: i32)
         requires
             1 <= nums.len() <= 1000,
@@ -47,11 +46,13 @@ impl Solution {
             invariant
                 1 <= nums.len() <= 1000,
                 forall |k: int| 0 <= k < nums.len() ==> 1 <= #[trigger] nums[k] <= 1000,
-                original <= current,
+                1 <= original <= 1000,
+                original <= current <= 2000,
                 !found ==> forall |k: int| 0 <= k < nums.len() ==> #[trigger] nums[k] != current,
                 exists |kk: nat|
                     current as int == Self::chain_value(original, kk)
                     && forall |t: nat| t < kk ==> #[trigger] Self::appears(nums@, Self::chain_value(original, t))
+            decreases 2000 - current, if found { 1int } else { 0int }
         {
             found = false;
             let mut i = 0;
@@ -59,7 +60,8 @@ impl Solution {
                 invariant
                     0 <= i <= nums.len(),
                     1 <= nums.len() <= 1000,
-                    original <= current,
+                    1 <= original <= 1000,
+                    original <= current <= 2000,
                     forall |k: int| 0 <= k < nums.len() ==> 1 <= #[trigger] nums[k] <= 1000,
                     found <==> exists |k: int| 0 <= k < i && #[trigger] nums[k] == current
                 decreases nums.len() - i

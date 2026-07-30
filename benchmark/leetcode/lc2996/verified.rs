@@ -58,7 +58,6 @@ impl Solution {
         }
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn missing_integer(nums: Vec<i32>) -> (res: i32)
         requires
             1 <= nums.len() <= 50,
@@ -88,6 +87,7 @@ impl Solution {
                 prefix_sum as int == Self::prefix_sum(nums@, i as int),
                 1 <= prefix_sum as int <= i as int * 50,
                 forall |j: int| 1 <= j < i as int ==> #[trigger] nums[j] == nums[j - 1] + 1,
+            decreases n - i
         {
             prefix_sum += nums[i];
             i += 1;
@@ -107,10 +107,11 @@ impl Solution {
                 n == nums.len(),
                 1 <= nums.len() <= 50,
                 forall |k: int| 0 <= k < nums.len() ==> 1 <= #[trigger] nums[k] <= 50,
-                1 <= candidate,
+                1 <= candidate <= 2500,
                 candidate as int >= Self::sequential_prefix_sum(nums@),
                 forall |x: int| Self::sequential_prefix_sum(nums@) <= x < candidate ==> #[trigger] Self::contains(nums@, x as i32),
                 found ==> !Self::contains(nums@, candidate),
+            decreases 2500 - candidate, if found { 0int } else { 1int }, 
         {
             let mut exists = false;
             let mut j: usize = 0;
@@ -122,6 +123,7 @@ impl Solution {
                     0 <= j <= n,
                     exists ==> exists |t: int| 0 <= t < j && nums[t] == candidate,
                     !exists ==> forall |t: int| 0 <= t < j ==> nums[t] != candidate,
+                decreases n - j, 
             {
                 if nums[j] == candidate {
                     exists = true;

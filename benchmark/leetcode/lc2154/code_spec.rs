@@ -15,7 +15,6 @@ impl Solution {
         exists |i: int| 0 <= i < nums.len() && #[trigger] nums[i] == v
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn find_final_value(nums: Vec<i32>, original: i32) -> (result: i32)
         requires
             1 <= nums.len() <= 1000,
