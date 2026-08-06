@@ -15,7 +15,7 @@ The first line contains an integer `t` (`1 <= t <= 10^4`) — the number of test
 For each test case:
 
 - The first line contains an integer `n` (`1 <= n <= 2 * 10^5`).
-- The second line contains `n` integers `a_1, a_2, ..., a_n` (`1 <= a_i <= n`).
+- The second line contains `n` integers `a_1, a_2, ..., a_n` (`1 <= a_i <= 10^9`).
 
 It is guaranteed that the sum of `n` over all test cases does not exceed `2 * 10^5`.
 

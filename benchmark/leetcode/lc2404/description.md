@@ -28,7 +28,7 @@ If there is a tie, return the **smallest** one. If there is no such element, ret
 
 - $1 <= nums.length <= 2000$
 
-- $1 <= nums[i] <= 10^5$
+- $0 <= nums[i] <= 10^5$
 
 ## Starter Code
 

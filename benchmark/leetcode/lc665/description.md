@@ -20,7 +20,7 @@ We define an array as non-decreasing if `nums[i] <= nums[i + 1]` holds for every
 
 - $n == \text{nums.length}$
 - $1 \leq n \leq 10^4$
-- $-10^8 \leq \text{nums}[i] \leq 10^8$
+- $-10^5 \leq \text{nums}[i] \leq 10^5$
 
 ## Starter Code
 

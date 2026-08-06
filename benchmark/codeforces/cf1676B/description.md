@@ -11,11 +11,11 @@ For each test case, find the minimum number of operations needed.
 
 ## Input
 
-The first line contains an integer t — the number of test cases.
+The first line contains an integer t ($1 \le t \le 1000$) — the number of test cases.
 
 For each test case:
-- The first line contains an integer n.
-- The second line contains n integers a_1, a_2, ..., a_n.
+- The first line contains an integer n  ($1 \le n \le 50$).
+- The second line contains n integers a_1, a_2, ..., a_n  ($1 \le a_i \le 10^7$).
 
 ## Output
 

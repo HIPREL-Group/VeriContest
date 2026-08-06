@@ -33,13 +33,13 @@ Output: -1
 
 - 1 <= nums.length <= $5000$
 
-- $10^4$ <= nums[i] <= $10^4$
+- $-10^4$ <= nums[i] <= $10^4$
 
 - All values of `nums` are **unique**.
 
 - `nums` is an ascending array that is possibly rotated.
 
-- $10^4$ <= target <= $10^4$
+- $-10^4$ <= target <= $10^4$
 
 ## Starter Code
 

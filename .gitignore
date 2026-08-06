@@ -21,3 +21,5 @@ build/
 # ./verus/verus needs to run. Keep them tracked.
 !verus/*.so
 !verus/*.rlib
+
+spec_validation/

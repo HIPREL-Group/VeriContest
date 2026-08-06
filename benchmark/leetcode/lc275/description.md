@@ -22,7 +22,7 @@ You must write an algorithm that runs in logarithmic time.
 
 - $n == citations.length$
 
-- $1 <= n <= 5000$
+- $1 <= n <= 10^5$
 
 - $0 <= citations[i] <= 1000$
 

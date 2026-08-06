@@ -10,10 +10,10 @@ Determine whether it is possible to make all array elements have the same parity
 
 ## Input
 
-The first line contains an integer `t` — the number of test cases.
+The first line contains an integer `t` (`1 <= t <= 100`) — the number of test cases.
 
 For each test case:
-- the first line contains an integer `n` (`1 <= n <= 50`),
+- the first line contains an integer `n` (`2 <= n <= 50`),
 - the second line contains `n` integers `a_1, a_2, ..., a_n` (`1 <= a_i <= 1000`).
 
 ## Output

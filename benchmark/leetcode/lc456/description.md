@@ -26,7 +26,7 @@ Return `true` *if there is a **132 pattern** in `nums`, otherwise, return* `fals
 
 - $n == nums.length$
 
-- $1 <= n <= 2 * 10^4$
+- $1 <= n <= 2 * 10^5$
 
 - $-10^9 <= nums[i] <= 10^9$
 
