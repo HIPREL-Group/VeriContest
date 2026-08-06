@@ -1,4 +1,4 @@
-# Vasya the Hipster
+# A. Vasya the Hipster
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -30,7 +30,6 @@ Keep in mind that at the end of the day Vasya throws away the socks that he's be
 ```
 3 1
 ```
-
 **Output:**
 ```
 1 1
@@ -42,7 +41,6 @@ Keep in mind that at the end of the day Vasya throws away the socks that he's be
 ```
 2 3
 ```
-
 **Output:**
 ```
 2 0
@@ -54,7 +52,6 @@ Keep in mind that at the end of the day Vasya throws away the socks that he's be
 ```
 7 3
 ```
-
 **Output:**
 ```
 3 2

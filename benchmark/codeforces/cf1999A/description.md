@@ -1,4 +1,4 @@
-# A+B Again?
+# A. A+B Again?
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -6,15 +6,15 @@ Given a two-digit positive integer $$$n$$$, find the sum of its digits.
 
 ## Input
 
-The first line contains an integer $$$t$$$ ($$$1 \leq t \leq 90$$$) — the number of test cases.
+The first line contains an integer $$$t$$$ ($$$1 \leq t \leq 90$$$) — the number of test cases.
 
 The only line of each test case contains a single two-digit positive integer $$$n$$$ ($$$10 \leq n \leq 99$$$).
 
 ## Output
 
-For each test case, output a single integer — the sum of the digits of $$$n$$$.
+For each test case, output a single integer — the sum of the digits of $$$n$$$.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -28,7 +28,6 @@ For each test case, output a single integer — the sum of the digits of $$$n$$$
 10
 99
 ```
-
 **Output:**
 ```
 14

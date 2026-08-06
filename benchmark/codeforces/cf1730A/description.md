@@ -1,33 +1,36 @@
-# Planets
+# A. Planets
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-One day, Vogons wanted to build a new hyperspace highway through a distant system with $n$ planets. The $i$-th planet is on the orbit $a_i$; there could be multiple planets on the same orbit. All planets must be destroyed.
+One day, Vogons wanted to build a new hyperspace highway through a distant system with $$$n$$$ planets. The $$$i$$$-th planet is on the orbit $$$a_i$$$, there could be multiple planets on the same orbit. It's a pity that all the planets are on the way and need to be destructed.
 
-Vogons have two machines:
+Vogons have two machines to do that.
+ - The first machine in one operation can destroy any planet at cost of $$$1$$$ Triganic Pu. 
+- The second machine in one operation can destroy all planets on a single orbit in this system at the cost of $$$c$$$ Triganic Pus. 
 
-- The first machine destroys any single planet at cost $1$.
-- The second machine destroys all planets on one orbit in a single operation at cost $c$.
+Vogons can use each machine as many times as they want.
 
-Each machine may be used arbitrarily many times. Find the minimum total cost to destroy all planets.
+Vogons are very greedy, so they want to destroy all planets with minimum amount of money spent. Can you help them to know the minimum cost of this project?
 
 ## Input
 
-The first line contains an integer $t$ ($1 \le t \le 100$) — the number of test cases.
+The first line contains a single integer $$$t$$$ ($$$1 \le t \le 100$$$) — the number of test cases. Then the test cases follow.
 
-Each test case has two lines:
+Each test case consists of two lines.
 
-- Two integers $n$ and $c$ ($1 \le n, c \le 100$).
-- $n$ integers $a_1, a_2, \dots, a_n$ ($1 \le a_i \le 100$).
+The first line contains two integers $$$n$$$ and $$$c$$$ ($$$1 \le n, c \le 100$$$) — the number of planets and the cost of the second machine usage.
+
+The second line contains $$$n$$$ integers $$$a_1, a_2, \dots, a_n$$$ ($$$1 \le a_i \le 100$$$), where $$$a_i$$$ is the orbit of the $$$i$$$-th planet.
 
 ## Output
 
-For each test case print one integer — the minimum total cost.
+For each test case print a single integer — the minimum cost of destroying all planets.
 
 ## Examples
 
-**Input:**
+### Example 1
 
+**Input:**
 ```
 4
 10 1
@@ -39,33 +42,36 @@ For each test case print one integer — the minimum total cost.
 2 2
 1 2
 ```
-
 **Output:**
+```
+4
+4
+2
+2
+```
 
-```
-4
-4
-2
-2
-```
+### Example 2
 
 **Input:**
-
 ```
 1
 1 100
 1
 ```
-
 **Output:**
-
 ```
 1
 ```
 
 ## Note
 
-Orbits can be processed independently: for an orbit with $k$ planets, paying $k$ with the first machine or $c$ with the second yields cost $\min(k, c)$.
+In the first test case, the cost of using both machines is the same, so you can always use the second one and destroy all planets in orbit $$$1$$$, all planets in orbit $$$2$$$, all planets in orbit $$$4$$$, all planets in orbit $$$5$$$.
+
+In the second test case, it is advantageous to use the second machine for $$$2$$$ Triganic Pus to destroy all the planets in orbit $$$2$$$, then destroy the remaining two planets using the first machine.
+
+In the third test case, you can use the first machine twice or the second machine once.
+
+In the fourth test case, it is advantageous to use the first machine twice.
 
 ## Starter Code
 

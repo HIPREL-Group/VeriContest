@@ -1,35 +1,38 @@
-# DZY Loves Sequences
+# C. DZY Loves Sequences
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-DZY has a sequence $a$ of $n$ integers.
+DZY has a sequence $a$, consisting of $n$ integers.
 
-A **subsegment** is a contiguous block $a_i, a_{i+1}, \ldots, a_j$ with $1 \le i \le j \le n$. Its length is $j - i + 1$.
+We'll call a sequence $a_i, a_i + 1, ..., a_j$ $(1 ≤ i ≤ j ≤ n)$ a subsegment of the sequence $a$. The value $(j - i + 1)$ denotes the length of the subsegment.
 
-Find the **maximum length** of a subsegment such that you may change **at most one** element to any integer so that the whole subsegment becomes **strictly increasing**.
+Your task is to find the longest subsegment of $a$, such that it is possible to change at most one number (change one number to any integer you want) from the subsegment to make the subsegment strictly increasing.
+
+You only need to output the length of the subsegment you find.
 
 ## Input
 
-The first line contains $n$ $(1 \le n \le 10^5)$. The next line has $n$ integers $a_1, \ldots, a_n$ $(1 \le a_i \le 10^9)$.
+The first line contains integer $n (1 ≤ n ≤ 10^5)$. The next line contains $n$ integers $a_1, a_2, ..., a_n (1 ≤ a_i ≤ 10^9)$.
 
 ## Output
 
-Print one integer: the maximum length.
+In a single line print the answer to the problem — the maximum length of the required subsegment.
 
-## Examples
+## Example
 
 **Input:**
 ```
 6
 7 2 3 1 5 6
 ```
-
 **Output:**
 ```
 5
 ```
 
-**Note:** Subsegment $a_2,\ldots,a_6$ is $2,3,1,5,6$. Change the third value (the $1$) to $4$ to get $2,3,4,5,6$.
+## Note
+
+You can choose subsegment $a_2, a_3, a_4, a_5, a_6$ and change its 3rd element (that is $a_4$) to 4.
 
 ## Starter Code
 

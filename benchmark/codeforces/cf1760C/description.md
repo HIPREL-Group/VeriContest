@@ -1,4 +1,4 @@
-# Advantage
+# C. Advantage
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -22,7 +22,7 @@ It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$
 
 For each test case, output $$$n$$$ space-separated integers. For each $$$i$$$ ($$$1 \leq i \leq n$$$) output the difference between $$$s_i$$$ and the maximum strength of any other participant.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -38,7 +38,6 @@ For each test case, output $$$n$$$ space-separated integers. For each $$$i$$$ ($
 4
 4 4 4 4
 ```
-
 **Output:**
 ```
 -3 2 -4 -2 

@@ -1,20 +1,24 @@
-# Ladder
+# C. Ladder
 
-Time limit: 1 second | Memory limit: 256 megabytes
+Time limit: 2 seconds | Memory limit: 256 megabytes
 
-You have an array of n integers. A ladder is a sequence that first increases (each element is not less than the previous) and then decreases (each element is not greater than the previous). The segment from index l to r (1-based, inclusive) forms a ladder if there exists some peak index k between l and r such that the sequence is non-decreasing from l to k and non-increasing from k to r.
+You've got an array, consisting of $n$ integers $a_1, a_2, ..., a_n$. Also, you've got $m$ queries, the $i$-th query is described by two integers $l_i, r_i$. Numbers $l_i, r_i$ define a subsegment of the original array, that is, the sequence of numbers $a_li, a_li + 1, a_li + 2, ..., a_ri$. For each query you should check whether the corresponding segment is a ladder. 
 
-Given the array and m queries, each query asks whether the segment [l, r] (1-based) is a ladder. Answer each query with "Yes" or "No".
+A *ladder* is a sequence of integers $b_1, b_2, ..., b_k$, such that it first doesn't decrease, then doesn't increase. In other words, there is such integer $x$ $(1 ≤ x ≤ k)$, that the following inequation fulfills: $b_1 ≤ b_2 ≤ ... ≤ b_x ≥ b_x + 1 ≥ b_x + 2... ≥ b_k$. Note that the non-decreasing and the non-increasing sequences are also considered ladders.
 
 ## Input
 
-The first line contains two integers n and m (1 ≤ n, m ≤ 10^5). The second line contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ 10^9). Each of the next m lines contains two integers l and r (1 ≤ l ≤ r ≤ n), describing a query.
+The first line contains two integers $n$ and $m$ $(1 ≤ n, m ≤ 10^5)$ — the number of array elements and the number of queries. The second line contains the sequence of integers $a_1, a_2, ..., a_n$ $(1 ≤ a_i ≤ 10^9$), where number $a_i$ stands for the $i$-th array element.
+
+The following $m$ lines contain the description of the queries. The $i$-th line contains the description of the $i$-th query, consisting of two integers $l_i$, $r_i$ $(1 ≤ l_i ≤ r_i ≤ n)$ — the boundaries of the subsegment of the initial array.
+
+The numbers in the lines are separated by single spaces.
 
 ## Output
 
-Print m lines. The i-th line should be "Yes" if the segment [l_i, r_i] is a ladder, otherwise "No".
+Print $m$ lines, in the $i$-th line print word "`Yes`" (without the quotes), if the subsegment that corresponds to the $i$-th query is the ladder, or word "`No`" (without the quotes) otherwise.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -27,7 +31,6 @@ Print m lines. The i-th line should be "Yes" if the segment [l_i, r_i] is a ladd
 1 4
 5 8
 ```
-
 **Output:**
 ```
 Yes
@@ -37,13 +40,6 @@ Yes
 No
 Yes
 ```
-
-## Note
-
-- Segment [1, 2] is 1, 2 — non-decreasing then (trivially) non-increasing; ladder.
-- Segment [2, 3] is 2, 1 — non-decreasing (trivial) then non-increasing; ladder.
-- Segment [1, 3] is 1, 2, 1 — non-decreasing to index 2, then non-increasing; ladder.
-- Segment [2, 4] is 2, 1, 2 — no valid peak; not a ladder.
 
 ## Starter Code
 

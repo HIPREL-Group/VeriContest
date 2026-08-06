@@ -1,16 +1,16 @@
-# Flipping Game
+# A. Flipping Game
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
 Iahub got bored, so he invented a game to be played on paper. 
 
-He writes $n$ integers $a_1, a_2, \ldots, a_n$. Each of those integers can be either 0 or 1. He's allowed to do exactly one move: he chooses two indices $i$ and $j$ ($1 ≤ i ≤ j ≤ n$) and flips all values $a_k$ for which their positions are in range $[i, j]$ (that is $i ≤ k ≤ j$). Flip the value of $x$ means to apply operation $x = 1$ - $x$.
+He writes $n$ integers $a_1, a_2, ..., a_n$. Each of those integers can be either 0 or 1. He's allowed to do exactly one move: he chooses two indices $i$ and $j$ ($1 ≤ i ≤ j ≤ n$) and flips all values $a_k$ for which their positions are in range $[i, j]$ (that is $i ≤ k ≤ j$). Flip the value of $x$ means to apply operation $x = 1$ - $x$.
 
 The goal of the game is that after **exactly** one move to obtain the maximum number of ones. Write a program to solve the little game of Iahub.
 
 ## Input
 
-The first line of the input contains an integer $n$ ($1 ≤ n ≤ 100$). In the second line of the input there are $n$ integers: $a_1, a_2, \ldots, a_n$. It is guaranteed that each of those $n$ values is either 0 or 1.
+The first line of the input contains an integer $n$ ($1 ≤ n ≤ 100$). In the second line of the input there are $n$ integers: $a_1, a_2, ..., a_n$. It is guaranteed that each of those $n$ values is either 0 or 1.
 
 ## Output
 
@@ -25,7 +25,6 @@ Print an integer — the maximal number of 1s that can be obtained after exactly
 5
 1 0 0 1 0
 ```
-
 **Output:**
 ```
 4
@@ -38,7 +37,6 @@ Print an integer — the maximal number of 1s that can be obtained after exactly
 4
 1 0 0 1
 ```
-
 **Output:**
 ```
 4

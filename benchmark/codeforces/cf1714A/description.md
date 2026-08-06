@@ -1,48 +1,49 @@
 # A. Everyone Loves to Sleep
 
-Time limit: 1 second | Memory limit: 256 megabytes
+Time limit: 2 seconds | Memory limit: 256 megabytes
 
-Vlad has set several alarms and wants to know how long he can still sleep.
+Vlad, like everyone else, loves to sleep very much.
 
-For each test case, you are given the current time `(h, m)` and `n` alarm times.
-Each alarm time is given as `(h_i, m_i)` in 24-hour format. Alarms ring exactly at
-those times every day.
+Every day Vlad has to do $$$n$$$ things, each at a certain time. For each of these things, he has an alarm clock set, the $$$i$$$-th of them is triggered on $$$h_i$$$ hours $$$m_i$$$ minutes every day ($$$0 \le h_i  \lt  24, 0 \le m_i  \lt  60$$$). Vlad uses the $$$24$$$-hour time format, so after $$$h=12, m=59$$$ comes $$$h=13, m=0$$$ and after $$$h=23, m=59$$$ comes $$$h=0, m=0$$$.
 
-Find the minimum non-negative waiting time from the current moment until the next
-alarm rings. Output the answer as two integers: hours and minutes.
+This time Vlad went to bed at $$$H$$$ hours $$$M$$$ minutes ($$$0 \le H  \lt  24, 0 \le M  \lt  60$$$) and asks you to answer: how much he will be able to sleep until the next alarm clock.
+
+If any alarm clock rings at the time when he went to bed, then he will sleep for a period of time of length $$$0$$$.
 
 ## Input
 
-The first line contains an integer `t` — the number of test cases.
+The first line of input data contains an integer $$$t$$$ ($$$1 \le t \le 100$$$) — the number of test cases in the test.
 
-For each test case:
-- The first line contains three integers `n`, `h`, `m`.
-- Then `n` lines follow, each containing two integers `h_i`, `m_i`.
+The first line of the case contains three integers $$$n$$$, $$$H$$$ and $$$M$$$ ($$$1 \le n \le 10, 0 \le H  \lt  24, 0 \le M  \lt  60$$$) — the number of alarms and the time Vlad went to bed.
+
+The following $$$n$$$ lines contain two numbers each $$$h_i$$$ and $$$m_i$$$ ($$$0 \le h_i  \lt  24, 0 \le m_i  \lt  60$$$) — the time of the $$$i$$$ alarm. It is acceptable that two or more alarms will trigger at the same time.
+
+Numbers describing time do not contain leading zeros.
 
 ## Output
 
-For each test case, print two integers: the minimum waiting time in hours and
-minutes.
+Output $$$t$$$ lines, each containing the answer to the corresponding test case. As an answer, output two numbers  — the number of hours and minutes that Vlad will sleep, respectively. If any alarm clock rings at the time when he went to bed, the answer will be `0 0`.
 
-## Examples
+## Example
 
 **Input:**
-```text
+```
 3
 1 6 13
-6 13
-1 17 50
-6 24
+8 0
+3 6 0
+12 30
+14 45
+6 0
 2 23 35
 20 15
 10 30
 ```
-
 **Output:**
-```text
+```
+1 47
 0 0
-12 34
-10 40
+10 55
 ```
 
 ## Starter Code

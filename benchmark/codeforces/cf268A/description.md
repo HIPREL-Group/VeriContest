@@ -1,4 +1,4 @@
-# Games
+# A. Games
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -27,7 +27,6 @@ In a single line print the number of games where the host team is going to play 
 2 4
 3 4
 ```
-
 **Output:**
 ```
 1
@@ -43,7 +42,6 @@ In a single line print the number of games where the host team is going to play 
 5 42
 100 5
 ```
-
 **Output:**
 ```
 5
@@ -57,7 +55,6 @@ In a single line print the number of games where the host team is going to play 
 1 2
 1 2
 ```
-
 **Output:**
 ```
 0

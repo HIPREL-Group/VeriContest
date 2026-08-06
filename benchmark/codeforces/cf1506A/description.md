@@ -1,43 +1,55 @@
-# Strange Table
+# A. Strange Table
 
-Time limit: 1 second | Memory limit: 256 megabytes
+Time limit: 2 seconds | Memory limit: 256 megabytes
 
-Polycarp has a table with `n` rows and `m` columns. Consider two numberings of the cells:
+Polycarp found a rectangular table consisting of $$$n$$$ rows and $$$m$$$ columns. He noticed that each cell of the table has its number, obtained by the following algorithm **"by columns"**: 
+ - cells are numbered starting from one; 
+- cells are numbered from left to right by columns, and inside each column from top to bottom; 
+- number of each cell is an integer one greater than in the previous cell. 
 
-- Normal numbering: fill row by row from left to right, top to bottom.
-- Strange numbering: fill column by column from top to bottom, left to right.
+For example, if $$$n = 3$$$ and $$$m = 5$$$, the table will be numbered as follows:
 
-Given a cell number `x` in the normal numbering, find the number written in the same cell in the strange numbering.
+$$$$$$ \begin{matrix} 1 & 4 & 7 & 10 & 13 \\ 2 & 5 & 8 & 11 & 14 \\ 3 & 6 & 9 & 12 & 15 \\ \end{matrix} $$$$$$
+
+However, Polycarp considers such numbering inconvenient. He likes the numbering **"by rows"**: 
+ - cells are numbered starting from one; 
+- cells are numbered from top to bottom by rows, and inside each row from left to right; 
+- number of each cell is an integer one greater than the number of the previous cell. 
+
+For example, if $$$n = 3$$$ and $$$m = 5$$$, then Polycarp likes the following table numbering: $$$$$$ \begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 6 & 7 & 8 & 9 & 10 \\ 11 & 12 & 13 & 14 & 15 \\ \end{matrix} $$$$$$
+
+Polycarp doesn't have much time, so he asks you to find out what would be the cell number in the numbering **"by rows"**, if in the numbering **"by columns"** the cell has the number $$$x$$$?
 
 ## Input
 
-The first line contains an integer `t` (`1 <= t <= 10^4`) — the number of test cases.
+The first line contains a single integer $$$t$$$ ($$$1 \le t \le 10^4$$$). Then $$$t$$$ test cases follow.
 
-Each test case contains three integers `n`, `m`, and `x` (`1 <= n, m <= 10^6`, `1 <= x <= n * m`).
+Each test case consists of a single line containing three integers $$$n$$$, $$$m$$$, $$$x$$$ ($$$1 \le n, m \le 10^6$$$, $$$1 \le x \le n \cdot m$$$), where $$$n$$$ and $$$m$$$ are the number of rows and columns in the table, and $$$x$$$ is the cell number.
+
+Note that the numbers in some test cases do not fit into the $$$32$$$-bit integer type, so you must use at least the $$$64$$$-bit integer type of your programming language.
 
 ## Output
 
-For each test case, print one integer: the strange-table number of the cell whose normal-table number is `x`.
+For each test case, output the cell number in the numbering **"by rows"**.
 
 ## Example
 
 **Input:**
-```text
-5
-6 5 10
-6 5 20
-6 5 26
-6 5 15
-6 5 24
 ```
-
+5
+1 1 1
+2 2 3
+3 5 11
+100 100 7312
+1000000 1000000 1000000000000
+```
 **Output:**
-```text
-16
-4
-26
-24
-18
+```
+1
+2
+9
+1174
+1000000000000
 ```
 
 ## Starter Code

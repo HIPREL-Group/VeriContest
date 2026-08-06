@@ -1,32 +1,66 @@
 # C. Two Arrays
 
-You are given two integer arrays `a` and `b`, each of length `n`.
+Time limit: 1 second | Memory limit: 256 megabytes
 
-One transformation of `a` is defined as follows:
+You are given two arrays of integers $$$a_1, a_2, \ldots, a_n$$$ and $$$b_1, b_2, \ldots, b_n$$$.
 
-1. Choose any integer `k` such that `0 <= k <= n`.
-2. Choose `k` distinct indices of `a`.
-3. Add `1` to each chosen element.
-4. Permute the elements of `a` arbitrarily.
+Let's define a transformation of the array $$$a$$$:
+ - Choose any non-negative integer $$$k$$$ such that $$$0 \le k \le n$$$. 
+- Choose $$$k$$$ distinct array indices $$$1 \le i_1  \lt  i_2  \lt  \ldots  \lt  i_k \le n$$$. 
+- Add $$$1$$$ to each of $$$a_{i_1}, a_{i_2}, \ldots, a_{i_k}$$$, all other elements of array $$$a$$$ remain unchanged. 
+- Permute the elements of array $$$a$$$ in any order. 
 
-Determine whether it is possible to perform this transformation exactly once so that the resulting array is equal to `b`.
+Is it possible to perform some transformation of the array $$$a$$$ **exactly once**, so that the resulting array is equal to $$$b$$$?
 
 ## Input
 
-- The first line contains `t` (`1 <= t <= 100`) — number of test cases.
-- For each test case:
-  - A line with `n` (`1 <= n <= 100`).
-  - A line with `n` integers `a_i` (`-100 <= a_i <= 100`).
-  - A line with `n` integers `b_i` (`-100 <= b_i <= 100`).
+The first line contains a single integer $$$t$$$ ($$$1 \le t \le 100$$$) — the number of test cases. Descriptions of test cases follow.
+
+The first line of each test case contains a single integer $$$n$$$ ($$$1 \le n \le 100$$$) — the size of arrays $$$a$$$ and $$$b$$$.
+
+The second line of each test case contains $$$n$$$ integers $$$a_1, a_2, \ldots, a_n$$$ ($$$-100 \le a_i \le 100$$$).
+
+The third line of each test case contains $$$n$$$ integers $$$b_1, b_2, \ldots, b_n$$$ ($$$-100 \le b_i \le 100$$$).
 
 ## Output
 
-For each test case, print `YES` if transformation is possible, otherwise print `NO`.
+For each test case, print "`YES`" (without quotes) if it is possible to perform a transformation of the array $$$a$$$, so that the resulting array is equal to $$$b$$$. Print "`NO`" (without quotes) otherwise.
 
-## Notes
+You can print each letter in any case (upper or lower).
 
-- Case of letters in output is ignored by Codeforces.
-- Problem source: Codeforces 1584C, rating 900.
+## Example
+
+**Input:**
+```
+3
+3
+-1 1 0
+0 0 2
+1
+0
+2
+5
+1 2 3 4 5
+1 2 3 4 5
+```
+**Output:**
+```
+YES
+NO
+YES
+```
+
+## Note
+
+In the first test case, we can make the following transformation:
+ - Choose $$$k = 2$$$. 
+- Choose $$$i_1 = 1$$$, $$$i_2 = 2$$$. 
+- Add $$$1$$$ to $$$a_1$$$ and $$$a_2$$$. The resulting array is $$$[0, 2, 0]$$$. 
+- Swap the elements on the second and third positions. 
+
+In the second test case there is no suitable transformation.
+
+In the third test case we choose $$$k = 0$$$ and do not change the order of elements.
 
 ## Starter Code
 

@@ -1,4 +1,4 @@
-# Round Corridor
+# C. Round Corridor
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -22,7 +22,7 @@ For each question, print "`YES`" if Amugae can move from $$$(s_x, s_y)$$$ to $$$
 
 You can print each letter in any case (upper or lower).
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -31,7 +31,6 @@ You can print each letter in any case (upper or lower).
 2 6 1 2
 2 6 2 4
 ```
-
 **Output:**
 ```
 YES

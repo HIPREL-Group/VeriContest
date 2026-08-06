@@ -1,4 +1,4 @@
-# Three Parts of the Array
+# C. Three Parts of the Array
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -37,7 +37,6 @@ Obviously, at least one valid way to split the array exists (use $$$a=c=0$$$ and
 5
 1 3 1 1 4
 ```
-
 **Output:**
 ```
 5
@@ -50,7 +49,6 @@ Obviously, at least one valid way to split the array exists (use $$$a=c=0$$$ and
 5
 1 3 2 1 4
 ```
-
 **Output:**
 ```
 4
@@ -63,7 +61,6 @@ Obviously, at least one valid way to split the array exists (use $$$a=c=0$$$ and
 3
 4 1 2
 ```
-
 **Output:**
 ```
 0

@@ -1,4 +1,4 @@
-# Pipeline
+# B. Pipeline
 
 Time limit: 0.4 seconds | Memory limit: 256 megabytes
 
@@ -12,9 +12,9 @@ Vova needs the pipeline to have exactly $n$ pipes with flowing out water. Note t
 
 ## Input
 
-The first line contains two space-separated integers $n$ and $k$ ($1 ≤ n ≤ 10^{18}$, $2 ≤ k ≤ 10^9$).
+The first line contains two space-separated integers $n$ and $k$ ($1 ≤ n ≤ 10^18$, $2 ≤ k ≤ 10^9$).
 
-Please, do not use the `%lld` specifier to read or write 64-bit integers in C++. It is preferred to use the `cin`, `cout` streams or the `%I64d` specifier.
+Please, do not use the `%lld` specifier to read or write 64-bit integers in С++. It is preferred to use the `cin`, `cout` streams or the `%I64d` specifier.
 
 ## Output
 
@@ -28,7 +28,6 @@ Print a single integer — the minimum number of splitters needed to build the p
 ```
 4 3
 ```
-
 **Output:**
 ```
 2
@@ -40,7 +39,6 @@ Print a single integer — the minimum number of splitters needed to build the p
 ```
 5 5
 ```
-
 **Output:**
 ```
 1
@@ -52,7 +50,6 @@ Print a single integer — the minimum number of splitters needed to build the p
 ```
 8 4
 ```
-
 **Output:**
 ```
 -1

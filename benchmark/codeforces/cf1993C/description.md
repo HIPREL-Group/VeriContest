@@ -1,4 +1,4 @@
-# Light Switches
+# C. Light Switches
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -24,7 +24,7 @@ It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$
 
 For each test case, print a single integer — the answer to the question (in minutes). If there is no such moment that the lights are turned on in all the rooms, print $$$-1$$$ instead.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -48,7 +48,6 @@ For each test case, print a single integer — the answer to the question (in m
 2 1
 1 1000000000
 ```
-
 **Output:**
 ```
 5

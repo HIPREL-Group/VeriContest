@@ -1,4 +1,4 @@
-# New Rating
+# C. New Rating
 
 Time limit: 2 seconds | Memory limit: 512 megabytes
 
@@ -32,7 +32,7 @@ It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$
 
 For each test case, output a single integer — the maximum possible rating after the recalculation if Kevin chooses the interval optimally.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -48,7 +48,6 @@ For each test case, output a single integer — the maximum possible rating aft
 10
 1 2 3 4 1 3 2 1 1 10
 ```
-
 **Output:**
 ```
 5

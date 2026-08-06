@@ -1,27 +1,26 @@
-# Tokitsukaze and All Zero Sequence
+# A. Tokitsukaze and All Zero Sequence
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-Tokitsukaze has a sequence $$$a$$$ of length $$$n$$$. For each operation, she selects two numbers $$$a_i$$$ and $$$a_j$$$ ($$$i \ne j$$$; $$$1 \leq i,j \leq n$$$).
-
-- If $$$a_i = a_j$$$, change one of them to $$$0$$$.
-- Otherwise change both of them to $$$\min(a_i, a_j)$$$.
+Tokitsukaze has a sequence $$$a$$$ of length $$$n$$$. For each operation, she selects two numbers $$$a_i$$$ and $$$a_j$$$ ($$$i \ne j$$$; $$$1 \leq i,j \leq n$$$). 
+ - If $$$a_i = a_j$$$, change one of them to $$$0$$$. 
+- Otherwise change both of them to $$$\min(a_i, a_j)$$$. 
 
 Tokitsukaze wants to know the minimum number of operations to change all numbers in the sequence to $$$0$$$. It can be proved that the answer always exists.
 
 ## Input
 
-The first line contains a single positive integer $$$t$$$ ($$$1 \leq t \leq 1000$$$) — the number of test cases.
+The first line contains a single positive integer $$$t$$$ ($$$1 \leq t \leq 1000$$$) — the number of test cases.
 
-For each test case, the first line contains a single integer $$$n$$$ ($$$2 \leq n \leq 100$$$) — the length of the sequence $$$a$$$.
+For each test case, the first line contains a single integer $$$n$$$ ($$$2 \leq n \leq 100$$$) — the length of the sequence $$$a$$$.
 
-The second line contains $$$n$$$ integers $$$a_1, a_2, \ldots, a_n$$$ ($$$0 \leq a_i \leq 100$$$) — the sequence $$$a$$$.
+The second line contains $$$n$$$ integers $$$a_1, a_2, \ldots, a_n$$$ ($$$0 \leq a_i \leq 100$$$) — the sequence $$$a$$$.
 
 ## Output
 
-For each test case, print a single integer — the minimum number of operations to change all numbers in the sequence to $$$0$$$.
+For each test case, print a single integer — the minimum number of operations to change all numbers in the sequence to $$$0$$$.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -33,7 +32,6 @@ For each test case, print a single integer — the minimum number of operations 
 3
 1 2 0
 ```
-
 **Output:**
 ```
 4

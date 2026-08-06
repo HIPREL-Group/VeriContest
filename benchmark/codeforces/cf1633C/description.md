@@ -1,4 +1,4 @@
-# Kill the Monster
+# C. Kill the Monster
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -33,7 +33,7 @@ The sum of $$$k$$$ over all test cases does not exceed $$$2 \cdot 10^5$$$.
 
 For each test case, print `YES` if it is possible to slay the monster by optimally choosing the upgrades. Otherwise, print `NO`.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -51,7 +51,6 @@ For each test case, print `YES` if it is possible to slay the monster by optimal
 69 2
 4 2 7
 ```
-
 **Output:**
 ```
 YES

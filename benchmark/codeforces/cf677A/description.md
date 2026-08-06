@@ -1,4 +1,4 @@
-# Vanya and Fence
+# A. Vanya and Fence
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -10,7 +10,7 @@ Consider the width of the person walking as usual to be equal to $1$, while the 
 
 The first line of the input contains two integers $n$ and $h$ ($1 ≤ n ≤ 1000$, $1 ≤ h ≤ 1000$) — the number of friends and the height of the fence, respectively.
 
-The second line contains $n$ integers $a_i$ ($1 ≤ ai ≤ 2h$), the $i$-th of them is equal to the height of the $i$-th person.
+The second line contains $n$ integers $a_i$ ($1 ≤ a_i ≤ 2h$), the $i$-th of them is equal to the height of the $i$-th person.
 
 ## Output
 
@@ -25,7 +25,6 @@ Print a single integer — the minimum possible valid width of the road.
 3 7
 4 5 14
 ```
-
 **Output:**
 ```
 4
@@ -38,7 +37,6 @@ Print a single integer — the minimum possible valid width of the road.
 6 1
 1 1 1 1 1 1
 ```
-
 **Output:**
 ```
 6
@@ -51,7 +49,6 @@ Print a single integer — the minimum possible valid width of the road.
 6 5
 7 6 8 9 10 5
 ```
-
 **Output:**
 ```
 11

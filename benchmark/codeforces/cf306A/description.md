@@ -1,18 +1,18 @@
-# Candies
+# A. Candies
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-Polycarpus has got $*n*$ candies and $*m*$ friends ($*n* ≥ *m*$). He wants to make a New Year present with candies to each friend. Polycarpus is planning to present all candies and he wants to do this in the fairest (that is, most equal) manner. He wants to choose such $*a**i*$, where $*a**i*$ is the number of candies in the $*i*$-th friend's present, that the maximum $*a**i*$ differs from the least $*a**i*$ as little as possible.
+Polycarpus has got $n$ candies and $m$ friends ($n ≥ m$). He wants to make a New Year present with candies to each friend. Polycarpus is planning to present all candies and he wants to do this in the fairest (that is, most equal) manner. He wants to choose such $a_i$, where $a_i$ is the number of candies in the $i$-th friend's present, that the maximum $a_i$ differs from the least $a_i$ as little as possible.
 
-For example, if $*n*$ is divisible by $*m*$, then he is going to present the same number of candies to all his friends, that is, the maximum $*a**i*$ won't differ from the minimum one.
+For example, if $n$ is divisible by $m$, then he is going to present the same number of candies to all his friends, that is, the maximum $a_i$ won't differ from the minimum one.
 
 ## Input
 
-The single line of the input contains a pair of space-separated positive integers $*n*$, $*m*$ ($1 ≤ *n*, *m* ≤ 100;*n* ≥ *m*$) — the number of candies and the number of Polycarpus's friends.
+The single line of the input contains a pair of space-separated positive integers $n$, $m$ ($1 ≤ n, m ≤ 100;n ≥ m$) — the number of candies and the number of Polycarpus's friends.
 
 ## Output
 
-Print the required sequence $*a*1, *a*2, ..., *a**m*$, where $*a**i*$ is the number of candies in the $*i*$-th friend's present. All numbers $*a**i*$ must be positive integers, total up to $*n*$, the maximum one should differ from the minimum one by the smallest possible value.
+Print the required sequence $a_1, a_2, ..., a_m$, where $a_i$ is the number of candies in the $i$-th friend's present. All numbers $a_i$ must be positive integers, total up to $n$, the maximum one should differ from the minimum one by the smallest possible value.
 
 ## Examples
 
@@ -22,7 +22,6 @@ Print the required sequence $*a*1, *a*2, ..., *a**m*$, where $*a**i*$ is t
 ```
 12 3
 ```
-
 **Output:**
 ```
 4 4 4
@@ -34,7 +33,6 @@ Print the required sequence $*a*1, *a*2, ..., *a**m*$, where $*a**i*$ is t
 ```
 15 4
 ```
-
 **Output:**
 ```
 3 4 4 4
@@ -46,7 +44,6 @@ Print the required sequence $*a*1, *a*2, ..., *a**m*$, where $*a**i*$ is t
 ```
 18 7
 ```
-
 **Output:**
 ```
 2 2 2 3 3 3 3
@@ -54,7 +51,7 @@ Print the required sequence $*a*1, *a*2, ..., *a**m*$, where $*a**i*$ is t
 
 ## Note
 
-Print $*a**i*$ in any order, separate the numbers by spaces.
+Print $a_i$ in any order, separate the numbers by spaces.
 
 ## Starter Code
 

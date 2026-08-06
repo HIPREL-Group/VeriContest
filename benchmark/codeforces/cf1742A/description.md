@@ -1,4 +1,4 @@
-# Sum
+# A. Sum
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -6,7 +6,7 @@ You are given three integers $$$a$$$, $$$b$$$, and $$$c$$$. Determine if one of 
 
 ## Input
 
-The first line contains a single integer $$$t$$$ ($$$1 \leq t \leq 9261$$$) — the number of test cases.
+The first line contains a single integer $$$t$$$ ($$$1 \leq t \leq 9261$$$) — the number of test cases.
 
 The description of each test case consists of three integers $$$a$$$, $$$b$$$, $$$c$$$ ($$$0 \leq a, b, c \leq 20$$$).
 
@@ -16,10 +16,9 @@ For each test case, output "`YES`" if one of the numbers is the sum of the other
 
 You can output the answer in any case (for example, the strings "`yEs`", "`yes`", "`Yes`" and "`YES`" will be recognized as a positive answer).
 
-## Examples
+## Example
 
 **Input:**
-
 ```
 7
 1 4 3
@@ -30,9 +29,7 @@ You can output the answer in any case (for example, the strings "`yEs`", "`yes`"
 4 12 3
 15 7 8
 ```
-
 **Output:**
-
 ```
 YES
 NO

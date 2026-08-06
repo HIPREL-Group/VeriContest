@@ -1,37 +1,34 @@
-# Opponents
+# A. Opponents
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-Arya has $n$ opponents at school. Each day he fights all opponents who are present. The opponents have a winning plan that needs **every** opponent to be present; if at least one opponent is absent, Arya beats everyone who is present. If all opponents are present, they beat Arya.
+Arya has $n$ opponents in the school. Each day he will fight with all opponents who are present this day. His opponents have some fighting plan that guarantees they will win, but implementing this plan requires presence of them all. That means if one day at least one of Arya's opponents is absent at the school, then Arya will beat all present opponents. Otherwise, if all opponents are present, then they will beat Arya.
 
-For each opponent you know their schedule: for each day, whether they attend (`1`) or are absent (`0`). Compute the **maximum** number of **consecutive** days on which Arya beats all present opponents.
+For each opponent Arya knows his schedule — whether or not he is going to present on each particular day. Tell him the maximum number of **consecutive** days that he will beat all present opponents.
 
-If nobody is present on a day, Arya still counts as beating all present opponents (there are none).
+Note, that if some day there are no opponents present, Arya still considers he beats all the present opponents.
 
 ## Input
 
-The first line contains two integers $n$ and $d$ ($1 \le n, d \le 100$) — the number of opponents and the number of days.
+The first line of the input contains two integers $n$ and $d$ ($1 ≤ n, d ≤ 100$) — the number of opponents and the number of days, respectively.
 
-Each of the next $d$ lines is a string of length $n$ made of characters `0` and `1`. The $j$-th character of the $i$-th line is `0` if opponent $j$ is absent on day $i$, and `1` if they are present.
+The $i$-th of the following $d$ lines contains a string of length $n$ consisting of characters '`0`' and '`1`'. The $j$-th character of this string is '`0`' if the $j$-th opponent is going to be absent on the $i$-th day.
 
 ## Output
 
-Print one integer: the maximum number of consecutive winning days for Arya.
+Print the only integer — the maximum number of consecutive days that Arya will beat all present opponents.
 
 ## Examples
 
 ### Example 1
 
 **Input:**
-
 ```
 2 2
 10
 00
 ```
-
 **Output:**
-
 ```
 2
 ```
@@ -39,14 +36,11 @@ Print one integer: the maximum number of consecutive winning days for Arya.
 ### Example 2
 
 **Input:**
-
 ```
 4 1
 0100
 ```
-
 **Output:**
-
 ```
 1
 ```
@@ -54,7 +48,6 @@ Print one integer: the maximum number of consecutive winning days for Arya.
 ### Example 3
 
 **Input:**
-
 ```
 4 5
 1101
@@ -63,16 +56,16 @@ Print one integer: the maximum number of consecutive winning days for Arya.
 1011
 1111
 ```
-
 **Output:**
-
 ```
 2
 ```
 
 ## Note
 
-In samples 1 and 2, Arya wins every day. In sample 3, Arya wins on days 1, 3, and 4 and loses on days 2 and 5; the longest winning streak has length 2 (days 3 and 4).
+In the first and the second samples, Arya will beat all present opponents each of the $d$ days.
+
+In the third sample, Arya will beat his opponents on days $1$, $3$ and $4$ and his opponents will beat him on days $2$ and $5$. Thus, the maximum number of consecutive winning days is $2$, which happens on days $3$ and $4$.
 
 ## Starter Code
 

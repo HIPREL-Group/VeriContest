@@ -1,4 +1,4 @@
-# Vupsen, Pupsen and 0
+# D. Vupsen, Pupsen and 0
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -22,7 +22,7 @@ For each test case print $$$n$$$ integers $$$b_1, b_2, \ldots, b_n$$$ — elemen
 
 It can be shown that the answer always exists.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -34,7 +34,6 @@ It can be shown that the answer always exists.
 7
 1 2 3 4 5 6 7
 ```
-
 **Output:**
 ```
 1 -1

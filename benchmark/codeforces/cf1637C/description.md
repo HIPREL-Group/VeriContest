@@ -1,4 +1,4 @@
-# Andrew and Stones
+# C. Andrew and Stones
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -22,7 +22,7 @@ It is guaranteed that the sum of the values $$$n$$$ over all test cases does not
 
 For each test case print the minimum number of operations needed to move stones to piles $$$1$$$ and $$$n$$$, or print $$$-1$$$ if it's impossible.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -36,7 +36,6 @@ For each test case print the minimum number of operations needed to move stones 
 4
 3 1 1 2
 ```
-
 **Output:**
 ```
 4

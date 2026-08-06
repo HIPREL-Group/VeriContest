@@ -2,19 +2,19 @@
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-You are given two integers $a$ and $b$ ($a \le b$). Over all integer values of $c$ such that $a \le c \le b$, find the minimum value of $(c-a) + (b-c)$.
+You are given two integers $$$a$$$ and $$$b$$$ ($$$a \leq b$$$). Over all possible integer values of $$$c$$$ ($$$a \leq c \leq b$$$), find the minimum value of $$$(c - a) + (b - c)$$$.
 
 ## Input
 
-The first line contains an integer $t$ ($1 \le t \le 55$) — the number of test cases.
+The first line contains $$$t$$$ ($$$1 \leq t \leq 55$$$) — the number of test cases. 
 
-Each test case contains two integers $a$ and $b$ ($1 \le a \le b \le 10$).
+Each test case contains two integers $$$a$$$ and $$$b$$$ ($$$1 \leq a \leq b \leq 10$$$).
 
 ## Output
 
-For each test case, output the minimum possible value of $(c-a) + (b-c)$ on a new line.
+For each test case, output the minimum possible value of $$$(c - a) + (b - c)$$$ on a new line.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -23,7 +23,6 @@ For each test case, output the minimum possible value of $(c-a) + (b-c)$ on a ne
 3 10
 5 5
 ```
-
 **Output:**
 ```
 1
@@ -33,9 +32,9 @@ For each test case, output the minimum possible value of $(c-a) + (b-c)$ on a ne
 
 ## Note
 
-In the first test case, choosing $c=1$ gives $(1-1) + (2-1) = 1$, which is minimal.
+In the first test case, you can choose $$$c = 1$$$ and obtain an answer of $$$(1 - 1) + (2 - 1) = 1$$$. It can be shown this is the minimum value possible.
 
-In the second test case, choosing $c=6$ gives $(6-3) + (10-6) = 7$, which is minimal.
+In the second test case, you can choose $$$c = 6$$$ and obtain an answer of $$$(6 - 3) + (10 - 6) = 7$$$. It can be shown this is the minimum value possible.
 
 ## Starter Code
 

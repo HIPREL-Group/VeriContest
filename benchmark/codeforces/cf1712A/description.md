@@ -1,4 +1,4 @@
-# Wonderful Permutation
+# A. Wonderful Permutation
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -23,7 +23,7 @@ The second line of each test case contains $$$n$$$ integers $$$p_1,p_2,\ldots,p_
 
 For each test case print one integer — the minimum number of operations needed to make the sum $$$p_1 + p_2 + \ldots + p_k$$$ as small as possible.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -37,7 +37,6 @@ For each test case print one integer — the minimum number of operations neede
 1 1
 1
 ```
-
 **Output:**
 ```
 1

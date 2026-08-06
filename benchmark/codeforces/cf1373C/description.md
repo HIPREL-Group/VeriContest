@@ -1,10 +1,8 @@
-# Pluses and Minuses
+# C. Pluses and Minuses
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
-You are given a string $$$s$$$ consisting only of characters `+` and `-`. You perform some process with this string. This process can be described by the following pseudocode:
-
-```
+You are given a string $$$s$$$ consisting only of characters `+` and `-`. You perform some process with this string. This process can be described by the following pseudocode: 
 res = 0
 for init = 0 to inf
     cur = init
@@ -20,7 +18,6 @@ for init = 0 to inf
             break
     if ok
         break
-```
 
 Note that the $$$inf$$$ denotes infinity, and the characters of the string are numbered from $$$1$$$ to $$$|s|$$$.
 
@@ -38,7 +35,7 @@ It's guaranteed that sum of $$$|s|$$$ over all test cases doesn't exceed $$$10^6
 
 For each test case print one integer — the value of the $$$res$$$ after the process ends.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -47,7 +44,6 @@ For each test case print one integer — the value of the $$$res$$$ after the pr
 ---
 ++--+-
 ```
-
 **Output:**
 ```
 7

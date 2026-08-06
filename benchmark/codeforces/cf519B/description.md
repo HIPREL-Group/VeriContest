@@ -1,4 +1,4 @@
-# A and B and Compilation Errors
+# B. A and B and Compilation Errors
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -14,13 +14,13 @@ Can you help B find out exactly what two errors he corrected?
 
 ## Input
 
-The first line of the input contains integer $n$ ($3 \le n \le 10^5$) — the initial number of compilation errors.
+The first line of the input contains integer $n$ ($3 ≤ n ≤ 10^5$) — the initial number of compilation errors.
 
-The second line contains $n$ space-separated integers $a_1, a_2, \ldots, a_n$ ($1 \le a_i \le 10^9$) — the errors the compiler displayed for the first time. 
+The second line contains $n$ space-separated integers $a_1, a_2, ..., a_n$ ($1 ≤ a_i ≤ 10^9$) — the errors the compiler displayed for the first time. 
 
-The third line contains $n - 1$ space-separated integers $b_1, b_2, \ldots, b_{n-1}$ — the errors displayed at the second compilation. It is guaranteed that the sequence in the third line contains all numbers of the second string except for exactly one. 
+The third line contains $n - 1$ space-separated integers $b_1, b_2, ..., b_n - 1$ — the errors displayed at the second compilation. It is guaranteed that the sequence in the third line contains all numbers of the second string except for exactly one. 
 
-The fourth line contains $n - 2$ space-separated integers $c_1, c_2, \ldots, c_{n-2}$ — the errors displayed at the third compilation. It is guaranteed that the sequence in the fourth line contains all numbers of the third line except for exactly one.
+The fourth line contains $n - 2$ space-separated integers $с_1, с_2, ..., с_n - 2$ — the errors displayed at the third compilation. It is guaranteed that the sequence in the fourth line contains all numbers of the third line except for exactly one.
 
 ## Output
 
@@ -37,7 +37,6 @@ Print two numbers on a single line: the numbers of the compilation errors that d
 123 7 5 1
 5 1 7
 ```
-
 **Output:**
 ```
 8
@@ -53,7 +52,6 @@ Print two numbers on a single line: the numbers of the compilation errors that d
 3 7 5 4 3
 4 3 7 5
 ```
-
 **Output:**
 ```
 1

@@ -1,4 +1,4 @@
-# Taxi
+# B. Taxi
 
 Time limit: 3 seconds | Memory limit: 256 megabytes
 
@@ -21,7 +21,6 @@ Print the single number — the minimum number of taxis necessary to drive all c
 5
 1 2 4 3 3
 ```
-
 **Output:**
 ```
 4
@@ -34,7 +33,6 @@ Print the single number — the minimum number of taxis necessary to drive all c
 8
 2 3 4 4 2 1 3 1
 ```
-
 **Output:**
 ```
 5

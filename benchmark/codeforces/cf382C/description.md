@@ -1,9 +1,9 @@
-# Arithmetic Progression
+# C. Arithmetic Progression
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-Everybody knows what an arithmetic progression is. Let us remind you just in case that an *arithmetic progression* is such sequence of numbers $a_1, a_2, \ldots, a_n$ of length $n$, that the following condition fulfills: 
-$a_2 - a_1 = a_3 - a_2 = a_4 - a_3 = \ldots = a_{i+1} - a_i = \ldots = a_n - a_{n-1}.$
+Everybody knows what an arithmetic progression is. Let us remind you just in case that an *arithmetic progression* is such sequence of numbers $a_1, a_2, ..., a_n$ of length $n$, that the following condition fulfills: 
+$a_2 - a_1 = a_3 - a_2 = a_4 - a_3 = ... = a_i + 1 - a_i = ... = a_n - a_n - 1.$
 For example, sequences [1, 5], [10], [5, 4, 3] are arithmetic progressions and sequences [1, 3, 2], [1, 2, 4] are not.
 
 Alexander has $n$ cards containing integers. Arthur wants to give Alexander exactly one more card with a number so that he could use the resulting $n + 1$ cards to make an arithmetic progression (Alexander has to use all of his cards).
@@ -29,7 +29,6 @@ Otherwise, print on the first line the number of integers that suit you. In the 
 3
 4 1 7
 ```
-
 **Output:**
 ```
 2
@@ -43,7 +42,6 @@ Otherwise, print on the first line the number of integers that suit you. In the 
 1
 10
 ```
-
 **Output:**
 ```
 -1
@@ -56,7 +54,6 @@ Otherwise, print on the first line the number of integers that suit you. In the 
 4
 1 3 5 9
 ```
-
 **Output:**
 ```
 1
@@ -70,7 +67,6 @@ Otherwise, print on the first line the number of integers that suit you. In the 
 4
 4 3 4 5
 ```
-
 **Output:**
 ```
 0
@@ -83,7 +79,6 @@ Otherwise, print on the first line the number of integers that suit you. In the 
 2
 2 4
 ```
-
 **Output:**
 ```
 3

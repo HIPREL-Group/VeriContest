@@ -1,4 +1,4 @@
-# Maximal Continuous Rest
+# B. Maximal Continuous Rest
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -27,7 +27,6 @@ Print the maximal number of continuous hours during which Polycarp rests. Rememb
 5
 1 0 1 0 1
 ```
-
 **Output:**
 ```
 2
@@ -40,7 +39,6 @@ Print the maximal number of continuous hours during which Polycarp rests. Rememb
 6
 0 1 0 1 1 0
 ```
-
 **Output:**
 ```
 2
@@ -53,7 +51,6 @@ Print the maximal number of continuous hours during which Polycarp rests. Rememb
 7
 1 0 1 1 1 0 1
 ```
-
 **Output:**
 ```
 3
@@ -66,7 +63,6 @@ Print the maximal number of continuous hours during which Polycarp rests. Rememb
 3
 0 0 0
 ```
-
 **Output:**
 ```
 0

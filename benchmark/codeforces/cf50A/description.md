@@ -1,4 +1,4 @@
-# Domino piling
+# A. Domino piling
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -28,7 +28,6 @@ Output one number — the maximal number of dominoes, which can be placed.
 ```
 2 4
 ```
-
 **Output:**
 ```
 4
@@ -40,7 +39,6 @@ Output one number — the maximal number of dominoes, which can be placed.
 ```
 3 3
 ```
-
 **Output:**
 ```
 4

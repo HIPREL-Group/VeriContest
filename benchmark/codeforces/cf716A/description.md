@@ -1,4 +1,4 @@
-# Crazy Computer
+# A. Crazy Computer
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -14,7 +14,7 @@ You're given the times when ZS the Coder typed the words. Determine how many wor
 
 The first line contains two integers $n$ and $c$ ($1 ≤ n ≤ 100 000, 1 ≤ c ≤ 10^9$) — the number of words ZS the Coder typed and the crazy computer delay respectively.
 
-The next line contains $n$ integers $t_1, t_2, \ldots, t_n$ ($1 ≤ t_1 < t_2 < \ldots < t_n ≤ 10^9$), where $t_i$ denotes the second when ZS the Coder typed the $i$-th word.
+The next line contains $n$ integers $t_1, t_2, ..., t_n$ ($1 ≤ t_1 < t_2 < ... < t_n ≤ 10^9$), where $t_i$ denotes the second when ZS the Coder typed the $i$-th word.
 
 ## Output
 
@@ -29,7 +29,6 @@ Print a single positive integer, the number of words that remain on the screen a
 6 5
 1 3 8 14 19 20
 ```
-
 **Output:**
 ```
 3
@@ -42,7 +41,6 @@ Print a single positive integer, the number of words that remain on the screen a
 6 1
 1 3 5 7 9 10
 ```
-
 **Output:**
 ```
 2

@@ -1,4 +1,4 @@
-# A and B and Team Training
+# C. A and B and Team Training
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -16,7 +16,7 @@ There are $n$ experienced members and $m$ newbies on the training session. Can y
 
 ## Input
 
-The first line contains two integers $n$ and $m$ ($0 \le n, m \le 5 \cdot 10^5$) — the number of experienced participants and newbies that are present at the training session.
+The first line contains two integers $n$ and $m$ ($0 ≤ n, m ≤ 5·10^5$) — the number of experienced participants and newbies that are present at the training session.
 
 ## Output
 
@@ -30,7 +30,6 @@ Print the maximum number of teams that can be formed.
 ```
 2 6
 ```
-
 **Output:**
 ```
 2
@@ -42,7 +41,6 @@ Print the maximum number of teams that can be formed.
 ```
 4 5
 ```
-
 **Output:**
 ```
 3

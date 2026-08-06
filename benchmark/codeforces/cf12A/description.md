@@ -1,4 +1,4 @@
-# Super Agent
+# A. Super Agent
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -26,7 +26,6 @@ XX.
 ...
 .XX
 ```
-
 **Output:**
 ```
 YES
@@ -40,7 +39,6 @@ X.X
 X..
 ...
 ```
-
 **Output:**
 ```
 NO

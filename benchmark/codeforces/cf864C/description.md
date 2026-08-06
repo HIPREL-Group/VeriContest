@@ -1,4 +1,4 @@
-# Bus
+# C. Bus
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -26,7 +26,6 @@ Print the minimum number of times the bus needs to refuel to make $k$ journeys. 
 ```
 6 9 2 4
 ```
-
 **Output:**
 ```
 4
@@ -38,7 +37,6 @@ Print the minimum number of times the bus needs to refuel to make $k$ journeys. 
 ```
 6 10 2 4
 ```
-
 **Output:**
 ```
 2
@@ -50,7 +48,6 @@ Print the minimum number of times the bus needs to refuel to make $k$ journeys. 
 ```
 6 5 4 3
 ```
-
 **Output:**
 ```
 -1

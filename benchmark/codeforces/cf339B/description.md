@@ -1,44 +1,50 @@
-# Xenia and Ringroad
+# B. Xenia and Ringroad
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
-Xenia lives in a city that has $n$ houses built along the main ringroad. The ringroad is built in a circle, so the houses are numbered from 1 to $n$ in clockwise order. The ringroad is one-way and traffic runs in the clockwise direction.
+Xenia lives in a city that has $n$ houses built along the main ringroad. The ringroad houses are numbered 1 through $n$ in the clockwise order. The ringroad traffic is one way and also is clockwise.
 
-Xenia has recently moved into the house number 1. She has a list of $m$ tasks to do. The $i$-th task is to visit house $a_i$. Xenia completes the tasks in order: first she goes to house $a_1$, then to $a_2$, and so on. Moving along the ringroad from house $x$ to house $y$ takes one unit of time if Xenia moves clockwise from $x$ to $y$ (so she never goes counter-clockwise).
-
-Find the total time Xenia needs to complete all her tasks.
+Xenia has recently moved into the ringroad house number 1. As a result, she's got $m$ things to do. In order to complete the $i$-th task, she needs to be in the house number $a_i$ and complete all tasks with numbers less than $i$. Initially, Xenia is in the house number 1, find the minimum time she needs to complete all her tasks if moving from a house to a neighboring one along the ringroad takes one unit of time.
 
 ## Input
 
-The first line contains two integers $n$ and $m$ ($2 \le n \le 10^5$, $1 \le m \le 10^5$). The second line contains $m$ integers $a_1, a_2, \ldots, a_m$ ($1 \le a_i \le n$).
+The first line contains two integers $n$ and $m$ $(2 ≤ n ≤ 10^5, 1 ≤ m ≤ 10^5)$. The second line contains $m$ integers $a_1, a_2, ..., a_m$ $(1 ≤ a_i ≤ n)$. Note that Xenia can have multiple consecutive tasks in one house.
 
 ## Output
 
 Print a single integer — the time Xenia needs to complete all tasks.
 
+Please, do not use the `%lld` specifier to read or write 64-bit integers in С++. It is preferred to use the `cin`, `cout` streams or the `%I64d` specifier.
+
 ## Examples
+
+### Example 1
 
 **Input:**
 ```
 4 3
 3 2 3
 ```
-
 **Output:**
 ```
 6
 ```
+
+### Example 2
 
 **Input:**
 ```
 4 3
 2 3 3
 ```
-
 **Output:**
 ```
 2
 ```
+
+## Note
+
+In the first test example the sequence of Xenia's moves along the ringroad looks as follows: $1 → 2 → 3 → 4 → 1 → 2 → 3$. This is optimal sequence. So, she needs 6 time units.
 
 ## Starter Code
 

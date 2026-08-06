@@ -1,4 +1,4 @@
-# Gravity Flip
+# A. Gravity Flip
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -25,7 +25,6 @@ Output $n$ integer numbers separated by spaces, where the $i$-th number is the a
 4
 3 2 1 2
 ```
-
 **Output:**
 ```
 1 2 2 3
@@ -38,7 +37,6 @@ Output $n$ integer numbers separated by spaces, where the $i$-th number is the a
 3
 2 3 8
 ```
-
 **Output:**
 ```
 2 3 8

@@ -1,4 +1,4 @@
-# Co-growing Sequence
+# D. Co-growing Sequence
 
 Time limit: 2 seconds | Memory limit: 512 megabytes
 
@@ -35,7 +35,7 @@ It is guaranteed that the sum of $$$n$$$ overall all test cases doesn't exceed $
 
 For each test case, print $$$n$$$ integers $$$y_1, y_2, \dots, y_n$$$ ($$$0 \le y_i  \lt  2^{30}$$$) — lexicographically minimal sequence such that such that it's co-growing with given sequence $$$x_i$$$.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -51,13 +51,12 @@ For each test case, print $$$n$$$ integers $$$y_1, y_2, \dots, y_n$$$ ($$$0 \le 
 1
 0
 ```
-
 **Output:**
 ```
-0 0 0 0
-0 1 3 7
-0 1 0 3 2
-0 2 0 14
+0 0 0 0 
+0 1 3 7 
+0 1 0 3 2 
+0 2 0 14 
 0
 ```
 

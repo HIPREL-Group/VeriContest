@@ -1,4 +1,4 @@
-# Police Recruits
+# A. Police Recruits
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -12,7 +12,7 @@ Given the chronological order of crime occurrences and recruit hirings, find the
 
 ## Input
 
-The first line of input will contain an integer $*n* (1 ≤ *n* ≤ 105)$, the number of events. The next line will contain $*n*$ space-separated integers.
+The first line of input will contain an integer $n (1 ≤ n ≤ 10^5)$, the number of events. The next line will contain $n$ space-separated integers.
 
 If the integer is -1 then it means a crime has occurred. Otherwise, the integer will be positive, the number of officers recruited together at that time. No more than 10 officers will be recruited at a time.
 
@@ -29,7 +29,6 @@ Print a single integer, the number of crimes which will go untreated.
 3
 -1 -1 1
 ```
-
 **Output:**
 ```
 2
@@ -42,7 +41,6 @@ Print a single integer, the number of crimes which will go untreated.
 8
 1 -1 1 -1 -1 1 1 1
 ```
-
 **Output:**
 ```
 1
@@ -55,7 +53,6 @@ Print a single integer, the number of crimes which will go untreated.
 11
 -1 -1 2 -1 -1 -1 -1 -1 -1 -1 -1
 ```
-
 **Output:**
 ```
 8
@@ -64,15 +61,14 @@ Print a single integer, the number of crimes which will go untreated.
 ## Note
 
 Lets consider the second example:
-
- -  Firstly one person is hired. 
--  Then crime appears, the last hired person will investigate this crime. 
--  One more person is hired. 
--  One more crime appears, the last hired person will investigate this crime. 
--  Crime appears. There is no free policeman at the time, so this crime will go untreated. 
--  One more person is hired. 
--  One more person is hired. 
--  One more person is hired. 
+ - Firstly one person is hired. 
+- Then crime appears, the last hired person will investigate this crime. 
+- One more person is hired. 
+- One more crime appears, the last hired person will investigate this crime. 
+- Crime appears. There is no free policeman at the time, so this crime will go untreated. 
+- One more person is hired. 
+- One more person is hired. 
+- One more person is hired. 
 
 The answer is one, as one crime (on step 5) will go untreated.
 

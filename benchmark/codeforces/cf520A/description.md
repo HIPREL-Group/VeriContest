@@ -1,4 +1,4 @@
-# Pangram
+# A. Pangram
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -25,7 +25,6 @@ Output "`YES`", if the string is a pangram and "`NO`" otherwise.
 12
 toosmallword
 ```
-
 **Output:**
 ```
 NO
@@ -38,7 +37,6 @@ NO
 35
 TheQuickBrownFoxJumpsOverTheLazyDog
 ```
-
 **Output:**
 ```
 YES

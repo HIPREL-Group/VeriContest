@@ -1,4 +1,4 @@
-# Constant Palindrome Sum
+# D. Constant Palindrome Sum
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -22,7 +22,7 @@ It is guaranteed that the sum of $$$n$$$ (as well as the sum of $$$k$$$) over al
 
 For each test case, print the answer — the **minimum** number of elements you have to replace in $$$a$$$ to satisfy the conditions from the problem statement.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -36,7 +36,6 @@ For each test case, print the answer — the **minimum** number of elements you 
 6 6
 5 2 6 1 3 4
 ```
-
 **Output:**
 ```
 0

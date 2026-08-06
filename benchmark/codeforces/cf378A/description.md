@@ -1,4 +1,4 @@
-# Playing with Dice
+# A. Playing with Dice
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -22,7 +22,6 @@ Print three integers: the number of ways to throw the dice at which the first pl
 ```
 2 5
 ```
-
 **Output:**
 ```
 3 0 3
@@ -34,7 +33,6 @@ Print three integers: the number of ways to throw the dice at which the first pl
 ```
 2 4
 ```
-
 **Output:**
 ```
 2 1 3

@@ -1,4 +1,4 @@
-# Good Kid
+# B. Good Kid
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -18,7 +18,7 @@ The second line of each test case contains $$$n$$$ space-separated integers $$$a
 
 For each test case, output a single integer — the maximum product Slavic can make, by adding $$$1$$$ to exactly one of his digits.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -32,7 +32,6 @@ For each test case, output a single integer — the maximum product Slavic can 
 9
 9 9 9 9 9 9 9 9 9
 ```
-
 **Output:**
 ```
 16

@@ -1,4 +1,4 @@
-# Effective Approach
+# B. Effective Approach
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -14,15 +14,15 @@ But the problem is, linear search is too slow. That's why the boys aren't going 
 
 ## Input
 
-The first line contains integer $n$ $(1 ≤ n ≤ 10^5)$ — the number of elements in the array. The second line contains $n$ distinct space-separated integers $a_1, a_2, \ldots, a_n$ $(1 ≤ a_i ≤ n)$ — the elements of array. 
+The first line contains integer $n$ $(1 ≤ n ≤ 10^5)$ — the number of elements in the array. The second line contains $n$ distinct space-separated integers $a_1, a_2, ..., a_n$ $(1 ≤ a_i ≤ n)$ — the elements of array. 
 
-The third line contains integer $m$ $(1 ≤ m ≤ 10^5)$ — the number of queries. The last line contains $m$ space-separated integers $b_1, b_2, \ldots, b_m$ $(1 ≤ b_i ≤ n)$ — the search queries. Note that the queries can repeat.
+The third line contains integer $m$ $(1 ≤ m ≤ 10^5)$ — the number of queries. The last line contains $m$ space-separated integers $b_1, b_2, ..., b_m$ $(1 ≤ b_i ≤ n)$ — the search queries. Note that the queries can repeat.
 
 ## Output
 
 Print two integers, showing how many comparisons Vasya's approach needs and how many comparisons Petya's approach needs. Separate the numbers by spaces.
 
-Please, do not use the `%lld` specifier to read or write 64-bit integers in C++. It is preferred to use `cin`, `cout` streams or the `%I64d` specifier.
+Please, do not use the `%lld` specifier to read or write 64-bit integers in С++. It is preferred to use `cin`, `cout` streams or the `%I64d` specifier.
 
 ## Examples
 
@@ -35,7 +35,6 @@ Please, do not use the `%lld` specifier to read or write 64-bit integers in C++.
 1
 1
 ```
-
 **Output:**
 ```
 1 2
@@ -50,7 +49,6 @@ Please, do not use the `%lld` specifier to read or write 64-bit integers in C++.
 1
 1
 ```
-
 **Output:**
 ```
 2 1
@@ -65,7 +63,6 @@ Please, do not use the `%lld` specifier to read or write 64-bit integers in C++.
 3
 1 2 3
 ```
-
 **Output:**
 ```
 6 6

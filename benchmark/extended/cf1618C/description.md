@@ -1,4 +1,4 @@
-# Paint the Array
+# C. Paint the Array
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -18,7 +18,7 @@ The second line of each testcase contains $$$n$$$ integers $$$a_1, a_2, \dots, a
 
 For each testcase print a single integer. If there is no such value of $$$d$$$ that yields a beautiful coloring, print $$$0$$$. Otherwise, print any suitable value of $$$d$$$ ($$$1 \le d \le 10^{18}$$$).
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -34,7 +34,6 @@ For each testcase print a single integer. If there is no such value of $$$d$$$ t
 2
 1 3
 ```
-
 **Output:**
 ```
 2

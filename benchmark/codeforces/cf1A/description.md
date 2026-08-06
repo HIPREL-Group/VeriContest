@@ -1,4 +1,4 @@
-# Theatre Square
+# A. Theatre Square
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -8,19 +8,18 @@ What is the least number of flagstones needed to pave the Square? It's allowed t
 
 ## Input
 
-The input contains three positive integer numbers in the first line: $n$, $m$ and $a$ ($1 \le n, m, a \le 10^9$).
+The input contains three positive integer numbers in the first line: $n,  m$ and $a$ ($1 ≤  n, m, a ≤ 10^9$).
 
 ## Output
 
 Write the needed number of flagstones.
 
-## Examples
+## Example
 
 **Input:**
 ```
 6 6 4
 ```
-
 **Output:**
 ```
 4

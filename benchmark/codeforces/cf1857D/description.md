@@ -1,4 +1,4 @@
-# Strong Vertices
+# D. Strong Vertices
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -29,7 +29,7 @@ It is guaranteed that the sum of $$$n$$$ for all test cases does not exceed $$$2
 
 For each test case, output two lines: in the first line, output the number of strong vertices, and in the second line, output all strong vertices **in ascending order**.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -50,7 +50,6 @@ For each test case, output two lines: in the first line, output the number of st
 5 7 4
 -2 -3 -6
 ```
-
 **Output:**
 ```
 1

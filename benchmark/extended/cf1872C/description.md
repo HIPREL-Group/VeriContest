@@ -1,4 +1,4 @@
-# Non-coprime Split
+# C. Non-coprime Split
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -24,13 +24,23 @@ For each test case, output the integers $$$a, b$$$ that satisfy all the conditio
 
 If there are multiple answers, you can output any of them.
 
-## Examples
+## Example
 
 **Input:**
 ```
-1111 151 318 1941 43777 7778000000 100000002000 20231791791 17917911 42 39840769 9840769
+11
+11 15
+1 3
+18 19
+41 43
+777 777
+8000000 10000000
+2000 2023
+1791791 1791791
+1 4
+2 3
+9840769 9840769
 ```
-
 **Output:**
 ```
 6 9

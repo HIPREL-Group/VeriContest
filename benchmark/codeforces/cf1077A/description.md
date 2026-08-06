@@ -1,4 +1,4 @@
-# Frog Jumping
+# A. Frog Jumping
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -24,7 +24,7 @@ The query is described as three space-separated integers $$$a, b, k$$$ ($$$1 \le
 
 Print $$$t$$$ integers. The $$$i$$$-th integer should be the answer for the $$$i$$$-th query.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -36,7 +36,6 @@ Print $$$t$$$ integers. The $$$i$$$-th integer should be the answer for the $$$i
 1 1 1000000000
 1 1 999999999
 ```
-
 **Output:**
 ```
 8

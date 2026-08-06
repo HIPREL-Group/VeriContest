@@ -1,4 +1,4 @@
-# Difference of GCDs
+# B. Difference of GCDs
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -22,7 +22,7 @@ Otherwise, print "`YES`" (without quotes). In the next line, print $$$n$$$ integ
 
 If there are multiple solutions, you may output any.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -32,7 +32,6 @@ If there are multiple solutions, you may output any.
 10 30 35
 1 1000000000 1000000000
 ```
-
 **Output:**
 ```
 YES

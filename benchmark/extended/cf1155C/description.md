@@ -1,4 +1,4 @@
-# Alarm Clocks Everywhere
+# C. Alarm Clocks Everywhere
 
 Time limit: 3 seconds | Memory limit: 256 megabytes
 
@@ -36,7 +36,6 @@ Otherwise print "`YES`" in the first line. Then print two integers $$$y$$$ ($$$1
 3 12 18
 2 6 5 3 3
 ```
-
 **Output:**
 ```
 YES
@@ -51,7 +50,6 @@ YES
 1 5 17 19
 4 5
 ```
-
 **Output:**
 ```
 NO
@@ -65,7 +63,6 @@ NO
 1 5 17 19
 2 1
 ```
-
 **Output:**
 ```
 YES

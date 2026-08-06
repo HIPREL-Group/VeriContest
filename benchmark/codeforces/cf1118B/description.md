@@ -1,4 +1,4 @@
-# Tanya and Candies
+# B. Tanya and Candies
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -35,7 +35,6 @@ Print one integer — the number of such candies $$$i$$$ (**good** candies) that
 7
 5 5 4 5 5 5 6
 ```
-
 **Output:**
 ```
 2
@@ -48,7 +47,6 @@ Print one integer — the number of such candies $$$i$$$ (**good** candies) that
 8
 4 8 8 7 8 4 4 5
 ```
-
 **Output:**
 ```
 2
@@ -61,7 +59,6 @@ Print one integer — the number of such candies $$$i$$$ (**good** candies) that
 9
 2 3 4 2 2 3 2 2 4
 ```
-
 **Output:**
 ```
 3

@@ -1,4 +1,4 @@
-# Roadside Trees (Simplified Edition)
+# B. Roadside Trees (Simplified Edition)
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -7,7 +7,7 @@ Squirrel Liss loves nuts. There are $n$ trees (numbered $1$ to $n$ from west to 
 Now Liss is on the root of the tree with the number $1$. In one second Liss can perform one of the following actions:
  - Walk up or down one unit on a tree. 
 - Eat a nut on the top of the current tree. 
-- Jump to the next tree. In this action the height of Liss doesn't change. More formally, when Liss is at height $h$ of the tree $i$ ($1 ≤ i ≤ n - 1$), she jumps to height $h$ of the tree $i + 1$. This action can't be performed if $h > h_{i+1}$. 
+- Jump to the next tree. In this action the height of Liss doesn't change. More formally, when Liss is at height $h$ of the tree $i$ ($1 ≤ i ≤ n - 1$), she jumps to height $h$ of the tree $i + 1$. This action can't be performed if $h > h_i + 1$. 
 
 Compute the minimal time (in seconds) required to eat all nuts.
 
@@ -31,7 +31,6 @@ Print a single integer — the minimal time required to eat all nuts in seconds.
 1
 2
 ```
-
 **Output:**
 ```
 5
@@ -48,7 +47,6 @@ Print a single integer — the minimal time required to eat all nuts in seconds.
 1
 1
 ```
-
 **Output:**
 ```
 14

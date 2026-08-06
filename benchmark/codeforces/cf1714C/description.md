@@ -1,24 +1,24 @@
-# Minimum  Varied Number
+# C. Minimum Varied Number
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-Find the minimum number with the given sum of digits $s$ such that **all** digits in it are distinct (i.e. all digits are unique).
+Find the minimum number with the given sum of digits $$$s$$$ such that **all** digits in it are distinct (i.e. all digits are unique).
 
-For example, if $s=20$, then the answer is $389$. This is the minimum number in which all digits are different and the sum of the digits is $20$ ($3+8+9=20$).
+For example, if $$$s=20$$$, then the answer is $$$389$$$. This is the minimum number in which all digits are different and the sum of the digits is $$$20$$$ ($$$3+8+9=20$$$).
 
-For the given $s$ print the required number.
+For the given $$$s$$$ print the required number.
 
 ## Input
 
-The first line contains an integer $t$ ($1 \le t \le 45$) — the number of test cases.
+The first line contains an integer $$$t$$$ ($$$1 \le t \le 45$$$) — the number of test cases.
 
-Each test case is specified by a line that contains the only integer $s$ ($1 \le s \le 45$).
+Each test case is specified by a line that contains the only integer $$$s$$$ ($$$1 \le s \le 45$$$).
 
 ## Output
 
-Print $t$ integers — the answers to the given test cases.
+Print $$$t$$$ integers — the answers to the given test cases.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -28,7 +28,6 @@ Print $t$ integers — the answers to the given test cases.
 45
 10
 ```
-
 **Output:**
 ```
 389

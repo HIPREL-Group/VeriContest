@@ -1,4 +1,4 @@
-# Groups
+# B. Groups
 
 Time limit: 4 seconds | Memory limit: 256 megabytes
 
@@ -24,7 +24,7 @@ Additional constraints on the input: for each student, at least one of the days 
 
 For each testcase print an answer. If it's possible to divide the students into two groups of equal sizes and choose different days for the groups so each student can attend the lesson in the chosen day of their group, print "`YES`" (without quotes). Otherwise, print "`NO`" (without quotes).
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -38,7 +38,6 @@ For each testcase print an answer. If it's possible to divide the students into 
 0 0 0 1 0
 0 0 0 1 0
 ```
-
 **Output:**
 ```
 YES

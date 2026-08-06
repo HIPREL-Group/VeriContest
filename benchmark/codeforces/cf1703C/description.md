@@ -1,4 +1,4 @@
-# Cypher
+# C. Cypher
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -22,7 +22,7 @@ Then $$$n$$$ lines follow, the $$$i$$$-th of which contains the integer $$$b_i$$
 
 For each test case, output $$$n$$$ space-separated digits  — the initial sequence of the cypher.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -44,11 +44,10 @@ For each test case, output $$$n$$$ space-separated digits  — the initial sequ
 10 UUDUUDUDDU
 4 UUUU
 ```
-
 **Output:**
 ```
-2 1 1
-9 0
+2 1 1 
+9 0 
 0 4 9 6 9
 ```
 

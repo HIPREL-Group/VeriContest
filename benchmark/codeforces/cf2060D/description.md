@@ -1,4 +1,4 @@
-# Subtract Min Sort
+# D. Subtract Min Sort
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -25,7 +25,7 @@ If it is possible to make the sequence **non-decreasing**, print "`YES`" on a ne
 
 You can output the answer in any case. For example, the strings "`yEs`", "`yes`", and "`Yes`" will also be recognized as positive responses.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -41,7 +41,6 @@ You can output the answer in any case. For example, the strings "`yEs`", "`yes`"
 9
 9 9 8 2 4 4 3 5 3
 ```
-
 **Output:**
 ```
 YES

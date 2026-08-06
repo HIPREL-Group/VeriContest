@@ -1,20 +1,24 @@
-# I Wanna Be the Guy
+# A. I Wanna Be the Guy
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-There is a game with n levels (numbered 1 through n). Little X and Little Y can pass some of these levels. Little X can pass p levels, and Little Y can pass q levels. You are given the list of levels each can pass. Determine whether they can together pass all n levels (each level 1..n must be passable by at least one of them).
+There is a game called "I Wanna Be the Guy", consisting of $n$ levels. Little X and his friend Little Y are addicted to the game. Each of them wants to pass the whole game.
+
+Little X can pass only $p$ levels of the game. And Little Y can pass only $q$ levels of the game. You are given the indices of levels Little X can pass and the indices of levels Little Y can pass. Will Little X and Little Y pass the whole game, if they cooperate each other?
 
 ## Input
 
-- First line: a single integer n (1 ≤ n ≤ 100) — the number of levels.
-- Second line: an integer p (0 ≤ p ≤ n) followed by p space-separated integers — the levels Little X can pass. Each level is in the range [1, n].
-- Third line: an integer q (0 ≤ q ≤ n) followed by q space-separated integers — the levels Little Y can pass. Each level is in the range [1, n].
+The first line contains a single integer $n$ ($1 ≤  n ≤ 100$). 
+
+The next line contains an integer $p$ $(0 ≤ p ≤ n)$ at first, then follows $p$ distinct integers $a_1, a_2, ..., a_p$ $(1 ≤ a_i ≤ n)$. These integers denote the indices of levels Little X can pass. The next line contains the levels Little Y can pass in the same format. It's assumed that levels are numbered from 1 to $n$.
 
 ## Output
 
-Print "I become the guy." if they can together pass all levels from 1 to n (every level k in 1..n is passable by at least one of the two). Otherwise print "Oh, my keyboard!".
+If they can pass all the levels, print "`I become the guy.`". If it's impossible, print "`Oh, my keyboard!`" (without the quotes).
 
 ## Examples
+
+### Example 1
 
 **Input:**
 ```
@@ -22,13 +26,12 @@ Print "I become the guy." if they can together pass all levels from 1 to n (ever
 3 1 2 3
 2 2 4
 ```
-
 **Output:**
 ```
 I become the guy.
 ```
 
-(Levels 1,2,3 from X; level 4 from Y; all 1..4 covered.)
+### Example 2
 
 **Input:**
 ```
@@ -36,17 +39,16 @@ I become the guy.
 3 1 2 3
 2 2 3
 ```
-
 **Output:**
 ```
 Oh, my keyboard!
 ```
 
-(Level 4 is not passable by either.)
-
 ## Note
 
-A level k is passable if it appears in Little X's list or in Little Y's list (or both). The answer is "I become the guy." if and only if for every k with 1 ≤ k ≤ n, level k is passable.
+In the first sample, Little X can pass levels [1 2 3], and Little Y can pass level [2 4], so they can pass all the levels both.
+
+In the second sample, no one can pass level 4.
 
 ## Starter Code
 

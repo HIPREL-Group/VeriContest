@@ -1,46 +1,52 @@
 # C. Maximum Even Sum
 
-You are given two integers `a` and `b`.
+Time limit: 2 seconds | Memory limit: 256 megabytes
 
-Perform the following procedure:
+You are given two integers $$$a$$$ and $$$b$$$. You are to perform the following procedure:
 
-1. Choose an integer `k` such that `k` divides `b`.
-2. Replace `a` with `a * k` and replace `b` with `b / k`.
+First, you choose an integer $$$k$$$ such that $$$b$$$ is divisible by $$$k$$$. Then, you simultaneously multiply $$$a$$$ by $$$k$$$ and divide $$$b$$$ by $$$k$$$.
 
-Find the greatest possible even value of `a + b` after this transformation.
-If it is impossible to make `a + b` even, output `-1`.
+Find the greatest possible **even** value of $$$a+b$$$. If it is impossible to make $$$a+b$$$ even, output $$$-1$$$ instead.
 
 ## Input
 
-The first line contains an integer `t` (`1 <= t <= 10^4`) — the number of test cases.
+Each test contains multiple test cases. The first line contains the number of test cases $$$t$$$ ($$$1 \le t \le 10^4$$$). The description of the test cases follows. 
 
-Each test case contains two integers `a` and `b` (`1 <= a, b <= a * b <= 10^18`).
+The first line of each test case contains two integers $$$a$$$ and $$$b$$$ ($$$1 \leq a,b \leq a\cdot b \leq 10^{18})$$$.
 
 ## Output
 
-For each test case, output one integer:
-
-- the maximum even value of `a + b` after choosing a valid `k`, or
-- `-1` if no valid choice yields an even sum.
+For each test case, output the maximum **even** value of $$$a+b$$$ on a new line.
 
 ## Example
 
-Input:
-
-```text
-3
-1 1
-1 4
-2 4
+**Input:**
 ```
-
-Output:
-
-```text
-2
-4
+7
+8 1
+1 8
+7 7
+2 6
+9 16
+1 6
+4 6
+```
+**Output:**
+```
+-1
 6
+50
+8
+74
+-1
+14
 ```
+
+## Note
+
+In the first test case, it can be shown it is impossible for $$$a+b$$$ to be even.
+
+In the second test case, the optimal $$$k$$$ is $$$2$$$. The sum is $$$2+4=6$$$.
 
 ## Starter Code
 

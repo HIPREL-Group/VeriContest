@@ -1,4 +1,4 @@
-# Ebony and Ivory
+# A. Ebony and Ivory
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -22,7 +22,6 @@ Print "`Yes`" (without quotes) if Dante can deal exactly $c$ damage to the shiel
 ```
 4 6 15
 ```
-
 **Output:**
 ```
 No
@@ -34,7 +33,6 @@ No
 ```
 3 2 7
 ```
-
 **Output:**
 ```
 Yes
@@ -46,7 +44,6 @@ Yes
 ```
 6 11 6
 ```
-
 **Output:**
 ```
 Yes

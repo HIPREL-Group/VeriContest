@@ -1,4 +1,4 @@
-# Competitive Fishing
+# C. Competitive Fishing
 
 Time limit: 2 seconds | Memory limit: 512 megabytes
 
@@ -26,7 +26,7 @@ Additional constraint on the input: the sum of $$$n$$$ over all test cases does 
 
 For each test case, print a single integer — the minimum number of groups you have to split the fishes into; or `-1` if it's impossible.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -46,7 +46,6 @@ For each test case, print a single integer — the minimum number of groups you
 5 11
 11111
 ```
-
 **Output:**
 ```
 2

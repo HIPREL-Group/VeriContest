@@ -1,4 +1,4 @@
-# Holiday Of Equality
+# A. Holiday Of Equality
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -10,9 +10,9 @@ You are the royal treasurer, which needs to count the minimum charges of the kin
 
 ## Input
 
-The first line contains the integer $n$ ($1 \le n \le 100$) — the number of citizens in the kingdom.
+The first line contains the integer $n$ ($1 ≤ n ≤ 100$) — the number of citizens in the kingdom.
 
-The second line contains $n$ integers $a_1, a_2, \ldots, a_n$, where $a_i$ ($0 \le a_i \le 10^6$) — the welfare of the $i$-th citizen.
+The second line contains $n$ integers $a_1, a_2, ..., a_n$, where $a_i$ ($0 ≤ a_i ≤ 10^6$) — the welfare of the $i$-th citizen.
 
 ## Output
 
@@ -27,7 +27,6 @@ In the only line print the integer $S$ — the minimum number of burles which a
 5
 0 1 2 3 4
 ```
-
 **Output:**
 ```
 10
@@ -40,7 +39,6 @@ In the only line print the integer $S$ — the minimum number of burles which a
 5
 1 1 0 1 1
 ```
-
 **Output:**
 ```
 1
@@ -53,7 +51,6 @@ In the only line print the integer $S$ — the minimum number of burles which a
 3
 1 3 1
 ```
-
 **Output:**
 ```
 4
@@ -66,7 +63,6 @@ In the only line print the integer $S$ — the minimum number of burles which a
 1
 12
 ```
-
 **Output:**
 ```
 0

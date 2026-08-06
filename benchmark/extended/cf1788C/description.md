@@ -1,4 +1,4 @@
-# Matching Numbers
+# C. Matching Numbers
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -26,7 +26,7 @@ You can output the answer in any case (upper or lower). For example, the strings
 
 If there are multiple solutions, print any.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -36,7 +36,6 @@ If there are multiple solutions, print any.
 3
 4
 ```
-
 **Output:**
 ```
 Yes

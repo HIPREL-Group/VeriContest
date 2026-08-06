@@ -1,4 +1,4 @@
-# Red and Blue Beans
+# A. Red and Blue Beans
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -21,7 +21,7 @@ For each test case, if you can distribute all beans, print `YES`. Otherwise, pri
 
 You may print every letter in any case you want (so, for example, the strings `yEs`, `yes`, `Yes` and `YES` are all recognized as positive answer).
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -31,7 +31,6 @@ You may print every letter in any case you want (so, for example, the strings `y
 6 1 4
 5 4 0
 ```
-
 **Output:**
 ```
 YES

@@ -1,29 +1,26 @@
-# Spy Detected!
+# A. Spy Detected!
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
-You are given an array `a` consisting of `n` positive integers (`n >= 3`). It is known that all elements except one are equal (for example, in the array `[4, 11, 4, 4]` all elements except one are equal to `4`).
+You are given an array $$$a$$$ consisting of $$$n$$$ ($$$n \ge 3$$$) positive integers. It is known that in this array, all the numbers except one are the same (for example, in the array $$$[4, 11, 4, 4]$$$ all numbers except one are equal to $$$4$$$).
 
-Print the index of the element that differs from the others. Indices are 1-based.
+Print the index of the element that does not equal others. The numbers in the array are numbered from one.
 
 ## Input
 
-The first line contains an integer `t` (`1 <= t <= 100`) — the number of test cases.
+The first line contains a single integer $$$t$$$ ($$$1 \le t \le 100$$$). Then $$$t$$$ test cases follow.
 
-For each test case:
+The first line of each test case contains a single integer $$$n$$$ ($$$3 \le n \le 100$$$) — the length of the array $$$a$$$.
 
-- The first line contains one integer `n` (`3 <= n <= 100`).
-- The second line contains `n` integers `a_1, a_2, ..., a_n` (`1 <= a_i <= 100`).
+The second line of each test case contains $$$n$$$ integers $$$a_1, a_2, \ldots, a_n$$$ ($$$1 \le a_i \le 100$$$).
 
-It is guaranteed that in every test case exactly one element differs from all others.
+It is guaranteed that all the numbers except one in the $$$a$$$ array are the same.
 
 ## Output
 
-For each test case, print one integer — the index of the element that differs from the others.
+For each test case, output a single integer — the index of the element that is not equal to others.
 
-## Examples
-
-### Example 1
+## Example
 
 **Input:**
 ```
@@ -37,7 +34,6 @@ For each test case, print one integer — the index of the element that differs 
 3
 20 20 10
 ```
-
 **Output:**
 ```
 2

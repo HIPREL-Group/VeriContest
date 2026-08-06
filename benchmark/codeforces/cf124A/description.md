@@ -1,4 +1,4 @@
-# The number of positions
+# A. The number of positions
 
 Time limit: 0.5 second | Memory limit: 256 megabytes
 
@@ -20,7 +20,6 @@ Print the single number — the number of the sought positions.
 ```
 3 1 1
 ```
-
 **Output:**
 ```
 2
@@ -32,7 +31,6 @@ Print the single number — the number of the sought positions.
 ```
 5 2 3
 ```
-
 **Output:**
 ```
 3

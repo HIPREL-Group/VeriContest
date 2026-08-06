@@ -1,35 +1,32 @@
-# Football Kit
+# B. Football Kit
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-Consider a football tournament where $n$ teams participate. Each team has two football kits: for home games, and for away games. The kit for home games of the $i$-th team has color $x_i$ and the kit for away games of this team has color $y_i$ ($x_i \neq y_i$).
+Consider a football tournament where $n$ teams participate. Each team has two football kits: for home games, and for away games. The kit for home games of the $i$-th team has color $x_i$ and the kit for away games of this team has color $y_i$ $(x_i ≠ y_i)$.
 
-In the tournament, each team plays exactly one home game and exactly one away game with each other team ($n(n-1)$ games in total). The team that plays the home game traditionally plays in its home kit. The team that plays an away game plays in its away kit. However, if two teams have kits of the same color, they cannot be distinguished. In this case the away team plays in its home kit.
+In the tournament, each team plays exactly one home game and exactly one away game with each other team ($n(n - 1)$ games in total). The team, that plays the home game, traditionally plays in its home kit. The team that plays an away game plays in its away kit. However, if two teams has the kits of the same color, they cannot be distinguished. In this case the away team plays in its home kit.
 
 Calculate how many games in the described tournament each team plays in its home kit and how many games it plays in its away kit.
 
 ## Input
 
-The first line contains a single integer $n$ ($2 \leq n \leq 10^5$) — the number of teams. The next $n$ lines contain the description of the teams. The $i$-th line contains two space-separated integers $x_i$, $y_i$ ($1 \leq x_i, y_i \leq 10^5$; $x_i \neq y_i$) — the color numbers for the home and away kits of the $i$-th team.
+The first line contains a single integer $n$ $(2 ≤ n ≤ 10^5)$ — the number of teams. Next $n$ lines contain the description of the teams. The $i$-th line contains two space-separated numbers $x_i$, $y_i$ $(1 ≤ x_i, y_i ≤ 10^5; x_i ≠ y_i)$ — the color numbers for the home and away kits of the $i$-th team.
 
 ## Output
 
-For each team, print on a single line two space-separated integers — the number of games this team is going to play in its home kit and in its away kit, respectively. Print the answers for the teams in the order they appeared in the input.
+For each team, print on a single line two space-separated integers — the number of games this team is going to play in home and away kits, correspondingly. Print the answers for the teams in the order they appeared in the input.
 
 ## Examples
 
 ### Example 1
 
 **Input:**
-
 ```
 2
 1 2
 2 1
 ```
-
 **Output:**
-
 ```
 2 0
 2 0
@@ -38,16 +35,13 @@ For each team, print on a single line two space-separated integers — the numbe
 ### Example 2
 
 **Input:**
-
 ```
 3
 1 2
 2 1
 1 3
 ```
-
 **Output:**
-
 ```
 3 1
 4 0

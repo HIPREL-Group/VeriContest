@@ -1,4 +1,4 @@
-# Soldier and Number Game
+# D. Soldier and Number Game
 
 Time limit: 3 seconds | Memory limit: 256 megabytes
 
@@ -18,7 +18,7 @@ Then follow $t$ lines, each contains pair of integers $a$ and $b$ ($1 ≤ b�
 
 For each game output a maximum score that the second soldier can get.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -26,7 +26,6 @@ For each game output a maximum score that the second soldier can get.
 3 1
 6 3
 ```
-
 **Output:**
 ```
 2

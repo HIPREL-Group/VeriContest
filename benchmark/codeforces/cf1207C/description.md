@@ -1,4 +1,4 @@
-# Gas Pipeline
+# C. Gas Pipeline
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -26,7 +26,7 @@ It's guaranteed that the total length of all strings $$$s$$$ doesn't exceed $$$2
 
 Print $$$T$$$ integers — one per query. For each query print the minimum possible cost of the constructed pipeline.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -40,7 +40,6 @@ Print $$$T$$$ integers — one per query. For each query print the minimum possi
 2 5 1
 00
 ```
-
 **Output:**
 ```
 94

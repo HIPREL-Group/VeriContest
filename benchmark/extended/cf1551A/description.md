@@ -1,4 +1,4 @@
-# Polycarp and Coins
+# A. Polycarp and Coins
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -16,7 +16,7 @@ Each test case consists of one line. This line contains one integer $$$n$$$ ($$$
 
 For each test case, output a separate line containing two integers $$$c_1$$$ and $$$c_2$$$ ($$$c_1, c_2 \ge 0$$$) separated by a space where $$$c_1$$$ is the number of coins of $$$1$$$ burle and $$$c_2$$$ is the number of coins of $$$2$$$ burles. If there are multiple optimal solutions, print any one.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -28,7 +28,6 @@ For each test case, output a separate line containing two integers $$$c_1$$$ and
 1000000000
 5
 ```
-
 **Output:**
 ```
 334 333

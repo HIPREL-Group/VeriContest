@@ -1,4 +1,4 @@
-# Prepend and Append
+# C. Prepend and Append
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -19,7 +19,7 @@ The second line of each test case contains a string $$$s$$$ of length $$$n$$$ co
 
 For each test case, output a single nonnegative integer — the shortest possible length of Timur's original string. Note that Timur's original string could have been empty, in which case you should output $$$0$$$.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -43,7 +43,6 @@ For each test case, output a single nonnegative integer — the shortest possib
 10
 1011011010
 ```
-
 **Output:**
 ```
 1

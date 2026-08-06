@@ -1,4 +1,4 @@
-# Not Dividing
+# B. Not Dividing
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -26,13 +26,18 @@ In the only line, print $$$n$$$ integers — the resulting array $$$a$$$ after 
 
 We can show that an answer always exists under the given constraints. If there are multiple answers, print any of them.
 
-## Examples
+## Example
 
 **Input:**
 ```
-342 4 3 631 2 324 2
+3
+4
+2 4 3 6
+3
+1 2 3
+2
+4 2
 ```
-
 **Output:**
 ```
 4 5 6 7

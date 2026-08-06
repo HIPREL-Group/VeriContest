@@ -1,4 +1,4 @@
-# Payment Without Change
+# A. Payment Without Change
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -18,7 +18,7 @@ For the $$$i$$$-th test case print the answer on it — `YES` (without quotes) i
 
 You may print every letter in any case you want (so, for example, the strings `yEs`, `yes`, `Yes` and `YES` will all be recognized as positive answer).
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -28,7 +28,6 @@ You may print every letter in any case you want (so, for example, the strings `y
 5 2 6 27
 3 3 5 18
 ```
-
 **Output:**
 ```
 YES

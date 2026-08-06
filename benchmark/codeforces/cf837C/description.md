@@ -1,10 +1,10 @@
-# Two Seals
+# C. Two Seals
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
 One very important person has a piece of paper in the form of a rectangle $a × b$.
 
-Also, he has $n$ seals. Each seal leaves an impression on the paper in the form of a rectangle of the size $xi × yi$. Each impression must be parallel to the sides of the piece of paper (but seal can be rotated by 90 degrees).
+Also, he has $n$ seals. Each seal leaves an impression on the paper in the form of a rectangle of the size $x_i × y_i$. Each impression must be parallel to the sides of the piece of paper (but seal can be rotated by 90 degrees).
 
 A very important person wants to choose two different seals and put them two impressions. Each of the selected seals puts exactly one impression. Impressions should not overlap (but they can touch sides), and the total area occupied by them should be the largest possible. What is the largest area that can be occupied by two seals?
 
@@ -12,7 +12,7 @@ A very important person wants to choose two different seals and put them two imp
 
 The first line contains three integer numbers $n$, $a$ and $b$ ($1 ≤ n, a, b ≤ 100$).
 
-Each of the next $n$ lines contain two numbers $x_i$, $y_i$ ($1 ≤ xi, yi ≤ 100$).
+Each of the next $n$ lines contain two numbers $x_i$, $y_i$ ($1 ≤ x_i, y_i ≤ 100$).
 
 ## Output
 
@@ -28,7 +28,6 @@ Print the largest total area that can be occupied by two seals. If you can not s
 1 2
 2 1
 ```
-
 **Output:**
 ```
 4
@@ -44,7 +43,6 @@ Print the largest total area that can be occupied by two seals. If you can not s
 5 10
 9 11
 ```
-
 **Output:**
 ```
 56
@@ -59,7 +57,6 @@ Print the largest total area that can be occupied by two seals. If you can not s
 7 7
 20 5
 ```
-
 **Output:**
 ```
 0

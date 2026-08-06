@@ -1,27 +1,68 @@
-# Hamburgers
+# C. Hamburgers
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-Polycarpus loves hamburgers and makes them from three ingredients only: bread, sausage, and cheese. The recipe for one hamburger is given as a non-empty string over `B`, `S`, and `C`, where each character describes one ingredient used in a single hamburger.
+Polycarpus loves hamburgers very much. He especially adores the hamburgers he makes with his own hands. Polycarpus thinks that there are only three decent ingredients to make hamburgers from: a bread, sausage and cheese. He writes down the recipe of his favorite "Le Hamburger de Polycarpus" as a string of letters '`B`' (bread), '`S`' (sausage) и '`C`' (cheese). The ingredients in the recipe go from bottom to top, for example, recipe "`ВSCBS`" represents the hamburger where the ingredients go from bottom to top as bread, sausage, cheese, bread and sausage again.
 
-Polycarpus has `nb` pieces of bread, `ns` pieces of sausage, and `nc` pieces of cheese. A nearby shop sells unlimited additional ingredients for `pb`, `ps`, and `pc` rubles per piece, respectively. Polycarpus has `r` rubles.
+Polycarpus has $n_b$ pieces of bread, $n_s$ pieces of sausage and $n_c$ pieces of cheese in the kitchen. Besides, the shop nearby has all three ingredients, the prices are $p_b$ rubles for a piece of bread, $p_s$ for a piece of sausage and $p_c$ for a piece of cheese.
 
-Determine the maximum number of hamburgers he can make.
-
-Polycarpus cannot split ingredients into smaller pieces.
+Polycarpus has $r$ rubles and he is ready to shop on them. What maximum number of hamburgers can he cook? You can assume that Polycarpus cannot break or slice any of the pieces of bread, sausage or cheese. Besides, the shop has an unlimited number of pieces of each ingredient.
 
 ## Input
 
-The input consists of four lines:
+The first line of the input contains a non-empty string that describes the recipe of "Le Hamburger de Polycarpus". The length of the string doesn't exceed 100, the string contains only letters '`B`' (uppercase English `B`), '`S`' (uppercase English `S`) and '`C`' (uppercase English `C`).
 
-1. A non-empty string of length at most 100 containing only `B`, `S`, and `C`.
-2. Three integers `nb ns nc` with `1 <= nb, ns, nc <= 100`.
-3. Three integers `pb ps pc` with `1 <= pb, ps, pc <= 100`.
-4. One integer `r` with `1 <= r <= 10^12`.
+The second line contains three integers $n_b$, $n_s$, $n_c$ ($1 ≤ n_b, n_s, n_c ≤ 100$) — the number of the pieces of bread, sausage and cheese on Polycarpus' kitchen. The third line contains three integers $p_b$, $p_s$, $p_c$ ($1 ≤ p_b, p_s, p_c ≤ 100$) — the price of one piece of bread, sausage and cheese in the shop. Finally, the fourth line contains integer $r$ ($1 ≤ r ≤ 10^12$) — the number of rubles Polycarpus has.
+
+Please, do not write the `%lld` specifier to read or write 64-bit integers in С++. It is preferred to use the `cin`, `cout` streams or the `%I64d` specifier.
 
 ## Output
 
-Print one integer: the maximum number of hamburgers Polycarpus can make.
+Print the maximum number of hamburgers Polycarpus can make. If he can't make any hamburger, print `0`.
+
+## Examples
+
+### Example 1
+
+**Input:**
+```
+BBBSSC
+6 4 1
+1 2 3
+4
+```
+**Output:**
+```
+2
+```
+
+### Example 2
+
+**Input:**
+```
+BBC
+1 10 1
+1 10 1
+21
+```
+**Output:**
+```
+7
+```
+
+### Example 3
+
+**Input:**
+```
+BSC
+1 1 1
+1 1 3
+1000000000000
+```
+**Output:**
+```
+200000000001
+```
 
 ## Starter Code
 

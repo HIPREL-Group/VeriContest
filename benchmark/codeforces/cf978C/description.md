@@ -1,4 +1,4 @@
-# Letters
+# C. Letters
 
 Time limit: 4 seconds | Memory limit: 256 megabytes
 
@@ -30,7 +30,6 @@ Print $$$m$$$ lines. For each letter print two integers $$$f$$$ and $$$k$$$ — 
 10 15 12
 1 9 12 23 26 37
 ```
-
 **Output:**
 ```
 1 1
@@ -49,7 +48,6 @@ Print $$$m$$$ lines. For each letter print two integers $$$f$$$ and $$$k$$$ — 
 5 10000000000
 5 6 9999999999
 ```
-
 **Output:**
 ```
 1 5

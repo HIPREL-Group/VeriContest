@@ -1,4 +1,4 @@
-# Mr. Perfectly Fine
+# C. Mr. Perfectly Fine
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -22,7 +22,7 @@ It is guaranteed that the sum of $$$n$$$ over all test cases doesn't exceed $$$2
 
 For each test case, output a single integer denoting the minimum amount of minutes required for Victor to obtain both needed skills and $$$-1$$$ in case it's impossible to obtain the two skills after reading any amount of books.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -57,7 +57,6 @@ For each test case, output a single integer denoting the minimum amount of minut
 9 11
 8 11
 ```
-
 **Output:**
 ```
 7

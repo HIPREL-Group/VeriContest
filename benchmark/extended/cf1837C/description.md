@@ -1,4 +1,4 @@
-# Best Binary String
+# C. Best Binary String
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -22,13 +22,16 @@ The sum of the string lengths over all test cases does not exceed $$$3 \cdot 10^
 
 For each test case, print a binary string with the minimum possible cost among those that match the given pattern. If there are multiple answers, print any of them.
 
-## Examples
+## Example
 
 **Input:**
 ```
-4??01?101001??10?0?1?10?10
+4
+??01?
+10100
+1??10?
+0?1?10?10
 ```
-
 **Output:**
 ```
 00011

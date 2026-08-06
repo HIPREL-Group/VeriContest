@@ -1,4 +1,4 @@
-# Celex Update
+# C. Celex Update
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -20,7 +20,7 @@ Each of the following $$$t$$$ lines contains four natural numbers $$$x_1$$$, $$$
 
 For each test case, in a separate line, print the number of possible different sums on the way from the start cell to the end cell.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -30,7 +30,6 @@ For each test case, in a separate line, print the number of possible different s
 179 1 179 100000
 5 7 5 7
 ```
-
 **Output:**
 ```
 2

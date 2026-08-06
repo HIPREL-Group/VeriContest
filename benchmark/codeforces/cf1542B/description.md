@@ -1,4 +1,4 @@
-# Plus and Multiply
+# B. Plus and Multiply
 
 Time limit: 3 seconds | Memory limit: 512 megabytes
 
@@ -25,7 +25,7 @@ The only line describing each test case contains three integers $$$n$$$, $$$a$$$
 
 For each test case, print "`Yes`" if $$$n$$$ is in this set, and "`No`" otherwise. You can print each letter in any case.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -36,7 +36,6 @@ For each test case, print "`Yes`" if $$$n$$$ is in this set, and "`No`" otherwis
 19260817 394 485
 19260817 233 264
 ```
-
 **Output:**
 ```
 Yes

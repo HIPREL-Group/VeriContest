@@ -1,4 +1,4 @@
-# Parkour Design
+# A. Parkour Design
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -32,7 +32,7 @@ If it is **impossible** to make a parkour course that satisfies the conditions, 
 
 You can output the answer in any case. For example, the strings "`yEs`", "`yes`", and "`Yes`" will also be recognized as positive responses.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -49,7 +49,6 @@ You can output the answer in any case. For example, the strings "`yEs`", "`yes`"
 24 -3
 8 4
 ```
-
 **Output:**
 ```
 YES

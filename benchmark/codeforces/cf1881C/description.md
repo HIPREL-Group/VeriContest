@@ -1,4 +1,4 @@
-# Perfect Square
+# C. Perfect Square
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -34,7 +34,7 @@ It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$
 
 For each test case, output a single number on a separate line: the **minimum** number of operations required for Kristina to obtain a *perfect square*.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -65,7 +65,6 @@ abba
 aaba
 abba
 ```
-
 **Output:**
 ```
 1

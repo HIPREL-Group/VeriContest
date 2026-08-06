@@ -1,4 +1,4 @@
-# Limited Repainting
+# C. Limited Repainting
 
 Time limit: 2 seconds | Memory limit: 512 megabytes
 
@@ -30,7 +30,7 @@ The sum of $$$n$$$ over all test cases does not exceed $$$3 \cdot 10^5$$$.
 
 For each test case, print a single integer — the minimum penalty of the final painting.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -51,7 +51,6 @@ BRBRBBRRBR
 RRRRR
 5 3 1 2 4
 ```
-
 **Output:**
 ```
 3

@@ -1,14 +1,10 @@
-# Number of Ways
+# C. Number of Ways
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
 You've got array $a[1], a[2], ..., a[n]$, consisting of $n$ integers. Count the number of ways to split all the elements of the array into three contiguous parts so that the sum of elements in each part is the same. 
 
-More formally, you need to find the number of pairs of indices $i, j$ $(2 ≤ i ≤ j ≤ n - 1)$ such that
-
-$$
-a[1] + \dots + a[i - 1] = a[i] + \dots + a[j] = a[j + 1] + \dots + a[n].
-$$
+More formally, you need to find the number of such pairs of indices $i, j$ $(2 ≤ i ≤ j ≤ n - 1)$, that .
 
 ## Input
 
@@ -27,7 +23,6 @@ Print a single integer — the number of ways to split the array into three part
 5
 1 2 3 0 3
 ```
-
 **Output:**
 ```
 2
@@ -40,7 +35,6 @@ Print a single integer — the number of ways to split the array into three part
 4
 0 1 -1 0
 ```
-
 **Output:**
 ```
 1
@@ -53,7 +47,6 @@ Print a single integer — the number of ways to split the array into three part
 2
 4 1
 ```
-
 **Output:**
 ```
 0

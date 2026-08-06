@@ -1,4 +1,4 @@
-# Game with Doors
+# B. Game with Doors
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -6,11 +6,10 @@ There are $$$100$$$ rooms arranged in a row and $$$99$$$ doors between them; the
 
 We say that room $$$x$$$ is reachable from room $$$y$$$ if all doors between them are unlocked.
 
-You know that:
-
-- Alice is in some room from the segment $$$[l, r]$$$;
-- Bob is in some room from the segment $$$[L, R]$$$;
-- Alice and Bob are in different rooms.
+You know that: 
+ - Alice is in some room from the segment $$$[l, r]$$$; 
+- Bob is in some room from the segment $$$[L, R]$$$; 
+- Alice and Bob are in different rooms. 
 
 However, you don't know the exact rooms they are in.
 
@@ -18,20 +17,19 @@ You don't want Alice and Bob to be able to reach each other, so you are going to
 
 ## Input
 
-The first line contains a single integer $$$t$$$ ($$$1 \le t \le 10^4$$$) — the number of test cases.
+The first line contains a single integer $$$t$$$ ($$$1 \le t \le 10^4$$$) — the number of test cases.
 
-The first line of each test case contains two integers $$$l$$$ and $$$r$$$ ($$$1 \le l  \lt  r \le 100$$$) — the bounds of the segment of rooms where Alice is located.
+The first line of each test case contains two integers $$$l$$$ and $$$r$$$ ($$$1 \le l  \lt  r \le 100$$$) — the bounds of the segment of rooms where Alice is located.
 
 The second line of each test case contains two integers $$$L$$$ and $$$R$$$ ($$$1 \le L  \lt  R \le 100$$$) — the bounds of the segment of rooms where Bob is located.
 
 ## Output
 
-For each test case, print a single integer — the smallest number of doors you have to lock so that Alice and Bob cannot meet, regardless of their starting positions inside the given segments.
+For each test case, print a single integer — the smallest number of doors you have to lock so that Alice and Bob cannot meet, regardless of their starting positions inside the given segments.
 
-## Examples
+## Example
 
 **Input:**
-
 ```
 4
 1 2
@@ -43,9 +41,7 @@ For each test case, print a single integer — the smallest number of doors you 
 4 5
 2 8
 ```
-
 **Output:**
-
 ```
 1
 3

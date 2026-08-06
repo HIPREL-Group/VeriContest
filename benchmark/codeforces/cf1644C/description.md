@@ -1,4 +1,4 @@
-# Increase Subarray Sums
+# C. Increase Subarray Sums
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -12,9 +12,9 @@ Calculate the maximum value of $$$f(k)$$$ for all $$$k$$$ from $$$0$$$ to $$$n$$
 
 ## Input
 
-The first line contains a single integer $$$t$$$ ($$$1 \le t \le 5000$$$) — the number of testcases.
+The first line contains a single integer $$$t$$$ ($$$1 \le t \le 5000$$$) — the number of testcases.
 
-The first line of the testcase contains two integers $$$n$$$ and $$$x$$$ ($$$1 \le n \le 5000$$$; $$$0 \le x \le 10^5$$$) — the number of elements in the array and the value to add.
+The first line of the testcase contains two integers $$$n$$$ and $$$x$$$ ($$$1 \le n \le 5000$$$; $$$0 \le x \le 10^5$$$) — the number of elements in the array and the value to add.
 
 The second line contains $$$n$$$ integers $$$a_1, a_2, \dots, a_n$$$ ($$$-10^5 \le a_i \le 10^5$$$).
 
@@ -22,12 +22,11 @@ The sum of $$$n$$$ over all testcases doesn't exceed $$$5000$$$.
 
 ## Output
 
-For each testcase, print $$$n + 1$$$ integers — the maximum value of $$$f(k)$$$ for all $$$k$$$ from $$$0$$$ to $$$n$$$ independently.
+For each testcase, print $$$n + 1$$$ integers — the maximum value of $$$f(k)$$$ for all $$$k$$$ from $$$0$$$ to $$$n$$$ independently.
 
-## Examples
+## Example
 
 **Input:**
-
 ```
 3
 4 2
@@ -37,9 +36,7 @@ For each testcase, print $$$n + 1$$$ integers — the maximum value of $$$f(k)$$
 10 2
 -6 -1 -2 4 -6 -1 -4 4 -5 -4
 ```
-
 **Output:**
-
 ```
 10 12 14 16 18
 0 4 4 5
@@ -50,11 +47,10 @@ For each testcase, print $$$n + 1$$$ integers — the maximum value of $$$f(k)$$
 
 In the first testcase, it doesn't matter which elements you add $$$x$$$ to. The subarray with the maximum sum will always be the entire array. If you increase $$$k$$$ elements by $$$x$$$, $$$k \cdot x$$$ will be added to the sum.
 
-In the second testcase:
-
-- For $$$k = 0$$$, the empty subarray is the best option.
-- For $$$k = 1$$$, it's optimal to increase the element at position $$$3$$$. The best sum becomes $$$-1 + 5 = 4$$$ for a subarray $$$[3, 3]$$$.
-- For $$$k = 2$$$, it's optimal to increase the element at position $$$3$$$ and any other element. The best sum is still $$$4$$$ for a subarray $$$[3, 3]$$$.
+In the second testcase: 
+ - For $$$k = 0$$$, the empty subarray is the best option. 
+- For $$$k = 1$$$, it's optimal to increase the element at position $$$3$$$. The best sum becomes $$$-1 + 5 = 4$$$ for a subarray $$$[3, 3]$$$. 
+- For $$$k = 2$$$, it's optimal to increase the element at position $$$3$$$ and any other element. The best sum is still $$$4$$$ for a subarray $$$[3, 3]$$$. 
 - For $$$k = 3$$$, you have to increase all elements. The best sum becomes $$$(-2 + 5) + (-7 + 5) + (-1 + 5) = 5$$$ for a subarray $$$[1, 3]$$$.
 
 ## Starter Code

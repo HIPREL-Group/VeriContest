@@ -1,4 +1,4 @@
-# Good Array
+# C. Good Array
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -35,7 +35,6 @@ If there are no such indices in the array $$$a$$$, just print $$$0$$$ in the fir
 5
 2 5 1 2 2
 ```
-
 **Output:**
 ```
 3
@@ -49,7 +48,6 @@ If there are no such indices in the array $$$a$$$, just print $$$0$$$ in the fir
 4
 8 3 5 2
 ```
-
 **Output:**
 ```
 2
@@ -63,7 +61,6 @@ If there are no such indices in the array $$$a$$$, just print $$$0$$$ in the fir
 5
 2 1 2 4 3
 ```
-
 **Output:**
 ```
 0

@@ -1,4 +1,4 @@
-# Fafa and the Gates
+# B. Fafa and the Gates
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -29,7 +29,6 @@ On a single line, print one integer representing the number of silver coins Fafa
 1
 U
 ```
-
 **Output:**
 ```
 0
@@ -42,7 +41,6 @@ U
 6
 RURUUR
 ```
-
 **Output:**
 ```
 1
@@ -55,11 +53,14 @@ RURUUR
 7
 URRRUUU
 ```
-
 **Output:**
 ```
 2
 ```
+
+## Note
+
+The figure below describes the third sample. The red arrows represent the sequence of moves Fafa will follow. The green gates represent the gates at which Fafa have to pay silver coins.
 
 ## Starter Code
 

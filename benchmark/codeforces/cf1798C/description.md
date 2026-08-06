@@ -1,4 +1,4 @@
-# Candy Store
+# C. Candy Store
 
 Time limit: 3 seconds | Memory limit: 256 megabytes
 
@@ -38,7 +38,7 @@ It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$
 
 For each test case, output the minimum number of price tags required to describe the costs of all packs of candies in the store.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -72,7 +72,6 @@ For each test case, output the minimum number of price tags required to describe
 9 3
 1000000000 10000
 ```
-
 **Output:**
 ```
 2

@@ -1,34 +1,30 @@
-# Bad Prices
+# B. Bad Prices
 
-**Time limit:** 1 second · **Memory limit:** 256 megabytes
+Time limit: 1 second | Memory limit: 256 megabytes
 
-Polycarp analyzes the prices of the new berPhone. He has the prices for $n$ last days: $a_1, a_2, \dots, a_n$, where $a_i$ is the price on day $i$.
+Polycarp analyzes the prices of the new berPhone. At his disposal are the prices for $$$n$$$ last days: $$$a_1, a_2, \dots, a_n$$$, where $$$a_i$$$ is the price of berPhone on the day $$$i$$$.
 
-The price on day $i$ is **bad** if there exists a later day $j > i$ with a **strictly lower** price: $a_j < a_i$. For example, if $n = 6$ and $a = [3, 9, 4, 6, 7, 5]$, then there are **3** bad days: days $2$, $4$, and $5$ (with $a_2 = 9$, $a_4 = 6$, $a_5 = 7$).
+Polycarp considers the price on the day $$$i$$$ to be bad if later (that is, a day with a greater number) berPhone was sold at a lower price. For example, if $$$n=6$$$ and $$$a=[3, 9, 4, 6, 7, 5]$$$, then the number of days with a bad price is $$$3$$$ — these are days $$$2$$$ ($$$a_2=9$$$), $$$4$$$ ($$$a_4=6$$$) and $$$5$$$ ($$$a_5=7$$$).
 
-Print the total number of bad days.
+Print the number of days with a bad price.
 
-You must answer $t$ independent test cases.
+You have to answer $$$t$$$ independent data sets.
 
 ## Input
 
-The first line contains an integer $t$ ($1 \le t \le 10^4$) — the number of test cases.
+The first line contains an integer $$$t$$$ ($$$1 \le t \le 10000$$$) — the number of sets of input data in the test. Input data sets must be processed independently, one after another.
 
-Each test case has two lines:
+Each input data set consists of two lines. The first line contains an integer $$$n$$$ ($$$1 \le n \le 150000$$$) — the number of days. The second line contains $$$n$$$ integers $$$a_1, a_2, \dots, a_n$$$ ($$$1 \le a_i \le 10^6$$$), where $$$a_i$$$ is the price on the $$$i$$$-th day.
 
-1. An integer $n$ ($1 \le n \le 150\,000$) — the number of days.
-2. $n$ integers $a_1, a_2, \dots, a_n$ ($1 \le a_i \le 10^6$).
-
-The sum of $n$ over all test cases does not exceed $150\,000$.
+It is guaranteed that the sum of $$$n$$$ over all data sets in the test does not exceed $$$150000$$$.
 
 ## Output
 
-Print $t$ integers — for each test case, the number of bad days.
+Print $$$t$$$ integers, the $$$j$$$-th of which should be equal to the number of days with a bad price in the $$$j$$$-th input data set.
 
-## Examples
+## Example
 
 **Input:**
-
 ```
 5
 6
@@ -42,9 +38,7 @@ Print $t$ integers — for each test case, the number of bad days.
 7
 3 2 1 2 3 4 5
 ```
-
 **Output:**
-
 ```
 3
 0

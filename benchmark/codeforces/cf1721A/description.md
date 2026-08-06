@@ -1,4 +1,4 @@
-# Image
+# A. Image
 
 Time limit: 2 seconds | Memory limit: 512 megabytes
 
@@ -18,10 +18,9 @@ Each test case consists of two lines. Each of these lines contains two lowercase
 
 For each test case, print one integer — the minimum number of moves you have to make so that all $$$4$$$ pixels of the image have the same color.
 
-## Examples
+## Example
 
 **Input:**
-
 ```
 5
 rb
@@ -35,9 +34,7 @@ cd
 yy
 xx
 ```
-
 **Output:**
-
 ```
 1
 2
@@ -53,9 +50,8 @@ Let's analyze the test cases of the example.
 In the first test case, you can paint the bottom left pixel and the top right pixel (which share the same color) into the color `r`, so all pixels have this color.
 
 In the second test case, two moves are enough:
-
-- paint both top pixels, which have the same color `c`, into the color `b`;
-- paint the bottom left pixel into the color `b`.
+ - paint both top pixels, which have the same color `c`, into the color `b`; 
+- paint the bottom left pixel into the color `b`. 
 
 In the third test case, all pixels already have the same color.
 

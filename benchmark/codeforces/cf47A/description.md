@@ -1,14 +1,14 @@
-# Triangular numbers
+# A. Triangular numbers
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
-A triangular number is the number of dots in an equilateral triangle uniformly filled with dots. For example, three dots can be arranged in a triangle; thus three is a triangular number. The $*n*$-th triangular number is the number of dots in a triangle with $*n*$ dots on a side. . You can learn more about these numbers from Wikipedia (http://en.wikipedia.org/wiki/Triangular_number).
+A triangular number is the number of dots in an equilateral triangle uniformly filled with dots. For example, three dots can be arranged in a triangle; thus three is a triangular number. The $n$-th triangular number is the number of dots in a triangle with $n$ dots on a side. . You can learn more about these numbers from Wikipedia (http://en.wikipedia.org/wiki/Triangular_number).
 
 Your task is to find out if a given integer is a triangular number.
 
 ## Input
 
-The first line contains the single number $*n*$ ($1 ≤ *n* ≤ 500$) — the given integer.
+The first line contains the single number $n$ ($1 ≤ n ≤ 500$) — the given integer.
 
 ## Output
 
@@ -22,7 +22,6 @@ If the given integer is a triangular number output `YES`, otherwise output `NO`.
 ```
 1
 ```
-
 **Output:**
 ```
 YES
@@ -34,7 +33,6 @@ YES
 ```
 2
 ```
-
 **Output:**
 ```
 NO
@@ -46,7 +44,6 @@ NO
 ```
 3
 ```
-
 **Output:**
 ```
 YES

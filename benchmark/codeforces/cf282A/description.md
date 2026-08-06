@@ -1,4 +1,4 @@
-# Bit++
+# A. Bit++
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -33,7 +33,6 @@ Print a single integer — the final value of $x$.
 1
 ++X
 ```
-
 **Output:**
 ```
 1
@@ -47,7 +46,6 @@ Print a single integer — the final value of $x$.
 X++
 --X
 ```
-
 **Output:**
 ```
 0

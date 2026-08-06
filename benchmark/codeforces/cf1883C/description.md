@@ -1,9 +1,8 @@
-# Raspberries
+# C. Raspberries
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
 You are given an array of integers $$$a_1, a_2, \ldots, a_n$$$ and a number $$$k$$$ ($$$2 \leq k \leq 5$$$). In one operation, you can do the following:
-
 - Choose an index $$$1 \leq i \leq n$$$,
 - Set $$$a_i = a_i + 1$$$.
 
@@ -23,10 +22,9 @@ It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$
 
 For each test case, output the minimum number of operations needed to make the product of all the numbers in the array divisible by $$$k$$$.
 
-## Examples
+## Example
 
 **Input:**
-
 ```
 15
 2 5
@@ -60,9 +58,7 @@ For each test case, output the minimum number of operations needed to make the p
 2 5
 7 7
 ```
-
 **Output:**
-
 ```
 2
 2
@@ -83,13 +79,11 @@ For each test case, output the minimum number of operations needed to make the p
 
 ## Note
 
-In the first test case, you can choose index $$$i = 2$$$ twice. After that, the array becomes $$$a = [7, 5]$$$. The product is $$$35$$$, which is divisible by $$$5$$$.
+In the first test case, we need to choose the index $$$i = 2$$$ twice. After that, the array will be $$$a = [7, 5]$$$. The product of all the numbers in the array is $$$35$$$.
 
-In the second test case, the product is already divisible by $$$5$$$, so no operations are needed.
+In the fourth test case, the product of the numbers in the array is $$$120$$$, which is already divisible by $$$5$$$, so no operations are needed.
 
-In the third test case, the product $$$2 \cdot 2 = 4$$$ is already divisible by $$$4$$$.
-
-In the fourth test case, the factor $$$12$$$ is already a multiple of $$$3$$$, so the product is divisible by $$$3$$$ without any operations.
+In the eighth test case, we can perform two operations by choosing $$$i = 2$$$ and $$$i = 3$$$ in any order. After that, the array will be $$$a = [1, 6, 10]$$$. The product of the numbers in the array is $$$60$$$.
 
 ## Starter Code
 

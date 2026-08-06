@@ -1,8 +1,8 @@
-# Minutes Before the New Year
+# A. Minutes Before the New Year
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-New Year is coming and you are excited to know how many minutes remain before the New Year. You know that currently the clock shows $$$h$$$ hours and $$$m$$$ minutes, where $$$0 \le h \lt 24$$$ and $$$0 \le m \lt 60$$$. *We use 24-hour time format!*
+New Year is coming and you are excited to know how many minutes remain before the New Year. You know that currently the clock shows $$$h$$$ hours and $$$m$$$ minutes, where $$$0 \le hh  \lt  24$$$ and $$$0 \le mm  \lt  60$$$. *We use 24-hour time format!*
 
 Your task is to find the number of minutes before the New Year. You know that New Year comes when the clock shows $$$0$$$ hours and $$$0$$$ minutes.
 
@@ -18,7 +18,7 @@ The following $$$t$$$ lines describe test cases. The $$$i$$$-th line contains th
 
 For each test case, print the answer on it — the number of minutes before the New Year.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -29,7 +29,6 @@ For each test case, print the answer on it — the number of minutes before the 
 4 20
 23 59
 ```
-
 **Output:**
 ```
 5

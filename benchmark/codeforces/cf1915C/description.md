@@ -1,4 +1,4 @@
-# Can I Square?
+# C. Can I Square?
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -22,7 +22,7 @@ For each test case, output "`YES`" if Calin can build a square using **all** of 
 
 You can output the answer in any case (for example, the strings "`yEs`", "`yes`", "`Yes`" and "`YES`" will be recognized as a positive answer).
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -38,7 +38,6 @@ You can output the answer in any case (for example, the strings "`yEs`", "`yes`"
 4
 2 2 2 2
 ```
-
 **Output:**
 ```
 YES

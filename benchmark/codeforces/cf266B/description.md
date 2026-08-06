@@ -1,4 +1,4 @@
-# Queue at the School
+# B. Queue at the School
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -27,7 +27,6 @@ Print string $a$, which describes the arrangement after $t$ seconds. If the $i$-
 5 1
 BGGBG
 ```
-
 **Output:**
 ```
 GBGGB
@@ -40,7 +39,6 @@ GBGGB
 5 2
 BGGBG
 ```
-
 **Output:**
 ```
 GGBGB
@@ -53,7 +51,6 @@ GGBGB
 4 1
 GGGB
 ```
-
 **Output:**
 ```
 GGGB

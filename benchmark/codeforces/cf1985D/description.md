@@ -1,4 +1,4 @@
-# Manhattan Circle
+# D. Manhattan Circle
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -14,7 +14,7 @@ The first line contains $$$t$$$ ($$$1 \leq t \leq 1000$$$)  — the number of t
 
 The first line of each test case contains $$$n$$$ and $$$m$$$ ($$$1 \leq n \cdot m \leq 2 \cdot 10^5$$$) — the height and width of the grid, respectively. 
 
-The next $$$n$$$ lines contain $$$m$$$ characters '.' or '#'. If the character is '#', then the point is part of the manhattan circle.
+The next $$$n$$$ lines contains $$$m$$$ characters '.' or '#'. If the character is '#', then the point is part of the manhattan circle.
 
 It is guaranteed the sum of $$$n \cdot m$$$ over all test cases does not exceed $$$2 \cdot 10^5$$$, and there is a whole manhattan circle on the grid.
 
@@ -22,7 +22,7 @@ It is guaranteed the sum of $$$n \cdot m$$$ over all test cases does not exceed 
 
 For each test case, output the two integers, the coordinates of the center of the circle.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -57,7 +57,6 @@ For each test case, output the two integers, the coordinates of the center of th
 ..........
 ...#......
 ```
-
 **Output:**
 ```
 3 3

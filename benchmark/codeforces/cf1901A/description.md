@@ -1,4 +1,4 @@
-# Line Trip
+# A. Line Trip
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -22,7 +22,7 @@ Each test case consists of two lines:
 
 For each test case, print one integer — the minimum possible volume of the gas tank in your car that will allow you to travel from the point $$$0$$$ to the point $$$x$$$ and back.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -34,7 +34,6 @@ For each test case, print one integer — the minimum possible volume of the gas
 1 10
 7
 ```
-
 **Output:**
 ```
 4

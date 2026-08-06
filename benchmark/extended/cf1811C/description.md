@@ -1,4 +1,4 @@
-# Restore the Array
+# C. Restore the Array
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -32,13 +32,34 @@ For each test case on a separate line, print exactly $$$n$$$ non-negative intege
 
 If there are several possible answers — output any of them.
 
-## Examples
+## Example
 
 **Input:**
 ```
-1153 4 4 542 2 150 0 0 060 3 4 4 321043 3 354 2 5 543 3 342 1 034 468 1 3 5 10
+11
+5
+3 4 4 5
+4
+2 2 1
+5
+0 0 0 0
+6
+0 3 4 4 3
+2
+10
+4
+3 3 3
+5
+4 2 5 5
+4
+3 3 3
+4
+2 1 0
+3
+4 4
+6
+8 1 3 5 10
 ```
-
 **Output:**
 ```
 3 0 4 0 5

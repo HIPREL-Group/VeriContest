@@ -1,4 +1,4 @@
-# Elephant
+# A. Elephant
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -20,7 +20,6 @@ Print the minimum number of steps that elephant needs to make to get from point 
 ```
 5
 ```
-
 **Output:**
 ```
 1
@@ -32,7 +31,6 @@ Print the minimum number of steps that elephant needs to make to get from point 
 ```
 12
 ```
-
 **Output:**
 ```
 3

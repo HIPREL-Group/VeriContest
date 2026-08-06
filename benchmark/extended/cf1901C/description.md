@@ -1,4 +1,4 @@
-# Add, Divide and Floor
+# C. Add, Divide and Floor
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -24,13 +24,20 @@ For each testcase, print the smallest number of operations required to make all 
 
 If the number of operations is less than or equal to $$$n$$$, then print the chosen $$$x$$$ for each operation in the next line. If there are multiple answers, print any of them.
 
-## Examples
+## Example
 
 **Input:**
 ```
-411024 662 1 2 1 2 120 32
+4
+1
+10
+2
+4 6
+6
+2 1 2 1 2 1
+2
+0 32
 ```
-
 **Output:**
 ```
 0

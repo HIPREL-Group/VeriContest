@@ -1,20 +1,20 @@
-# Polycarpus' Dice
+# C. Polycarpus' Dice
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-Polycarp has $n$ dice $d_1, d_2, \ldots, d_n$. The $i$-th dice shows numbers from $1$ to $d_i$. Polycarp rolled all the dice and the sum of numbers they showed is $A$. Agrippina didn't see which dice showed what number, she knows only the sum $A$ and the values $d_1, d_2, \ldots, d_n$. However, she finds it enough to make a series of statements of the following type: dice $i$ couldn't show number $r$. For example, if Polycarp had two six-faced dice and the total sum is $A = 11$, then Agrippina can state that each of the two dice couldn't show a value less than five (otherwise, the remaining dice must have a value of at least seven, which is impossible).
+Polycarp has $n$ dice $d_1, d_2, ..., d_n$. The $i$-th dice shows numbers from $1$ to $d_i$. Polycarp rolled all the dice and the sum of numbers they showed is $A$. Agrippina didn't see which dice showed what number, she knows only the sum $A$ and the values $d_1, d_2, ..., d_n$. However, she finds it enough to make a series of statements of the following type: dice $i$ couldn't show number $r$. For example, if Polycarp had two six-faced dice and the total sum is $A = 11$, then Agrippina can state that each of the two dice couldn't show a value less than five (otherwise, the remaining dice must have a value of at least seven, which is impossible).
 
 For each dice find the number of values for which it can be guaranteed that the dice couldn't show these values if the sum of the shown values is $A$.
 
 ## Input
 
-The first line contains two integers $n, A$ ($1 \le n \le 2 \cdot 10^5$, $n \le A \le s$) — the number of dice and the sum of shown values where $s = d_1 + d_2 + \ldots + d_n$.
+The first line contains two integers $n, A$ ($1 ≤ n ≤ 2·10^5, n ≤ A ≤ s$) — the number of dice and the sum of shown values where $s = d_1 + d_2 + ... + d_n$.
 
-The second line contains $n$ integers $d_1, d_2, \ldots, d_n$ ($1 \le d_i \le 10^6$), where $d_i$ is the maximum value that the $i$-th dice can show.
+The second line contains $n$ integers $d_1, d_2, ..., d_n$ ($1 ≤ d_i ≤ 10^6$), where $d_i$ is the maximum value that the $i$-th dice can show.
 
 ## Output
 
-Print $n$ integers $b_1, b_2, \ldots, b_n$, where $b_i$ is the number of values for which it is guaranteed that the $i$-th dice couldn't show them.
+Print $n$ integers $b_1, b_2, ..., b_n$, where $b_i$ is the number of values for which it is guaranteed that the $i$-th dice couldn't show them.
 
 ## Examples
 
@@ -25,7 +25,6 @@ Print $n$ integers $b_1, b_2, \ldots, b_n$, where $b_i$ is the number of values 
 2 8
 4 4
 ```
-
 **Output:**
 ```
 3 3
@@ -38,7 +37,6 @@ Print $n$ integers $b_1, b_2, \ldots, b_n$, where $b_i$ is the number of values 
 1 3
 5
 ```
-
 **Output:**
 ```
 4
@@ -51,7 +49,6 @@ Print $n$ integers $b_1, b_2, \ldots, b_n$, where $b_i$ is the number of values 
 2 3
 2 3
 ```
-
 **Output:**
 ```
 0 1

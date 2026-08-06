@@ -1,4 +1,4 @@
-# Yet Another Meme Problem
+# B. Yet Another Meme Problem
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -8,27 +8,22 @@ You are given two integers $$$A$$$ and $$$B$$$, calculate the number of pairs $$
 
 The first line contains $$$t$$$ ($$$1 \le t \le 100$$$) — the number of test cases.
 
-Each test case contains two integers $$$A$$$ and $$$B$$$ ($$$1 \le A, B \le 10^9$$$).
+Each test case contains two integers $$$A$$$ and $$$B$$$ $$$(1 \le A, B \le 10^9)$$$.
 
 ## Output
 
 Print one integer — the number of pairs $$$(a, b)$$$ such that $$$1 \le a \le A$$$, $$$1 \le b \le B$$$, and the equation $$$a \cdot b + a + b = conc(a, b)$$$ is true.
 
-## Examples
-
-### Example 1
+## Example
 
 **Input:**
-
 ```
 3
 1 11
 4 2
 191 31415926
 ```
-
 **Output:**
-
 ```
 1
 0

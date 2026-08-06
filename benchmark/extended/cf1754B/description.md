@@ -1,4 +1,4 @@
-# Kevin and Permutation
+# B. Kevin and Permutation
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -22,7 +22,7 @@ Formally, you have to print a permutation $$$p$$$ which maximizes the value $$$\
 
 If there are multiple optimal solutions, print any of them.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -30,7 +30,6 @@ If there are multiple optimal solutions, print any of them.
 4
 3
 ```
-
 **Output:**
 ```
 2 4 1 3

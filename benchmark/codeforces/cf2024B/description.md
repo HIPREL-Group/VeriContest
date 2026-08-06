@@ -1,4 +1,4 @@
-# Buying Lemonade
+# B. Buying Lemonade
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -30,7 +30,7 @@ It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$
 
 For each test case, output a single integer — the minimum number of button presses needed to guarantee that you receive at least $$$k$$$ cans of lemonade.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -46,7 +46,6 @@ For each test case, output a single integer — the minimum number of button pre
 2 1000000000
 1000000000 500000000
 ```
-
 **Output:**
 ```
 1

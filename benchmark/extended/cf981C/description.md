@@ -1,4 +1,4 @@
-# Useful Decomposition
+# C. Useful Decomposition
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -39,7 +39,6 @@ If there are multiple decompositions, print any.
 2 3
 3 4
 ```
-
 **Output:**
 ```
 Yes
@@ -58,7 +57,6 @@ Yes
 2 5
 3 6
 ```
-
 **Output:**
 ```
 No
@@ -74,7 +72,6 @@ No
 1 4
 1 5
 ```
-
 **Output:**
 ```
 Yes

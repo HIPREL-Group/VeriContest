@@ -1,48 +1,44 @@
-# The Fibonacci Segment
+# B. The Fibonacci Segment
 
-Time limit: 1000 ms | Memory limit: 256 MiB
+Time limit: 1 second | Memory limit: 256 megabytes
 
-You are given an array `a1, a2, ..., an`.
+You have array $a_1, a_2, ..., a_n$. Segment $[l, r]$ ($1 ≤ l ≤ r ≤ n$) is good if $a_i = a_i - 1 + a_i - 2$, for all $i$ $(l + 2 ≤ i ≤ r)$.
 
-A segment `[l, r]` is called good if, for every `i` such that `l + 2 <= i <= r`, we have:
+Let's define $len([l, r]) = r - l + 1$, $len([l, r])$ is the length of the segment $[l, r]$. Segment $[l_1, r_1]$, is longer than segment $[l_2, r_2]$, if $len([l_1, r_1]) > len([l_2, r_2])$.
 
-`ai = a(i-1) + a(i-2)`
-
-The length of segment `[l, r]` is `r - l + 1`. A segment of length `1` or `2` is always good.
-
-Find the maximum possible length of a good segment.
+Your task is to find a good segment of the maximum length in array $a$. Note that a segment of length $1$ or $2$ is always good.
 
 ## Input
 
-The first line contains one integer `n` (`1 <= n <= 100000`) — the number of elements in the array.
-
-The second line contains `n` integers `a1, a2, ..., an` (`0 <= ai <= 10^9`).
+The first line contains a single integer $n$ ($1 ≤ n ≤ 10^5$) — the number of elements in the array. The second line contains integers: $a_1, a_2, ..., a_n$ ($0 ≤ a_i ≤ 10^9$).
 
 ## Output
 
-Print one integer: the length of the longest good segment.
+Print the length of the longest good segment in array $a$.
 
 ## Examples
 
+### Example 1
+
 **Input:**
-```text
+```
 10
 1 2 3 5 8 13 21 34 55 89
 ```
-
 **Output:**
-```text
+```
 10
 ```
 
+### Example 2
+
 **Input:**
-```text
+```
 5
 1 1 1 1 1
 ```
-
 **Output:**
-```text
+```
 2
 ```
 

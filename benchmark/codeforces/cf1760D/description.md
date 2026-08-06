@@ -1,4 +1,4 @@
-# Challenging Valleys
+# D. Challenging Valleys
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -34,7 +34,9 @@ It is guaranteed that the sum of $$$n$$$ over all test cases is smaller than $$$
 
 For each test case, output "`YES`" (without quotes) if the array is a valley, and "`NO`" (without quotes) otherwise.
 
-## Examples
+You can output the answer in any case (for example, the strings "`yEs`", "`yes`", "`Yes`" and "`YES`" will be recognized as a positive answer).
+
+## Example
 
 **Input:**
 ```
@@ -52,7 +54,6 @@ For each test case, output "`YES`" (without quotes) if the array is a valley, an
 8
 9 4 4 5 9 4 9 10
 ```
-
 **Output:**
 ```
 YES

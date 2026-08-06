@@ -1,37 +1,36 @@
-# Even-Odd Increments 
+# B. Even-Odd Increments
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
-You are given $n$ of integers $a_1, a_2, \ldots, a_n$. Process $q$ queries of two types:
+You are given $$$n$$$ of integers $$$a_1, a_2, \ldots, a_n$$$. Process $$$q$$$ queries of two types:
+- query of the form "`0 $$$x_j$$$`": add the value $$$x_j$$$ to all even elements of the array $$$a$$$,
+- query of the form "`1 $$$x_j$$$`": add the value $$$x_j$$$ to all odd elements of the array $$$a$$$.
 
--  query of the form "`0 $x_j$`": add the value $x_j$ to all even elements of the array $a$,
--  query of the form "`1 $x_j$`": add the value $x_j$ to all odd elements of the array $a$.
+Note that when processing the query, we look specifically at the odd/even value of $$$a_i$$$, not its index.
 
-Note that when processing the query, we look specifically at the odd/even value of $a_i$, not its index.
-
-After processing each query, print the sum of the elements of the array $a$.
+After processing each query, print the sum of the elements of the array $$$a$$$.
 
 Please note that the answer for some test cases won't fit into 32-bit integer type, so you should use at least 64-bit integer type in your programming language (like `long long` for C++).
 
 ## Input
 
-The first line of the input contains an integer $t$ $(1 \leq t \leq 10^4$) — the number of test cases.
+The first line of the input contains an integer $$$t$$$ $$$(1 \leq t \leq 10^4$$$) — the number of test cases.
 
 The descriptions of the test cases follow.
 
-The first line of each test case contains two integers $n$ and $q$ ($1 \leq n$, $q \leq 10^5$) — the length of array $a$ and the number of queries.
+The first line of each test case contains two integers $$$n$$$ and $$$q$$$ ($$$1 \leq n$$$, $$$q \leq 10^5$$$) — the length of array $$$a$$$ and the number of queries.
 
-The second line of each test case contains exactly $n$ integers: $a_1, a_2, \ldots, a_n$ ($1 \leq a_i \leq 10^9$) — elements of the array $a$.
+The second line of each test case contains exactly $$$n$$$ integers: $$$a_1, a_2, \ldots, a_n$$$ ($$$1 \leq a_i \leq 10^9$$$) — elements of the array $$$a$$$.
 
-The following $q$ lines contain queries as two integers $type_j$ and $x_j$ $(0 \leq type_j \leq 1$, $1 \leq x_j \leq 10^4$).
+The following $$$q$$$ lines contain queries as two integers $$$type_j$$$ and $$$x_j$$$ $$$(0 \leq type_j \leq 1$$$, $$$1 \leq x_j \leq 10^4$$$).
 
-It is guaranteed that the sum of values $n$ over all test cases in a test does not exceed $10^5$. Similarly, the sum of values $q$ over all test cases does not exceed $10^5$.
+It is guaranteed that the sum of values $$$n$$$ over all test cases in a test does not exceed $$$10^5$$$. Similarly, the sum of values $$$q$$$ over all test cases does not exceed $$$10^5$$$.
 
 ## Output
 
-For each test case, print $q$ numbers: the sum of the elements of the array $a$ after processing a query.
+For each test case, print $$$q$$$ numbers: the sum of the elements of the array $$$a$$$ after processing a query.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -63,7 +62,6 @@ For each test case, print $q$ numbers: the sum of the elements of the array $a$ 
 1 16
 0 1
 ```
-
 **Output:**
 ```
 2
@@ -88,9 +86,9 @@ For each test case, print $q$ numbers: the sum of the elements of the array $a$ 
 
 ## Note
 
-In the first test case, the array $a = [2]$ after the first query.
+In the first test case, the array $$$a = [2]$$$ after the first query.
 
-In the third test case, the array $a$ is modified as follows: $[1, 3, 2, 4, 10, 48]$ $\rightarrow$ $[7, 9, 2, 4, 10, 48]$ $\rightarrow$ $[7, 9, 7, 9, 15, 53]$ $\rightarrow$ $[7, 9, 7, 9, 15, 53]$ $\rightarrow$ $[10, 12, 10, 12, 18, 56]$ $\rightarrow$ $[22, 24, 22, 24, 30, 68]$ $\rightarrow$ $[23, 25, 23, 25, 31, 69]$.
+In the third test case, the array $$$a$$$ is modified as follows: $$$[1, 3, 2, 4, 10, 48]$$$ $$$\rightarrow$$$ $$$[7, 9, 2, 4, 10, 48]$$$ $$$\rightarrow$$$ $$$[7, 9, 7, 9, 15, 53]$$$ $$$\rightarrow$$$ $$$[7, 9, 7, 9, 15, 53]$$$ $$$\rightarrow$$$ $$$[10, 12, 10, 12, 18, 56]$$$ $$$\rightarrow$$$ $$$[22, 24, 22, 24, 30, 68]$$$ $$$\rightarrow$$$ $$$[23, 25, 23, 25, 31, 69]$$$.
 
 ## Starter Code
 

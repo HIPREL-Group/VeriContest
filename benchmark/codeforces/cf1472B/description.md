@@ -1,4 +1,4 @@
-# Fair Division
+# B. Fair Division
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -26,7 +26,7 @@ For each test case, output on a separate line:
 
 You can output "`YES`" and "`NO`" in any case (for example, the strings `yEs`, `yes`, `Yes` and `YES` will be recognized as positive).
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -42,7 +42,6 @@ You can output "`YES`" and "`NO`" in any case (for example, the strings `yEs`, `
 3
 2 1 2
 ```
-
 **Output:**
 ```
 YES

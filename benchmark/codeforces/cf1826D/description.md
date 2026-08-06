@@ -1,4 +1,4 @@
-# Running Miles
+# D. Running Miles
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -20,7 +20,7 @@ It's guaranteed that the sum of all $$$n$$$ does not exceed $$$10^5$$$.
 
 For each test case output a single integer equal to the maximum value $$$b_{i_1} + b_{i_2} + b_{i_3} - (r - l)$$$ for some running range $$$[l, r]$$$.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -34,7 +34,6 @@ For each test case output a single integer equal to the maximum value $$$b_{i_1}
 7
 100000000 1 100000000 1 100000000 1 100000000
 ```
-
 **Output:**
 ```
 8

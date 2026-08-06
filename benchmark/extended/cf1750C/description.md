@@ -1,4 +1,4 @@
-# Complementary XOR
+# C. Complementary XOR
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -27,13 +27,27 @@ For each testcase, print first "`YES`" if it's possible to make all the elements
 
 If there are several correct answers, print any of them.
 
-## Examples
+## Example
 
 **Input:**
 ```
-5301010121110410000011210103111111
+5
+3
+010
+101
+2
+11
+10
+4
+1000
+0011
+2
+10
+10
+3
+111
+111
 ```
-
 **Output:**
 ```
 YES

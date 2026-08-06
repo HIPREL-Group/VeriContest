@@ -1,47 +1,63 @@
-# Come Together
+# B. Come Together
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
-Three people are located on an infinite integer grid at points $A(x_a, y_a)$, $B(x_b, y_b)$, and $C(x_c, y_c)$.
+Bob and Carol hanged out with Alice the whole day, but now it's time to go home. Alice, Bob and Carol live on an infinite 2D grid in cells $$$A$$$, $$$B$$$, and $$$C$$$ respectively. Right now, all of them are in cell $$$A$$$.
 
-In one move, a person can move to one of the four neighboring cells (up, down, left, right).
+If Bob (or Carol) is in some cell, he (she) can move to one of the neighboring cells. Two cells are called neighboring if they *share a side*. For example, the cell $$$(3, 5)$$$ has four neighboring cells: $$$(2, 5)$$$, $$$(4, 5)$$$, $$$(3, 6)$$$ and $$$(3, 4)$$$.
 
-You need to choose a meeting cell and move both $B$ and $C$ to that cell. Point $A$ is fixed and represents your position. Find the minimum total number of cells in a shortest common path segment that both $B$ and $C$ must share when moving toward $A$-aligned directions, which is the value required by the problem output.
+Bob wants to return to the cell $$$B$$$, Carol — to the cell $$$C$$$. Both of them want to go along the shortest path, i. e. along the path that consists of the minimum possible number of cells. But they would like to walk together as well. 
 
-Equivalent optimal formula:
-- Start with $1$ (the meeting cell itself).
-- Add overlap on the $x$-axis if $B$ and $C$ are on the same side of $A$ horizontally.
-- Add overlap on the $y$-axis if $B$ and $C$ are on the same side of $A$ vertically.
+What is the maximum possible number of cells that Bob and Carol can walk together if each of them walks home using one of the shortest paths?
 
 ## Input
 
-The first line contains one integer $t$ ($1 \le t \le 1000$) — the number of test cases.
+The first line contains the single integer $$$t$$$ ($$$1 \le t \le 10^4$$$) — the number of test cases.
 
-Each test case consists of one line with six integers:
-$x_a, y_a, x_b, y_b, x_c, y_c$.
+The first line of each test case contains two integers $$$x_A$$$ and $$$y_A$$$ ($$$1 \le x_A, y_A \le 10^8$$$) — the position of cell $$$A$$$, where both Bob and Carol are right now.
+
+The second line contains two integers $$$x_B$$$ and $$$y_B$$$ ($$$1 \le x_B, y_B \le 10^8$$$) — the position of cell $$$B$$$ (Bob's house).
+
+The third line contains two integers $$$x_C$$$ and $$$y_C$$$ ($$$1 \le x_C, y_C \le 10^8$$$) — the position of cell $$$C$$$ (Carol's house).
+
+Additional constraint on the input: the cells $$$A$$$, $$$B$$$, and $$$C$$$ are pairwise distinct in each test case.
 
 ## Output
 
-For each test case, print one integer — the minimum required value.
+For each test case, print the single integer — the maximum number of cells Bob and Carol can walk together if each of them goes home along one of the shortest paths.
 
 ## Example
 
-Input:
-```text
-4
-0 0 1 1 2 2
-0 0 1 1 -1 -1
-0 0 2 0 5 0
-1 3 2 2 3 1
+**Input:**
 ```
-
-Output:
-```text
+3
+3 1
+1 3
+6 4
+5 2
+2 2
+7 2
+1 1
+4 3
+5 5
+```
+**Output:**
+```
 3
 1
-3
-3
+6
 ```
+
+## Note
+
+In all pictures, red color denotes cells belonging only to Bob's path, light blue color — cells belonging only to Carol's path, and dark blue color — cells belonging to both paths.
+
+One of the optimal routes for the first test case is shown below: 
+   Bob's route contains $$$5$$$ cells, Carol's route — $$$7$$$ cells, and they will visit $$$3$$$ cells together.
+The optimal answer for the second test case is shown below: 
+   Bob's route contains $$$4$$$ cells, Carol's route — $$$3$$$ cells, and they will visit only $$$1$$$ cell together.
+One of the optimal answers for the third test case is shown below: 
+   Bob's route contains $$$6$$$ cells, Carol's route — $$$9$$$ cells, and they will visit $$$6$$$ cells together.
 
 ## Starter Code
 

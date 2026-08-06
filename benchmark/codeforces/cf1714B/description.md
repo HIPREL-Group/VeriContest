@@ -1,4 +1,4 @@
-# Remove Prefix
+# B. Remove Prefix
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -6,9 +6,8 @@ Polycarp was presented with some sequence of integers $$$a$$$ of length $$$n$$$ 
 
 In order to make his sequence like this, Polycarp is going to make some (possibly zero) number of moves.
 
-In one move, he can:
-
-- remove the first (leftmost) element of the sequence.
+In one move, he can: 
+ - remove the first (leftmost) element of the sequence. 
 
 For example, in one move, the sequence $$$[3, 1, 4, 3]$$$ will produce the sequence $$$[1, 4, 3]$$$, which consists of different numbers.
 
@@ -16,7 +15,7 @@ Determine the minimum number of moves he needs to make so that in the remaining 
 
 ## Input
 
-The first line of the input contains a single integer $$$t$$$ ($$$1 \le t \le 10^4$$$) — the number of test cases.
+The first line of the input contains a single integer $$$t$$$ ($$$1 \le t \le 10^4$$$) — the number of test cases.
 
 Each test case consists of two lines.
 
@@ -28,12 +27,11 @@ It is guaranteed that the sum of $$$n$$$ values over all test cases does not exc
 
 ## Output
 
-For each test case print your answer on a separate line — the minimum number of elements that must be removed from the beginning of the sequence so that all remaining elements are different.
+For each test case print your answer on a separate line — the minimum number of elements that must be removed from the beginning of the sequence so that all remaining elements are different.
 
-## Examples
+## Example
 
 **Input:**
-
 ```
 5
 4
@@ -47,9 +45,7 @@ For each test case print your answer on a separate line — the minimum number o
 7
 1 2 1 7 1 2 1
 ```
-
 **Output:**
-
 ```
 1
 4
@@ -61,12 +57,11 @@ For each test case print your answer on a separate line — the minimum number o
 ## Note
 
 The following are the sequences that will remain after the removal of prefixes:
-
-- $$$[1, 4, 3]$$$;
-- $$$[1]$$$;
-- $$$[1]$$$;
-- $$$[6, 5, 4, 3, 2, 1]$$$;
-- $$$[2, 1]$$$.
+ - $$$[1, 4, 3]$$$; 
+- $$$[1]$$$; 
+- $$$[1]$$$; 
+- $$$[6, 5, 4, 3, 2, 1]$$$; 
+- $$$[2, 1]$$$. 
 
 It is easy to see that all the remaining sequences contain only distinct elements. In each test case, the shortest matching prefix was removed.
 

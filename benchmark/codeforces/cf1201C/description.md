@@ -1,4 +1,4 @@
-# Maximum Median
+# C. Maximum Median
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -28,7 +28,6 @@ Print a single integer — the maximum possible median after the operations.
 3 2
 1 3 5
 ```
-
 **Output:**
 ```
 5
@@ -41,7 +40,6 @@ Print a single integer — the maximum possible median after the operations.
 5 5
 1 2 1 1 1
 ```
-
 **Output:**
 ```
 3
@@ -54,7 +52,6 @@ Print a single integer — the maximum possible median after the operations.
 7 7
 4 1 2 4 3 4 4
 ```
-
 **Output:**
 ```
 5

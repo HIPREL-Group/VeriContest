@@ -1,4 +1,4 @@
-# Pythagorean Triples
+# D. Pythagorean Triples
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -20,7 +20,7 @@ Each test case consists of one line containing one integer $$$n$$$ ($$$1 \le n \
 
 For each test case, print one integer — the number of triples of integers $$$(a, b, c)$$$ with $$$1 \le a \le b \le c \le n$$$ such that they are Pythagorean according both to the real definition and to the formula Vasya came up with.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -29,7 +29,6 @@ For each test case, print one integer — the number of triples of integers $$$(
 6
 9
 ```
-
 **Output:**
 ```
 0

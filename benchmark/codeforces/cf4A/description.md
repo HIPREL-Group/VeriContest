@@ -1,4 +1,4 @@
-# Watermelon
+# A. Watermelon
 
 Time limit: 1 second | Memory limit: 64 megabytes
 
@@ -14,13 +14,12 @@ The first (and the only) input line contains integer number $w$ ($1 ≤ w 
 
 Print `YES`, if the boys can divide the watermelon into two parts, each of them weighing even number of kilos; and `NO` in the opposite case.
 
-## Examples
+## Example
 
 **Input:**
 ```
 8
 ```
-
 **Output:**
 ```
 YES

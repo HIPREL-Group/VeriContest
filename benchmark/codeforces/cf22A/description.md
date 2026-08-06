@@ -1,4 +1,4 @@
-# Second Order Statistics
+# A. Second Order Statistics
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -6,7 +6,7 @@ Once Bob needed to find the second order statistics of a sequence of integer num
 
 ## Input
 
-The first input line contains integer $*n*$ ($1 ≤ *n* ≤ 100$) — amount of numbers in the sequence. The second line contains $*n*$ space-separated integer numbers — elements of the sequence. These numbers don't exceed 100 in absolute value.
+The first input line contains integer $n$ ($1 ≤ n ≤ 100$) — amount of numbers in the sequence. The second line contains $n$ space-separated integer numbers — elements of the sequence. These numbers don't exceed 100 in absolute value.
 
 ## Output
 
@@ -21,7 +21,6 @@ If the given sequence has the second order statistics, output this order statist
 4
 1 2 2 -4
 ```
-
 **Output:**
 ```
 1
@@ -34,7 +33,6 @@ If the given sequence has the second order statistics, output this order statist
 5
 1 2 3 1 1
 ```
-
 **Output:**
 ```
 2

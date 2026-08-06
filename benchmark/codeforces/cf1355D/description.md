@@ -1,4 +1,4 @@
-# Game With Array
+# D. Game With Array
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -20,6 +20,8 @@ If Petya can win, print "`YES`" (without quotes) in the first line. Then print P
 
 If Petya can't win, print "`NO`" (without quotes).
 
+You can print each letter in any register (lowercase or uppercase).
+
 ## Examples
 
 ### Example 1
@@ -28,7 +30,6 @@ If Petya can't win, print "`NO`" (without quotes).
 ```
 1 4
 ```
-
 **Output:**
 ```
 YES
@@ -42,7 +43,6 @@ YES
 ```
 3 4
 ```
-
 **Output:**
 ```
 NO
@@ -54,7 +54,6 @@ NO
 ```
 3 8
 ```
-
 **Output:**
 ```
 YES

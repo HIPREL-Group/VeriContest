@@ -1,4 +1,4 @@
-# Lineland Mail
+# A. Lineland Mail
 
 Time limit: 3 seconds | Memory limit: 256 megabytes
 
@@ -12,11 +12,11 @@ For each city calculate two values ​​$min_i$ and $max_i$, where $min_i$ is t
 
 ## Input
 
-The first line of the input contains integer $n$ ($2 ≤ n ≤ 10^5$) — the number of cities in Lineland. The second line contains the sequence of $n$ distinct integers $x_1, x_2, \ldots, x_n$ ($ - 10^9 ≤ x_i ≤ 10^9$), where $x_i$ is the $x$-coordinate of the $i$-th city. All the $x_i$'s are distinct and follow in **ascending** order.
+The first line of the input contains integer $n$ ($2 ≤ n ≤ 10^5$) — the number of cities in Lineland. The second line contains the sequence of $n$ distinct integers $x_1, x_2, ..., x_n$ ($ - 10^9 ≤ x_i ≤ 10^9$), where $x_i$ is the $x$-coordinate of the $i$-th city. All the $x_i$'s are distinct and follow in **ascending** order.
 
 ## Output
 
-Print $n$ lines, the $i$-th line must contain two integers $min_i, max_i$, separated by a space, where $min_i$ is the minimum cost of sending a letter from the $i$-th city, and $max_i$ is the maximum cost of sending a letter from the $i$-th city.
+Print $n$ lines, the $i$-th line must contain two integers $min_i, max_i$, separated by a space, where $min_i$ is the minimum cost of sending a letter from the $i$-th city, and $max_i$ is the maximum cost of sending a letter from the $i$-th city.
 
 ## Examples
 
@@ -27,7 +27,6 @@ Print $n$ lines, the $i$-th line must contain two integers $min_i, max_i$, separ
 4
 -5 -2 2 7
 ```
-
 **Output:**
 ```
 3 12
@@ -43,7 +42,6 @@ Print $n$ lines, the $i$-th line must contain two integers $min_i, max_i$, separ
 2
 -1 1
 ```
-
 **Output:**
 ```
 2 2

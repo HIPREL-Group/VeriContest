@@ -1,4 +1,4 @@
-# Verse For Santa
+# B. Verse For Santa
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -30,7 +30,7 @@ It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$
 
 For each test case print one integer — the number of the part that Vasya needs to skip to obtain the maximum number of gifts. If Vasya shouldn't skip any parts, print `0`.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -42,7 +42,6 @@ For each test case print one integer — the number of the part that Vasya needs
 1 8
 5
 ```
-
 **Output:**
 ```
 2

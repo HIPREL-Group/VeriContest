@@ -1,4 +1,4 @@
-# Maximum Increase
+# A. Maximum Increase
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -10,7 +10,7 @@ A subarray is the sequence of consecutive elements of the array. Subarray is cal
 
 The first line contains single positive integer $n$ ($1 ≤ n ≤ 10^5$) — the number of integers.
 
-The second line contains $n$ positive integers $a_1, a_2, \ldots, a_n$ ($1 ≤ a_i ≤ 10^9$).
+The second line contains $n$ positive integers $a_1, a_2, ..., a_n$ ($1 ≤ a_i ≤ 10^9$).
 
 ## Output
 
@@ -25,7 +25,6 @@ Print the maximum length of an increasing subarray of the given array.
 5
 1 7 2 11 15
 ```
-
 **Output:**
 ```
 3
@@ -38,7 +37,6 @@ Print the maximum length of an increasing subarray of the given array.
 6
 100 100 100 100 100 100
 ```
-
 **Output:**
 ```
 1
@@ -51,7 +49,6 @@ Print the maximum length of an increasing subarray of the given array.
 3
 1 2 3
 ```
-
 **Output:**
 ```
 3

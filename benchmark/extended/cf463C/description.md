@@ -1,4 +1,4 @@
-# Gargari and Bishops
+# C. Gargari and Bishops
 
 Time limit: 3 seconds | Memory limit: 256 megabytes
 
@@ -10,15 +10,15 @@ We assume a cell is attacked by a bishop, if the cell is located on the same dia
 
 ## Input
 
-The first line contains a single integer $n$ $(2 ≤ n ≤ 2000)$. Each of the next $n$ lines contains $n$ integers $aij$ $(0 ≤ aij ≤ 109)$ — description of the chessboard.
+The first line contains a single integer $n$ $(2 ≤ n ≤ 2000)$. Each of the next $n$ lines contains $n$ integers $a_ij$ $(0 ≤ a_ij ≤ 10^9)$ — description of the chessboard.
 
 ## Output
 
-On the first line print the maximal number of dollars Gargari will get. On the next line print four integers: $x1, y1, x2, y2$ $(1 ≤ x1, y1, x2, y2 ≤ n)$, where $xi$ is the number of the row where the $i$-th bishop should be placed, $yi$ is the number of the column where the $i$-th bishop should be placed. Consider rows are numbered from 1 to $n$ from top to bottom, and columns are numbered from 1 to $n$ from left to right.
+On the first line print the maximal number of dollars Gargari will get. On the next line print four integers: $x_1, y_1, x_2, y_2$ $(1 ≤ x_1, y_1, x_2, y_2 ≤ n)$, where $x_i$ is the number of the row where the $i$-th bishop should be placed, $y_i$ is the number of the column where the $i$-th bishop should be placed. Consider rows are numbered from 1 to $n$ from top to bottom, and columns are numbered from 1 to $n$ from left to right.
 
 If there are several optimal solutions, you can print any of them.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -28,7 +28,6 @@ If there are several optimal solutions, you can print any of them.
 1 1 1 0
 1 0 0 1
 ```
-
 **Output:**
 ```
 12

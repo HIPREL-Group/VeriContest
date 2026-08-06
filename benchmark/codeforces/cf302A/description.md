@@ -1,21 +1,20 @@
-# Eugeny and Array
+# A. Eugeny and Array
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-Eugeny has array $*a* = *a*1, *a*2, ..., *a**n*$, consisting of $*n*$ integers. Each integer $*a**i*$ equals to -1, or to 1. Also, he has $*m*$ queries:
-
- -  Query number $*i*$ is given as a pair of integers $*l**i*$, $*r**i*$ $(1 ≤ *l**i* ≤ *r**i* ≤ *n*)$. 
--  The response to the query will be integer $1$, if the elements of array $*a*$ can be rearranged so as the sum $*a**l**i* + *a**l**i* + 1 + ... + *a**r**i* = 0$, otherwise the response to the query will be integer $0$. 
+Eugeny has array $a = a_1, a_2, ..., a_n$, consisting of $n$ integers. Each integer $a_i$ equals to -1, or to 1. Also, he has $m$ queries:
+ - Query number $i$ is given as a pair of integers $l_i$, $r_i$ $(1 ≤ l_i ≤ r_i ≤ n)$. 
+- The response to the query will be integer $1$, if the elements of array $a$ can be rearranged so as the sum $a_li + a_li + 1 + ... + a_ri = 0$, otherwise the response to the query will be integer $0$. 
 
 Help Eugeny, answer all his queries.
 
 ## Input
 
-The first line contains integers $*n*$ and $*m*$ $(1 ≤ *n*, *m* ≤ 2·105)$. The second line contains $*n*$ integers $*a*1, *a*2, ..., *a**n*$ $(*a**i* = $-$1, 1)$. Next $*m*$ lines contain Eugene's queries. The $*i*$-th line contains integers $*l**i*, *r**i*$ $(1 ≤ *l**i* ≤ *r**i* ≤ *n*)$.
+The first line contains integers $n$ and $m$ $(1 ≤ n, m ≤ 2·10^5)$. The second line contains $n$ integers $a_1, a_2, ..., a_n$ $(a_i = $-$1, 1)$. Next $m$ lines contain Eugene's queries. The $i$-th line contains integers $l_i, r_i$ $(1 ≤ l_i ≤ r_i ≤ n)$.
 
 ## Output
 
-Print $*m*$ integers — the responses to Eugene's queries in the order they occur in the input.
+Print $m$ integers — the responses to Eugene's queries in the order they occur in the input.
 
 ## Examples
 
@@ -29,7 +28,6 @@ Print $*m*$ integers — the responses to Eugene's queries in the order they occ
 1 2
 2 2
 ```
-
 **Output:**
 ```
 0
@@ -49,7 +47,6 @@ Print $*m*$ integers — the responses to Eugene's queries in the order they occ
 2 5
 1 5
 ```
-
 **Output:**
 ```
 0

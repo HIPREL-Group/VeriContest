@@ -1,4 +1,4 @@
-# Stones on the Table
+# A. Stones on the Table
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -23,7 +23,6 @@ Print a single integer — the answer to the problem.
 3
 RRG
 ```
-
 **Output:**
 ```
 1
@@ -36,7 +35,6 @@ RRG
 5
 RRRRR
 ```
-
 **Output:**
 ```
 4
@@ -49,7 +47,6 @@ RRRRR
 4
 BRBG
 ```
-
 **Output:**
 ```
 0

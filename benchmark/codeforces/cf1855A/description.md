@@ -1,4 +1,4 @@
-# Dalton the Teacher
+# A. Dalton the Teacher
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -22,7 +22,7 @@ It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$
 
 For each test case, output the minimum number of moves required.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -38,7 +38,6 @@ For each test case, output the minimum number of moves required.
 10
 10 2 1 3 6 5 4 7 9 8
 ```
-
 **Output:**
 ```
 0

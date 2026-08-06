@@ -1,13 +1,12 @@
-# One and Two
+# A. One and Two
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
 You are given a sequence $$$a_1, a_2, \ldots, a_n$$$. Each element of $$$a$$$ is $$$1$$$ or $$$2$$$.
 
-Find out if an integer $$$k$$$ exists so that the following conditions are met.
-
-- $$$1 \leq k \leq n-1$$$, and
-- $$$a_1 \cdot a_2 \cdot \ldots \cdot a_k = a_{k+1} \cdot a_{k+2} \cdot \ldots \cdot a_n$$$.
+Find out if an integer $$$k$$$ exists so that the following conditions are met. 
+ - $$$1 \leq k \leq n-1$$$, and 
+- $$$a_1 \cdot a_2 \cdot \ldots \cdot a_k = a_{k+1} \cdot a_{k+2} \cdot \ldots \cdot a_n$$$. 
 
 If there exist multiple $$$k$$$ that satisfy the given condition, print the smallest.
 
@@ -25,10 +24,9 @@ For each test case, if there is no such $$$k$$$, print $$$-1$$$.
 
 Otherwise, print the smallest possible $$$k$$$.
 
-## Examples
+## Example
 
 **Input:**
-
 ```
 3
 6
@@ -38,9 +36,7 @@ Otherwise, print the smallest possible $$$k$$$.
 4
 1 1 1 1
 ```
-
 **Output:**
-
 ```
 2
 -1

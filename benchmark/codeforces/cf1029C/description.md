@@ -1,4 +1,4 @@
-# Maximal Intersection
+# C. Maximal Intersection
 
 Time limit: 3 seconds | Memory limit: 256 megabytes
 
@@ -32,7 +32,6 @@ Print a single integer — the maximal possible length of the intersection of $$
 0 4
 3 3
 ```
-
 **Output:**
 ```
 1
@@ -49,7 +48,6 @@ Print a single integer — the maximal possible length of the intersection of $$
 1 20
 0 4
 ```
-
 **Output:**
 ```
 2
@@ -64,7 +62,6 @@ Print a single integer — the maximal possible length of the intersection of $$
 1 2
 9 20
 ```
-
 **Output:**
 ```
 0
@@ -78,7 +75,6 @@ Print a single integer — the maximal possible length of the intersection of $$
 3 10
 1 5
 ```
-
 **Output:**
 ```
 7

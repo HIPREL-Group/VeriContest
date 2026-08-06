@@ -1,4 +1,4 @@
-# Di-visible Confusion
+# C. Di-visible Confusion
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -22,7 +22,7 @@ It is guaranteed that the sum of $$$n$$$ over all test cases doesn't exceed $$$3
 
 For each test case, print "`YES`" (without quotes) if it is possible to erase the whole sequence using the aforementioned operation, print "`NO`" (without quotes) otherwise. You can print each letter in any register (upper or lower).
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -38,7 +38,6 @@ For each test case, print "`YES`" (without quotes) if it is possible to erase th
 8
 6 69 696 69696 696969 6969696 69696969 696969696
 ```
-
 **Output:**
 ```
 YES

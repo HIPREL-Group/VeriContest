@@ -1,12 +1,12 @@
-# Fortune Telling
+# B. Fortune Telling
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
-Marina loves Sasha. But she keeps wondering whether Sasha loves her. Of course, the best way to know it is fortune telling. There are many ways of telling fortune, but Marina has picked the easiest one. She takes in her hand one or several camomiles and tears off the petals one by one. After each petal she pronounces alternatively "Loves" and "Doesn't love", at that Marina always starts with "Loves". There are $n$ camomiles growing in the field, possessing the numbers of petals equal to $a1, a2, ... an$. Marina wants to pick a bouquet with the maximal possible total number of petals so that the result would still be "Loves". Help her do that; find the maximal number of petals possible in the bouquet.
+Marina loves Sasha. But she keeps wondering whether Sasha loves her. Of course, the best way to know it is fortune telling. There are many ways of telling fortune, but Marina has picked the easiest one. She takes in her hand one or several camomiles and tears off the petals one by one. After each petal she pronounces alternatively "Loves" and "Doesn't love", at that Marina always starts with "Loves". There are $n$ camomiles growing in the field, possessing the numbers of petals equal to $a_1, a_2, ... a_n$. Marina wants to pick a bouquet with the maximal possible total number of petals so that the result would still be "Loves". Help her do that; find the maximal number of petals possible in the bouquet.
 
 ## Input
 
-The first line contains an integer $n$ ($1 ≤ n ≤ 100$), which is the number of flowers growing in the field. The second line contains $n$ integers $a_i$ ($1 ≤ ai ≤ 100$) which represent the number of petals on a given $i$-th camomile.
+The first line contains an integer $n$ ($1 ≤ n ≤ 100$), which is the number of flowers growing in the field. The second line contains $n$ integers $a_i$ ($1 ≤ a_i ≤ 100$) which represent the number of petals on a given $i$-th camomile.
 
 ## Output
 
@@ -21,7 +21,6 @@ Print a single number which is the maximal number of petals in the bouquet, the 
 1
 1
 ```
-
 **Output:**
 ```
 1
@@ -34,7 +33,6 @@ Print a single number which is the maximal number of petals in the bouquet, the 
 1
 2
 ```
-
 **Output:**
 ```
 0
@@ -47,7 +45,6 @@ Print a single number which is the maximal number of petals in the bouquet, the 
 3
 5 6 7
 ```
-
 **Output:**
 ```
 13

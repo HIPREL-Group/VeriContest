@@ -1,16 +1,16 @@
-# Woodcutters
+# C. Woodcutters
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
 Little Susie listens to fairy tales before bed every day. Today's fairy tale was about wood cutters and the little girl immediately started imagining the choppers cutting wood. She imagined the situation that is described below.
 
-There are $n$ trees located along the road at points with coordinates $x_1, x_2, \ldots, x_n$. Each tree has its height $h_i$. Woodcutters can cut down a tree and fell it to the left or to the right. After that it occupies one of the segments $[x_i - h_i, x_i]$ or $[x_i; x_i + h_i]$. The tree that is not cut down occupies a single point with coordinate $x_i$. Woodcutters can fell a tree if the segment to be occupied by the fallen tree doesn't contain any occupied point. The woodcutters want to process as many trees as possible, so Susie wonders, what is the maximum number of trees to fell.
+There are $n$ trees located along the road at points with coordinates $x_1, x_2, ..., x_n$. Each tree has its height $h_i$. Woodcutters can cut down a tree and fell it to the left or to the right. After that it occupies one of the segments $[x_i - h_i, x_i]$ or $[x_i;x_i + h_i]$. The tree that is not cut down occupies a single point with coordinate $x_i$. Woodcutters can fell a tree if the segment to be occupied by the fallen tree doesn't contain any occupied point. The woodcutters want to process as many trees as possible, so Susie wonders, what is the maximum number of trees to fell.
 
 ## Input
 
-The first line contains integer $n$ ($1 \le n \le 10^5$) — the number of trees.
+The first line contains integer $n$ ($1 ≤ n ≤ 10^5$) — the number of trees.
 
-Next $n$ lines contain pairs of integers $x_i, h_i$ ($1 \le x_i, h_i \le 10^9$) — the coordinate and the height of the $i$-th tree.
+Next $n$ lines contain pairs of integers $x_i, h_i$ ($1 ≤ x_i, h_i ≤ 10^9$) — the coordinate and the height of the $і$-th tree.
 
 The pairs are given in the order of ascending $x_i$. No two trees are located at the point with the same coordinate.
 
@@ -31,7 +31,6 @@ Print a single number — the maximum number of trees that you can cut down by t
 10 9
 19 1
 ```
-
 **Output:**
 ```
 3
@@ -48,7 +47,6 @@ Print a single number — the maximum number of trees that you can cut down by t
 10 9
 20 1
 ```
-
 **Output:**
 ```
 4
@@ -57,7 +55,7 @@ Print a single number — the maximum number of trees that you can cut down by t
 ## Note
 
 In the first sample you can fell the trees like that: 
- - fell the $1$-st tree to the left — now it occupies segment $[ - 1;1]$ 
+ - fell the $1$-st tree to the left — now it occupies segment $[ - 1;1]$ 
 - fell the $2$-nd tree to the right — now it occupies segment $[2;3]$ 
 - leave the $3$-rd tree — it occupies point $5$ 
 - leave the $4$-th tree — it occupies point $10$ 

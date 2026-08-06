@@ -1,4 +1,4 @@
-# Restoring the Duration of Tasks
+# C. Restoring the Duration of Tasks
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -31,7 +31,7 @@ It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$
 
 For each of $$$t$$$ test cases print $$$n$$$ positive integers $$$d_1, d_2, \dots, d_n$$$ — the duration of each task.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -49,7 +49,6 @@ For each of $$$t$$$ test cases print $$$n$$$ positive integers $$$d_1, d_2, \dot
 0
 1000000000
 ```
-
 **Output:**
 ```
 2 7 1 

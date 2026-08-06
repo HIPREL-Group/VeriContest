@@ -1,4 +1,4 @@
-# Common Divisors
+# C. Common Divisors
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -27,7 +27,6 @@ Print one integer — the number of such positive integers $$$x$$$ such that $$$
 5
 1 2 3 4 5
 ```
-
 **Output:**
 ```
 1
@@ -40,7 +39,6 @@ Print one integer — the number of such positive integers $$$x$$$ such that $$$
 6
 6 90 12 18 30 18
 ```
-
 **Output:**
 ```
 4

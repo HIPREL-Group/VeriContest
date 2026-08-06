@@ -1,18 +1,18 @@
-# Colourblindness
+# B. Colourblindness
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-Vasya has a grid with $2$ rows and $n$ columns. He colours each cell red, green, or blue.
+Vasya has a grid with $$$2$$$ rows and $$$n$$$ columns. He colours each cell red, green, or blue.
 
 Vasya is colourblind and can't distinguish green from blue. Determine if Vasya will consider the two rows of the grid to be coloured the same.
 
 ## Input
 
-The input consists of multiple test cases. The first line contains an integer $t$ ($1 \leq t \leq 100$) — the number of test cases. The description of the test cases follows.
+The input consists of multiple test cases. The first line contains an integer $$$t$$$ ($$$1 \leq t \leq 100$$$) — the number of test cases. The description of the test cases follows.
 
-The first line of each test case contains an integer $n$ ($1 \leq n \leq 100$) — the number of columns of the grid.
+The first line of each test case contains an integer $$$n$$$ ($$$1 \leq n \leq 100$$$) — the number of columns of the grid.
 
-The following two lines each contain a string consisting of $n$ characters, each of which is either `R`, `G`, or `B`, representing a red, green, or blue cell, respectively — the description of the grid.
+The following two lines each contain a string consisting of $$$n$$$ characters, each of which is either `R`, `G`, or `B`, representing a red, green, or blue cell, respectively — the description of the grid.
 
 ## Output
 
@@ -20,7 +20,7 @@ For each test case, output "`YES`" if Vasya considers the grid's two rows to be 
 
 You can output the answer in any case (for example, the strings "`yEs`", "`yes`", "`Yes`" and "`YES`" will be recognized as a positive answer).
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -44,7 +44,6 @@ RGGRRBGR
 G
 G
 ```
-
 **Output:**
 ```
 YES

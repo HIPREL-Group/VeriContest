@@ -1,4 +1,4 @@
-# Perfect Team
+# C. Perfect Team
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -26,7 +26,7 @@ Note that the no student is both coder and mathematician at the same time.
 
 Print $$$q$$$ integers — the $$$i$$$-th of them should be the answer to the $$$i$$$ query in the order they are given in the input. The answer is the maximum number of full perfect teams you can distribute your students into.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -38,7 +38,6 @@ Print $$$q$$$ integers — the $$$i$$$-th of them should be the answer to the $$
 10 1 10
 4 4 1
 ```
-
 **Output:**
 ```
 1

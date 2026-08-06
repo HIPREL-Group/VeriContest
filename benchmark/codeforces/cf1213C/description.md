@@ -1,4 +1,4 @@
-# Book Reading
+# C. Book Reading
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -18,7 +18,7 @@ The following $$$q$$$ lines contain queries, one per line. Each query is given a
 
 For each query print the answer for it — the sum of digits written down by Polycarp.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -31,7 +31,6 @@ For each query print the answer for it — the sum of digits written down by Pol
 123 144
 1234312817382646 13
 ```
-
 **Output:**
 ```
 1

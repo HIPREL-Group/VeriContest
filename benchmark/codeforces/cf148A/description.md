@@ -1,4 +1,4 @@
-# Insomnia cure
+# A. Insomnia cure
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -28,7 +28,6 @@ Output the number of damaged dragons.
 4
 12
 ```
-
 **Output:**
 ```
 12
@@ -44,7 +43,6 @@ Output the number of damaged dragons.
 5
 24
 ```
-
 **Output:**
 ```
 17

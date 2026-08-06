@@ -1,4 +1,4 @@
-# Brightness Begins
+# B. Brightness Begins
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -23,7 +23,7 @@ The only line of each test case contains a single integer $$$k$$$ ($$$1 \le k \l
 
 For each test case, output $$$n$$$ — the minimum number of bulbs.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -32,7 +32,6 @@ For each test case, output $$$n$$$ — the minimum number of bulbs.
 3
 8
 ```
-
 **Output:**
 ```
 2

@@ -1,24 +1,24 @@
-# Chat Online
+# B. Chat Online
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
 Little X and Little Z are good friends. They always chat online. But both of them have schedules.
 
-Little Z has fixed schedule. He always online at any moment of time between $a_1$ and $b_1$, between $a_2$ and $b_2$, $\ldots$, between $a_p$ and $b_p$ (all borders inclusive). But the schedule of Little X is quite strange, it depends on the time when he gets up. If he gets up at time $0$, he will be online at any moment of time between $c_1$ and $d_1$, between $c_2$ and $d_2$, $\ldots$, between $c_q$ and $d_q$ (all borders inclusive). But if he gets up at time $t$, these segments will be shifted by $t$. They become $[c_i + t, d_i + t]$ (for all $i$).
+Little Z has fixed schedule. He always online at any moment of time between $a_1$ and $b_1$, between $a_2$ and $b_2$, ..., between $a_p$ and $b_p$ (all borders inclusive). But the schedule of Little X is quite strange, it depends on the time when he gets up. If he gets up at time $0$, he will be online at any moment of time between $c_1$ and $d_1$, between $c_2$ and $d_2$, ..., between $c_q$ and $d_q$ (all borders inclusive). But if he gets up at time $t$, these segments will be shifted by $t$. They become $[c_i + t, d_i + t]$ (for all $i$).
 
-If at a moment of time, both Little X and Little Z are online simultaneosly, they can chat online happily. You know that Little X can get up at an integer moment of time between $l$ and $r$ (both borders inclusive). Also you know that Little X wants to get up at the moment of time, that is suitable for chatting with Little Z (they must have at least one common moment of time in schedules). How many integer moments of time from the segment $[l, r]$ suit for that?
+If at a moment of time, both Little X and Little Z are online simultaneosly, they can chat online happily. You know that Little X can get up at an integer moment of time between $l$ and $r$ (both borders inclusive). Also you know that Little X wants to get up at the moment of time, that is suitable for chatting with Little Z (they must have at least one common moment of time in schedules). How many integer moments of time from the segment $[l, r]$ suit for that?
 
 ## Input
 
-The first line contains four space-separated integers $p, q, l, r$ ($1 \le p, q \le 50$; $0 \le l \le r \le 1000$).
+The first line contains four space-separated integers $p, q, l, r$ ($1 ≤  p, q ≤ 50; 0 ≤ l ≤ r ≤ 1000$).
 
-Each of the next $p$ lines contains two space-separated integers $a_i, b_i$ ($0 \le a_i < b_i \le 1000$). Each of the next $q$ lines contains two space-separated integers $c_j, d_j$ ($0 \le c_j < d_j \le 1000$).
+Each of the next $p$ lines contains two space-separated integers $a_i, b_i$ ($0 ≤ a_i < b_i ≤ 1000$). Each of the next $q$ lines contains two space-separated integers $c_j, d_j$ ($0 ≤ c_j < d_j ≤ 1000$).
 
-It's guaranteed that $b_i < a_{i+1}$ and $d_j < c_{j+1}$ for all valid $i$ and $j$.
+It's guaranteed that $b_i < a_i + 1$ and $d_j < c_j + 1$ for all valid $i$ and $j$.
 
 ## Output
 
-Output a single integer — the number of moments of time from the segment $[l, r]$ which suit for online conversation.
+Output a single integer — the number of moments of time from the segment $[l, r]$ which suit for online conversation.
 
 ## Examples
 
@@ -30,7 +30,6 @@ Output a single integer — the number of moments of time from the segment $[l, 
 2 3
 0 1
 ```
-
 **Output:**
 ```
 3
@@ -47,7 +46,6 @@ Output a single integer — the number of moments of time from the segment $[l, 
 7 11
 15 17
 ```
-
 **Output:**
 ```
 20

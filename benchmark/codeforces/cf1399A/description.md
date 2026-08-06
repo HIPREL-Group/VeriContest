@@ -1,4 +1,4 @@
-# Remove Smallest
+# A. Remove Smallest
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -20,7 +20,7 @@ The first line of the test case contains one integer $$$n$$$ ($$$1 \le n \le 50$
 
 For each test case, print the answer: "`YES`" if it is possible to obtain the array consisting of **only one element** using several (possibly, zero) moves described in the problem statement, or "`NO`" otherwise.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -36,7 +36,6 @@ For each test case, print the answer: "`YES`" if it is possible to obtain the ar
 1
 100
 ```
-
 **Output:**
 ```
 YES

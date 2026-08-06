@@ -1,4 +1,4 @@
-# Almost Equal
+# C. Almost Equal
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -26,7 +26,6 @@ If there is a solution, output "`YES`" in the first line. In the second line out
 ```
 3
 ```
-
 **Output:**
 ```
 YES
@@ -39,7 +38,6 @@ YES
 ```
 4
 ```
-
 **Output:**
 ```
 NO

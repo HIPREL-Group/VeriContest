@@ -1,4 +1,4 @@
-# Christmas Spruce
+# B. Christmas Spruce
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -10,7 +10,7 @@ The definition of a rooted tree can be found here.
 
 ## Input
 
-The first line contains one integer $n$ — the number of vertices in the tree ($3 ≤ n ≤ 1 000$). Each of the next $n - 1$ lines contains one integer $p_i$ ($1 ≤ i ≤ n - 1$) — the index of the parent of the $i + 1$-th vertex ($1 ≤ pi ≤ i$).
+The first line contains one integer $n$ — the number of vertices in the tree ($3 ≤ n ≤ 1 000$). Each of the next $n - 1$ lines contains one integer $p_i$ ($1 ≤ i ≤ n - 1$) — the index of the parent of the $i + 1$-th vertex ($1 ≤ p_i ≤ i$).
 
 Vertex $1$ is the root. It's guaranteed that the root has at least $2$ children.
 
@@ -29,7 +29,6 @@ Print "`Yes`" if the tree is a spruce and "`No`" otherwise.
 1
 1
 ```
-
 **Output:**
 ```
 Yes
@@ -47,7 +46,6 @@ Yes
 2
 2
 ```
-
 **Output:**
 ```
 No
@@ -66,7 +64,6 @@ No
 3
 3
 ```
-
 **Output:**
 ```
 Yes

@@ -1,4 +1,4 @@
-# Paint the Digits
+# C. Paint the Digits
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -30,7 +30,7 @@ If there is a solution for a test case, the corresponding output line should con
 
 If there is no solution, then the corresponding output line should contain a single character '`-`' (the minus sign).
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -46,7 +46,6 @@ If there is no solution, then the corresponding output line should contain a sin
 3
 987
 ```
-
 **Output:**
 ```
 121212211211

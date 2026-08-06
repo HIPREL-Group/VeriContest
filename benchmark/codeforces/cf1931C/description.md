@@ -1,36 +1,62 @@
 # C. Make Equal Again
 
-You are given an integer array `a` of length `n`.
+Time limit: 2 seconds | Memory limit: 256 megabytes
 
-You may perform at most one operation:
-- choose integers `l`, `r`, `x` with `1 <= l <= r <= n`,
-- set every element `a[i]` for `l <= i <= r` to `x`.
+You have an array $$$a$$$ of $$$n$$$ integers. 
 
-The cost of this operation is `r - l + 1` burles.
+You can **no more than once** apply the following operation: select three integers $$$i$$$, $$$j$$$, $$$x$$$ ($$$1 \le i \le j \le n$$$) and assign all elements of the array with indexes from $$$i$$$ to $$$j$$$ the value $$$x$$$. The price of this operation depends on the selected indices and is equal to $$$(j - i + 1)$$$ burles. 
 
-Find the minimum cost needed to make all array elements equal.
+For example, the array is equal to $$$[1, 2, 3, 4, 5, 1]$$$. If we choose $$$i = 2, j = 4, x = 8$$$, then after applying this operation, the array will be equal to $$$[1, 8, 8, 8, 5, 1]$$$.
+
+What is the least amount of burles you need to spend to make all the elements of the array equal?
 
 ## Input
 
-- The first line contains an integer `t` — the number of test cases.
-- For each test case:
-- the first line contains `n`.
-- the second line contains `n` integers `a_1, a_2, ..., a_n`.
+The first line contains a single integer $$$t$$$ ($$$1 \le t \le 10^4$$$) — the number of input test cases. The descriptions of the test cases follow.
 
-Typical constraints for this problem:
-- `1 <= t <= 10^4`
-- `1 <= n <= 2 * 10^5`
-- `1 <= a_i <= n`
-- the sum of `n` over all test cases does not exceed `2 * 10^5`.
+The first line of the description of each test case contains a single integer $$$n$$$ ($$$1 \le n \le 2 \cdot 10 ^ 5$$$) — the size of the array.
+
+The second line of the description of each test case contains $$$n$$$ integers $$$a_1, a_2, \dots, a_n$$$ ($$$1 \le a_i \le n$$$) — array elements.
+
+It is guaranteed that the sum of $$$n$$$ for all test cases does not exceed $$$2 \cdot 10^5$$$.
 
 ## Output
 
-For each test case, print one integer: the minimum number of burles.
+For each test case, output one integer — the minimum number of burles that will have to be spent to make all the elements of the array equal. It can be shown that this can always be done.
 
-## Key idea
+## Example
 
-If all elements must be equal after at most one segment assignment, the unchanged prefix and suffix (if any) must already be equal to the final value.
-So we keep as many equal elements at the left and/or right border as possible and pay for the middle segment.
+**Input:**
+```
+8
+6
+1 2 3 4 5 1
+7
+1 1 1 1 1 1 1
+8
+8 8 8 1 2 8 8 8
+1
+1
+2
+1 2
+3
+1 2 3
+7
+4 3 2 7 1 1 3
+9
+9 9 2 9 2 5 5 5 3
+```
+**Output:**
+```
+4
+0
+2
+0
+1
+2
+6
+7
+```
 
 ## Starter Code
 

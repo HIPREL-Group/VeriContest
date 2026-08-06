@@ -1,4 +1,4 @@
-# Phoenix and Balance
+# A. Phoenix and Balance
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -16,7 +16,7 @@ The first line of each test case contains an integer $$$n$$$ ($$$2 \le n \le 30$
 
 For each test case, output one integer — the minimum possible difference of weights between the two piles.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -24,7 +24,6 @@ For each test case, output one integer — the minimum possible difference of w
 2
 4
 ```
-
 **Output:**
 ```
 2

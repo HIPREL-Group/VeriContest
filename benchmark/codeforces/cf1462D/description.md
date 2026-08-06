@@ -1,4 +1,4 @@
-# Add to Neighbour and Remove
+# D. Add to Neighbour and Remove
 
 Time limit: 3 seconds | Memory limit: 256 megabytes
 
@@ -30,7 +30,7 @@ It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$
 
 For each test case, output a single number — the minimum number of operations that Polycarp needs to perform so that all elements of the $$$a$$$ array are the same (equal).
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -44,7 +44,6 @@ For each test case, output a single number — the minimum number of operations
 4
 6 3 2 1
 ```
-
 **Output:**
 ```
 4

@@ -1,4 +1,4 @@
-# Array Decrements
+# B. Array Decrements
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -35,7 +35,7 @@ For each test case, output on a separate line:
 
 You can output `YES` and `NO` in any case (for example, strings `yEs`, `yes`, `Yes` and `YES` will be recognized as a positive response).
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -59,7 +59,6 @@ You can output `YES` and `NO` in any case (for example, strings `yEs`, `yes`, `Y
 4
 6
 ```
-
 **Output:**
 ```
 YES

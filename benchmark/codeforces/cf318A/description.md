@@ -1,4 +1,4 @@
-# Even Odds
+# A. Even Odds
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -6,7 +6,7 @@ Being a nonconformist, Volodya is displeased with the current state of things, p
 
 ## Input
 
-The only line of input contains integers $n$ and $k$ ($1 ≤ k ≤ n ≤ 10^{12}$).
+The only line of input contains integers $n$ and $k$ ($1 ≤ k ≤ n ≤ 10^12$).
 
 Please, do not use the `%lld` specifier to read or write 64-bit integers in C++. It is preferred to use the `cin`, `cout` streams or the `%I64d` specifier.
 
@@ -22,7 +22,6 @@ Print the number that will stand at the position number $k$ after Volodya's mani
 ```
 10 3
 ```
-
 **Output:**
 ```
 5
@@ -34,7 +33,6 @@ Print the number that will stand at the position number $k$ after Volodya's mani
 ```
 7 7
 ```
-
 **Output:**
 ```
 6

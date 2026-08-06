@@ -1,18 +1,18 @@
-# Perfect Permutation
+# A. Perfect Permutation
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
-A *permutation* is a sequence of integers $*p*1, *p*2, ..., *p**n*$, consisting of $*n*$ distinct positive integers, each of them doesn't exceed $*n*$. Let's denote the $*i*$-th element of permutation $*p*$ as $*p**i*$. We'll call number $*n*$ the size of permutation $*p*1, *p*2, ..., *p**n*$.
+A *permutation* is a sequence of integers $p_1, p_2, ..., p_n$, consisting of $n$ distinct positive integers, each of them doesn't exceed $n$. Let's denote the $i$-th element of permutation $p$ as $p_i$. We'll call number $n$ the size of permutation $p_1, p_2, ..., p_n$.
 
-Nickolas adores permutations. He likes some permutations more than the others. He calls such permutations perfect. A *perfect* permutation is such permutation $*p*$ that for any $*i*$ $(1 ≤ *i* ≤ *n*)$ ($*n*$ is the permutation size) the following equations hold $*p**p**i* = *i*$ and $*p**i* ≠ *i*$. Nickolas asks you to print any perfect permutation of size $*n*$ for the given $*n*$.
+Nickolas adores permutations. He likes some permutations more than the others. He calls such permutations perfect. A *perfect* permutation is such permutation $p$ that for any $i$ $(1 ≤ i ≤ n)$ ($n$ is the permutation size) the following equations hold $p_pi = i$ and $p_i ≠ i$. Nickolas asks you to print any perfect permutation of size $n$ for the given $n$.
 
 ## Input
 
-A single line contains a single integer $*n*$ ($1 ≤ *n* ≤ 100$) — the permutation size.
+A single line contains a single integer $n$ ($1 ≤ n ≤ 100$) — the permutation size.
 
 ## Output
 
-If a perfect permutation of size $*n*$ doesn't exist, print a single integer -1. Otherwise print $*n*$ distinct integers from 1 to $*n*$, $*p*1, *p*2, ..., *p**n*$ — permutation $*p*$, that is perfect. Separate printed numbers by whitespaces.
+If a perfect permutation of size $n$ doesn't exist, print a single integer -1. Otherwise print $n$ distinct integers from 1 to $n$, $p_1, p_2, ..., p_n$ — permutation $p$, that is perfect. Separate printed numbers by whitespaces.
 
 ## Examples
 
@@ -22,7 +22,6 @@ If a perfect permutation of size $*n*$ doesn't exist, print a single integer -1.
 ```
 1
 ```
-
 **Output:**
 ```
 -1
@@ -34,7 +33,6 @@ If a perfect permutation of size $*n*$ doesn't exist, print a single integer -1.
 ```
 2
 ```
-
 **Output:**
 ```
 2 1
@@ -46,7 +44,6 @@ If a perfect permutation of size $*n*$ doesn't exist, print a single integer -1.
 ```
 4
 ```
-
 **Output:**
 ```
 2 1 4 3

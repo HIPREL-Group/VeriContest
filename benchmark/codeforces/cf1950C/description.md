@@ -1,17 +1,16 @@
-# Clock Conversion
+# C. Clock Conversion
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
 Given the time in 24-hour format, output the equivalent time in 12-hour format. 
-
- -  24-hour format divides the day into 24 hours from $00$ to $23$, each of which has 60 minutes from $00$ to $59$. 
--  12-hour format divides the day into two halves: the first half is $\mathrm{AM}$, and the second half is $\mathrm{PM}$. In each half, the hours are numbered in the order $12, 01, 02, 03, \dots, 11$. Each hour has 60 minutes numbered from $00$ to $59$.
+ - 24-hour format divides the day into 24 hours from $$$00$$$ to $$$23$$$, each of which has 60 minutes from $$$00$$$ to $$$59$$$. 
+- 12-hour format divides the day into two halves: the first half is $$$\mathrm{AM}$$$, and the second half is $$$\mathrm{PM}$$$. In each half, the hours are numbered in the order $$$12, 01, 02, 03, \dots, 11$$$. Each hour has 60 minutes numbered from $$$00$$$ to $$$59$$$.
 
 ## Input
 
-The first line contains a single integer $t$ ($1 \leq t \leq 1440$) — the number of test cases.
+The first line contains a single integer $$$t$$$ ($$$1 \leq t \leq 1440$$$) — the number of test cases.
 
-The only line of each test case contains a string $s$ of length $5$ with format `hh:mm` representing a valid time in the 24-hour format. `hh` represents the hour from $00$ to $23$, and `mm` represents the minute from $00$ to $59$.
+The only line of each test case contains a string $$$s$$$ of length $$$5$$$ with format `hh:mm` representing a valid time in the 24-hour format. `hh` represents the hour from $$$00$$$ to $$$23$$$, and `mm` represents the minute from $$$00$$$ to $$$59$$$.
 
 The input will always be a valid time in 24-hour format.
 
@@ -21,7 +20,7 @@ For each test case, output two strings separated by a space ("`hh:mm AM`" or "`h
 
 You should output the time exactly as indicated; in particular, you should not remove leading zeroes.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -38,7 +37,6 @@ You should output the time exactly as indicated; in particular, you should not r
 12:00
 21:37
 ```
-
 **Output:**
 ```
 09:41 AM

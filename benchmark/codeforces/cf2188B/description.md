@@ -1,4 +1,4 @@
-# Seats
+# B. Seats
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -24,7 +24,7 @@ It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$
 
 For each test case, output a single integer — the minimum total number of seated students.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -40,7 +40,6 @@ For each test case, output a single integer — the minimum total number of sea
 13
 0000100001000
 ```
-
 **Output:**
 ```
 1

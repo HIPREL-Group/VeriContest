@@ -1,4 +1,4 @@
-# Beautiful Year
+# A. Beautiful Year
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -22,7 +22,6 @@ Print a single integer — the minimum year number that is strictly larger than 
 ```
 1987
 ```
-
 **Output:**
 ```
 2013
@@ -34,7 +33,6 @@ Print a single integer — the minimum year number that is strictly larger than 
 ```
 2013
 ```
-
 **Output:**
 ```
 2014

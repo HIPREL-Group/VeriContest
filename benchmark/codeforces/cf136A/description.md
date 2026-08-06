@@ -1,4 +1,4 @@
-# Presents
+# A. Presents
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -10,7 +10,7 @@ Now Petya wants to know for each friend $i$ the number of a friend who has given
 
 ## Input
 
-The first line contains one integer $n$ ($1 ≤ n ≤ 100$) — the quantity of friends Petya invited to the party. The second line contains $n$ space-separated integers: the $i$-th number is $p_i$ — the number of the friend to whom friend number $i$ gave a gift (so friend $i$ gave a gift to friend $p_i$). It is guaranteed that each friend received exactly one gift. It is possible that some friends do not share Petya's ideas of giving gifts to somebody else. Those friends gave the gifts to themselves.
+The first line contains one integer $n$ ($1 ≤ n ≤ 100$) — the quantity of friends Petya invited to the party. The second line contains $n$ space-separated integers: the $i$-th number is $p_i$ — the number of a friend who gave a gift to friend number $i$. It is guaranteed that each friend received exactly one gift. It is possible that some friends do not share Petya's ideas of giving gifts to somebody else. Those friends gave the gifts to themselves.
 
 ## Output
 
@@ -25,7 +25,6 @@ Print $n$ space-separated integers: the $i$-th number should equal the number of
 4
 2 3 4 1
 ```
-
 **Output:**
 ```
 4 1 2 3
@@ -38,7 +37,6 @@ Print $n$ space-separated integers: the $i$-th number should equal the number of
 3
 1 3 2
 ```
-
 **Output:**
 ```
 1 3 2
@@ -51,7 +49,6 @@ Print $n$ space-separated integers: the $i$-th number should equal the number of
 2
 1 2
 ```
-
 **Output:**
 ```
 1 2

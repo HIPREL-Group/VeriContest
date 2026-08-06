@@ -1,4 +1,4 @@
-# Triangle
+# A. Triangle
 
 Time limit: 2 seconds | Memory limit: 64 megabytes
 
@@ -22,7 +22,6 @@ Output `TRIANGLE` if it is possible to construct a non-degenerate triangle. Outp
 ```
 4 2 1 3
 ```
-
 **Output:**
 ```
 TRIANGLE
@@ -34,7 +33,6 @@ TRIANGLE
 ```
 7 2 2 4
 ```
-
 **Output:**
 ```
 SEGMENT
@@ -46,7 +44,6 @@ SEGMENT
 ```
 3 5 9 1
 ```
-
 **Output:**
 ```
 IMPOSSIBLE

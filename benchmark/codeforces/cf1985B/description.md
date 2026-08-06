@@ -1,15 +1,14 @@
-# Maximum Multiple Sum
+# B. Maximum Multiple Sum
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-Given an integer $$$n$$$, find an integer $$$x$$$ such that:
-
-- $$$2 \leq x \leq n$$$.
+Given an integer $$$n$$$, find an integer $$$x$$$ such that: 
+ - $$$2 \leq x \leq n$$$. 
 - The sum of multiples of $$$x$$$ that are less than or equal to $$$n$$$ is maximized. Formally, $$$x + 2x + 3x + \dots + kx$$$ where $$$kx \leq n$$$ is maximized over all possible values of $$$x$$$.
 
 ## Input
 
-The first line contains $$$t$$$ ($$$1 \leq t \leq 100$$$) — the number of test cases.
+The first line contains $$$t$$$ ($$$1 \leq t \leq 100$$$) — the number of test cases.
 
 Each test case contains a single integer $$$n$$$ ($$$2 \leq n \leq 100$$$).
 
@@ -17,18 +16,15 @@ Each test case contains a single integer $$$n$$$ ($$$2 \leq n \leq 100$$$).
 
 For each test case, output an integer, the optimal value of $$$x$$$. It can be shown there is only one unique answer.
 
-## Examples
+## Example
 
 **Input:**
-
 ```
 2
 3
 15
 ```
-
 **Output:**
-
 ```
 3
 2

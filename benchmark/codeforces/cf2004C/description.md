@@ -1,4 +1,4 @@
-# Splitting Items
+# C. Splitting Items
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -28,7 +28,7 @@ It's guaranteed that the sum of $$$n$$$ over all test cases doesn't exceed $$$2 
 
 For each test case, print a single integer — the minimum possible score $$$A - B$$$ after Bob increases the costs of several (possibly none or all) items.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -42,7 +42,6 @@ For each test case, print a single integer — the minimum possible score $$$A 
 2 4
 6 9
 ```
-
 **Output:**
 ```
 4

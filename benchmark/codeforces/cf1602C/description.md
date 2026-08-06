@@ -1,4 +1,4 @@
-# Array Elimination
+# C. Array Elimination
 
 Time limit: 2 seconds | Memory limit: 512 megabytes
 
@@ -29,7 +29,7 @@ For each test case, print all values $$$k$$$, such that it's possible to make al
 
 **Print them in increasing order.**
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -45,7 +45,6 @@ For each test case, print all values $$$k$$$, such that it's possible to make al
 5
 0 0 0 0 0
 ```
-
 **Output:**
 ```
 1 2 4

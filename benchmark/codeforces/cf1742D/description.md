@@ -1,4 +1,4 @@
-# Coprime
+# D. Coprime
 
 Time limit: 3 seconds | Memory limit: 256 megabytes
 
@@ -22,7 +22,7 @@ It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$
 
 For each test case, output a single integer  — the maximum value of $$$i + j$$$ such that $$$i$$$ and $$$j$$$ satisfy the condition that $$$a_i$$$ and $$$a_j$$$ are coprime, or output $$$-1$$$ in case no $$$i$$$, $$$j$$$ satisfy the condition.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -40,7 +40,6 @@ For each test case, output a single integer  — the maximum value of $$$i + j$
 5
 1 2 2 3 6
 ```
-
 **Output:**
 ```
 6

@@ -1,4 +1,4 @@
-# Doremy's IQ
+# C. Doremy's IQ
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -26,13 +26,22 @@ For each test case, you need to output a binary string $$$s$$$, where $$$s_i=1$$
 
 If there are multiple solutions, you may output any.
 
-## Examples
+## Example
 
 **Input:**
 ```
-51 112 11 23 11 2 14 21 4 3 15 25 1 2 4 3
+5
+1 1
+1
+2 1
+1 2
+3 1
+1 2 1
+4 2
+1 4 3 1
+5 2
+5 1 2 4 3
 ```
-
 **Output:**
 ```
 1

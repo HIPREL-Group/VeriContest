@@ -1,4 +1,4 @@
-# Infinity Table
+# C. Infinity Table
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -24,7 +24,7 @@ Each test case consists of one line containing one integer $$$k$$$ ($$$1 \le k \
 
 For each test case, output in a separate line two integers $$$r$$$ and $$$c$$$ ($$$r, c \ge 1$$$) separated by spaces — the indices of the row and the column containing the cell filled by the number $$$k$$$, respectively.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -37,7 +37,6 @@ For each test case, output in a separate line two integers $$$r$$$ and $$$c$$$ (
 2
 1000000000
 ```
-
 **Output:**
 ```
 2 4

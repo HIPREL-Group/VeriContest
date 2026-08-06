@@ -1,4 +1,4 @@
-# Good Pairs
+# A. Good Pairs
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -22,7 +22,7 @@ The sum of $$$n$$$ for all test cases is at most $$$2 \cdot 10^5$$$.
 
 For each test case, print a single line with two space-separated indices $$$i$$$ and $$$j$$$ which form a good pair of the array. The case $$$i=j$$$ is allowed. It can be shown that such a pair always exists. If there are multiple good pairs, print any of them.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -32,9 +32,8 @@ For each test case, print a single line with two space-separated indices $$$i$$$
 5
 1 4 2 2 3
 1
-12
+2
 ```
-
 **Output:**
 ```
 2 3
@@ -44,9 +43,9 @@ For each test case, print a single line with two space-separated indices $$$i$$$
 
 ## Note
 
-In the first case, for $$$i = 2$$$ and $$$j = 3$$$ the equality holds true for all $$$k$$$:
-- $$$k = 1$$$: $$$|a_2 - a_1| + |a_1 - a_3| = |2 - 5| + |5 - 7| = 5 = |2 - 7| = |a_2-a_3|$$$,
-- $$$k = 2$$$: $$$|a_2 - a_2| + |a_2 - a_3| = |2 - 2| + |2 - 7| = 5 = |2 - 7| = |a_2-a_3|$$$,
+In the first case, for $$$i = 2$$$ and $$$j = 3$$$ the equality holds true for all $$$k$$$: 
+ - $$$k = 1$$$: $$$|a_2 - a_1| + |a_1 - a_3| = |2 - 5| + |5 - 7| = 5 = |2 - 7| = |a_2-a_3|$$$, 
+- $$$k = 2$$$: $$$|a_2 - a_2| + |a_2 - a_3| = |2 - 2| + |2 - 7| = 5 = |2 - 7| = |a_2-a_3|$$$, 
 - $$$k = 3$$$: $$$|a_2 - a_3| + |a_3 - a_3| = |2 - 7| + |7 - 7| = 5 = |2 - 7| = |a_2-a_3|$$$.
 
 ## Starter Code

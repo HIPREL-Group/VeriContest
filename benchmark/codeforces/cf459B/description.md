@@ -1,28 +1,20 @@
-# Pashmak and Flowers
+# B. Pashmak and Flowers
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-Pashmak wants to give Parmida exactly two flowers from a garden containing `n` flowers. The `i`-th flower has beauty `b_i`.
+Pashmak decided to give Parmida a pair of flowers from the garden. There are $n$ flowers in the garden and the $i$-th of them has a beauty number $b_i$. Parmida is a very strange girl so she doesn't want to have the two most beautiful flowers necessarily. She wants to have those pairs of flowers that their beauty difference is maximal possible!
 
-The beauty difference of a chosen pair is the absolute difference of the two beauties. Pashmak wants this difference to be as large as possible.
-
-Your task is to determine:
-
-1. The maximum possible beauty difference.
-2. The number of unordered pairs of flowers that achieve that maximum difference.
+Your task is to write a program which calculates two things:
+ - The maximum beauty difference of flowers that Pashmak can give to Parmida. 
+- The number of ways that Pashmak can pick the flowers. Two ways are considered different if and only if there is at least one flower that is chosen in the first way and not chosen in the second way.
 
 ## Input
 
-The first line contains one integer `n` (`2 <= n <= 2 * 10^5`).
-
-The second line contains `n` integers `b_1, b_2, ..., b_n` (`1 <= b_i <= 10^9`) — the beauties of the flowers.
+The first line of the input contains $n$ $(2 ≤ n ≤ 2·10^5)$. In the next line there are $n$ space-separated integers $b_1$, $b_2$, ..., $b_n$ $(1 ≤ b_i ≤ 10^9)$.
 
 ## Output
 
-Print two integers:
-
-1. The maximum possible beauty difference.
-2. The number of unordered pairs whose beauty difference equals that maximum.
+The only line of output should contain two integers. The maximum beauty difference and the number of ways this may happen, respectively.
 
 ## Examples
 
@@ -33,7 +25,6 @@ Print two integers:
 2
 1 2
 ```
-
 **Output:**
 ```
 1 1
@@ -46,7 +37,6 @@ Print two integers:
 3
 1 4 5
 ```
-
 **Output:**
 ```
 4 1
@@ -59,7 +49,6 @@ Print two integers:
 5
 3 1 2 3 1
 ```
-
 **Output:**
 ```
 2 4
@@ -67,7 +56,11 @@ Print two integers:
 
 ## Note
 
-If all flowers have the same beauty, then the maximum difference is `0`, and every unordered pair of flowers is optimal.
+In the third sample the maximum beauty difference is $2$ and there are $4$ ways to do this:
+ - choosing the first and the second flowers; 
+- choosing the first and the fifth flowers; 
+- choosing the fourth and the second flowers; 
+- choosing the fourth and the fifth flowers.
 
 ## Starter Code
 

@@ -1,4 +1,4 @@
-# Choosing Teams
+# A. Choosing Teams
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -8,25 +8,22 @@ The head of the SSU OPTC is recently gathering teams to participate in the world
 
 ## Input
 
-The first line contains two integers $n$ and $k$ ($1 \le n \le 2000$, $1 \le k \le 5$). The next line contains $n$ integers $y_1, y_2, \ldots, y_n$ ($0 \le y_i \le 5$), where $y_i$ is the number of times the $i$-th person participated in the ACM ICPC world championship.
+The first line contains two integers, $n$ and $k$ $(1 ≤ n ≤ 2000; 1 ≤ k ≤ 5)$. The next line contains $n$ integers: $y_1, y_2, ..., y_n$ $(0 ≤ y_i ≤ 5)$, where $y_i$ shows the number of times the $i$-th person participated in the ACM ICPC world championship.
 
 ## Output
 
-Print a single integer — the answer to the problem.
+Print a single number — the answer to the problem.
 
 ## Examples
 
 ### Example 1
 
 **Input:**
-
 ```
 5 2
 0 4 5 1 0
 ```
-
 **Output:**
-
 ```
 1
 ```
@@ -34,14 +31,11 @@ Print a single integer — the answer to the problem.
 ### Example 2
 
 **Input:**
-
 ```
 6 4
 0 1 2 3 4 5
 ```
-
 **Output:**
-
 ```
 0
 ```
@@ -49,14 +43,11 @@ Print a single integer — the answer to the problem.
 ### Example 3
 
 **Input:**
-
 ```
 6 5
 0 0 0 0 0 0
 ```
-
 **Output:**
-
 ```
 2
 ```

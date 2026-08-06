@@ -1,4 +1,4 @@
-# Beautiful Sequence
+# C. Beautiful Sequence
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -27,7 +27,7 @@ Additional constraint on the input: the sum of $$$n$$$ over all test cases doesn
 
 For each test case, print a single integer — the number of beautiful subsequences of the array $$$a$$$, taken modulo $$$998244353$$$.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -41,7 +41,6 @@ For each test case, print a single integer — the number of beautiful subseque
 9
 1 2 3 2 1 3 2 2 3
 ```
-
 **Output:**
 ```
 3

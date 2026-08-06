@@ -1,10 +1,10 @@
-# Load Balancing
+# C. Load Balancing
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
 In the school computer room there are $n$ servers which are responsible for processing several computing tasks. You know the number of scheduled tasks for each server: there are $m_i$ tasks assigned to the $i$-th server.
 
-In order to balance the load for each server, you want to reassign some tasks to make the difference between the most loaded server and the least loaded server as small as possible. In other words you want to minimize expression $m_a - m_b$, where $a$ is the most loaded server and $b$ is the least loaded one.
+In order to balance the load for each server, you want to reassign some tasks to make the difference between the most loaded server and the least loaded server as small as possible. In other words you want to minimize expression $m_a - m_b$, where $a$ is the most loaded server and $b$ is the least loaded one.
 
 In one second you can reassign a single task. Thus in one second you can choose any pair of servers and move a single task from one server to another.
 
@@ -12,9 +12,9 @@ Write a program to find the minimum number of seconds needed to balance the load
 
 ## Input
 
-The first line contains positive number $n$ ($1 \le n \le 10^5$) — the number of the servers.
+The first line contains positive number $n$ ($1 ≤ n ≤ 10^5$) — the number of the servers. 
 
-The second line contains the sequence of non-negative integers $m_1, m_2, \ldots, m_n$ ($0 \le m_i \le 2 \cdot 10^4$), where $m_i$ is the number of tasks assigned to the $i$-th server.
+The second line contains the sequence of non-negative integers $m_1, m_2, ..., m_n$ ($0 ≤ m_i ≤ 2·10^4$), where $m_i$ is the number of tasks assigned to the $i$-th server.
 
 ## Output
 
@@ -29,7 +29,6 @@ Print the minimum number of seconds required to balance the load.
 2
 1 6
 ```
-
 **Output:**
 ```
 2
@@ -42,7 +41,6 @@ Print the minimum number of seconds required to balance the load.
 7
 10 11 10 11 10 11 11
 ```
-
 **Output:**
 ```
 0
@@ -55,7 +53,6 @@ Print the minimum number of seconds required to balance the load.
 5
 1 2 3 4 5
 ```
-
 **Output:**
 ```
 3
@@ -68,10 +65,9 @@ In the first example two seconds are needed. In each second, a single task from 
 In the second example the load is already balanced.
 
 A possible sequence of task movements for the third example is:
-
-- move a task from server #4 to server #1 (the sequence $m$ becomes: 2 2 3 3 5);
-- then move task from server #5 to server #1 (the sequence $m$ becomes: 3 2 3 3 4);
-- then move task from server #5 to server #2 (the sequence $m$ becomes: 3 3 3 3 3).
+ - move a task from server #4 to server #1 (the sequence $m$ becomes: 2 2 3 3 5); 
+- then move task from server #5 to server #1 (the sequence $m$ becomes: 3 2 3 3 4); 
+- then move task from server #5 to server #2 (the sequence $m$ becomes: 3 3 3 3 3). 
 
 The above sequence is one of several possible ways to balance the load of servers in three seconds.
 

@@ -1,4 +1,4 @@
-# For Wizards, the Exam Is Easy, but I Couldn't Handle It
+# D. For Wizards, the Exam Is Easy, but I Couldn't Handle It
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
@@ -29,13 +29,30 @@ For each test case, output two numbers $$$l$$$ and $$$r$$$ ($$$1 \le l \le r \le
 
 If there are multiple suitable pairs of boundaries, you may output any of them.
 
-## Examples
+## Example
 
 **Input:**
 ```
-971 4 3 2 5 3 361 4 3 2 5 387 6 5 8 4 3 2 1101 1 1 5 1 1 5 6 7 821337 6942 1 2 13998 244 35331 2 191 1 2 3 5 8 13 21 34
+9
+7
+1 4 3 2 5 3 3
+6
+1 4 3 2 5 3
+8
+7 6 5 8 4 3 2 1
+10
+1 1 1 5 1 1 5 6 7 8
+2
+1337 69
+4
+2 1 2 1
+3
+998 244 353
+3
+1 2 1
+9
+1 1 2 3 5 8 13 21 34
 ```
-
 **Output:**
 ```
 2 7

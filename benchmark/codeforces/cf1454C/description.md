@@ -1,4 +1,4 @@
-# Sequence Transformation
+# C. Sequence Transformation
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -32,7 +32,7 @@ It is guaranteed that the sum of $$$n$$$ does not exceed $$$2 \cdot 10^5$$$ ($$$
 
 For each test case, print the answer — the **minimum** number of operations required to transform the given sequence in a way described in the problem statement. It can be proven that it is always possible to perform a finite sequence of operations so the sequence is transformed in the required way.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -48,7 +48,6 @@ For each test case, print the answer — the **minimum** number of operations re
 11
 2 2 1 2 3 2 1 2 3 1 2
 ```
-
 **Output:**
 ```
 0

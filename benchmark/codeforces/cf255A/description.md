@@ -1,8 +1,8 @@
-# Greg's Workout
+# A. Greg's Workout
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 
-Greg is a beginner bodybuilder. Today the gym coach gave him the training plan. All it had was $n$ integers $a_1, a_2, \ldots, a_n$. These numbers mean that Greg needs to do exactly $n$ exercises today. Besides, Greg should repeat the $i$-th in order exercise $a_i$ times.
+Greg is a beginner bodybuilder. Today the gym coach gave him the training plan. All it had was $n$ integers $a_1, a_2, ..., a_n$. These numbers mean that Greg needs to do exactly $n$ exercises today. Besides, Greg should repeat the $i$-th in order exercise $a_i$ times.
 
 Greg now only does three types of exercises: "chest" exercises, "biceps" exercises and "back" exercises. Besides, his training is cyclic, that is, the first exercise he does is a "chest" one, the second one is "biceps", the third one is "back", the fourth one is "chest", the fifth one is "biceps", and so on to the $n$-th exercise.
 
@@ -10,7 +10,7 @@ Now Greg wonders, which muscle will get the most exercise during his training. W
 
 ## Input
 
-The first line contains integer $n$ $(1 ≤ n ≤ 20)$. The second line contains $n$ integers $a_1, a_2, \ldots, a_n$ $(1 ≤ a_i ≤ 25)$ — the number of times Greg repeats the exercises.
+The first line contains integer $n$ $(1 ≤ n ≤ 20)$. The second line contains $n$ integers $a_1, a_2, ..., a_n$ $(1 ≤ a_i ≤ 25)$ — the number of times Greg repeats the exercises.
 
 ## Output
 
@@ -27,7 +27,6 @@ It is guaranteed that the input is such that the answer to the problem is **unam
 2
 2 8
 ```
-
 **Output:**
 ```
 biceps
@@ -40,7 +39,6 @@ biceps
 3
 5 1 10
 ```
-
 **Output:**
 ```
 back
@@ -53,7 +51,6 @@ back
 7
 3 3 2 7 9 6 8
 ```
-
 **Output:**
 ```
 chest

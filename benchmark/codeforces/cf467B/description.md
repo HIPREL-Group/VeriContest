@@ -1,29 +1,28 @@
-# Fedor and New Game
+# B. Fedor and New Game
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
 After you had helped George and Alex to move in the dorm, they went to help their friend Fedor play a new computer game «Call of Soldiers 3».
 
-The game has $(m+1)$ players and $n$ types of soldiers in total. Players are numbered from $1$ to $(m+1)$. Types of soldiers are numbered from $0$ to $n-1$. Each player has an army described by a non-negative integer $x_i$. In the binary representation of $x_i$, if the $j$-th bit equals one, then the army of the $i$-th player has soldiers of the $j$-th type.
+The game has $(m + 1)$ players and $n$ types of soldiers in total. Players «Call of Soldiers 3» are numbered form $1$ to $(m + 1)$. Types of soldiers are numbered from $0$ to $n - 1$. Each player has an army. Army of the $i$-th player can be described by non-negative integer $x_i$. Consider binary representation of $x_i$: if the $j$-th bit of number $x_i$ equal to one, then the army of the $i$-th player has soldiers of the $j$-th type. 
 
-Fedor is the $(m+1)$-th player. He assumes that two players can become friends if their armies differ in at most $k$ types of soldiers (the binary representations differ in at most $k$ bit positions among the $n$ soldier types). Count how many of the first $m$ players can become Fedor’s friends.
+Fedor is the $(m + 1)$-th player of the game. He assume that two players can become friends if their armies differ in at most $k$ types of soldiers (in other words, binary representations of the corresponding numbers differ in at most $k$ bits). Help Fedor and count how many players can become his friends.
 
 ## Input
 
-The first line contains three integers $n$, $m$, $k$ ($1 \le k \le n \le 20$; $1 \le m \le 1000$).
+The first line contains three integers $n$, $m$, $k$ $(1 ≤ k ≤ n ≤ 20; 1 ≤ m ≤ 1000)$.
 
-The next $(m+1)$ lines each contain a single integer $x_i$ ($1 \le x_i \le 2^n - 1$), describing the $i$-th player’s army. Fedor is the $(m+1)$-th line.
+The $i$-th of the next $(m + 1)$ lines contains a single integer $x_i$ $(1 ≤ x_i ≤ 2^n - 1)$, that describes the $i$-th player's army. We remind you that Fedor is the $(m + 1)$-th player.
 
 ## Output
 
-Print a single integer: the number of Fedor’s potential friends among players $1, \ldots, m$.
+Print a single integer — the number of Fedor's potential friends.
 
 ## Examples
 
 ### Example 1
 
 **Input:**
-
 ```
 7 3 1
 8
@@ -31,9 +30,7 @@ Print a single integer: the number of Fedor’s potential friends among players 
 111
 17
 ```
-
 **Output:**
-
 ```
 0
 ```
@@ -41,7 +38,6 @@ Print a single integer: the number of Fedor’s potential friends among players 
 ### Example 2
 
 **Input:**
-
 ```
 3 3 3
 1
@@ -49,9 +45,7 @@ Print a single integer: the number of Fedor’s potential friends among players 
 3
 4
 ```
-
 **Output:**
-
 ```
 3
 ```

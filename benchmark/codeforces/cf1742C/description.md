@@ -1,18 +1,17 @@
-# Stripes
+# C. Stripes
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
-On an $8 \times 8$ grid, some horizontal rows have been painted red, and some vertical columns have been painted blue, in some order. The stripes are drawn sequentially, one after the other. When the stripe is drawn, it repaints all the cells through which it passes.
+On an $$$8 \times 8$$$ grid, some horizontal rows have been painted red, and some vertical columns have been painted blue, in some order. The stripes are drawn sequentially, one after the other. When the stripe is drawn, it repaints all the cells through which it passes.
 
 Determine which color was used last.
-
   The red stripe was painted after the blue one, so the answer is `R`.
 
 ## Input
 
-The first line of the input contains a single integer $t$ ($1 \leq t \leq 4000$) — the number of test cases. The description of test cases follows. There is an empty line before each test case.
+The first line of the input contains a single integer $$$t$$$ ($$$1 \leq t \leq 4000$$$) — the number of test cases. The description of test cases follows. There is an empty line before each test case.
 
-Each test case consists of $8$ lines, each containing $8$ characters. Each of these characters is either '`R`', '`B`', or '`.`', denoting a red square, a blue square, and an unpainted square, respectively.
+Each test case consists of $$$8$$$ lines, each containing $$$8$$$ characters. Each of these characters is either '`R`', '`B`', or '`.`', denoting a red square, a blue square, and an unpainted square, respectively.
 
 It is guaranteed that the given field is obtained from a colorless one by drawing horizontal red rows and vertical blue columns.
 
@@ -22,11 +21,12 @@ At least one stripe is painted.
 
 For each test case, output '`R`' if a red stripe was painted last, and '`B`' if a blue stripe was painted last (without quotes).
 
-## Examples
+## Example
 
 **Input:**
 ```
 4
+
 ....B...
 ....B...
 ....B...
@@ -35,6 +35,7 @@ RRRRRRRR
 ....B...
 ....B...
 ....B...
+
 RRRRRRRB
 B......B
 B......B
@@ -43,6 +44,7 @@ B......B
 B......B
 B......B
 RRRRRRRB
+
 RRRRRRBB
 .B.B..BB
 RRRRRRBB
@@ -51,6 +53,7 @@ RRRRRRBB
 RRRRRRBB
 .B.B..BB
 .B.B..BB
+
 ........
 ........
 ........
@@ -60,7 +63,6 @@ RRRRRRRR
 ........
 ........
 ```
-
 **Output:**
 ```
 R

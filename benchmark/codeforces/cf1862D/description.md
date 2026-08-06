@@ -1,4 +1,4 @@
-# Ice Cream Balls
+# D. Ice Cream Balls
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
@@ -12,9 +12,9 @@ Two ice creams are considered different if their sets of ball flavours are diffe
 
 For example, having the following ice cream balls: $$$\{1, 1, 2\}$$$, Tema can make only two types of ice cream: $$$\{1, 1\}$$$ and $$$\{1, 2\}$$$.
 
-**Note, that Tema does not need to make all the ice cream cones at the same time. This means that he makes ice cream cones independently. Also, in order to make a cone $$$\{x, x\}$$$ for some $$$x$$$, Tema needs at least $$$2$$$ balls of type $$$x$$$**.
+**Note, that Tema do not need to make all the ice cream cones at the same time. This means that he making ice cream cones independently. Also in order to make a following cone $$$\{x, x\}$$$ for some $$$x$$$, Tema needs at least $$$2$$$ balls of type $$$x$$$**.
 
-Help Tema answer this question. It can be shown that an answer always exists.
+Help Tema answer this question. It can be shown that answer always exist.
 
 ## Input
 
@@ -26,7 +26,7 @@ The first line of each test case contains a single integer $$$n$$$ ($$$1 \le n \
 
 For each test case, output a single integer — the minimum number of balls Tema needs to buy.
 
-## Examples
+## Example
 
 **Input:**
 ```
@@ -37,7 +37,6 @@ For each test case, output a single integer — the minimum number of balls Tem
 179
 1000000000000000000
 ```
-
 **Output:**
 ```
 2
@@ -49,7 +48,7 @@ For each test case, output a single integer — the minimum number of balls Tem
 
 ## Note
 
-In the first sample, it is enough to have the following balls: $$$\{1, 1\}$$$. **Note, that set $$$\{1\}$$$ is not enough since we need at least $$$2$$$ balls of a type $$$1$$$ in order to make such cone $$$\{1, 1\}$$$**.
+In the first sample, it is enough to have following balls types: $$$\{1, 1\}$$$. **Note, that set $$$\{1\}$$$ if not enough since we need at least $$$2$$$ balls of a type $$$1$$$ in order to make such cone $$$\{1, 1\}$$$**.
 
 In the second sample, it is not possible to make it with $$$2$$$ balls, but it can be done with these balls: $$$\{1, 2, 3\}$$$.
 
