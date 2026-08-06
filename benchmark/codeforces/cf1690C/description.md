@@ -1,4 +1,4 @@
-# C. Restoring the Duration of Tasks
+# Restoring the Duration of Tasks
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

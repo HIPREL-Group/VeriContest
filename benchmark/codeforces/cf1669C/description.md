@@ -1,4 +1,4 @@
-# C. Odd/Even Increments
+# Odd/Even Increments
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

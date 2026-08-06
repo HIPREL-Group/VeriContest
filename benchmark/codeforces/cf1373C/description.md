@@ -1,4 +1,4 @@
-# C. Pluses and Minuses
+# Pluses and Minuses
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

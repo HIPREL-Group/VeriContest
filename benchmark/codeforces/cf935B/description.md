@@ -1,4 +1,4 @@
-# B. Fafa and the Gates
+# Fafa and the Gates
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

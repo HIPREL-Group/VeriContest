@@ -1,4 +1,4 @@
-# D. Absolute Sorting
+# Absolute Sorting
 
 Time limit: 2 seconds | Memory limit: 512 megabytes
 

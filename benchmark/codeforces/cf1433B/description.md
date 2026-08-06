@@ -1,4 +1,4 @@
-# B. Yet Another Bookshelf
+# Yet Another Bookshelf
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

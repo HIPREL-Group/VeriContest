@@ -1,4 +1,4 @@
-# B. Unique Bid Auction
+# Unique Bid Auction
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

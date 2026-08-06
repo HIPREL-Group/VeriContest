@@ -1,4 +1,4 @@
-# C. Stripes
+# Stripes
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

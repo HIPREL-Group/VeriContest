@@ -1,4 +1,4 @@
-# A. Phoenix and Balance
+# Phoenix and Balance
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

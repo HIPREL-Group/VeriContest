@@ -1,4 +1,4 @@
-# A. Dalton the Teacher
+# Dalton the Teacher
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

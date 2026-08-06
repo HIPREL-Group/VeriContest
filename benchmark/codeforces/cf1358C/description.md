@@ -1,4 +1,4 @@
-# C. Celex Update
+# Celex Update
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

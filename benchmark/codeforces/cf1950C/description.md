@@ -1,4 +1,4 @@
-# C. Clock Conversion
+# Clock Conversion
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

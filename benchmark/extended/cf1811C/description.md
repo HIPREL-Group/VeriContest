@@ -1,4 +1,4 @@
-# C. Restore the Array
+# Restore the Array
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

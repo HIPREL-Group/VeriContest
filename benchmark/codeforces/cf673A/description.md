@@ -1,4 +1,4 @@
-# A. Bear and Game
+# Bear and Game
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

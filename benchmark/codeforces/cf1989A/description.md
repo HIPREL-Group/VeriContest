@@ -1,4 +1,4 @@
-# A. Catch the Coin
+# Catch the Coin
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

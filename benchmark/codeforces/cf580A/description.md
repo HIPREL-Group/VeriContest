@@ -1,4 +1,4 @@
-# A. Kefa and First Steps
+# Kefa and First Steps
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

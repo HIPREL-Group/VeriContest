@@ -1,4 +1,4 @@
-# B. Groups
+# Groups
 
 Time limit: 4 seconds | Memory limit: 256 megabytes
 

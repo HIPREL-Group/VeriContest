@@ -1,4 +1,4 @@
-# B. Taxi
+# Taxi
 
 Time limit: 3 seconds | Memory limit: 256 megabytes
 

@@ -1,4 +1,4 @@
-# A. Next Round
+# Next Round
 
 Time limit: 3 seconds | Memory limit: 256 megabytes
 

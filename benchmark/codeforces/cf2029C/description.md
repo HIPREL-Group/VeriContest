@@ -1,4 +1,4 @@
-# C. New Rating
+# New Rating
 
 Time limit: 2 seconds | Memory limit: 512 megabytes
 

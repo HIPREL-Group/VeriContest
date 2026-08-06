@@ -1,4 +1,4 @@
-# A. I_love_%username%
+# I_love_%username%
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

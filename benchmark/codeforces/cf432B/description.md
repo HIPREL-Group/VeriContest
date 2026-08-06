@@ -1,4 +1,4 @@
-# B. Football Kit
+# Football Kit
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

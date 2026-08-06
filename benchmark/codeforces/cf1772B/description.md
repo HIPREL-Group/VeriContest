@@ -1,4 +1,4 @@
-# B. Matrix Rotation
+# Matrix Rotation
 
 Time limit: 2 seconds | Memory limit: 512 megabytes
 

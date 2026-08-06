@@ -1,4 +1,4 @@
-# B. Tanya and Candies
+# Tanya and Candies
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

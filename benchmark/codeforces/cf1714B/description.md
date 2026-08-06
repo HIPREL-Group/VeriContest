@@ -1,4 +1,4 @@
-# B. Remove Prefix
+# Remove Prefix
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

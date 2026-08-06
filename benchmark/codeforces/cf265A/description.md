@@ -1,4 +1,4 @@
-# A. Colorful Stones (Simplified Edition)
+# Colorful Stones (Simplified Edition)
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

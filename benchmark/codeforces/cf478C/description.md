@@ -1,4 +1,4 @@
-# C. Table Decorations
+# Table Decorations
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

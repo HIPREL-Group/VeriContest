@@ -1,4 +1,4 @@
-# A. Maximum in Table
+# Maximum in Table
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

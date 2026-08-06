@@ -1,4 +1,4 @@
-# A. Minutes Before the New Year
+# Minutes Before the New Year
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

@@ -1,4 +1,4 @@
-# C. Mr. Perfectly Fine
+# Mr. Perfectly Fine
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

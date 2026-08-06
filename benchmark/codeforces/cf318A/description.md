@@ -1,4 +1,4 @@
-# A. Even Odds
+# Even Odds
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

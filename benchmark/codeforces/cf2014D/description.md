@@ -1,4 +1,4 @@
-# D. Robert Hood and Mrs Hood
+# Robert Hood and Mrs Hood
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

@@ -1,4 +1,4 @@
-# C. Vanya and Scales
+# Vanya and Scales
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

@@ -1,4 +1,4 @@
-# C. Andrew and Stones
+# Andrew and Stones
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

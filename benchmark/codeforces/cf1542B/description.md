@@ -1,4 +1,4 @@
-# B. Plus and Multiply
+# Plus and Multiply
 
 Time limit: 3 seconds | Memory limit: 512 megabytes
 

@@ -1,4 +1,4 @@
-# B. Kevin and Permutation
+# Kevin and Permutation
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

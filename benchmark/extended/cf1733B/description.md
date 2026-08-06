@@ -1,4 +1,4 @@
-# B. Rule of League
+# Rule of League
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

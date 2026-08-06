@@ -1,4 +1,4 @@
-# C. Perfect Team
+# Perfect Team
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

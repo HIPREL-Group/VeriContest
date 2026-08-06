@@ -1,4 +1,4 @@
-# D. Vasya and Arrays
+# Vasya and Arrays
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

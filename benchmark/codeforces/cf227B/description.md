@@ -1,4 +1,4 @@
-# B. Effective Approach
+# Effective Approach
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

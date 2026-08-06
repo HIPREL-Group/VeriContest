@@ -1,4 +1,4 @@
-# B. Rakhsh's Revival
+# Rakhsh's Revival
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

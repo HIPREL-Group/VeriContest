@@ -1,4 +1,4 @@
-# A. MUH and Sticks
+# MUH and Sticks
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

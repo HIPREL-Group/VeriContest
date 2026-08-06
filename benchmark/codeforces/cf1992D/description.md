@@ -1,4 +1,4 @@
-# D. Test of Love
+# Test of Love
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

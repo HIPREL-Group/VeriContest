@@ -1,4 +1,4 @@
-# A. Playing with Dice
+# Playing with Dice
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

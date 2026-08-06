@@ -1,4 +1,4 @@
-# B. Maximal Continuous Rest
+# Maximal Continuous Rest
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

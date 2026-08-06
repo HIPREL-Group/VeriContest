@@ -1,4 +1,4 @@
-# C. Alarm Clocks Everywhere
+# Alarm Clocks Everywhere
 
 Time limit: 3 seconds | Memory limit: 256 megabytes
 

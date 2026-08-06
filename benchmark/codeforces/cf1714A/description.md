@@ -1,4 +1,4 @@
-# A. Everyone Loves to Sleep
+# Everyone Loves to Sleep
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

@@ -1,4 +1,4 @@
-# B. Buying Lemonade
+# Buying Lemonade
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

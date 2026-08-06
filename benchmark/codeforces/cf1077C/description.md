@@ -1,4 +1,4 @@
-# C. Good Array
+# Good Array
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

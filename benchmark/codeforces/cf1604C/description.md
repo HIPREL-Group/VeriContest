@@ -1,4 +1,4 @@
-# C. Di-visible Confusion
+# Di-visible Confusion
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

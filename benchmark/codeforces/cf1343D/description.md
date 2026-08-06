@@ -1,4 +1,4 @@
-# D. Constant Palindrome Sum
+# Constant Palindrome Sum
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

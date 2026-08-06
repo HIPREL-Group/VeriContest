@@ -1,4 +1,4 @@
-# C. Ski Resort
+# Ski Resort
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

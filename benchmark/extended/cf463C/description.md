@@ -1,4 +1,4 @@
-# C. Gargari and Bishops
+# Gargari and Bishops
 
 Time limit: 3 seconds | Memory limit: 256 megabytes
 

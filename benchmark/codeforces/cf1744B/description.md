@@ -1,4 +1,4 @@
-# B. Even-Odd Increments
+# Even-Odd Increments
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

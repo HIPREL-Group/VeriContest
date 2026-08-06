@@ -1,4 +1,4 @@
-# C. Candy Store
+# Candy Store
 
 Time limit: 3 seconds | Memory limit: 256 megabytes
 

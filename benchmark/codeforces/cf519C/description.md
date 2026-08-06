@@ -1,4 +1,4 @@
-# C. A and B and Team Training
+# A and B and Team Training
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

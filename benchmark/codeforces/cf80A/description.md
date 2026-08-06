@@ -1,4 +1,4 @@
-# A. Panoramix's Prediction
+# Panoramix's Prediction
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

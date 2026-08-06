@@ -1,4 +1,4 @@
-# C. Bun Lover
+# Bun Lover
 
 Time limit: 3 seconds | Memory limit: 256 megabytes
 

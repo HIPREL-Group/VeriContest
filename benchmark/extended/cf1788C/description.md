@@ -1,4 +1,4 @@
-# C. Matching Numbers
+# Matching Numbers
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

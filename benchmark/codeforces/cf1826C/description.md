@@ -1,4 +1,4 @@
-# C. Dreaming of Freedom
+# Dreaming of Freedom
 
 Time limit: 2.5 seconds | Memory limit: 256 megabytes
 

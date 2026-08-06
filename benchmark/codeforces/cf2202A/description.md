@@ -1,4 +1,4 @@
-# A. Parkour Design
+# Parkour Design
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

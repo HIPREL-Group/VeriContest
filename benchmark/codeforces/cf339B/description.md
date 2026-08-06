@@ -1,4 +1,4 @@
-# B. Xenia and Ringroad
+# Xenia and Ringroad
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

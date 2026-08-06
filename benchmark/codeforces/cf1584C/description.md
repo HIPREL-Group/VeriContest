@@ -1,4 +1,4 @@
-# C. Two Arrays
+# Two Arrays
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

@@ -1,4 +1,4 @@
-# C. Detective Task
+# Detective Task
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

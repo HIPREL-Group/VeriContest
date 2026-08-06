@@ -1,4 +1,4 @@
-# B. Queue at the School
+# Queue at the School
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

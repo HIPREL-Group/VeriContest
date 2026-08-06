@@ -1,4 +1,4 @@
-# A. Reconnaissance 2
+# Reconnaissance 2
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

@@ -1,4 +1,4 @@
-# D. Black and White Stripe
+# Black and White Stripe
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

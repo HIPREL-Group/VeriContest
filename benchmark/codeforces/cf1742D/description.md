@@ -1,4 +1,4 @@
-# D. Coprime
+# Coprime
 
 Time limit: 3 seconds | Memory limit: 256 megabytes
 

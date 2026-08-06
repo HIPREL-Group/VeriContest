@@ -1,4 +1,4 @@
-# C. Polycarpus' Dice
+# Polycarpus' Dice
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

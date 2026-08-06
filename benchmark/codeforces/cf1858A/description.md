@@ -1,4 +1,4 @@
-# A. Buttons
+# Buttons
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

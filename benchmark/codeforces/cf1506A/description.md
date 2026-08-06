@@ -1,4 +1,4 @@
-# A. Strange Table
+# Strange Table
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

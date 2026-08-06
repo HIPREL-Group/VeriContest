@@ -1,4 +1,4 @@
-# A. Red and Blue Beans
+# Red and Blue Beans
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

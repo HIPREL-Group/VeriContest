@@ -1,4 +1,4 @@
-# D. Right Left Wrong
+# Right Left Wrong
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

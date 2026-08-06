@@ -1,4 +1,4 @@
-# C. Maximum Even Sum
+# Maximum Even Sum
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

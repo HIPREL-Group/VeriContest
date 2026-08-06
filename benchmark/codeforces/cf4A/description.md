@@ -1,4 +1,4 @@
-# A. Watermelon
+# Watermelon
 
 Time limit: 1 second | Memory limit: 64 megabytes
 

@@ -1,4 +1,4 @@
-# B. Before an Exam
+# Before an Exam
 
 Time limit: 0.5 second | Memory limit: 64 megabytes
 

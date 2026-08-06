@@ -1,4 +1,4 @@
-# A. Triangle
+# Triangle
 
 Time limit: 2 seconds | Memory limit: 64 megabytes
 

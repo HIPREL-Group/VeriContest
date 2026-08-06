@@ -1,4 +1,4 @@
-# A. The New Year: Meeting Friends
+# The New Year: Meeting Friends
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

@@ -1,4 +1,4 @@
-# B. The Fibonacci Segment
+# The Fibonacci Segment
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

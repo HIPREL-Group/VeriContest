@@ -1,4 +1,4 @@
-# D. Ice Cream Balls
+# Ice Cream Balls
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

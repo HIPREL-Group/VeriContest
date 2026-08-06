@@ -1,4 +1,4 @@
-# A. Stones on the Table
+# Stones on the Table
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

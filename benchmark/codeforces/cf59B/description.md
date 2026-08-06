@@ -1,4 +1,4 @@
-# B. Fortune Telling
+# Fortune Telling
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

@@ -1,4 +1,4 @@
-# C. Beautiful Sequence
+# Beautiful Sequence
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

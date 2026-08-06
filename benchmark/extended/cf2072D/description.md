@@ -1,4 +1,4 @@
-# D. For Wizards, the Exam Is Easy, but I Couldn't Handle It
+# For Wizards, the Exam Is Easy, but I Couldn't Handle It
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

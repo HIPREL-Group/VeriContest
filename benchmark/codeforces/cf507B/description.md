@@ -1,4 +1,4 @@
-# B. Amr and Pins
+# Amr and Pins
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

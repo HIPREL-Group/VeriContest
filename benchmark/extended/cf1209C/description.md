@@ -1,4 +1,4 @@
-# C. Paint the Digits
+# Paint the Digits
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

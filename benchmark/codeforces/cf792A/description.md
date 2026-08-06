@@ -1,4 +1,4 @@
-# A. New Bus Route
+# New Bus Route
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

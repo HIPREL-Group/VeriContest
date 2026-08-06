@@ -1,4 +1,4 @@
-# B. Arranging Cats
+# Arranging Cats
 
 Time limit: 2 seconds | Memory limit: 512 megabytes
 

@@ -1,4 +1,4 @@
-# B. Cormen — The Best Friend Of a Man
+# Cormen — The Best Friend Of a Man
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

@@ -1,4 +1,4 @@
-# D. Soldier and Number Game
+# Soldier and Number Game
 
 Time limit: 3 seconds | Memory limit: 256 megabytes
 

@@ -1,4 +1,4 @@
-# A. One and Two
+# One and Two
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

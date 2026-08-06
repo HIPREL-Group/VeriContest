@@ -1,4 +1,4 @@
-# A. Nastia and Nearly Good Numbers
+# Nastia and Nearly Good Numbers
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

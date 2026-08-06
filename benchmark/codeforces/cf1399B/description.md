@@ -1,4 +1,4 @@
-# B. Gifts Fixing
+# Gifts Fixing
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

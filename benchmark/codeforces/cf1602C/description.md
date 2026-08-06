@@ -1,4 +1,4 @@
-# C. Array Elimination
+# Array Elimination
 
 Time limit: 2 seconds | Memory limit: 512 megabytes
 

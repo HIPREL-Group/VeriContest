@@ -1,4 +1,4 @@
-# B. Fedor and New Game
+# Fedor and New Game
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

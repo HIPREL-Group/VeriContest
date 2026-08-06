@@ -1,4 +1,4 @@
-# B. Robin Hood and the Major Oak
+# Robin Hood and the Major Oak
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

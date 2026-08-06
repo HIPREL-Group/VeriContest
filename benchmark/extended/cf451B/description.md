@@ -1,4 +1,4 @@
-# B. Sort the Array
+# Sort the Array
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

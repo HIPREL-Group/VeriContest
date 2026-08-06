@@ -1,4 +1,4 @@
-# A. Lunch Rush
+# Lunch Rush
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

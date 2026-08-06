@@ -1,4 +1,4 @@
-# C. DZY Loves Sequences
+# DZY Loves Sequences
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

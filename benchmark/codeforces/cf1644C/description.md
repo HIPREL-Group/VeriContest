@@ -1,4 +1,4 @@
-# C. Increase Subarray Sums
+# Increase Subarray Sums
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

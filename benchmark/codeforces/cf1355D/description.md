@@ -1,4 +1,4 @@
-# D. Game With Array
+# Game With Array
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

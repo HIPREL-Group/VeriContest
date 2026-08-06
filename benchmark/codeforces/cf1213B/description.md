@@ -1,4 +1,4 @@
-# B. Bad Prices
+# Bad Prices
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

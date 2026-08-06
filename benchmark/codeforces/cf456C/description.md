@@ -1,4 +1,4 @@
-# C. Boredom
+# Boredom
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

@@ -1,4 +1,4 @@
-# B. Lost Permutation
+# Lost Permutation
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

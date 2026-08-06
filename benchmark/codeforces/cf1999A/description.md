@@ -1,4 +1,4 @@
-# A. A+B Again?
+# A+B Again?
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

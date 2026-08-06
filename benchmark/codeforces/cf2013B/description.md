@@ -1,4 +1,4 @@
-# B. Battle for Survive
+# Battle for Survive
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

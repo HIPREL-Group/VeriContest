@@ -1,4 +1,4 @@
-# C. Limited Repainting
+# Limited Repainting
 
 Time limit: 2 seconds | Memory limit: 512 megabytes
 

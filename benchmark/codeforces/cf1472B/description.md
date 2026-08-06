@@ -1,4 +1,4 @@
-# B. Fair Division
+# Fair Division
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

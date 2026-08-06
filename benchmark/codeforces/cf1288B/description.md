@@ -1,4 +1,4 @@
-# B. Yet Another Meme Problem
+# Yet Another Meme Problem
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

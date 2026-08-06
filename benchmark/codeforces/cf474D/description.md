@@ -1,4 +1,4 @@
-# D. Flowers
+# Flowers
 
 Time limit: 1.5 seconds | Memory limit: 256 megabytes
 

@@ -1,4 +1,4 @@
-# C. Minimum Varied Number
+# Minimum Varied Number
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

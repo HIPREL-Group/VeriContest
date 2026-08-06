@@ -1,4 +1,4 @@
-# B. Odd Subarrays
+# Odd Subarrays
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

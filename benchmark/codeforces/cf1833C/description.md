@@ -1,4 +1,4 @@
-# C. Vlad Building Beautiful Array
+# Vlad Building Beautiful Array
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

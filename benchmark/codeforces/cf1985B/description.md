@@ -1,4 +1,4 @@
-# B. Maximum Multiple Sum
+# Maximum Multiple Sum
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

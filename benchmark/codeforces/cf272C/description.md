@@ -1,4 +1,4 @@
-# C. Dima and Staircase
+# Dima and Staircase
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

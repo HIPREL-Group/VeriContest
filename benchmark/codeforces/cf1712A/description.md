@@ -1,4 +1,4 @@
-# A. Wonderful Permutation
+# Wonderful Permutation
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

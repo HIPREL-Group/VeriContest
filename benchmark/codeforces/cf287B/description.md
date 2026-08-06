@@ -1,4 +1,4 @@
-# B. Pipeline
+# Pipeline
 
 Time limit: 0.4 seconds | Memory limit: 256 megabytes
 

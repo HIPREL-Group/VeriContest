@@ -1,4 +1,4 @@
-# A. Vanya and Fence
+# Vanya and Fence
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

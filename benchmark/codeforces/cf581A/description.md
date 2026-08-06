@@ -1,4 +1,4 @@
-# A. Vasya the Hipster
+# Vasya the Hipster
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

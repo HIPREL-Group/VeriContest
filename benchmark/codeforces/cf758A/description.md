@@ -1,4 +1,4 @@
-# A. Holiday Of Equality
+# Holiday Of Equality
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

@@ -1,4 +1,4 @@
-# A. Letter
+# Letter
 
 Time limit: 1 second | Memory limit: 64 megabytes
 

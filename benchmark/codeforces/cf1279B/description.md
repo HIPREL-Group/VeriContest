@@ -1,4 +1,4 @@
-# B. Verse For Santa
+# Verse For Santa
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

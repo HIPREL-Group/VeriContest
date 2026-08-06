@@ -1,4 +1,4 @@
-# B. Design Tutorial: Learn from Life
+# Design Tutorial: Learn from Life
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

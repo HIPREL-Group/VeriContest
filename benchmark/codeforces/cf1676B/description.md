@@ -1,4 +1,4 @@
-# B. Equal Candies
+# Equal Candies
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

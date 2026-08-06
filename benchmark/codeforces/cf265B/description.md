@@ -1,4 +1,4 @@
-# B. Roadside Trees (Simplified Edition)
+# Roadside Trees (Simplified Edition)
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

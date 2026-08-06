@@ -1,4 +1,4 @@
-# B. Pashmak and Flowers
+# Pashmak and Flowers
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

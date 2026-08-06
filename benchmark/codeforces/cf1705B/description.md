@@ -1,4 +1,4 @@
-# B. Mark the Dust Sweeper
+# Mark the Dust Sweeper
 
 Time limit: 1.5 seconds | Memory limit: 256 megabytes
 

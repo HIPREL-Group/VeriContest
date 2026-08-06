@@ -1,4 +1,4 @@
-# A. Vanya and Cubes
+# Vanya and Cubes
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

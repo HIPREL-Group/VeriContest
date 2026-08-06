@@ -1,4 +1,4 @@
-# D. Find the Different Ones!
+# Find the Different Ones!
 
 Time limit: 5 seconds | Memory limit: 256 megabytes
 

@@ -1,4 +1,4 @@
-# A. Domino piling
+# Domino piling
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

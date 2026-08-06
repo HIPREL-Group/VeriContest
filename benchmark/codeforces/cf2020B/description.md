@@ -1,4 +1,4 @@
-# B. Brightness Begins
+# Brightness Begins
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

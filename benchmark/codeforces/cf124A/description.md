@@ -1,4 +1,4 @@
-# A. The number of positions
+# The number of positions
 
 Time limit: 0.5 second | Memory limit: 256 megabytes
 

@@ -1,4 +1,4 @@
-# C. Doremy's IQ
+# Doremy's IQ
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

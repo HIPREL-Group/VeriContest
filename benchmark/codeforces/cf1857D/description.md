@@ -1,4 +1,4 @@
-# D. Strong Vertices
+# Strong Vertices
 
 Time limit: 2 seconds | Memory limit: 256 megabytes
 

@@ -1,4 +1,4 @@
-# A. I Wanna Be the Guy
+# I Wanna Be the Guy
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

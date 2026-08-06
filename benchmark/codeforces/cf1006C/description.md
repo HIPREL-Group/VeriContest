@@ -1,4 +1,4 @@
-# C. Three Parts of the Array
+# Three Parts of the Array
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

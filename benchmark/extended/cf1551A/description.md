@@ -1,4 +1,4 @@
-# A. Polycarp and Coins
+# Polycarp and Coins
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

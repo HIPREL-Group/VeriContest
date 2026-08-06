@@ -1,4 +1,4 @@
-# B. Christmas Spruce
+# Christmas Spruce
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

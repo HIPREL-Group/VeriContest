@@ -1,4 +1,4 @@
-# A. Tokitsukaze and All Zero Sequence
+# Tokitsukaze and All Zero Sequence
 
 Time limit: 1 second | Memory limit: 256 megabytes
 

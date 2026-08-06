@@ -1,4 +1,4 @@
-# D. Vupsen, Pupsen and 0
+# Vupsen, Pupsen and 0
 
 Time limit: 1 second | Memory limit: 256 megabytes
 
