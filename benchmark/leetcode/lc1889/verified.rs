@@ -45,6 +45,12 @@ impl Solution {
         }
     }
 
+    pub open spec fn total_boxes_len(boxes: Seq<Vec<i32>>, j: int) -> int
+        decreases j
+    {
+        if j <= 0 { 0int } else { Self::total_boxes_len(boxes, j - 1) + boxes[j - 1]@.len() as int }
+    }
+
     pub open spec fn best_waste_upto(packages: Seq<i32>, boxes: Seq<Vec<i32>>, end: int) -> int
         decreases end
     {
@@ -147,6 +153,9 @@ impl Solution {
             forall |j: int| #![trigger boxes@[j]] 0 <= j < boxes@.len() ==> 1 <= boxes@[j]@.len() <= 100_000,
             forall |j: int, k: int| 0 <= j < boxes@.len() && 0 <= k < boxes@[j]@.len()
                 ==> 1 <= #[trigger] boxes@[j]@[k] <= 100_000,
+            1 <= Self::total_boxes_len(boxes@, boxes@.len() as int) <= 100_000,
+            forall |j: int, k1: int, k2: int| 0 <= j < boxes@.len() && 0 <= k1 < k2 < boxes@[j]@.len()
+                ==> boxes@[j]@[k1] != boxes@[j]@[k2],
         ensures
             Self::best_waste_upto(packages@, boxes@, boxes@.len() as int) == -1 ==> res == -1i32,
             Self::best_waste_upto(packages@, boxes@, boxes@.len() as int) >= 0 ==>

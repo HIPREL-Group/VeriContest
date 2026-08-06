@@ -35,6 +35,7 @@ impl Solution {
         requires
             1 <= arr.len() <= 10,
             forall |i: int| 0 <= i < arr.len() ==> 0 <= #[trigger] arr[i] < arr.len(),
+            forall |i: int, j: int| 0 <= i < j < arr.len() ==> arr[i] != arr[j],
         ensures
             res as int == Self::count_chunks(arr@, arr.len() as int),
     {

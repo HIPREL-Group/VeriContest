@@ -63,7 +63,7 @@ pub struct Solution;
 impl Solution {
     pub fn find132pattern(nums: Vec<i32>) -> (res: bool) 
         requires 
-            1 <= nums.len() <= 20_000, 
+            1 <= nums.len() <= 200_000, 
             forall |i: int| 0 <= i < nums.len() ==> -1_000_000_000 <= #[trigger] nums[i] <= 1_000_000_000, 
         ensures
             res == (exists |i: int, j: int, k: int| 
@@ -85,7 +85,7 @@ impl Solution {
         let mut m: usize = 1;
         while m < nums.len()
             invariant
-                1 <= nums.len() <= 20_000, 
+                1 <= nums.len() <= 200_000, 
                 forall |idx: int| 0 <= idx < nums.len() ==> -1_000_000_000 <= #[trigger] nums[idx] <= 1_000_000_000,
                 1 <= m <= nums.len(),
                 min_left.len() == m,
@@ -109,7 +109,7 @@ impl Solution {
 
         while j > 0
             invariant
-                3 <= nums.len() <= 20_000, 
+                3 <= nums.len() <= 200_000, 
                 forall |idx: int| 0 <= idx < nums.len() ==> -1_000_000_000 <= #[trigger] nums[idx] <= 1_000_000_000,
                 min_left.len() == nums.len(),
                 forall |jj: int| 0 <= jj < nums.len() ==> #[trigger] min_left[jj] == spec_min_prefix(nums@, jj),
@@ -139,7 +139,7 @@ impl Solution {
             
             while stack.len() > 0 && *stack.last().unwrap() <= l_min
                 invariant
-                    3 <= nums.len() <= 20_000,
+                    3 <= nums.len() <= 200_000,
                     forall |idx: int| 0 <= idx < nums.len() ==> -1_000_000_000 <= #[trigger] nums[idx] <= 1_000_000_000,
                     0 < j < nums.len(),
                     min_left.len() == nums.len(),

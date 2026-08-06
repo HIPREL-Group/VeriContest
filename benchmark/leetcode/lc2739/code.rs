@@ -4,6 +4,8 @@ impl Solution {
     pub fn distance_traveled(main_tank: i32, additional_tank: i32) -> i32 {
         if main_tank < 5 || additional_tank == 0 {
             main_tank * Self::KM_PER_LITER
+        } else if additional_tank == 1 {
+            5 * Self::KM_PER_LITER + (main_tank - 4) * Self::KM_PER_LITER
         } else {
             5 * Self::KM_PER_LITER + Self::distance_traveled(main_tank - 4, additional_tank - 1)
         }

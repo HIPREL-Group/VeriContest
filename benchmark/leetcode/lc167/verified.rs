@@ -9,7 +9,7 @@ pub struct Solution;
 impl Solution {
     pub fn two_sum(numbers: Vec<i32>, target: i32) -> (res: Vec<i32>) 
         requires
-            2 <= numbers.len() <= 10_000, 
+            2 <= numbers.len() <= 30_000, 
             -1_000 <= target <= 1_000, 
             forall|i: int| 
                 0 <= i < numbers.len() ==> -1_000 <= #[trigger] numbers[i] <= 1_000, 
@@ -40,7 +40,7 @@ impl Solution {
 
         while first < second && !solution_found
             invariant
-                2 <= numbers.len() <= 10_000, 
+                2 <= numbers.len() <= 30_000, 
                 -1_000 <= target <= 1_000, 
                 0 <= first < second < numbers.len(),
                 res.len() == 2,

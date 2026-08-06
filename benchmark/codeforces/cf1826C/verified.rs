@@ -73,8 +73,8 @@ impl Solution {
 
     pub fn freedom_possible(n: i64, m: i64) -> (res: bool)
         requires
-            1 <= n as int <= 1_000_000_000,
-            1 <= m as int <= 1_000_000_000,
+            1 <= n as int <= 1_000_000,
+            1 <= m as int <= 1_000_000,
         ensures
             res == Self::spec_freedom_possible(n as int, m as int),
     {

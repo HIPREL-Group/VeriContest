@@ -15,11 +15,20 @@ impl Solution {
         forall|q: int| 0 <= q < end ==> #[trigger] Self::appears_in_row(nums, q, v, nums[q].len() as int)
     }
 
+    pub open spec fn total_len(nums: Seq<Seq<i32>>, end: int) -> int
+        decreases end
+    {
+        if end <= 0 { 0 } else { Self::total_len(nums, end - 1) + nums[end - 1].len() as int }
+    }
+
     pub fn intersection(nums: Vec<Vec<i32>>) -> (result: Vec<i32>)
         requires
             1 <= nums.len() <= 1000,
             forall|i: int| 0 <= i < nums.len() ==> #[trigger] nums[i].len() >= 1,
             forall|i: int, j: int| 0 <= i < nums.len() && 0 <= j < nums[i].len() ==> 1 <= #[trigger] nums[i][j] <= 1000,
+            1 <= Self::total_len(nums.deep_view(), nums.len() as int) <= 1000,
+            forall|i: int, j1: int, j2: int| 0 <= i < nums.len() && 0 <= j1 < j2 < nums[i].len() ==>
+                nums[i][j1] != nums[i][j2],
         ensures
             forall |i: int| 0 <= i < result.len() ==> 1 <= #[trigger] result[i] <= 1000,
             forall |i: int, j: int| 0 <= i < j < result.len() ==> result[i] < result[j],

@@ -43,7 +43,7 @@ impl Solution {
 
     pub fn can_paint_wall(m: usize, row0: Vec<i64>, row1: Vec<i64>) -> (result: bool)
         requires
-            m >= 1,
+            1 <= m && m <= 200000,
             row0.len() == m,
             row1.len() == m,
             forall |k: int| 0 <= k < m as int ==> (#[trigger] row0[k] == 0 || row0[k] == 1),

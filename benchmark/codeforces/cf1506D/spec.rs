@@ -31,7 +31,7 @@ impl Solution {
         if upto <= 0 {
             0
         } else {
-            Self::spec_max2(Self::spec_max_freq_upto(a, upto - 1), Self::spec_count(a, upto))
+            Self::spec_max2(Self::spec_max_freq_upto(a, upto - 1), Self::spec_count(a, a[upto - 1] as int))
         }
     }
 
@@ -48,7 +48,7 @@ impl Solution {
     pub fn min_remaining_after_epic_transformation(a: Vec<i32>) -> (res: i32)
         requires
             1 <= a.len() <= 200000,
-            forall|j: int| 0 <= j < a.len() as int ==> 1 <= #[trigger] a[j] <= a.len(),
+            forall|j: int| 0 <= j < a.len() as int ==> 1 <= #[trigger] a[j] <= 1_000_000_000,
         ensures
             res as int == Self::spec_min_remaining(a@),
     {

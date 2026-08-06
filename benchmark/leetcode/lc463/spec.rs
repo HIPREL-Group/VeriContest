@@ -7,6 +7,38 @@ verus! {
 pub struct Solution;
 
 impl Solution {
+    pub open spec fn adjacent(r1: int, c1: int, r2: int, c2: int) -> bool {
+        (r1 == r2 && (c1 + 1 == c2 || c2 + 1 == c1))
+            || (c1 == c2 && (r1 + 1 == r2 || r2 + 1 == r1))
+    }
+
+    pub open spec fn is_land(grid: Seq<Vec<i32>>, rows: int, cols: int, r: int, c: int) -> bool {
+        0 <= r < rows && 0 <= c < cols && grid[r][c] == 1
+    }
+
+    pub open spec fn reachable(grid: Seq<Vec<i32>>, rows: int, cols: int, r1: int, c1: int, r2: int, c2: int, fuel: nat) -> bool
+        decreases fuel
+    {
+        if r1 == r2 && c1 == c2 {
+            Self::is_land(grid, rows, cols, r1, c1)
+        } else if fuel == 0 {
+            false
+        } else {
+            Self::is_land(grid, rows, cols, r1, c1)
+            && exists|r3: int, c3: int|
+                Self::adjacent(r1, c1, r3, c3)
+                && Self::is_land(grid, rows, cols, r3, c3)
+                && Self::reachable(grid, rows, cols, r3, c3, r2, c2, (fuel - 1) as nat)
+        }
+    }
+
+    pub open spec fn exactly_one_island(grid: Seq<Vec<i32>>, rows: int, cols: int) -> bool {
+        (exists|r: int, c: int| Self::is_land(grid, rows, cols, r, c))
+        && (forall|r1: int, c1: int, r2: int, c2: int|
+            Self::is_land(grid, rows, cols, r1, c1) && Self::is_land(grid, rows, cols, r2, c2)
+            ==> Self::reachable(grid, rows, cols, r1, c1, r2, c2, (rows * cols) as nat))
+    }
+
     pub open spec fn cell_contribution(grid: Seq<Vec<i32>>, rows: int, cols: int, r: int, c: int) -> int {
         if grid[r][c] == 1 {
             let top = if r > 0 && grid[r - 1][c] == 1 { 2int } else { 0int };
@@ -46,6 +78,7 @@ impl Solution {
             forall |i: int| 0 <= i < grid.len() ==> #[trigger] grid[i].len() == grid[0].len(),
             forall |i: int, j: int|
                 0 <= i < grid.len() && 0 <= j < grid[i].len() ==> #[trigger] grid[i][j] == 0 || #[trigger] grid[i][j] == 1,
+            Self::exactly_one_island(grid@, grid.len() as int, grid[0].len() as int),
         ensures
             res as int == Self::island_perimeter_spec(grid@, grid.len() as int, grid[0].len() as int, grid.len() as int),
     {

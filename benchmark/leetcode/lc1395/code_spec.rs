@@ -49,6 +49,7 @@ impl Solution {
         requires
             3 <= rating.len() <= 1000,
             forall|x: int| 0 <= x < rating.len() ==> 1 <= #[trigger] rating[x] <= 100000,
+            forall|i: int, j: int| 0 <= i < j < rating.len() ==> rating[i] != rating[j],
         ensures
             result == Self::count_i(rating@, rating.len() as int),
     {

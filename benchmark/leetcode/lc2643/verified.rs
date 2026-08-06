@@ -62,8 +62,10 @@ impl Solution {
 
     pub fn row_and_maximum_ones(mat: Vec<Vec<i32>>) -> (result: Vec<i32>)
         requires
-            mat.len() > 0,
-            mat.len() <= 2147483647usize,
+            1 <= mat.len() <= 100,
+            forall|i: int| 0 <= i < mat.len() ==> 1 <= #[trigger] mat[i].len() <= 100,
+            forall|i: int| 0 <= i < mat.len() ==> #[trigger] mat[i].len() == mat[0].len(),
+            forall|i: int, j: int| 0 <= i < mat.len() && 0 <= j < mat[i].len() ==> #[trigger] mat[i][j] == 0 || mat[i][j] == 1,
         ensures
             result.len() == 2,
             0 <= result[0] < mat.len() as i32,

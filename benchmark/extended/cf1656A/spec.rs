@@ -24,8 +24,8 @@ pub open spec fn spec_good_pair_at_k(s: Seq<i64>, i1: int, j1: int, k: int) -> b
 impl Solution {
     pub fn good_pair_indices(a: Vec<i64>) -> (res: (i64, i64))
         requires
-            1 <= a.len() <= 200_000,
-            forall|t: int| 0 <= t < a.len() ==> #[trigger] (a[t] as int) >= 1,
+            1 <= a.len() <= 100_000,
+            forall|t: int| 0 <= t < a.len() ==> 1 <= #[trigger] (a[t] as int) <= 1_000_000_000,
         ensures
             1 <= res.0 as int <= a.len() as int,
             1 <= res.1 as int <= a.len() as int,

@@ -35,6 +35,12 @@ impl Solution {
         }
     }
 
+    pub open spec fn total_len(nums: Seq<Vec<i32>>, i: int) -> int
+        decreases i
+    {
+        if i <= 0 { 0int } else { Self::total_len(nums, i - 1) + nums[i - 1].len() as int }
+    }
+
     pub open spec fn diag_order(nums: Seq<Vec<i32>>, max_d: int) -> Seq<i32>
         decreases (if max_d >= 0 { max_d + 1 } else { 0 }) as nat
     {
@@ -54,6 +60,7 @@ impl Solution {
                 1 <= (#[trigger] nums@[i]).len() <= 100000,
             forall |i: int, j: int| 0 <= i < nums@.len() && 0 <= j < nums@[i].len() ==>
                 1 <= (#[trigger] nums@[i][j]) <= 100000,
+            1 <= Self::total_len(nums@, nums@.len() as int) <= 100000,
         ensures
             result@ == Self::diag_order(nums@, Self::max_diag_val(nums@, 0)),
     {

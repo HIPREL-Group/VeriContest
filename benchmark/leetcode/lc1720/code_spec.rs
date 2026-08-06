@@ -9,7 +9,7 @@ pub struct Solution;
 impl Solution {
     pub fn decode(encoded: Vec<i32>, first: i32) -> (result: Vec<i32>)
         requires
-            encoded.len() <= 100000,
+            1 <= encoded.len() && encoded.len() <= 9999,
             forall |i: int| 0 <= i && i < encoded.len() ==> 0 <= encoded[i] && encoded[i] <= 100000,
             0 <= first && first <= 100000,
         ensures

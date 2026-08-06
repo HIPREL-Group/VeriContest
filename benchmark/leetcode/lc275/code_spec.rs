@@ -20,10 +20,10 @@ impl Solution {
 
     pub fn h_index(citations: Vec<i32>) -> (res: i32) 
         requires
-            1 <= citations.len() <= 5_000, 
+            1 <= citations.len() <= 100_000, 
             forall |i: int| 0 <= i < citations.len() ==> 0 <= #[trigger] citations[i] <= 1_000,
             forall |i: int, j: int| 0 <= i < j < citations.len() ==> 
-                citations[i] < citations[j], 
+                citations[i] <= citations[j], 
         ensures
             0 <= res <= citations.len(),
             Self::count_at_least(citations@, res) >= res,

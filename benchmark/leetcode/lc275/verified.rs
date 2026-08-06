@@ -21,7 +21,7 @@ impl Solution {
     proof fn lemma_suffix_count(citations: Seq<i32>, start: int, threshold: i32)
         requires
             forall |i: int, j: int| 0 <= i < j < citations.len() ==> 
-                citations[i] < citations[j],
+                citations[i] <= citations[j],
             0 <= start <= citations.len(),
             forall |j: int| start <= j < citations.len() ==> citations[j] >= threshold,
         ensures
@@ -39,7 +39,7 @@ impl Solution {
     proof fn lemma_prefix_bound(citations: Seq<i32>, cutoff: int, threshold: i32)
         requires
             forall |i: int, j: int| 0 <= i < j < citations.len() ==> 
-                citations[i] < citations[j],
+                citations[i] <= citations[j],
             0 <= cutoff <= citations.len(),
             forall |k: int| 0 <= k < cutoff ==> citations[k] < threshold,
         ensures
@@ -56,10 +56,10 @@ impl Solution {
 
     pub fn h_index(citations: Vec<i32>) -> (res: i32) 
         requires
-            1 <= citations.len() <= 5_000, 
+            1 <= citations.len() <= 100_000, 
             forall |i: int| 0 <= i < citations.len() ==> 0 <= #[trigger] citations[i] <= 1_000,
             forall |i: int, j: int| 0 <= i < j < citations.len() ==> 
-                citations[i] < citations[j], 
+                citations[i] <= citations[j], 
         ensures
             0 <= res <= citations.len(),
             Self::count_at_least(citations@, res) >= res,
@@ -82,10 +82,10 @@ impl Solution {
         while i < j 
             invariant
                 num == citations.len(),
-                1 <= citations.len() <= 5_000, 
+                1 <= citations.len() <= 100_000, 
                 forall |k: int| 0 <= k < citations.len() ==> 0 <= #[trigger] citations[k] <= 1_000,
                 forall |k: int, l: int| 0 <= k < l < citations.len() ==> 
-                    citations[k] < citations[l],
+                    citations[k] <= citations[l],
                 0 <= i <= j <= num,
                 forall |k: int| 0 <= k < i ==> citations[k] < (num - k),
                 forall |k: int| j <= k < num ==> citations[k] >= (num - k),

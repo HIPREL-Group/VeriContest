@@ -25,8 +25,8 @@ impl Solution {
 
     pub fn min_bit_flips(start: i32, goal: i32) -> (res: i32)
         requires
-            0 <= start <= i32::MAX,
-            0 <= goal <= i32::MAX,
+            0 <= start <= 1_000_000_000,
+            0 <= goal <= 1_000_000_000,
         ensures
             res == Solution::popcnt_spec((start ^ goal) as nat),
     {

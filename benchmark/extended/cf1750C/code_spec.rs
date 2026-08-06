@@ -14,7 +14,7 @@ impl Solution {
     pub fn is_complementary_xor_possible(a: Vec<i64>, b: Vec<i64>) -> (result: bool)
         requires
             a.len() == b.len(),
-            a.len() >= 1,
+            2 <= a.len() && a.len() <= 200_000,
             forall|i: int| 0 <= i < a.len() ==> (#[trigger] a@[i] == 0 || a@[i] == 1),
             forall|i: int| 0 <= i < b.len() ==> (#[trigger] b@[i] == 0 || b@[i] == 1),
         ensures

@@ -72,6 +72,7 @@ impl Solution {
     pub fn min_cost_make_equal(a: Vec<i64>) -> (res: i64)
         requires
             1 <= a.len() <= 200000,
+            forall|i: int| 0 <= i < a.len() ==> 1 <= #[trigger] a[i] <= a.len() as i64,
         ensures
             res >= 0,
             res as int == expected_min_cost(a@),

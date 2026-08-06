@@ -29,10 +29,10 @@ impl Solution {
             forall|i: int| 0 <= i < bl.len() ==> 
                 bl[i][0] < tr[i][0] && bl[i][1] < tr[i][1],
             forall|i: int| 0 <= i < bl.len() ==> 
-                0 <= #[trigger] bl[i][0] <= 10_000_000 &&
-                0 <= #[trigger] bl[i][1] <= 10_000_000 &&
-                0 <= #[trigger] tr[i][0] <= 10_000_000 &&
-                0 <= #[trigger] tr[i][1] <= 10_000_000,
+                1 <= #[trigger] bl[i][0] <= 10_000_000 &&
+                1 <= #[trigger] bl[i][1] <= 10_000_000 &&
+                1 <= #[trigger] tr[i][0] <= 10_000_000 &&
+                1 <= #[trigger] tr[i][1] <= 10_000_000,
         ensures
             res >= 0,
             res > 0 ==> exists|i: int, j: int| 
@@ -75,10 +75,10 @@ impl Solution {
                 forall|k: int| 0 <= k < bl.len() ==> 
                     bl[k][0] < tr[k][0] && bl[k][1] < tr[k][1],
                 forall|i: int| 0 <= i < bl.len() ==> 
-                    0 <= #[trigger] bl[i][0] <= 10_000_000 &&
-                    0 <= #[trigger] bl[i][1] <= 10_000_000 &&
-                    0 <= #[trigger] tr[i][0] <= 10_000_000 &&
-                    0 <= #[trigger] tr[i][1] <= 10_000_000,
+                    1 <= #[trigger] bl[i][0] <= 10_000_000 &&
+                    1 <= #[trigger] bl[i][1] <= 10_000_000 &&
+                    1 <= #[trigger] tr[i][0] <= 10_000_000 &&
+                    1 <= #[trigger] tr[i][1] <= 10_000_000,
                 ans > 0 ==> exists|p: int, q: int|
                     0 <= p < i && p < q < bl.len() &&
                     !(bl[q][0] as i64 >= tr[p][0] as i64 || 
@@ -126,10 +126,10 @@ impl Solution {
                     forall|k: int| 0 <= k < bl.len() ==> 
                         bl[k][0] < tr[k][0] && bl[k][1] < tr[k][1],
                     forall|i: int| 0 <= i < bl.len() ==> 
-                        0 <= #[trigger] bl[i][0] <= 10_000_000 &&
-                        0 <= #[trigger] bl[i][1] <= 10_000_000 &&
-                        0 <= #[trigger] tr[i][0] <= 10_000_000 &&
-                        0 <= #[trigger] tr[i][1] <= 10_000_000,
+                        1 <= #[trigger] bl[i][0] <= 10_000_000 &&
+                        1 <= #[trigger] bl[i][1] <= 10_000_000 &&
+                        1 <= #[trigger] tr[i][0] <= 10_000_000 &&
+                        1 <= #[trigger] tr[i][1] <= 10_000_000,
                     x1 == bl[i as int][0] as i64,
                     y1 == bl[i as int][1] as i64,
                     x2 == tr[i as int][0] as i64,

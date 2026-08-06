@@ -18,8 +18,12 @@ impl Solution {
     pub fn can_be_the_guy(n: i32, x_levels: Vec<i32>, y_levels: Vec<i32>) -> (res: bool)
         requires
             1 <= n <= 100,
+            x_levels.len() <= n as usize,
+            y_levels.len() <= n as usize,
             forall|i: int| 0 <= i < x_levels.len() ==> 1 <= #[trigger] x_levels[i] && x_levels[i] <= n,
             forall|i: int| 0 <= i < y_levels.len() ==> 1 <= #[trigger] y_levels[i] && y_levels[i] <= n,
+            forall|i: int, j: int| 0 <= i < j < x_levels.len() ==> x_levels[i] != x_levels[j],
+            forall|i: int, j: int| 0 <= i < j < y_levels.len() ==> y_levels[i] != y_levels[j],
         ensures
             res == (forall|k: int| 1 <= k && k <= (n as int) ==> #[trigger] level_passable(k, x_levels@, y_levels@)),
     {

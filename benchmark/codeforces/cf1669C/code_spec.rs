@@ -19,7 +19,7 @@ pub open spec fn can_make_same_parity_spec(s: Seq<i64>) -> bool {
 impl Solution {
     pub fn can_make_same_parity(a: Vec<i64>) -> (res: bool)
         requires
-            1 <= a.len() <= 50,
+            2 <= a.len() <= 50,
             forall|k: int| 0 <= k < a.len() as int ==> 1 <= #[trigger] a[k] as int <= 1000,
         ensures
             res == can_make_same_parity_spec(a@),

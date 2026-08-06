@@ -61,6 +61,7 @@ impl Solution {
             2 <= p.len() <= 100_000,
             forall|j: int|
                 0 <= j < p.len() ==> 1 <= #[trigger] p[j] <= p.len() as int,
+            forall|j: int, k: int| 0 <= j < k < p.len() ==> p[j] != p[k],
         ensures
             result as int == min_swaps_spec(p@),
     {

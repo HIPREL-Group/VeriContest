@@ -7,6 +7,10 @@ verus! {
 pub struct Solution;
 
 impl Solution {
+    pub open spec fn is_prime(n: int) -> bool {
+        n >= 2 && forall|d: int| 2 <= d < n ==> #[trigger] (n % d) != 0
+    }
+
     pub open spec fn sub_spec(n: int) -> int
         decreases n
     {
@@ -88,6 +92,7 @@ impl Solution {
             1 <= nums.len() <= 100,
             forall|i: int| 0 <= i < nums.len() ==> #[trigger] nums[i] >= 2,
             forall|i: int| 0 <= i < nums.len() ==> #[trigger] nums[i] <= 1000,
+            forall|i: int| 0 <= i < nums.len() ==> Self::is_prime(#[trigger] nums[i] as int),
         ensures
             result@ == Self::map_prefix(nums@, nums@.len() as int),
     {

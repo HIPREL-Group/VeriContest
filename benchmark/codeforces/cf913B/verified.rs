@@ -22,6 +22,15 @@ pub open spec fn num_leaf_children(p: Seq<usize>, v: usize, k: int) -> int
     }
 }
 
+pub open spec fn num_children(p: Seq<usize>, v: usize, k: int) -> int
+    decreases k
+{
+    if k <= 0 { 0int }
+    else {
+        num_children(p, v, k - 1) + if p[k - 1] == v { 1int } else { 0int }
+    }
+}
+
 pub open spec fn is_spruce_tree(p: Seq<usize>, n: usize) -> bool {
     forall|v: int| 0 <= v && v < n ==>
         (#[trigger] is_parent(p, v as usize) ==> num_leaf_children(p, v as usize, p.len() as int) >= 3)
@@ -36,6 +45,7 @@ impl Solution {
             n <= 1000,
             p.len() == n - 1,
             forall|i: int| 0 <= i && i < p.len() ==> p@[i] <= i as usize,
+            num_children(p@, 0, p.len() as int) >= 2,
         ensures
             result == is_spruce_tree(p@, n),
     {

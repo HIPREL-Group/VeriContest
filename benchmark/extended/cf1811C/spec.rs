@@ -17,7 +17,7 @@ pub open spec fn spec_min(a: int, b: int) -> int {
 impl Solution {
     pub fn restore_array(n: usize, b: Vec<i64>) -> (result: Vec<i64>)
         requires
-            n >= 2,
+            2 <= n && n <= 200000,
             b.len() == n - 1,
             forall|i: int| 0 <= i < n - 1 ==> 0 <= #[trigger] b[i] <= 1_000_000_000,
             forall|i: int| 1 <= i < n as int - 2 ==> #[trigger] b[i] <= b[i - 1] || b[i] <= b[i + 1],

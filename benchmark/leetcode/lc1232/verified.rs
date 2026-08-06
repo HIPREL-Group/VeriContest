@@ -15,6 +15,7 @@ impl Solution {
         requires
             2 <= coordinates.len() <= 1000,
             forall |i: int| #![trigger coordinates[i]] 0 <= i < coordinates.len() ==> valid_pt(coordinates[i]@),
+            forall |i: int, j: int| 0 <= i < j < coordinates.len() ==> coordinates[i]@ != coordinates[j]@,
         ensures
             result <==> forall |k: int| #![trigger coordinates[k]] 2 <= k < coordinates.len() ==> 
                 (coordinates[1][1] - coordinates[0][1]) as int * (coordinates[k][0] - coordinates[0][0]) as int == 

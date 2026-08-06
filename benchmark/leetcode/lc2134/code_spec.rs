@@ -40,7 +40,6 @@ verus! {
             requires
                 1 <= nums.len() <= 100000,
                 forall|i: int| 0 <= i < nums.len() ==> #[trigger] nums[i] == 0 || nums[i] == 1,
-                exists|i: int| 0 <= i < nums.len() && nums[i] == 1,
             ensures
                 res >= 0,
                 res as int == Self::count_ones(nums@, nums.len() as int) - Self::max_circ_ones(nums@, Self::count_ones(nums@, nums.len() as int), nums.len() as int),

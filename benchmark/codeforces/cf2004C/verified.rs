@@ -31,8 +31,8 @@ impl Solution {
 
     pub fn optimal_score(a: Vec<i64>, k: i64) -> (ans: u64)
         requires
-            1 <= a.len() <= 200_000,
-            0 <= k <= 1_000_000_000_000_000,
+            2 <= a.len() <= 200_000,
+            0 <= k <= 1_000_000_000,
             forall |j: int| 0 <= j < a.len() ==> 1 <= #[trigger] a[j] <= 1_000_000_000,
             forall |x: int, y: int| 0 <= x <= y < a.len() ==> a[x] >= a[y],
         ensures
@@ -46,7 +46,7 @@ impl Solution {
         while i < n
             invariant
                 n == a.len(),
-                1 <= n <= 200_000,
+                2 <= n <= 200_000,
                 0 <= i <= n + 1, 
                 0 <= cur_k <= k,
                 answer <= i as u64 * 1_000_000_000u64,

@@ -67,6 +67,7 @@ impl Solution {
             forall |i: int| 0 <= i < logs.len() ==> 0 <= #[trigger] logs[i][0] < n,
             forall |i: int| 0 <= i < logs.len() ==> 1 <= #[trigger] logs[i][1] <= 500,
             forall |i: int| 1 <= i < logs.len() ==> logs[i - 1][1] < #[trigger] logs[i][1],
+            forall |i: int| 1 <= i < logs.len() ==> logs[i - 1][0] != #[trigger] logs[i][0],
         ensures
             result as int == Self::best_id_prefix(logs@, logs.len() as int),
     {

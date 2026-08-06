@@ -29,10 +29,10 @@ impl Solution {
             forall|i: int| 0 <= i < bl.len() ==> 
                 bl[i][0] < tr[i][0] && bl[i][1] < tr[i][1],
             forall|i: int| 0 <= i < bl.len() ==> 
-                0 <= #[trigger] bl[i][0] <= 10_000_000 &&
-                0 <= #[trigger] bl[i][1] <= 10_000_000 &&
-                0 <= #[trigger] tr[i][0] <= 10_000_000 &&
-                0 <= #[trigger] tr[i][1] <= 10_000_000,
+                1 <= #[trigger] bl[i][0] <= 10_000_000 &&
+                1 <= #[trigger] bl[i][1] <= 10_000_000 &&
+                1 <= #[trigger] tr[i][0] <= 10_000_000 &&
+                1 <= #[trigger] tr[i][1] <= 10_000_000,
         ensures
             res >= 0,
             res > 0 ==> exists|i: int, j: int| 

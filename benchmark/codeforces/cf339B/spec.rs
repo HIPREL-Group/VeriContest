@@ -39,8 +39,8 @@ pub open spec fn total_steps_spec(n: int, targets: Seq<i64>, start: int, idx: in
 impl Solution {
     pub fn total_steps(n: i64, targets: Vec<i64>) -> (result: i64)
         requires
-            1 <= n as int <= 100_000,
-            targets.len() as int <= 100_000,
+            2 <= n as int <= 100_000,
+            1 <= targets.len() as int <= 100_000,
             forall|i: int| 0 <= i < targets.len() ==> 1 <= #[trigger] targets[i] as int <= n as int,
         ensures
             result as int == total_steps_spec(n as int, targets@, 1, 0),

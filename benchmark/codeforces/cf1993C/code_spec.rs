@@ -57,6 +57,7 @@ impl Solution {
             a.len() <= 200_000,
             1 <= period <= a.len(),
             forall|i: int| 0 <= i < a.len() ==> 1 <= #[trigger] a[i] <= 1_000_000_000,
+            forall|i: int, j: int| 0 <= i < j < a.len() ==> a[i] != a[j],
         ensures
             result == spec_answer(a@, period as int),
     {

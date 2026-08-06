@@ -94,7 +94,7 @@ impl Solution {
     pub fn absolute_sorting(a: Vec<i32>) -> (res: i32)
         requires
             2 <= a.len() <= 200000,
-            forall|i: int| 0 <= i < a.len() as int ==> 0 <= #[trigger] a[i] <= 1000000000,
+            forall|i: int| 0 <= i < a.len() as int ==> 1 <= #[trigger] a[i] <= 100000000,
         ensures
             (res == -1) || (0 <= res <= 1000000000 && Self::valid_x(a@, res as int)),
     {

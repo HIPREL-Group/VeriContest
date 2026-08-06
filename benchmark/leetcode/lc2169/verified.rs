@@ -59,8 +59,8 @@ proof fn count_ops_le(a: int, b: int)
 impl Solution {
     pub fn count_operations(num1: i32, num2: i32) -> (result: i32)
         requires
-            0 <= num1 && 0 <= num2,
-            num1 as int + num2 as int <= 200000,
+            0 <= num1 && num1 <= 100000,
+            0 <= num2 && num2 <= 100000,
         ensures
             result == count_ops(num1 as int, num2 as int),
     {

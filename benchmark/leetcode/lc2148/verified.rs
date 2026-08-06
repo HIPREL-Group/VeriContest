@@ -38,7 +38,8 @@ impl Solution {
 
     pub fn count_elements(nums: Vec<i32>) -> (result: i32)
         requires
-            nums.len() <= 2147483647usize,
+            1 <= nums.len() && nums.len() <= 100,
+            forall |i: int| 0 <= i < nums.len() ==> -100_000 <= #[trigger] nums[i] && nums[i] <= 100_000,
         ensures
             0 <= result <= nums.len() as i32,
             nums.len() <= 1 ==> result == 0,

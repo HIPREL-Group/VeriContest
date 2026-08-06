@@ -44,14 +44,25 @@ impl Solution {
 
     pub fn distance_traveled(main_tank: i32, additional_tank: i32) -> (res: i32)
         requires
-            0 <= main_tank <= 100,
-            0 <= additional_tank <= 100,
+            1 <= main_tank <= 100,
+            1 <= additional_tank <= 100,
         ensures
             res == Self::distance_traveled_spec(main_tank as nat, additional_tank as nat) as i32,
         decreases main_tank,
     {
         if main_tank < 5 || additional_tank == 0 {
             main_tank * Self::KM_PER_LITER
+        } else if additional_tank == 1 {
+            proof {
+                assert(Self::distance_traveled_spec(main_tank as nat, additional_tank as nat)
+                    == 5 * Self::KM_PER_LITER_SPEC + Self::distance_traveled_spec(
+                        (main_tank - 4) as nat,
+                        0nat,
+                    ));
+                assert(Self::distance_traveled_spec((main_tank - 4) as nat, 0nat)
+                    == (main_tank - 4) as nat * Self::KM_PER_LITER_SPEC);
+            }
+            5 * Self::KM_PER_LITER + (main_tank - 4) * Self::KM_PER_LITER
         } else {
             proof {
                 Self::lemma_distance_traveled_bound(

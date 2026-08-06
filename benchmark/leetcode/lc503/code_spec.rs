@@ -17,15 +17,22 @@ pub open spec fn circ_idx(n: int, i: int, k: int) -> int
     }
 }
 
+pub open spec fn no_next_greater(nums: Seq<i32>, i: int) -> bool
+    decreases 0int
+{
+    let n = nums.len() as int;
+    forall |k: int| 1 <= k < n ==> nums[circ_idx(n, i, k)] <= nums[i]
+}
+
 pub open spec fn is_next_greater(nums: Seq<i32>, res: Seq<i32>, i: int) -> bool
     decreases 0int
 {
     let n = nums.len() as int;
     0 <= i < n
     && (
-        (res[i] == -1
-         && forall |k: int| 1 <= k < n ==> nums[circ_idx(n, i, k)] <= nums[i])
-        || (res[i] != -1
+        (no_next_greater(nums, i)
+         && res[i] == -1)
+        || (!no_next_greater(nums, i)
             && res[i] > nums[i]
             && exists |k: int|
                 1 <= k < n
@@ -39,7 +46,6 @@ impl Solution {
         requires
             1 <= nums.len() <= 10_000,
             forall |i: int| 0 <= i < nums.len() ==> -1_000_000_000 <= #[trigger] nums[i] <= 1_000_000_000,
-            forall |i: int| 0 <= i < nums.len() ==> #[trigger] nums[i] != -1i32,
         ensures
             res.len() == nums.len(),
             forall |i: int| 0 <= i < nums.len() ==> is_next_greater(nums@, res@, i),

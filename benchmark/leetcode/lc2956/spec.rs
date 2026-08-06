@@ -26,8 +26,10 @@ impl Solution {
 
     pub fn find_intersection_values(nums1: Vec<i32>, nums2: Vec<i32>) -> (result: Vec<i32>)
         requires
-            nums1.len() <= 2147483647usize,
-            nums2.len() <= 2147483647usize,
+            1 <= nums1.len() <= 100,
+            1 <= nums2.len() <= 100,
+            forall|i: int| 0 <= i < nums1.len() ==> 1 <= #[trigger] nums1[i] <= 100,
+            forall|i: int| 0 <= i < nums2.len() ==> 1 <= #[trigger] nums2[i] <= 100,
         ensures
             result.len() == 2,
             result[0] as nat == Self::count_in_other_prefix(nums1@, nums2@, nums1.len() as nat),

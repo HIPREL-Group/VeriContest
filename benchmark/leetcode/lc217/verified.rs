@@ -12,8 +12,8 @@ pub struct Solution;
 impl Solution {
     pub fn contains_duplicate(nums: Vec<i32>) -> (res: bool) 
         requires
-            1 <= nums.len() <= 10_000, 
-            forall |i: int| 1 <= i < nums.len() ==> 
+            1 <= nums.len() <= 100_000, 
+            forall |i: int| 0 <= i < nums.len() ==> 
                 -1_000_000_000 <= #[trigger] nums[i] <= 1_000_000_000,
         ensures 
             res == (exists |i: int, j: int| 0 <= i < j < nums.len() && nums[i] == nums[j]),
@@ -21,8 +21,8 @@ impl Solution {
         let mut seen = HashSet::new();
         for i in 0..nums.len() 
             invariant
-                1 <= nums.len() <= 10_000, 
-                forall |k: int| 1 <= k < nums.len() ==> 
+                1 <= nums.len() <= 100_000, 
+                forall |k: int| 0 <= k < nums.len() ==> 
                     -1_000_000_000 <= #[trigger] nums[k] <= 1_000_000_000,
                 forall |k: int| 0 <= k < i ==> seen@.contains(#[trigger] nums[k]),
                 forall |v: i32| seen@.contains(v) ==> exists |k: int| 0 <= k < i && nums[k] == v,

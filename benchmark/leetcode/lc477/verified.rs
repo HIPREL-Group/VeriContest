@@ -260,7 +260,7 @@ impl Solution {
     pub fn total_hamming_distance(nums: Vec<i32>) -> (res: i32)
         requires
             1 <= nums.len() <= 10000,
-            forall|i: int| 0 <= i < nums.len() ==> 0 <= #[trigger] nums[i] <= i32::MAX,
+            forall|i: int| 0 <= i < nums.len() ==> 0 <= #[trigger] nums[i] <= 1_000_000_000,
             i32::MIN <= Solution::total_hamming_distance_spec(nums@, 0, 1, 0) <= i32::MAX,
         ensures
             res == Solution::total_hamming_distance_spec(nums@, 0, 1, 0),

@@ -24,7 +24,7 @@ impl Solution {
 
     pub fn check_x_matrix(grid: Vec<Vec<i32>>) -> (result: bool)
         requires
-            1 <= grid.len() <= 100,
+            3 <= grid.len() <= 100,
             forall |i: int| 0 <= i < grid.len() ==> #[trigger] grid[i].len() == grid.len(),
             forall |i: int, j: int| 0 <= i < grid.len() && 0 <= j < grid.len() ==>
                 0 <= #[trigger] grid[i][j] <= 100000,

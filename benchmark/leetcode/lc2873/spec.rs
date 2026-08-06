@@ -58,7 +58,7 @@ impl Solution {
     pub fn maximum_triplet_value(nums: Vec<i32>) -> (result: i64)
         requires
             3 <= nums.len() <= 100,
-            forall |i: int| 0 <= i < nums.len() ==> 0 <= #[trigger] nums[i] <= 1_000_000,
+            forall |i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 1_000_000,
         ensures
             result as int == Self::maximum_triplet_value_spec(nums@),
     {

@@ -15,6 +15,7 @@ impl Solution {
         requires
             1 <= m <= 16,
             1 <= n <= 16,
+            m <= n,
         ensures
             result as int == max_dominoes_spec(m as int, n as int),
     {

@@ -12,10 +12,10 @@ pub struct Solution;
 impl Solution {
     pub fn contains_nearby_duplicate(nums: Vec<i32>, k: i32) -> (res: bool) 
         requires
-            1 <= nums.len() <= 10_000, 
-            forall |i: int| 1 <= i < nums.len() ==> 
+            1 <= nums.len() <= 100_000, 
+            forall |i: int| 0 <= i < nums.len() ==> 
                 -1_000_000_000 <= #[trigger] nums[i] <= 1_000_000_000,
-            0 <= k <= 10_000,
+            0 <= k <= 100_000,
         ensures 
             res == (exists |i: int, j: int| 0 <= i < j < nums.len() && 
                 nums[i] == nums[j] && (j - i <= k as int)),
@@ -23,10 +23,10 @@ impl Solution {
         let mut map: HashMap<i32, usize> = HashMap::new();
         for i in 0..nums.len() 
             invariant
-                1 <= nums.len() <= 10_000, 
-                forall |idx: int| 1 <= idx < nums.len() ==> 
+                1 <= nums.len() <= 100_000, 
+                forall |idx: int| 0 <= idx < nums.len() ==> 
                     -1_000_000_000 <= #[trigger] nums[idx] <= 1_000_000_000,
-                0 <= k <= 10_000,
+                0 <= k <= 100_000,
                 forall |a: int, b: int| (0 <= a < b < i && nums[a] == nums[b]) ==> 
                     b - a > k as int,
                 forall |v: i32| #[trigger] map@.contains_key(v) ==> 

@@ -11,6 +11,7 @@ impl Solution {
         requires
             1 <= nums.len() <= 1000,
             forall|i: int| 0 <= i < nums.len() ==> 0 <= #[trigger] nums[i] < nums.len(),
+            forall|i: int, j: int| 0 <= i < j < nums.len() ==> nums[i] != nums[j],
         ensures
             ans.len() == nums.len(),
             forall|i: int| 0 <= i < nums.len() ==> #[trigger] ans[i] == nums[nums[i] as int],

@@ -25,6 +25,7 @@ impl Solution {
             1 <= n <= 100000,
             p.len() == n,
             forall|i: int| 0 <= i < p.len() ==> 1 <= #[trigger] p[i] <= n as i64,
+            forall|i: int, j: int| 0 <= i < j < p.len() ==> p[i] != p[j],
         ensures
             result as int == greedy_count(p@, n as int, 0, 0),
     {

@@ -21,8 +21,8 @@ impl Solution {
 
     pub fn can_obtain(n: i64, m: i64) -> (res: bool)
         requires
-            1 <= n <= 1000000000,
-            1 <= m <= 1000000000,
+            1 <= n <= 10000000,
+            1 <= m <= 10000000,
         ensures
             res == Self::can_reach(n as int, m as int),
     {

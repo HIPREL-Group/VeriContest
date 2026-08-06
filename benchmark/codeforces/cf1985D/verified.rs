@@ -63,8 +63,7 @@ impl Solution {
         requires
             0 < grid.len(),
             0 < grid[0].len(),
-            grid.len() <= 200000,
-            grid[0].len() <= 200000,
+            grid.len() as int * grid[0].len() as int <= 200000,
             forall|i: int| 0 <= i < grid.len() ==> #[trigger] grid[i].len() == grid[0].len(),
             forall|i: int, j: int|
                 0 <= i < grid.len() && 0 <= j < grid[0].len() ==> (#[trigger] grid[i][j] == 0 || #[trigger] grid[i][j] == 1),
@@ -82,6 +81,22 @@ impl Solution {
     {
         let n = grid.len();
         let m = grid[0].len();
+
+        proof {
+            assert(n as int * m as int <= 200000);
+            assert(n as int <= 200000) by (nonlinear_arith)
+                requires
+                    n as int >= 1,
+                    m as int >= 1,
+                    n as int * m as int <= 200000,
+            ;
+            assert(m as int <= 200000) by (nonlinear_arith)
+                requires
+                    n as int >= 1,
+                    m as int >= 1,
+                    n as int * m as int <= 200000,
+            ;
+        }
 
         let mut found: bool = false;
         let mut min_r: usize = 0usize;

@@ -142,7 +142,7 @@ impl Solution {
     pub fn recover_digit(final_d: i32, move_deltas: Vec<i32>) -> (res: i32)
         requires
             0 <= final_d <= 9,
-            move_deltas.len() <= 10,
+            1 <= move_deltas.len() <= 10,
             forall|j: int|
                 0 <= j < move_deltas.len() ==> #[trigger] move_deltas[j] == 1 || move_deltas[j] == -1,
         ensures

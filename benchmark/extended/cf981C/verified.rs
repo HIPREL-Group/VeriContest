@@ -39,6 +39,22 @@ pub open spec fn is_valid_result(n: usize, u_edges: Seq<usize>, v_edges: Seq<usi
     }
 }
 
+pub open spec fn edge_between(u_edges: Seq<usize>, v_edges: Seq<usize>, x: usize, y: usize) -> bool {
+    exists|j: int| 0 <= j < u_edges.len() &&
+        ((u_edges[j] == x && v_edges[j] == y) || (u_edges[j] == y && v_edges[j] == x))
+}
+
+pub open spec fn reachable(u_edges: Seq<usize>, v_edges: Seq<usize>, x: usize, y: usize, fuel: nat) -> bool
+    decreases fuel
+{
+    x == y || (fuel > 0 && exists|z: usize|
+        edge_between(u_edges, v_edges, x, z) && reachable(u_edges, v_edges, z, y, (fuel - 1) as nat))
+}
+
+pub open spec fn is_tree(n: usize, u_edges: Seq<usize>, v_edges: Seq<usize>) -> bool {
+    forall|x: usize, y: usize| 1 <= x <= n && 1 <= y <= n ==> reachable(u_edges, v_edges, x, y, n as nat)
+}
+
 pub open spec fn is_valid_leaves(n: usize, u_edges: Seq<usize>, v_edges: Seq<usize>, center: usize, leaves: Seq<usize>) -> bool {
     (forall|k: int| 0 <= k && k < leaves.len() ==>
         1 <= leaves[k] && leaves[k] <= n &&
@@ -57,11 +73,13 @@ pub struct Solution;
 impl Solution {
     pub fn useful_decomposition(n: usize, u_edges: Vec<usize>, v_edges: Vec<usize>) -> (res: (bool, usize, Vec<usize>))
         requires
-            1 <= n && n <= 100000,
+            2 <= n && n <= 100000,
             u_edges.len() == n - 1,
             v_edges.len() == n - 1,
             forall|j: int| 0 <= j && j < n - 1 ==> 1 <= u_edges@[j] && u_edges@[j] <= n,
             forall|j: int| 0 <= j && j < n - 1 ==> 1 <= v_edges@[j] && v_edges@[j] <= n,
+            forall|j: int| 0 <= j && j < n - 1 ==> u_edges@[j] != v_edges@[j],
+            is_tree(n, u_edges@, v_edges@),
         ensures
             is_valid_result(n, u_edges@, v_edges@, res.0, res.1),
             res.0 ==> is_valid_leaves(n, u_edges@, v_edges@, res.1, res.2@)

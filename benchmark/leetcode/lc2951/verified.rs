@@ -9,7 +9,8 @@ pub struct Solution;
 impl Solution {
     pub fn find_peaks(mountain: Vec<i32>) -> (result: Vec<i32>)
         requires
-            mountain.len() <= 2147483647usize,
+            3 <= mountain.len() <= 100,
+            forall|i: int| 0 <= i < mountain.len() ==> 1 <= #[trigger] mountain[i] <= 100,
         ensures
             forall |p: int| 0 <= p < result.len() ==> 1 <= #[trigger] result[p] < mountain.len() as i32 - 1,
             forall |p: int| 0 <= p < result.len() ==>

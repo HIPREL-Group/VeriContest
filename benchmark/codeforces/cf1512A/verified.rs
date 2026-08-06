@@ -16,6 +16,7 @@ impl Solution {
     pub fn spy_index(a: Vec<i64>) -> (res: usize)
         requires
             3 <= a.len() <= 100,
+            forall|j: int| 0 <= j < a.len() ==> 1 <= #[trigger] a[j] <= 100,
             exists|i: int| is_spy(a@, i),
         ensures
             is_spy(a@, res as int - 1),

@@ -28,6 +28,7 @@ impl Solution {
         requires
             2 <= a.len() <= 200000,
             forall|i: int| 0 <= i < a.len() as int ==> 1 <= #[trigger] a[i] <= 1000000,
+            1 <= queries.len() && queries.len() <= 200000,
             forall|k: int| 0 <= k < queries.len() as int ==> 1 <= #[trigger] queries[k].0 < queries[k].1 <= a.len(),
         ensures
             res.len() == queries.len(),

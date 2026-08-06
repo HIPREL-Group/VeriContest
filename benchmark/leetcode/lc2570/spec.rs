@@ -31,6 +31,8 @@ impl Solution {
             forall|i: int| 0 <= i < nums2.len() ==> #[trigger] nums2[i].len() == 2,
             forall|i: int| 0 <= i < nums1.len() ==> 1 <= #[trigger] nums1[i][0] <= 1000 && 1 <= nums1[i][1] <= 1000,
             forall|i: int| 0 <= i < nums2.len() ==> 1 <= #[trigger] nums2[i][0] <= 1000 && 1 <= nums2[i][1] <= 1000,
+            forall|i: int, j: int| 0 <= i < j < nums1.len() ==> nums1[i][0] < nums1[j][0],
+            forall|i: int, j: int| 0 <= i < j < nums2.len() ==> nums2[i][0] < nums2[j][0],
         ensures
             forall|i: int| 0 <= i < result.len() ==> #[trigger] result[i].len() == 2,
             forall|i: int, j: int| 0 <= i < j < result.len() ==> result[i][0] < result[j][0],

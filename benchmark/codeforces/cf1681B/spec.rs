@@ -27,6 +27,7 @@ impl Solution {
             a.len() == n,
             b.len() == m,
             forall|i: int| 0 <= i < a.len() ==> 1 <= #[trigger] a[i] <= n as i64,
+            forall|i: int, j: int| 0 <= i < j < a.len() ==> a[i] != a[j],
             forall|i: int| 0 <= i < b.len() ==> 1 <= #[trigger] b[i] <= n as i64 - 1,
         ensures
             result as int == a[final_idx(n as int, b@, m as int)] as int,

@@ -27,8 +27,8 @@ impl Solution {
 
     pub fn distance_traveled(main_tank: i32, additional_tank: i32) -> (res: i32)
         requires
-            0 <= main_tank <= 100,
-            0 <= additional_tank <= 100,
+            1 <= main_tank <= 100,
+            1 <= additional_tank <= 100,
         ensures
             res == Self::distance_traveled_spec(main_tank as nat, additional_tank as nat) as i32,
     {

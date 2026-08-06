@@ -17,15 +17,22 @@ pub open spec fn circ_idx(n: int, i: int, k: int) -> int
     }
 }
 
+pub open spec fn no_next_greater(nums: Seq<i32>, i: int) -> bool
+    decreases 0int
+{
+    let n = nums.len() as int;
+    forall |k: int| 1 <= k < n ==> nums[circ_idx(n, i, k)] <= nums[i]
+}
+
 pub open spec fn is_next_greater(nums: Seq<i32>, res: Seq<i32>, i: int) -> bool
     decreases 0int
 {
     let n = nums.len() as int;
     0 <= i < n
     && (
-        (res[i] == -1
-         && forall |k: int| 1 <= k < n ==> nums[circ_idx(n, i, k)] <= nums[i])
-        || (res[i] != -1
+        (no_next_greater(nums, i)
+         && res[i] == -1)
+        || (!no_next_greater(nums, i)
             && res[i] > nums[i]
             && exists |k: int|
                 1 <= k < n
@@ -121,7 +128,6 @@ impl Solution {
         requires
             1 <= nums.len() <= 10_000,
             forall |i: int| 0 <= i < nums.len() ==> -1_000_000_000 <= #[trigger] nums[i] <= 1_000_000_000,
-            forall |i: int| 0 <= i < nums.len() ==> #[trigger] nums[i] != -1i32,
         ensures
             res.len() == nums.len(),
             forall |i: int| 0 <= i < nums.len() ==> is_next_greater(nums@, res@, i),
@@ -133,12 +139,6 @@ impl Solution {
             assert(n_int == n as int);
             assert(1 <= n_int);
             assert(0 < n_int);
-        }
-
-        proof {
-            assert forall |ii: int| 0 <= ii < nums@.len() implies nums@[ii] != (-1i32) by {
-                assert(nums[ii] != (-1i32));
-            };
         }
 
         let mut res: Vec<i32> = Vec::new();
@@ -177,7 +177,6 @@ impl Solution {
                 res_at_start.len() == n_int,
                 forall |idx: int| (i as int) < idx < n_int ==> res_at_start[idx] == -1,
                 forall |idx: int| (i as int) < idx < n_int ==> res@[idx] == res_at_start[idx],
-                forall |ii: int| 0 <= ii < nums@.len() ==> nums@[ii] != (-1i32),
             decreases n - i
         {
             proof {
@@ -193,6 +192,7 @@ impl Solution {
                 assert(i_int < (nums@.len() as int));
             }
             let mut k: usize = 1;
+            let mut found: bool = false;
             while k < n
                 invariant
                     1 <= k <= n,
@@ -207,11 +207,11 @@ impl Solution {
                     nums@.len() as int == n_int,
                     forall |idx: int| 0 <= idx < i_int ==> is_next_greater(nums@, res@, idx),
                     forall |idx: int| (i as int) < idx < n_int ==> res@[idx] == -1,
-                    (k as int) < n_int ==> res@[i_int] == -1,
-                    res@[i_int] == -1 ==> forall |j: int| 1 <= j < (k as int) ==> nums@[circ_idx(n_int, i_int, j)] <= nums@[i_int],
-                    res@[i_int] != -1 ==> is_next_greater(nums@, res@, i_int),
+                    !found ==> res@[i_int] == -1,
+                    !found ==> forall |j: int| 1 <= j < (k as int) ==> nums@[circ_idx(n_int, i_int, j)] <= nums@[i_int],
+                    found ==> is_next_greater(nums@, res@, i_int),
+                    found ==> k == n,
                     (i as int) + (k as int) <= 2 * n_int,
-                    forall |ii: int| 0 <= ii < nums@.len() ==> nums@[ii] != (-1i32),
                 decreases n - k
             {
                 assert((i as int) + (k as int) <= 2 * n_int);
@@ -252,9 +252,6 @@ impl Solution {
                 assert(i < n);
                 assert(j < n);
                 let ghost res_before = res@;
-                assert(-1 == 0 - 1);
-                assert(res@[i_int] == 0 - 1);
-                assert(res_before[i_int] == 0 - 1);
                 if nums[j] > nums[i] {
                     res[i] = nums[j];
                     proof {
@@ -269,11 +266,6 @@ impl Solution {
                         assert(forall |idx: int| 0 <= idx < n_int && idx != i_int ==> res@[idx] == res_before[idx]);
                         assert(forall |idx: int| (i as int) < idx < n_int ==> res@[idx] == -1);
 
-                        assert(0 <= (j as int) < nums@.len());
-                        assert(nums@[j as int] != (-1i32));
-                        assert(val != (-1i32));
-                        assert(res_updated[i_int] != (-1i32));
-
                         assert(val > nums@[i_int]);
                         assert(res_updated[i_int] > nums@[i_int]);
 
@@ -285,6 +277,11 @@ impl Solution {
                         assert(1 <= (k as int) && (k as int) < n_int);
                         assert(forall |jj: int| 1 <= jj < (k as int) ==> nums@[circ_idx(n_int, i_int, jj)] <= nums@[i_int]);
 
+                        assert(!no_next_greater(nums@, i_int)) by {
+                            reveal_with_fuel(no_next_greater, 1);
+                            assert(nums@[circ_idx(n_int, i_int, k as int)] > nums@[i_int]);
+                        }
+
                         reveal_with_fuel(is_next_greater, 1);
                         reveal_with_fuel(circ_idx, 1);
                         assert(is_next_greater(nums@, res_updated, i_int));
@@ -293,6 +290,7 @@ impl Solution {
                             lemma_is_next_greater_preserved_update(nums@, res_before, i_int, idx, val);
                         }
                     }
+                    found = true;
                     k = n;
                 } else {
                     proof {
@@ -302,7 +300,14 @@ impl Solution {
                 }
             }
             proof {
-                assert(res@[i_int] == -1 ==> forall |j: int| 1 <= j < n_int ==> nums@[circ_idx(n_int, i_int, j)] <= nums@[i_int]);
+                if !found {
+                    assert(res@[i_int] == -1);
+                    assert(forall |j: int| 1 <= j < n_int ==> nums@[circ_idx(n_int, i_int, j)] <= nums@[i_int]);
+                    reveal_with_fuel(no_next_greater, 1);
+                    assert(no_next_greater(nums@, i_int));
+                    reveal_with_fuel(is_next_greater, 1);
+                    assert(is_next_greater(nums@, res@, i_int));
+                }
                 assert(is_next_greater(nums@, res@, i_int));
                 assert((i as int) == i_int);
                 assert((i as int) + 1 < n_int ==> res@[(i as int) + 1] == -1);

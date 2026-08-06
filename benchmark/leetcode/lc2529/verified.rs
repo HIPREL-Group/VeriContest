@@ -34,6 +34,7 @@ impl Solution {
         requires
             1 <= nums.len() <= 2000,
             forall |i: int| 0 <= i < nums.len() ==> -2000 <= #[trigger] nums[i] <= 2000,
+            forall |i: int, j: int| 0 <= i < j < nums.len() ==> nums[i] <= nums[j],
         ensures
             result == if count_pos(nums@) >= count_neg(nums@) { count_pos(nums@) as i32 } else { count_neg(nums@) as i32 },
     {

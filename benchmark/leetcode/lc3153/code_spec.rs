@@ -7,6 +7,12 @@ verus! {
 pub struct Solution;
 
 impl Solution {
+    pub open spec fn digit_count(n: int) -> int
+        decreases n
+    {
+        if n <= 0 { 1 } else if n < 10 { 1 } else { 1 + Self::digit_count(n / 10) }
+    }
+
     pub open spec fn digit_diff_count(a: int, b: int, pos: int) -> int
         decreases pos,
     {
@@ -42,11 +48,10 @@ impl Solution {
     pub open spec fn sum_digit_differences_spec(nums: Seq<i32>, result: int) -> bool {
         &&& 2 <= nums.len() <= 100000
         &&& forall |i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] < 1_000_000_000
+        &&& forall |i: int, j: int| 0 <= i < nums.len() && 0 <= j < nums.len()
+            ==> Self::digit_count(#[trigger] nums[i] as int) == Self::digit_count(#[trigger] nums[j] as int)
         &&& result == Self::all_pair_sum(nums, nums.len() as int)
     }
-
-
-
 
     fn digit_diff_count_exec(a: i32, b: i32, pos: usize) -> (res: i64)
         requires
@@ -111,6 +116,8 @@ impl Solution {
         requires
             2 <= nums.len() <= 100000,
             forall |i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] < 1_000_000_000,
+            forall |i: int, j: int| 0 <= i < nums.len() && 0 <= j < nums.len()
+                ==> Self::digit_count(#[trigger] nums[i] as int) == Self::digit_count(#[trigger] nums[j] as int),
         ensures
             Self::sum_digit_differences_spec(nums@, result as int),
     {

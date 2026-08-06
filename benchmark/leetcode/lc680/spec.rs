@@ -45,6 +45,7 @@ impl Solution {
     pub fn valid_palindrome(s: Vec<char>) -> (res: bool)
         requires
             1 <= s.len() <= 100000,
+            forall |i: int| 0 <= i < s.len() ==> 'a' <= #[trigger] s[i] <= 'z',
         ensures
             res == Solution::valid_palindrome_spec(s@),
     {

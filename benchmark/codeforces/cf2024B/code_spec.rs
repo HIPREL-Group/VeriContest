@@ -52,6 +52,7 @@ impl Solution {
             sorted(a@, n as int),
             forall|i: int| 0 <= i < a.len() ==> 1 <= #[trigger] a[i] && a[i] <= 1_000_000_000,
             1 <= k <= 1_000_000_000,
+            k <= spec_sum_upto(a@, n as int),
         ensures
             res as int == spec_answer(a@, n as int, k as int),
     {

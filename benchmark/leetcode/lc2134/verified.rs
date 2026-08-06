@@ -152,7 +152,6 @@ verus! {
             requires
                 1 <= nums.len() <= 100000,
                 forall|i: int| 0 <= i < nums.len() ==> #[trigger] nums[i] == 0 || nums[i] == 1,
-                exists|i: int| 0 <= i < nums.len() && nums[i] == 1,
             ensures
                 res >= 0,
                 res as int == Self::count_ones(nums@, nums.len() as int) - Self::max_circ_ones(nums@, Self::count_ones(nums@, nums.len() as int), nums.len() as int),
@@ -175,7 +174,6 @@ verus! {
             }
 
             proof {
-                Self::count_ones_positive(nums@, nums.len() as int);
                 Self::count_ones_bounds(nums@, nums.len() as int);
             }
 
@@ -188,7 +186,7 @@ verus! {
                     0 <= i <= window_size,
                     window_size == total_ones,
                     window_size as int == Self::count_ones(nums@, nums.len() as int),
-                    1 <= window_size <= nums.len(),
+                    0 <= window_size <= nums.len(),
                     nums.len() <= 100000,
                     forall|k: int| 0 <= k < nums.len() ==> #[trigger] nums[k] == 0 || nums[k] == 1,
                     ones_in_window as int == Self::circ_ones(nums@, 0, i as int),
@@ -220,7 +218,7 @@ verus! {
                     n >= 1,
                     window_size == total_ones,
                     window_size as int == Self::count_ones(nums@, n as int),
-                    1 <= window_size <= n,
+                    0 <= window_size <= n,
                     forall|k: int| 0 <= k < nums.len() ==> #[trigger] nums[k] == 0 || nums[k] == 1,
                     ones_in_window as int == Self::circ_ones(nums@, i as int, window_size as int),
                     max_ones as int == Self::max_circ_ones(nums@, window_size as int, i as int),
@@ -237,6 +235,11 @@ verus! {
                         requires si >= 0, si < sn, sn > 0
                     {}
                     if nums@[si] == 1i32 {
+                        assert(exists|ii: int| 0 <= ii < sn && nums@[ii] == 1i32) by {
+                            assert(nums@[si] == 1i32);
+                        }
+                        Self::count_ones_positive(nums@, sn);
+                        assert(w >= 1);
                         Self::circ_ones_first_positive(nums@, si, w);
                     }
                 }

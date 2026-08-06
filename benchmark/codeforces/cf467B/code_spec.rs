@@ -102,7 +102,7 @@ impl Solution {
             2 <= armies.len() && armies.len() <= 1001,
             0 <= (n as int) && 1 <= (k as int) && (k as int) <= (n as int) && (n as int) <= 20,
             forall|i: int|
-                0 <= i < armies@.len() ==> (1 <= #[trigger] armies@[i] && (armies@[i] as int) < 1048576),
+                0 <= i < armies@.len() ==> (1 <= #[trigger] armies@[i] && (armies@[i] as int) < pow2(n as int)),
         ensures
             res as int == friend_count_prefix(
                 armies@,

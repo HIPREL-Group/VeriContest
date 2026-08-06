@@ -55,7 +55,7 @@ impl Solution {
     pub fn min_tags(a: Vec<i64>, b: Vec<i64>) -> (result: u64)
         requires
             a.len() == b.len(),
-            1 <= a.len() <= 200_000,
+            2 <= a.len() <= 200_000,
             forall |i: int| 0 <= i < a.len() ==> 1 <= #[trigger] a[i] <= 1_000_000_000,
             forall |i: int| 0 <= i < b.len() ==> 1 <= #[trigger] b[i] <= 10_000,
         ensures

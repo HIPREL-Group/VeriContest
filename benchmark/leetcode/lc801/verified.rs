@@ -69,9 +69,9 @@ impl Solution {
             2 <= nums1.len() <= 100_000,
             nums1.len() == nums2.len(),
             forall|i: int| 0 <= i < nums1.len() ==>
-                0 <= #[trigger] nums1[i],
+                0 <= #[trigger] nums1[i] <= 200_000,
             forall|i: int| 0 <= i < nums2.len() ==>
-                0 <= #[trigger] nums2[i],
+                0 <= #[trigger] nums2[i] <= 200_000,
         ensures
             result >= 0,
             result as int == {

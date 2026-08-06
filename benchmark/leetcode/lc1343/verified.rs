@@ -80,7 +80,7 @@ impl Solution {
             arr.len() <= 100_000,
             1 <= k,
             k as usize <= arr.len(),
-            forall |i: int| 0 <= i < arr.len() ==> 0 <= #[trigger] arr[i] <= 10_000,
+            forall |i: int| 0 <= i < arr.len() ==> 1 <= #[trigger] arr[i] <= 10_000,
             0 <= threshold,
             threshold <= 10_000,
         ensures

@@ -28,7 +28,7 @@ impl Solution {
 
     pub fn shortest_original(n: usize, s: Vec<i64>) -> (result: usize)
         requires
-            n >= 1,
+            1 <= n && n <= 2000,
             s.len() == n,
             forall|i: int| 0 <= i < n as int ==> (#[trigger] s@[i] == 0 || s@[i] == 1),
         ensures

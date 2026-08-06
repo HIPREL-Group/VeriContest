@@ -63,8 +63,7 @@ impl Solution {
         requires
             0 < grid.len(),
             0 < grid[0].len(),
-            grid.len() <= 200000,
-            grid[0].len() <= 200000,
+            grid.len() as int * grid[0].len() as int <= 200000,
             forall|i: int| 0 <= i < grid.len() ==> #[trigger] grid[i].len() == grid[0].len(),
             forall|i: int, j: int|
                 0 <= i < grid.len() && 0 <= j < grid[0].len() ==> (#[trigger] grid[i][j] == 0 || #[trigger] grid[i][j] == 1),

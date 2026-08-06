@@ -58,7 +58,7 @@ impl Solution {
     pub fn queue_after_seconds(queue: Vec<i32>, t: u32) -> (result: Vec<i32>)
         requires
             1 <= queue.len() <= 50,
-            t <= 50,
+            1 <= t && t <= 50,
             forall|i: int| 0 <= i < queue.len() ==> #[trigger] queue[i] == 0 || queue[i] == 1,
         ensures
             result.len() == queue.len(),

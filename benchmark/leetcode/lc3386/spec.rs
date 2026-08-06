@@ -31,7 +31,7 @@ impl Solution {
                 0 <= i < j < events.len()
                 && Self::valid_event(events[i]@)
                 && Self::valid_event(events[j]@)
-                ==> events[i][1] <= events[j][1],
+                ==> events[i][1] < events[j][1],
         ensures
             exists |best_pos: int|
                 0 <= best_pos < events.len()

@@ -66,6 +66,7 @@ impl Solution {
             p.len() == n,
             1 <= k <= n <= 100,
             forall|i: int| 0 <= i < n ==> 1 <= #[trigger] p[i] && p[i] <= n as int,
+            forall|i: int, j: int| 0 <= i < j < n ==> p[i] != p[j],
         ensures
             (result as int) == bad_prefix_count(p@, k as int, k as int),
             0 <= (result as int) && (result as int) <= k as int,

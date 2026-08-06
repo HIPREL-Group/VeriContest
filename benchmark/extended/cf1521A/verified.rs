@@ -26,8 +26,8 @@ pub open spec fn valid_triple(a: int, b: int, x: int, y: int, z: int) -> bool {
 impl Solution {
     pub fn construct_numbers(a: i64, b: i64) -> (res: (bool, i64, i64, i64))
         requires
-            1 <= a <= 1_000_000_000,
-            1 <= b <= 1_000_000_000,
+            1 <= a <= 1_000_000,
+            1 <= b <= 1_000_000,
             a as int * b as int <= i64::MAX as int,
             a as int * (b as int + 1) <= i64::MAX as int,
         ensures

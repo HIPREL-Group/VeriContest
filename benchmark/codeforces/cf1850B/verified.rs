@@ -19,6 +19,7 @@ impl Solution {
             forall|i: int| 0 <= i < a.len() ==> 1 <= #[trigger] a[i] <= 50,
             forall|i: int| 0 <= i < b.len() ==> 1 <= #[trigger] b[i] <= 50,
             exists|i: int| 0 <= i < a.len() && #[trigger] a[i] <= 10,
+            forall|i: int, j: int| 0 <= i < j < b.len() ==> b[i] != b[j],
         ensures
             1 <= result <= n,
             a[result as int - 1] <= 10,

@@ -89,6 +89,8 @@ impl Solution {
                 1 <= (#[trigger] rectangles[i])[0] <= 1_000_000_000,
             forall |i: int| 0 <= i < rectangles.len() ==>
                 1 <= (#[trigger] rectangles[i])[1] <= 1_000_000_000,
+            forall |i: int| 0 <= i < rectangles.len() ==>
+                (#[trigger] rectangles[i])[0] != rectangles[i][1],
         ensures
             res == count_max(rectangles@, rectangles@.len() as int, max_len(rectangles@, rectangles@.len() as int)),
     {

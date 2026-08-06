@@ -49,11 +49,23 @@ pub open spec fn merge_ops(s: Seq<int>, k: int) -> int {
     Self::merge_ops_n(s, k, s.len())
 }
 
+pub open spec fn solvable(s: Seq<int>, k: int, n: nat) -> bool
+    decreases n
+{
+    if n == 0 { false }
+    else if s.len() < 2 { false }
+    else if s[s.len() - 1] >= k { true }
+    else {
+        Self::solvable(Self::insert_desc(s.subrange(0, s.len() - 2), 2 * s[s.len() - 1] + s[s.len() - 2]), k, (n - 1) as nat)
+    }
+}
+
 pub fn min_operations(nums: Vec<i32>, k: i32) -> (res: i32)
     requires
         2 <= nums.len() <= 200_000,
         1 <= k <= 1_000_000_000,
         forall|i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 1_000_000_000,
+        Self::solvable(Self::ssort(Self::to_int_seq(nums@)), k as int, nums.len() as nat),
     ensures
         res as int == Self::merge_ops(Self::ssort(Self::to_int_seq(nums@)), k as int),
 {

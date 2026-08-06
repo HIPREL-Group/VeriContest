@@ -16,7 +16,7 @@ impl Solution {
 
     pub fn maximum_product(nums: Vec<i32>) -> (result: i32)
         requires
-            nums.len() >= 3,
+            3 <= nums.len() <= 10_000,
             forall|i: int| 0 <= i < nums.len() ==> -1000 <= #[trigger] nums[i] <= 1000,
         ensures
             exists|i: int, j: int, k: int|

@@ -28,7 +28,7 @@ impl Solution {
     pub fn min_operations_to_equal(candies: Vec<i64>) -> (result: i64)
         requires
             1 <= candies.len() <= 50,
-            forall|i: int| 0 <= i < candies.len() ==> 1 <= #[trigger] candies[i] as int <= 1_000_000_000,
+            forall|i: int| 0 <= i < candies.len() ==> 1 <= #[trigger] candies[i] as int <= 10_000_000,
         ensures
             exists|min_v: int| is_min_value(candies@, min_v)
                 && result as int == sum_decrease_with(candies@, candies.len() as int, min_v),
