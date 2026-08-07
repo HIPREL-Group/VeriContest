@@ -20,7 +20,8 @@ impl Solution {
             2 <= a.len() <= 200000,
             forall|i: int| 0 <= i < a.len() as int ==> 1 <= #[trigger] a[i] <= 100000000,
         ensures
-            (res == -1) || (0 <= res <= 1000000000 && Self::valid_x(a@, res as int)),
+            (res == -1 && !(exists|x: int| 0 <= x <= 1000000000 && Self::valid_x(a@, x)))
+                || (res != -1 && 0 <= res <= 1000000000 && Self::valid_x(a@, res as int)),
     {
         let n = a.len();
         let mut low: i64 = 0;

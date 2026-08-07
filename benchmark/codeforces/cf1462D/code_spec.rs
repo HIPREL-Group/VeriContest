@@ -59,7 +59,7 @@ impl Solution {
             total % (g as i64) == 0,
             total >= g as i64,
         ensures
-            ok ==> can_partition_k(a@, n, g as int),
+            ok == can_partition_k(a@, n, g as int),
     {
         let target = total / (g as i64);
         let mut seg_sum: i64 = 0;
@@ -93,6 +93,7 @@ impl Solution {
         ensures
             ans >= 0 && ans < n,
             can_partition_k(a@, n, (n as int - ans as int)),
+            forall|k2: int| (n as int - ans as int) < k2 && k2 <= n as int ==> !can_partition_k(a@, n, k2),
     {
         let total = Solution::compute_sum(n, &a);
         let mut best_k: usize = 1;

@@ -39,6 +39,7 @@ impl Solution {
         ensures
             ans >= 0 && ans < n,
             can_partition_k(a@, n, (n as int - ans as int)),
+            forall|k2: int| (n as int - ans as int) < k2 && k2 <= n as int ==> !can_partition_k(a@, n, k2),
     {
     }
 }
