@@ -26,6 +26,10 @@ impl Solution {
             forall|i: int, j: int| 0 <= i < n && 0 <= j < m && #[trigger] grid@[i][j] == 1u8
                 ==> result.0 as int <= i && i <= result.1 as int
                     && result.2 as int <= j && j <= result.3 as int,
+            exists|j: int| 0 <= j < m && #[trigger] grid@[result.0 as int][j] == 1u8,
+            exists|j: int| 0 <= j < m && #[trigger] grid@[result.1 as int][j] == 1u8,
+            exists|i: int| 0 <= i < n && #[trigger] grid@[i][result.2 as int] == 1u8,
+            exists|i: int| 0 <= i < n && #[trigger] grid@[i][result.3 as int] == 1u8,
     {
     }
 }

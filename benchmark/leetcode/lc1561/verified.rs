@@ -343,6 +343,7 @@ impl Solution {
             exists|sorted_piles: Seq<i32>|
                 Self::sorted(sorted_piles)
                 && sorted_piles.len() == piles.len()
+                && Self::is_perm(sorted_piles, piles@)
                 && result as int == Self::even_index_sum(
                     sorted_piles.subrange(
                         (sorted_piles.len() / 3) as int,
@@ -396,6 +397,11 @@ impl Solution {
 
         proof {
             assert(tail.subrange(0, tail_len as int) =~= tail);
+            assert(Self::sorted(sorted@));
+            assert(sorted@.len() == piles@.len());
+            assert(Self::is_perm(sorted@, piles@));
+            assert(sum as int == Self::even_index_sum(
+                sorted@.subrange((sorted@.len() / 3) as int, sorted@.len() as int)));
         }
 
         sum

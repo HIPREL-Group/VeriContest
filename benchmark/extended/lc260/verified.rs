@@ -75,6 +75,7 @@ impl Solution {
             },
         ensures
             result.len() == 2,
+            result[0] != result[1],
             Self::count_occurrences(nums@, result[0]) == 1,
             Self::count_occurrences(nums@, result[1]) == 1,
     {
@@ -183,6 +184,7 @@ impl Solution {
             },
         ensures
             result.len() == 2,
+            result[0] != result[1],
             Self::count_occurrences(nums@, result[0]) == 1,
             Self::count_occurrences(nums@, result[1]) == 1,
     {
@@ -227,7 +229,7 @@ impl Solution {
         let count_a = Self::count_in_vec(&nums, a);
         let count_b = Self::count_in_vec(&nums, b);
 
-        if count_a == 1 && count_b == 1 {
+        if count_a == 1 && count_b == 1 && a != b {
             let mut result: Vec<i32> = Vec::new();
             result.push(a);
             result.push(b);

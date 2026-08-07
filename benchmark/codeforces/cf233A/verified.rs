@@ -14,7 +14,11 @@ impl Solution {
             result.is_some() <==> (n % 2 == 0),
             result.is_some() ==> result.unwrap().len() == n,
             result.is_some() ==> (forall|i: int| 0 <= i < n ==>
-                #[trigger] result.unwrap()[i] == (if i % 2 == 0 { (i + 2) as u32 } else { i as u32 })),
+                1 <= #[trigger] result.unwrap()[i] <= n),
+            result.is_some() ==> (forall|i: int| 0 <= i < n ==>
+                #[trigger] result.unwrap()[(result.unwrap()[i] - 1) as int] == (i + 1) as u32),
+            result.is_some() ==> (forall|i: int| 0 <= i < n ==>
+                #[trigger] result.unwrap()[i] != (i + 1) as u32),
     {
         if n % 2 != 0 {
             return None;
@@ -37,6 +41,36 @@ impl Solution {
                 result.push(i);
             }
             i = i + 1;
+        }
+        proof {
+            assert forall|k: int| 0 <= k < n implies 1 <= #[trigger] result[k] <= n by {
+                if k % 2 == 0 {
+                    assert(result[k] == (k + 2) as u32);
+                } else {
+                    assert(result[k] == k as u32);
+                }
+            };
+            assert forall|k: int| 0 <= k < n implies
+                #[trigger] result[(result[k] - 1) as int] == (k + 1) as u32 by {
+                if k % 2 == 0 {
+                    assert(result[k] == (k + 2) as u32);
+                    assert((result[k] - 1) as int == k + 1);
+                    assert((k + 1) % 2 != 0);
+                    assert(result[k + 1] == (k + 1) as u32);
+                } else {
+                    assert(result[k] == k as u32);
+                    assert((result[k] - 1) as int == k - 1);
+                    assert((k - 1) % 2 == 0);
+                    assert(result[k - 1] == (k - 1 + 2) as u32);
+                }
+            };
+            assert forall|k: int| 0 <= k < n implies #[trigger] result[k] != (k + 1) as u32 by {
+                if k % 2 == 0 {
+                    assert(result[k] == (k + 2) as u32);
+                } else {
+                    assert(result[k] == k as u32);
+                }
+            };
         }
         Some(result)
     }

@@ -20,6 +20,8 @@ impl Solution {
             forall |i: int, j: int| 0 <= i < j < k as int ==> nums[i] < nums[j],
             forall |i: int| 0 <= i < old(nums).len() ==>
                 exists |j: int| 0 <= j < k as int && nums[j] == #[trigger] old(nums)[i],
+            forall |j: int| 0 <= j < k as int ==>
+                exists |i: int| 0 <= i < old(nums).len() && #[trigger] nums[j] == old(nums)[i],
     {
         let n = nums.len();
         let mut slow: usize = 0;

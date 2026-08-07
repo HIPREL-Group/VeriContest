@@ -58,17 +58,25 @@ impl Solution {
         }
     }
 
-    pub open spec fn is_prefix_min_overflow(a: Seq<i64>, n: int, s: int, pos: int) -> bool {
-        0 <= pos && pos < n && Self::prefix_sum(a, pos) > s
-            && (forall|t: int| 0 <= t && t < pos ==> #[trigger] Self::prefix_sum(a, t) <= s)
+    pub open spec fn gifts_from(a: Seq<i64>, n: int, s: int, skip_idx: int, i: int, acc: int, cnt: int) -> int
+        decreases n - i,
+    {
+        if i >= n {
+            cnt
+        } else if i == skip_idx {
+            Self::gifts_from(a, n, s, skip_idx, i + 1, acc, cnt)
+        } else {
+            let new_acc = acc + a[i];
+            if new_acc > s {
+                cnt
+            } else {
+                Self::gifts_from(a, n, s, skip_idx, i + 1, new_acc, cnt + 1)
+            }
+        }
     }
 
-    pub open spec fn closed_answer(a: Seq<i64>, n: int, s: int) -> int {
-        if Self::sum_all(a, n) <= s {
-            0
-        } else {
-            Self::smallest_max_index_on_prefix(a, Self::min_overflow_index(a, n, s)) + 1
-        }
+    pub open spec fn gifts(a: Seq<i64>, n: int, s: int, skip: int) -> int {
+        Self::gifts_from(a, n, s, skip - 1, 0, 0, 0)
     }
 
     pub fn verse_for_santa(n: usize, s: i64, a: Vec<i64>) -> (res: i32)
@@ -80,12 +88,12 @@ impl Solution {
                 0 <= i && i < n ==> 1 <= a[i] && a[i] <= 1000000000,
             1 <= s <= 1000000000,
         ensures
-            res == Self::closed_answer(a@, n as int, s as int),
             Self::sum_all(a@, n as int) <= s as int ==> res == 0,
             Self::sum_all(a@, n as int) > s as int ==> {
-                exists|pos: int|
-                    Self::is_prefix_min_overflow(a@, n as int, s as int, pos) && pos
-                        == Self::min_overflow_index(a@, n as int, s as int)
+                &&& 1 <= res as int <= n as int
+                &&& forall|skip: int|
+                    0 <= skip <= n as int ==> #[trigger] Self::gifts(a@, n as int, s as int, skip)
+                        <= Self::gifts(a@, n as int, s as int, res as int)
             },
     {
         let mut total: i64 = 0;

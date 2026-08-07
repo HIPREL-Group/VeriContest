@@ -83,6 +83,113 @@ impl Solution {
         }
     }
 
+    pub open spec fn nonzero_seq_range(s: Seq<i32>, start: int, end: int) -> Seq<i32>
+        decreases end - start when start <= end
+    {
+        if start >= end {
+            Seq::empty()
+        } else {
+            let rest = Self::nonzero_seq_range(s, start + 1, end);
+            if s[start] != 0 { seq![s[start]] + rest } else { rest }
+        }
+    }
+
+    pub open spec fn nonzero_seq(s: Seq<i32>) -> Seq<i32> {
+        Self::nonzero_seq_range(s, 0, s.len() as int)
+    }
+
+    proof fn nonzero_seq_range_additive(s: Seq<i32>, a: int, b: int, c: int)
+        requires
+            a <= b <= c,
+        ensures
+            Self::nonzero_seq_range(s, a, c)
+                == Self::nonzero_seq_range(s, a, b) + Self::nonzero_seq_range(s, b, c),
+        decreases b - a,
+    {
+        if a < b {
+            Self::nonzero_seq_range_additive(s, a + 1, b, c);
+            assert(Self::nonzero_seq_range(s, a, c) =~=
+                Self::nonzero_seq_range(s, a, b) + Self::nonzero_seq_range(s, b, c));
+        } else {
+            assert(Self::nonzero_seq_range(s, a, b) =~= Seq::<i32>::empty());
+        }
+    }
+
+    proof fn nonzero_seq_range_same_elements(s1: Seq<i32>, s2: Seq<i32>, start: int, end: int)
+        requires
+            start <= end <= s1.len(),
+            end <= s2.len(),
+            forall |k: int| start <= k < end ==> s1[k] == s2[k],
+        ensures
+            Self::nonzero_seq_range(s1, start, end) == Self::nonzero_seq_range(s2, start, end),
+        decreases end - start,
+    {
+        if start < end {
+            Self::nonzero_seq_range_same_elements(s1, s2, start + 1, end);
+        }
+    }
+
+    proof fn nonzero_seq_range_all_zero(s: Seq<i32>, start: int, end: int)
+        requires
+            start <= end <= s.len(),
+            forall |k: int| start <= k < end ==> s[k] == 0,
+        ensures
+            Self::nonzero_seq_range(s, start, end) == Seq::<i32>::empty(),
+        decreases end - start,
+    {
+        if start < end {
+            Self::nonzero_seq_range_all_zero(s, start + 1, end);
+        }
+    }
+
+    proof fn nonzero_seq_range_single(s: Seq<i32>, pos: int)
+        requires
+            0 <= pos < s.len(),
+            s[pos] != 0,
+        ensures
+            Self::nonzero_seq_range(s, pos, pos + 1) == seq![s[pos]],
+    {
+        assert(Self::nonzero_seq_range(s, pos + 1, pos + 1) =~= Seq::<i32>::empty());
+        assert(Self::nonzero_seq_range(s, pos, pos + 1) =~= seq![s[pos]]);
+    }
+
+    proof fn swap_preserves_nonzero_prefix(before: Seq<i32>, after: Seq<i32>, left: int, right: int)
+        requires
+            before.len() == after.len(),
+            0 <= left <= right < before.len(),
+            forall |k: int| left <= k < right ==> before[k] == 0,
+            before[right] != 0,
+            after[left] == before[right],
+            after[right] == before[left],
+            forall |k: int| 0 <= k < before.len() && k != left && k != right ==> after[k] == before[k],
+        ensures
+            Self::nonzero_seq_range(after, 0, right + 1) == Self::nonzero_seq_range(before, 0, right + 1),
+    {
+        Self::nonzero_seq_range_same_elements(before, after, 0, left);
+
+        if left == right {
+            Self::nonzero_seq_range_same_elements(before, after, 0, right + 1);
+        } else {
+            Self::nonzero_seq_range_all_zero(before, left, right);
+            Self::nonzero_seq_range_all_zero(after, left + 1, right);
+            assert(after[right] == 0);
+            Self::nonzero_seq_range_all_zero(after, right, right + 1);
+            Self::nonzero_seq_range_single(after, left);
+            Self::nonzero_seq_range_single(before, right);
+
+            Self::nonzero_seq_range_additive(after, left, left + 1, right);
+            Self::nonzero_seq_range_additive(after, left, right, right + 1);
+            Self::nonzero_seq_range_additive(before, left, right, right + 1);
+            Self::nonzero_seq_range_additive(before, 0, left, right + 1);
+            Self::nonzero_seq_range_additive(after, 0, left, right + 1);
+
+            assert(Self::nonzero_seq_range(after, left, right + 1)
+                =~= Self::nonzero_seq_range(before, left, right + 1));
+            assert(Self::nonzero_seq_range(after, 0, right + 1)
+                =~= Self::nonzero_seq_range(before, 0, right + 1));
+        }
+    }
+
     proof fn swap_preserves_count_in_range(before: Seq<i32>, after: Seq<i32>, v: i32, i: int, j: int)
         requires
             before.len() == after.len(),
@@ -121,13 +228,7 @@ impl Solution {
                 0 <= i < nums.len() && nums[i] == 0 ==>
                 forall |j: int| i < j < nums.len() ==> nums[j] == 0,
             forall |v: i32| Self::count(nums@, v) == Self::count(old(nums)@, v),
-            forall |i: int, j: int|
-                0 <= i < j < old(nums).len() &&
-                old(nums)[i] != 0 && old(nums)[j] != 0 ==>
-                exists |i2: int, j2: int|
-                    0 <= i2 < j2 < nums.len() &&
-                    nums[i2] == old(nums)[i] &&
-                    nums[j2] == old(nums)[j],
+            Self::nonzero_seq(nums@) == Self::nonzero_seq(old(nums)@),
     {
         let mut left = 0;
         let n = nums.len();
@@ -135,8 +236,8 @@ impl Solution {
         for right in 0..n
             invariant
                 1 <= (*old(nums)).len() <= 10_000,
-                forall |i: int| 0 <= i < (*old(nums)).len() ==> 
-                    i32::MIN <= #[trigger] (*old(nums))[i] <= i32::MAX, 
+                forall |i: int| 0 <= i < (*old(nums)).len() ==>
+                    i32::MIN <= #[trigger] (*old(nums))[i] <= i32::MAX,
                 n == nums.len(),
                 n == old(nums).len(),
                 0 <= left <= right <= n,
@@ -144,16 +245,8 @@ impl Solution {
                 forall |i: int| left <= i < right ==> nums[i] == 0,
                 forall |i: int| right <= i < n ==> nums[i] == old(nums)[i],
                 forall |v: i32| Self::count(nums@, v) == Self::count(old(nums)@, v),
-                forall |i: int|
-                    0 <= i < right && old(nums)[i] != 0 ==>
-                    exists |i2: int| 0 <= i2 < left && nums[i2] == old(nums)[i],
-                forall |i: int, j: int|
-                    0 <= i < j < right &&
-                    old(nums)[i] != 0 && old(nums)[j] != 0 ==>
-                    exists |i2: int, j2: int|
-                        0 <= i2 < j2 < left &&
-                        nums[i2] == old(nums)[i] &&
-                        nums[j2] == old(nums)[j],
+                Self::nonzero_seq_range(nums@, 0, right as int)
+                    == Self::nonzero_seq_range(old(nums)@, 0, right as int),
         {
             if nums[right] != 0 {
                 let ghost before = nums@;
@@ -171,43 +264,28 @@ impl Solution {
 
                     assert forall |k: int| 0 <= k < nums.len() && k != left && k != right
                         implies nums[k] == before[k] by {};
-                    
-                    assert forall |i: int|
-                        0 <= i < right + 1 && old(nums)[i] != 0
-                    implies
-                        exists |i2: int| 0 <= i2 < left + 1 && nums[i2] == old(nums)[i]
-                    by {
-                        if i == right {
-                            assert(nums[left as int] == old(nums)[i]);
-                        } else {
-                            let wit = choose |i2: int| 0 <= i2 < left && before[i2] == old(nums)[i];
-                            assert(nums[wit] == old(nums)[i]);
-                        }
-                    };
-                    
-                    assert forall |i: int, j: int|
-                        0 <= i < j < right + 1 &&
-                        old(nums)[i] != 0 && old(nums)[j] != 0
-                    implies
-                        exists |i2: int, j2: int|
-                            0 <= i2 < j2 < left + 1 &&
-                            nums[i2] == old(nums)[i] &&
-                            nums[j2] == old(nums)[j]
-                    by {
-                        if j == right {
-                            let wit_i = choose |i2: int| 0 <= i2 < left && before[i2] == old(nums)[i];
-                            assert(nums[wit_i] == old(nums)[i]);
-                            assert(nums[left as int] == old(nums)[j]);
-                        } else {
-                            assert(exists |i2: int, j2: int|
-                                0 <= i2 < j2 < left &&
-                                before[i2] == old(nums)[i] &&
-                                before[j2] == old(nums)[j]);
-                        }
-                    };
+
+                    Self::swap_preserves_nonzero_prefix(before, nums@, left as int, right as int);
+                    assert(old(nums)[right as int] == before[right as int]);
+                    Self::nonzero_seq_range_additive(before, 0, right as int, right as int + 1);
+                    Self::nonzero_seq_range_additive(old(nums)@, 0, right as int, right as int + 1);
+                    Self::nonzero_seq_range_single(before, right as int);
+                    Self::nonzero_seq_range_single(old(nums)@, right as int);
+                    assert(Self::nonzero_seq_range(before, 0, right as int + 1)
+                        =~= Self::nonzero_seq_range(old(nums)@, 0, right as int + 1));
                 }
 
                 left += 1;
+            } else {
+                proof {
+                    assert(nums[right as int] == old(nums)[right as int]);
+                    Self::nonzero_seq_range_additive(nums@, 0, right as int, right as int + 1);
+                    Self::nonzero_seq_range_additive(old(nums)@, 0, right as int, right as int + 1);
+                    Self::nonzero_seq_range_all_zero(nums@, right as int, right as int + 1);
+                    Self::nonzero_seq_range_all_zero(old(nums)@, right as int, right as int + 1);
+                    assert(Self::nonzero_seq_range(nums@, 0, right as int + 1)
+                        =~= Self::nonzero_seq_range(old(nums)@, 0, right as int + 1));
+                }
             }
         }
     }

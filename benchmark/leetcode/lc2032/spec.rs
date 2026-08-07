@@ -18,6 +18,17 @@ impl Solution {
         (in1 && in2) || (in1 && in3) || (in2 && in3)
     }
 
+    pub open spec fn count_occ(s: Seq<i32>, v: i32) -> int
+        decreases s.len()
+    {
+        if s.len() == 0 { 0 }
+        else { (if s.last() == v { 1int } else { 0int }) + Self::count_occ(s.drop_last(), v) }
+    }
+
+    pub open spec fn is_perm(a: Seq<i32>, b: Seq<i32>) -> bool {
+        a.len() == b.len() && forall|v: i32| Self::count_occ(a, v) == Self::count_occ(b, v)
+    }
+
     pub open spec fn collect_upto(nums1: Seq<i32>, nums2: Seq<i32>, nums3: Seq<i32>, limit: int) -> Seq<i32>
         decreases limit,
     {
@@ -42,7 +53,7 @@ impl Solution {
             forall |i: int| 0 <= i < nums2.len() ==> 1 <= #[trigger] nums2[i] <= 100,
             forall |i: int| 0 <= i < nums3.len() ==> 1 <= #[trigger] nums3[i] <= 100,
         ensures
-            result@ == Self::collect_upto(nums1@, nums2@, nums3@, 100),
+            Self::is_perm(result@, Self::collect_upto(nums1@, nums2@, nums3@, 100)),
     {
     }
 }

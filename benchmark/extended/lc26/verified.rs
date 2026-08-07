@@ -20,6 +20,8 @@ impl Solution {
             forall |i: int, j: int| 0 <= i < j < k as int ==> nums[i] < nums[j],
             forall |i: int| 0 <= i < old(nums).len() ==>
                 exists |j: int| 0 <= j < k as int && nums[j] == #[trigger] old(nums)[i],
+            forall |j: int| 0 <= j < k as int ==>
+                exists |i: int| 0 <= i < old(nums).len() && #[trigger] nums[j] == old(nums)[i],
     {
         let n = nums.len();
         let mut slow: usize = 0;
@@ -44,6 +46,8 @@ impl Solution {
                     exists |j: int| 0 <= j <= slow as int && nums[j] == #[trigger] old(nums)[i],
                 forall |i: int| 0 <= i <= slow as int ==>
                     -100 <= #[trigger] nums[i] <= 100,
+                forall |j: int| 0 <= j <= slow as int ==>
+                    exists |i: int| 0 <= i < n as int && #[trigger] nums[j] == old(nums)[i],
             decreases n - fast,
         {
             let ghost pre = nums@;
@@ -84,6 +88,16 @@ impl Solution {
                             assert(nums[j_wit] == pre[j_wit]);
                         } else {
                             assert(nums[slow as int] == old(nums)[fast as int]);
+                        }
+                    };
+
+                    assert forall |j: int| 0 <= j <= slow as int
+                        implies exists |i: int| 0 <= i < n as int
+                            && #[trigger] nums[j] == old(nums)[i] by {
+                        if j < slow as int {
+                            assert(nums[j] == pre[j]);
+                        } else {
+                            assert(nums[j] == old(nums)[fast as int]);
                         }
                     };
                 }

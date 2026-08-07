@@ -34,10 +34,10 @@ impl Solution {
             exists |lo: i32, hi: i32|
                 Self::is_lower_bound(nums@, lo)
                 && Self::is_upper_bound(nums@, hi)
-                && forall |i: int|
-                    0 <= i < result.len() ==> lo < #[trigger] result@[i] < hi && !Self::seq_contains(nums@, result@[i])
-                && forall |x: i32|
-                    lo < x < hi && !Self::seq_contains(nums@, x) ==> #[trigger] Self::seq_contains(result@, x)
+                && (forall |i: int|
+                    0 <= i < result.len() ==> lo < #[trigger] result@[i] < hi && !Self::seq_contains(nums@, result@[i]))
+                && (forall |x: i32|
+                    lo < x < hi && !Self::seq_contains(nums@, x) ==> #[trigger] Self::seq_contains(result@, x))
                 && Self::strictly_increasing(result@),
     {
     }

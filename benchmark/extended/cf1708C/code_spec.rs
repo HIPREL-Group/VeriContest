@@ -29,13 +29,51 @@ impl Solution {
         Self::compute_ans(a, q, a.len() as int, 0nat)
     }
 
+    pub open spec fn is_bits(ans: Seq<u8>) -> bool {
+        forall|k: int| 0 <= k < ans.len() ==> (#[trigger] ans[k] == 0 || ans[k] == 1)
+    }
+
+    pub open spec fn count_ones_range(ans: Seq<u8>, i: int, end: int) -> int
+        decreases end - i,
+    {
+        if i >= end {
+            0
+        } else {
+            (if ans[i] == 1 { 1int } else { 0int }) + Self::count_ones_range(ans, i + 1, end)
+        }
+    }
+
+    pub open spec fn forward_run(a: Seq<i64>, ans: Seq<u8>, i: int, iq: int) -> int
+        decreases a.len() - i,
+    {
+        if i >= a.len() {
+            iq
+        } else if iq < 0 {
+            -1
+        } else if ans[i] == 0 {
+            Self::forward_run(a, ans, i + 1, iq)
+        } else if iq <= 0 {
+            -1
+        } else if a[i] as int > iq {
+            Self::forward_run(a, ans, i + 1, iq - 1)
+        } else {
+            Self::forward_run(a, ans, i + 1, iq)
+        }
+    }
+
     pub fn optimal_tests(a: Vec<i64>, q: i64) -> (ans: Vec<u8>)
         requires
             1 <= a.len() <= 100_000,
             1 <= q <= 1_000_000_000,
             forall |j: int| 0 <= j < a.len() ==> 1 <= #[trigger] a[j] <= 1_000_000_000,
         ensures
-            ans@ == Self::solve(a@, q),
+            ans@.len() == a@.len(),
+            Self::is_bits(ans@),
+            Self::forward_run(a@, ans@, 0, q as int) >= 0,
+            forall|other: Seq<u8>|
+                other.len() == a@.len() && Self::is_bits(other) && Self::forward_run(a@, other, 0, q as int) >= 0
+                    ==> #[trigger] Self::count_ones_range(other, 0, a@.len() as int)
+                        <= Self::count_ones_range(ans@, 0, a@.len() as int),
     {
         let n = a.len();
         let mut cur_q: i64 = 0;

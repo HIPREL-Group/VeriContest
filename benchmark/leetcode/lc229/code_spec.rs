@@ -25,7 +25,9 @@ impl Solution {
                 ==> -1_000_000_000 <= #[trigger] nums[i] <= 1_000_000_000, 
         ensures
             forall |i: int| 0 <= i < res.len() ==> Self::count_occurrences(nums@, res[i]) > nums.len() / 3,
-            forall |i: int, j: int| 0 <= i < j < res.len() ==> res[i] != res[j], 
+            forall |i: int, j: int| 0 <= i < j < res.len() ==> res[i] != res[j],
+            forall |v: i32| Self::count_occurrences(nums@, v) > nums.len() / 3 ==>
+                exists |p: int| 0 <= p < res.len() && res[p] == v,
     {
         let n = nums.len();
         let threshold = n / 3;

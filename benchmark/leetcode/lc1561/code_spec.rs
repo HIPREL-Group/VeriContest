@@ -93,6 +93,7 @@ impl Solution {
             exists|sorted_piles: Seq<i32>|
                 Self::sorted(sorted_piles)
                 && sorted_piles.len() == piles.len()
+                && Self::is_perm(sorted_piles, piles@)
                 && result as int == Self::even_index_sum(
                     sorted_piles.subrange(
                         (sorted_piles.len() / 3) as int,

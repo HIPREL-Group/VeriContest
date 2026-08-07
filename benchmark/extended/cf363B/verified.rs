@@ -95,9 +95,6 @@ impl Solution {
             forall |i: int| 0 <= i <= heights@.len() - k as int ==>
                 Self::window_sum(heights@, result as int - 1, k as int)
                     <= #[trigger] Self::window_sum(heights@, i, k as int),
-            forall |i: int| 0 <= i < result as int - 1 ==>
-                #[trigger] Self::window_sum(heights@, i, k as int)
-                    > Self::window_sum(heights@, result as int - 1, k as int),
     {
         let n = heights.len();
         let mut sum: i64 = 0;

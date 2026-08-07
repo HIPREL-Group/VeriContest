@@ -23,7 +23,7 @@ impl Solution {
         ensures
             exists |k: nat|
                 result as int == Self::chain_value(original, k)
-                && forall |t: nat| t < k ==> #[trigger] Self::appears(nums@, Self::chain_value(original, t))
+                && (forall |t: nat| t < k ==> #[trigger] Self::appears(nums@, Self::chain_value(original, t)))
                 && forall |i: int| 0 <= i < nums.len() ==> #[trigger] nums[i] != result,
     {
     }

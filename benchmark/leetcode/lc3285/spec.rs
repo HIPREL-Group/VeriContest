@@ -7,6 +7,17 @@ verus! {
 pub struct Solution;
 
 impl Solution {
+    pub open spec fn count_occ(s: Seq<i32>, v: i32) -> int
+        decreases s.len()
+    {
+        if s.len() == 0 { 0 }
+        else { (if s.last() == v { 1int } else { 0int }) + Self::count_occ(s.drop_last(), v) }
+    }
+
+    pub open spec fn is_perm(a: Seq<i32>, b: Seq<i32>) -> bool {
+        a.len() == b.len() && forall|v: i32| Self::count_occ(a, v) == Self::count_occ(b, v)
+    }
+
     pub open spec fn stable_prefix(height: Seq<i32>, threshold: i32, i: int) -> Seq<i32>
         recommends
             1 <= i <= height.len(),
@@ -31,7 +42,7 @@ impl Solution {
             forall|j: int| 0 <= j < height.len() ==> #[trigger] height[j] <= 100,
             1 <= threshold <= 100,
         ensures
-            result@ == Self::stable_prefix(height@, threshold, height@.len() as int),
+            Self::is_perm(result@, Self::stable_prefix(height@, threshold, height@.len() as int)),
     {
     }
 }

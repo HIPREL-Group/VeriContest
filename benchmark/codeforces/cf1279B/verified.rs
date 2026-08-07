@@ -58,17 +58,25 @@ impl Solution {
         }
     }
 
-    pub open spec fn is_prefix_min_overflow(a: Seq<i64>, n: int, s: int, pos: int) -> bool {
-        0 <= pos && pos < n && Self::prefix_sum(a, pos) > s
-            && (forall|t: int| 0 <= t && t < pos ==> #[trigger] Self::prefix_sum(a, t) <= s)
+    pub open spec fn gifts_from(a: Seq<i64>, n: int, s: int, skip_idx: int, i: int, acc: int, cnt: int) -> int
+        decreases n - i,
+    {
+        if i >= n {
+            cnt
+        } else if i == skip_idx {
+            Self::gifts_from(a, n, s, skip_idx, i + 1, acc, cnt)
+        } else {
+            let new_acc = acc + a[i];
+            if new_acc > s {
+                cnt
+            } else {
+                Self::gifts_from(a, n, s, skip_idx, i + 1, new_acc, cnt + 1)
+            }
+        }
     }
 
-    pub open spec fn closed_answer(a: Seq<i64>, n: int, s: int) -> int {
-        if Self::sum_all(a, n) <= s {
-            0
-        } else {
-            Self::smallest_max_index_on_prefix(a, Self::min_overflow_index(a, n, s)) + 1
-        }
+    pub open spec fn gifts(a: Seq<i64>, n: int, s: int, skip: int) -> int {
+        Self::gifts_from(a, n, s, skip - 1, 0, 0, 0)
     }
 
     proof fn lemma_usize_n_le_100000_implies_int(n: usize)
@@ -138,6 +146,215 @@ impl Solution {
         }
     }
 
+
+    proof fn lemma_gifts_from_at_least_cnt(a: Seq<i64>, n: int, s: int, skip_idx: int, i: int, acc: int, cnt: int)
+        requires
+            0 <= i <= n,
+        ensures
+            Self::gifts_from(a, n, s, skip_idx, i, acc, cnt) >= cnt,
+        decreases n - i,
+    {
+        if i >= n {
+        } else if i == skip_idx {
+            Self::lemma_gifts_from_at_least_cnt(a, n, s, skip_idx, i + 1, acc, cnt);
+        } else {
+            if acc + a[i] > s {
+            } else {
+                Self::lemma_gifts_from_at_least_cnt(a, n, s, skip_idx, i + 1, acc + a[i], cnt + 1);
+            }
+        }
+    }
+
+    proof fn lemma_gifts_tail_monotonic(a: Seq<i64>, n: int, s: int, skip_idx: int, i: int, acc1: int, acc2: int, cnt: int)
+        requires
+            0 <= i <= n,
+            acc1 <= acc2,
+            skip_idx < i,
+        ensures
+            Self::gifts_from(a, n, s, skip_idx, i, acc1, cnt) >= Self::gifts_from(a, n, s, skip_idx, i, acc2, cnt),
+        decreases n - i,
+    {
+        if i >= n {
+        } else {
+            if acc2 + a[i] > s {
+                if acc1 + a[i] > s {
+                } else {
+                    Self::lemma_gifts_from_at_least_cnt(a, n, s, skip_idx, i + 1, acc1 + a[i], cnt + 1);
+                }
+            } else {
+                Self::lemma_gifts_tail_monotonic(a, n, s, skip_idx, i + 1, acc1 + a[i], acc2 + a[i], cnt + 1);
+            }
+        }
+    }
+
+    proof fn lemma_gifts_from_noskip_advance(a: Seq<i64>, n: int, s: int, skip_idx: int, i0: int, k: int, d: int, cnt0: int)
+        requires
+            a.len() == n,
+            0 <= i0,
+            0 <= k,
+            i0 + k <= n,
+            skip_idx < i0 || skip_idx >= i0 + k,
+            forall|t: int| i0 <= t && t < i0 + k ==> #[trigger] Self::prefix_sum(a, t) <= s + d,
+        ensures
+            Self::gifts_from(a, n, s, skip_idx, i0, Self::prefix_sum(a, i0 - 1) - d, cnt0)
+                == Self::gifts_from(a, n, s, skip_idx, i0 + k, Self::prefix_sum(a, i0 + k - 1) - d, cnt0 + k),
+        decreases k,
+    {
+        if k == 0 {
+        } else {
+            assert(Self::prefix_sum(a, i0) == a[i0] + Self::prefix_sum(a, i0 - 1));
+            Self::lemma_gifts_from_noskip_advance(a, n, s, skip_idx, i0 + 1, k - 1, d, cnt0 + 1);
+        }
+    }
+
+    proof fn lemma_gifts_from_full_prefix_noskip(a: Seq<i64>, n: int, s: int, skip_idx: int, q: int)
+        requires
+            a.len() == n,
+            0 <= q <= n,
+            skip_idx < 0 || skip_idx >= q,
+            forall|t: int| 0 <= t && t < q ==> #[trigger] Self::prefix_sum(a, t) <= s,
+        ensures
+            Self::gifts_from(a, n, s, skip_idx, 0, 0, 0)
+                == Self::gifts_from(a, n, s, skip_idx, q, Self::prefix_sum(a, q - 1), q),
+    {
+        Self::lemma_gifts_from_noskip_advance(a, n, s, skip_idx, 0, q, 0, 0);
+    }
+
+    proof fn lemma_gifts_from_full_prefix_skip(a: Seq<i64>, n: int, s: int, skip_idx: int, q: int)
+        requires
+            a.len() == n,
+            0 <= skip_idx < q <= n,
+            forall|t: int| 0 <= t && t < skip_idx ==> #[trigger] Self::prefix_sum(a, t) <= s,
+            forall|t: int| skip_idx + 1 <= t && t < q ==> #[trigger] Self::prefix_sum(a, t) <= s + a[skip_idx],
+        ensures
+            Self::gifts_from(a, n, s, skip_idx, 0, 0, 0)
+                == Self::gifts_from(a, n, s, skip_idx, q, Self::prefix_sum(a, q - 1) - a[skip_idx], q - 1),
+    {
+        Self::lemma_gifts_from_noskip_advance(a, n, s, skip_idx, 0, skip_idx, 0, 0);
+        assert(Self::gifts_from(a, n, s, skip_idx, skip_idx, Self::prefix_sum(a, skip_idx - 1), skip_idx)
+            == Self::gifts_from(a, n, s, skip_idx, skip_idx + 1, Self::prefix_sum(a, skip_idx - 1), skip_idx));
+        if q > skip_idx + 1 {
+            Self::lemma_gifts_from_noskip_advance(
+                a, n, s, skip_idx, skip_idx + 1, q - (skip_idx + 1), a[skip_idx] as int, skip_idx,
+            );
+            assert(Self::prefix_sum(a, skip_idx) - a[skip_idx] == Self::prefix_sum(a, skip_idx - 1));
+        }
+    }
+
+    proof fn lemma_gifts_from_irrelevant_skip(a: Seq<i64>, n: int, s: int, skip_idx1: int, skip_idx2: int, i: int, acc: int, cnt: int)
+        requires
+            0 <= i <= n,
+            skip_idx1 < i,
+            skip_idx2 < i,
+        ensures
+            Self::gifts_from(a, n, s, skip_idx1, i, acc, cnt) == Self::gifts_from(a, n, s, skip_idx2, i, acc, cnt),
+        decreases n - i,
+    {
+        if i >= n {
+        } else {
+            if acc + a[i] > s {
+            } else {
+                Self::lemma_gifts_from_irrelevant_skip(a, n, s, skip_idx1, skip_idx2, i + 1, acc + a[i], cnt + 1);
+            }
+        }
+    }
+
+    proof fn lemma_min_overflow_prefix_ok(a: Seq<i64>, n: int, s: int, i: int)
+        requires
+            0 <= i <= n,
+        ensures
+            i <= Self::min_overflow_from(a, n, s, i) <= n,
+            forall|t: int| i <= t && t < Self::min_overflow_from(a, n, s, i) ==> #[trigger] Self::prefix_sum(a, t) <= s,
+            Self::min_overflow_from(a, n, s, i) < n ==> Self::prefix_sum(a, Self::min_overflow_from(a, n, s, i)) > s,
+        decreases n - i,
+    {
+        if i >= n {
+        } else if Self::prefix_sum(a, i) > s {
+        } else {
+            Self::lemma_min_overflow_prefix_ok(a, n, s, i + 1);
+        }
+    }
+
+    proof fn lemma_smallest_max_is_max(a: Seq<i64>, p: int)
+        requires
+            0 <= p,
+        ensures
+            0 <= Self::smallest_max_index_on_prefix(a, p) <= p,
+            forall|j: int| 0 <= j && j <= p ==> #[trigger] a[j] <= a[Self::smallest_max_index_on_prefix(a, p)],
+        decreases p,
+    {
+        if p <= 0 {
+        } else {
+            Self::lemma_smallest_max_is_max(a, p - 1);
+        }
+    }
+
+    proof fn lemma_closed_answer_optimal(a: Seq<i64>, n: int, s: int)
+        requires
+            a.len() == n,
+            0 <= n,
+            0 <= s,
+            forall|t: int| 0 <= t && t < n ==> a[t] >= 0,
+            Self::min_overflow_index(a, n, s) < n,
+        ensures
+            forall|skip: int| 0 <= skip <= n ==>
+                #[trigger] Self::gifts(a, n, s, skip)
+                    <= Self::gifts(a, n, s, Self::smallest_max_index_on_prefix(a, Self::min_overflow_index(a, n, s)) + 1),
+    {
+        let pos = Self::min_overflow_index(a, n, s);
+        let best = Self::smallest_max_index_on_prefix(a, pos);
+        Self::lemma_min_overflow_prefix_ok(a, n, s, 0);
+        Self::lemma_smallest_max_is_max(a, pos);
+        assert(0 <= best <= pos < n);
+
+        assert(Self::prefix_sum(a, pos - 1) <= s) by {
+            if pos >= 1 {
+                assert(0 <= pos - 1 && pos - 1 < pos);
+                assert(forall|t: int| 0 <= t && t < pos ==> #[trigger] Self::prefix_sum(a, t) <= s);
+            } else {
+                assert(Self::prefix_sum(a, pos - 1) == 0);
+            }
+        };
+        assert(Self::prefix_sum(a, pos) - a[best] <= s) by {
+            assert(a[best] >= a[pos]);
+            assert(Self::prefix_sum(a, pos) == a[pos] + Self::prefix_sum(a, pos - 1));
+        };
+        Self::lemma_gifts_from_full_prefix_skip(a, n, s, best, pos + 1);
+        Self::lemma_gifts_from_at_least_cnt(a, n, s, best, pos + 1, Self::prefix_sum(a, pos) - a[best], pos);
+
+        assert forall|skip: int| 0 <= skip <= n implies
+            #[trigger] Self::gifts(a, n, s, skip) <= Self::gifts(a, n, s, best + 1) by {
+            let t = skip - 1;
+            if t < 0 || t > pos {
+                Self::lemma_gifts_from_full_prefix_noskip(a, n, s, t, pos);
+                assert(Self::gifts_from(a, n, s, t, pos, Self::prefix_sum(a, pos - 1), pos) == pos) by {
+                    assert(Self::prefix_sum(a, pos - 1) + a[pos] > s);
+                    assert(Self::prefix_sum(a, pos) == a[pos] + Self::prefix_sum(a, pos - 1));
+                };
+            } else {
+                Self::lemma_smallest_max_is_max(a, pos);
+                assert(a[best] >= a[t]);
+                if Self::prefix_sum(a, pos) - a[t] > s {
+                    Self::lemma_gifts_from_full_prefix_skip(a, n, s, t, pos);
+                    assert(Self::gifts_from(a, n, s, t, pos, Self::prefix_sum(a, pos - 1) - a[t], pos - 1) == pos - 1) by {
+                        assert(Self::prefix_sum(a, pos - 1) - a[t] + a[pos] > s) by {
+                            assert(Self::prefix_sum(a, pos) == a[pos] + Self::prefix_sum(a, pos - 1));
+                        };
+                    };
+                    Self::lemma_gifts_from_at_least_cnt(a, n, s, best, pos + 1, Self::prefix_sum(a, pos) - a[best], pos);
+                } else {
+                    Self::lemma_gifts_from_full_prefix_skip(a, n, s, t, pos + 1);
+                    Self::lemma_gifts_from_irrelevant_skip(
+                        a, n, s, best, t, pos + 1, Self::prefix_sum(a, pos) - a[best], pos,
+                    );
+                    Self::lemma_gifts_tail_monotonic(
+                        a, n, s, t, pos + 1, Self::prefix_sum(a, pos) - a[best], Self::prefix_sum(a, pos) - a[t], pos,
+                    );
+                }
+            }
+        };
+    }
+
     pub fn verse_for_santa(n: usize, s: i64, a: Vec<i64>) -> (res: i32)
         requires
             1 <= n <= 100000,
@@ -147,12 +364,12 @@ impl Solution {
                 0 <= i && i < n ==> 1 <= a[i] && a[i] <= 1000000000,
             1 <= s <= 1000000000,
         ensures
-            res == Self::closed_answer(a@, n as int, s as int),
             Self::sum_all(a@, n as int) <= s as int ==> res == 0,
             Self::sum_all(a@, n as int) > s as int ==> {
-                exists|pos: int|
-                    Self::is_prefix_min_overflow(a@, n as int, s as int, pos) && pos
-                        == Self::min_overflow_index(a@, n as int, s as int)
+                &&& 1 <= res as int <= n as int
+                &&& forall|skip: int|
+                    0 <= skip <= n as int ==> #[trigger] Self::gifts(a@, n as int, s as int, skip)
+                        <= Self::gifts(a@, n as int, s as int, res as int)
             },
     {
         proof {
@@ -197,9 +414,6 @@ impl Solution {
             assert(total as int == Self::sum_all(a@, n as int));
         }
         if total <= s {
-            proof {
-                assert(Self::closed_answer(a@, n as int, s as int) == 0);
-            }
             return 0;
         }
         proof {
@@ -223,6 +437,7 @@ impl Solution {
                 Self::prefix_sum(a@, (j as int) - 1) <= (j as int) * 1000000000,
                 total as int == Self::sum_all(a@, n as int),
                 total as int > s as int,
+                1 <= s <= 1000000000,
             decreases n - j
         {
             proof {
@@ -243,12 +458,7 @@ impl Solution {
             if pref > s {
                 proof {
                     Self::lemma_first_gt_s_is_min_overflow(a@, n as int, s as int, j as int, 0);
-                    assert(Self::is_prefix_min_overflow(a@, n as int, s as int, j as int));
                     assert((j as int) == Self::min_overflow_index(a@, n as int, s as int));
-                    assert(Self::closed_answer(a@, n as int, s as int) == Self::smallest_max_index_on_prefix(
-                        a@,
-                        Self::min_overflow_index(a@, n as int, s as int),
-                    ) + 1);
                 }
                 let mut best_i: usize = 0;
                 let mut t: usize = 1;
@@ -265,6 +475,7 @@ impl Solution {
                         forall|u: int|
                             #![trigger Self::prefix_sum(a@, u)]
                             0 <= u && u < j ==> Self::prefix_sum(a@, u) <= s as int,
+                        1 <= s <= 1000000000,
                     decreases j - t + 1
                 {
                     proof {
@@ -286,7 +497,12 @@ impl Solution {
                 proof {
                     assert(t == j + 1);
                     assert(best_i as int == Self::smallest_max_index_on_prefix(a@, j as int));
-                    assert((best_i + 1) as int == Self::closed_answer(a@, n as int, s as int));
+                    assert forall|k: int| 0 <= k && k < n as int implies #[trigger] a@[k] >= 0 by {
+                        assert(1 <= a@[k]);
+                    };
+                    assert(1 <= s);
+                    assert(1 <= s as int);
+                    Self::lemma_closed_answer_optimal(a@, n as int, s as int);
                     assert((best_i + 1) as int <= n as int);
                 }
                 return (best_i + 1) as i32;

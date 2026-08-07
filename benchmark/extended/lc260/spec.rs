@@ -30,6 +30,7 @@ impl Solution {
             },
         ensures
             result.len() == 2,
+            result[0] != result[1],
             Self::count_occurrences(nums@, result[0]) == 1,
             Self::count_occurrences(nums@, result[1]) == 1,
     {
