@@ -657,6 +657,7 @@ impl Solution {
             0 <= k < nums.len(),
             forall |i: int| 0 <= i < nums.len() ==> 0 <= #[trigger] nums[i] < 1_073_741_824,
         ensures
+            0 <= result,
             Self::achievable(nums@, k as int, result),
             forall |v: i32| 0 <= v < 1_073_741_824i32 && Self::achievable(nums@, k as int, v)
                 ==> result as int <= v as int,

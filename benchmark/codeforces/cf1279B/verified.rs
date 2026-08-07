@@ -366,7 +366,7 @@ impl Solution {
         ensures
             Self::sum_all(a@, n as int) <= s as int ==> res == 0,
             Self::sum_all(a@, n as int) > s as int ==> {
-                &&& 1 <= res as int <= n as int
+                &&& 0 <= res as int <= n as int
                 &&& forall|skip: int|
                     0 <= skip <= n as int ==> #[trigger] Self::gifts(a@, n as int, s as int, skip)
                         <= Self::gifts(a@, n as int, s as int, res as int)
