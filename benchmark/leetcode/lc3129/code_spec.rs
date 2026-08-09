@@ -8,7 +8,6 @@ pub struct Solution;
 
 impl Solution {
     pub open spec fn MOD() -> int { 1000000007 }
-    const MOD_I64: i64 = 1000000007;
 
     pub open spec fn sum_zero_prefix(z: int, o: int, limit: int, upto: int) -> int
         recommends
@@ -67,67 +66,6 @@ impl Solution {
         (Self::ways(z, o, limit, true) + Self::ways(z, o, limit, false)) % Self::MOD()
     }
 
-    fn sum_zero_exec(z: i32, o: i32, limit: i32, upto: i32) -> (result: i64)
-        requires
-            0 <= z <= 200,
-            0 <= o <= 200,
-            1 <= limit <= 200,
-            0 <= upto <= z,
-        ensures
-            result as int == Self::sum_zero_prefix(z as int, o as int, limit as int, upto as int),
-            0 <= result < Self::MOD_I64,
-        decreases (z as int + o as int), 0int, (upto as int),
-    {
-        if upto <= 0 {
-            0
-        } else {
-            let prev = Self::sum_zero_exec(z, o, limit, upto - 1);
-            let w = Self::ways_exec(z - upto, o, limit, false);
-            (prev + w) % Self::MOD_I64
-        }
-    }
-
-    fn sum_one_exec(z: i32, o: i32, limit: i32, upto: i32) -> (result: i64)
-        requires
-            0 <= z <= 200,
-            0 <= o <= 200,
-            1 <= limit <= 200,
-            0 <= upto <= o,
-        ensures
-            result as int == Self::sum_one_prefix(z as int, o as int, limit as int, upto as int),
-            0 <= result < Self::MOD_I64,
-        decreases (z as int + o as int), 0int, (upto as int),
-    {
-        if upto <= 0 {
-            0
-        } else {
-            let prev = Self::sum_one_exec(z, o, limit, upto - 1);
-            let w = Self::ways_exec(z, o - upto, limit, true);
-            (prev + w) % Self::MOD_I64
-        }
-    }
-
-    fn ways_exec(z: i32, o: i32, limit: i32, first_zero: bool) -> (result: i64)
-        requires
-            0 <= z <= 200,
-            0 <= o <= 200,
-            1 <= limit <= 200,
-        ensures
-            result as int == Self::ways(z as int, o as int, limit as int, first_zero),
-            0 <= result < Self::MOD_I64,
-        decreases (z as int + o as int), 1int, 0int,
-    {
-        if z == 0 && o == 0 {
-            1
-        } else if first_zero {
-            let upto = if z <= limit { z } else { limit };
-            Self::sum_zero_exec(z, o, limit, upto)
-        } else {
-            let upto = if o <= limit { o } else { limit };
-            Self::sum_one_exec(z, o, limit, upto)
-        }
-    }
-
     pub fn number_of_stable_arrays(zero: i32, one: i32, limit: i32) -> (result: i32)
         requires
             1 <= zero <= 200,
@@ -136,9 +74,57 @@ impl Solution {
         ensures
             result as int == Self::stable_arrays_mod(zero as int, one as int, limit as int),
     {
-        let a = Self::ways_exec(zero, one, limit, true);
-        let b = Self::ways_exec(zero, one, limit, false);
-        ((a + b) % Self::MOD_I64) as i32
+        let zu: usize = zero as usize;
+        let ou: usize = one as usize;
+        let limu: usize = limit as usize;
+        let md: i64 = 1000000007;
+
+        let mut ways0: Vec<Vec<i64>> = Vec::new();
+        let mut ways1: Vec<Vec<i64>> = Vec::new();
+
+        let mut z: usize = 0;
+        while z <= zu {
+            let mut row0: Vec<i64> = Vec::new();
+            let mut row1: Vec<i64> = Vec::new();
+            let mut o: usize = 0;
+            while o <= ou {
+                if z == 0 && o == 0 {
+                    row0.push(1);
+                    row1.push(1);
+                } else {
+                    let upto0: usize = if z <= limu { z } else { limu };
+                    let mut s0: i64 = 0;
+                    let mut u: usize = 1;
+                    while u <= upto0 {
+                        let idx0: usize = z - u;
+                        let term_val: i64 = ways1[idx0][o];
+                        s0 = (s0 + term_val) % md;
+                        u += 1;
+                    }
+                    row0.push(s0);
+
+                    let upto1: usize = if o <= limu { o } else { limu };
+                    let mut s1: i64 = 0;
+                    let mut u2: usize = 1;
+                    while u2 <= upto1 {
+                        let idx1: usize = o - u2;
+                        let term_val1: i64 = row0[idx1];
+                        s1 = (s1 + term_val1) % md;
+                        u2 += 1;
+                    }
+                    row1.push(s1);
+                }
+                o += 1;
+            }
+            ways0.push(row0);
+            ways1.push(row1);
+            z += 1;
+        }
+
+        let a = ways0[zu][ou];
+        let b = ways1[zu][ou];
+        let result = ((a + b) % md) as i32;
+        result
     }
 }
 

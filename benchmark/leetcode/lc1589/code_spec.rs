@@ -250,19 +250,29 @@ impl Solution {
         let n = nums.len();
         let m = requests.len();
         let modval: i64 = 1_000_000_007;
-        let mut count: Vec<i64> = Vec::new();
-        let mut i: usize = 0;
-        while i < n {
-            let mut freq: i64 = 0;
-            let mut r: usize = 0;
-            while r < m {
-                if requests[r][0] as usize <= i && i <= requests[r][1] as usize {
-                    freq = freq + 1;
-                }
-                r = r + 1;
+        let mut diff: Vec<i64> = Vec::new();
+        let mut z: usize = 0;
+        while z < n {
+            diff.push(0);
+            z = z + 1;
+        }
+        let mut r: usize = 0;
+        while r < m {
+            let s = requests[r][0] as usize;
+            let e = requests[r][1] as usize;
+            diff.set(s, diff[s] + 1);
+            if e + 1 < n {
+                diff.set(e + 1, diff[e + 1] - 1);
             }
-            count.push(freq);
-            i = i + 1;
+            r = r + 1;
+        }
+        let mut count: Vec<i64> = Vec::new();
+        let mut running: i64 = 0;
+        let mut idx: usize = 0;
+        while idx < n {
+            running = running + diff[idx];
+            count.push(running);
+            idx = idx + 1;
         }
         let nums = Self::ms_sort(&nums);
         let sorted_count = Self::ms_sort_i64(&count);

@@ -21,22 +21,23 @@ impl Solution {
         0 <= i < j < nums.len()
             && Self::digit_sum_spec(nums[i] as nat) == Self::digit_sum_spec(nums[j] as nat)
     }
+}
 
-    fn digit_sum(mut x: i32) -> (result: i64)
-        requires
-            x >= 0,
-            x <= 1000000000,
-        ensures
-            0 <= result,
-    {
-        let mut s: i64 = 0;
-        while x > 0 {
-            s = s + (x % 10) as i64;
-            x = x / 10;
-        }
-        s
+fn digit_sum_exec(x0: i32) -> (result: i64)
+    requires 1 <= x0 <= 1_000_000_000,
+    ensures result as nat == Solution::digit_sum_spec(x0 as nat),
+        0 <= result <= 90,
+{
+    let mut x = x0;
+    let mut s: i64 = 0;
+    while x > 0 {
+        s = s + (x % 10) as i64;
+        x = x / 10;
     }
+    s
+}
 
+impl Solution {
     pub fn maximum_sum(nums: Vec<i32>) -> (result: i32)
         requires
             1 <= nums.len() <= 100000,
@@ -53,33 +54,33 @@ impl Solution {
                 0 <= i < j < nums.len() && #[trigger] Self::valid_pair(nums@, i, j)
                 ==> nums[i] as int + nums[j] as int <= result as int,
     {
-        let mut ans: i32 = -1;
         let n = nums.len();
-        let mut i: usize = 0;
-        let mut found: bool = false;
-        let mut bi: usize = 0;
-        let mut bj: usize = 0;
-
-        while i < n {
-            let mut j: usize = i + 1;
-            while j < n {
-                let si = Self::digit_sum(nums[i]);
-                let sj = Self::digit_sum(nums[j]);
-                if si == sj {
-                    let cur = nums[i] + nums[j];
-                    if !found || cur > ans {
-                        found = true;
-                        bi = i;
-                        bj = j;
-                        ans = cur;
-                    }
-                }
-                j = j + 1;
-            }
-            i = i + 1;
+        let mut max_bucket: Vec<i32> = Vec::new();
+        let mut vi: usize = 0;
+        while vi <= 90 {
+            max_bucket.push(-1);
+            vi += 1;
         }
 
-        ans
+        let mut best: i32 = -1;
+        let mut i: usize = 0;
+        while i < n {
+            let ds = digit_sum_exec(nums[i]);
+            let dsu = ds as usize;
+            let mx = max_bucket[dsu];
+            if mx != -1 {
+                let cand = nums[i] + mx;
+                if best == -1 || cand > best {
+                    best = cand;
+                }
+            }
+            if mx == -1 || nums[i] > mx {
+                max_bucket.set(dsu, nums[i]);
+            }
+            i += 1;
+        }
+
+        best
     }
 }
 

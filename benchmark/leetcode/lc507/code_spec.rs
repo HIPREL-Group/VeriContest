@@ -25,24 +25,29 @@ impl Solution {
     }
 
     pub fn get_sum(n: i32) -> (res: i64)
-        requires 
-            1 <= n <= 100_000_000, 
+        requires
+            1 <= n <= 100_000_000,
         ensures
-            res == Self::sum_divisors_up_to(n as int, n - 1), 
+            res == Self::sum_divisors_up_to(n as int, n - 1),
     {
+        let nn: i64 = n as i64;
         let mut sum: i64 = 0;
-        let mut i: i32 = 1;
-        
-        while i < n
+        let mut i: i64 = 1;
+
+        while i * i <= nn
         {
-            if n % i == 0 {
-                sum = sum + i as i64;
+            if nn % i == 0 {
+                let comp: i64 = nn / i;
+                sum = sum + i;
+                if i != comp {
+                    sum = sum + comp;
+                }
             }
-            
+
             i = i + 1;
         }
-        
-        sum
+
+        sum - nn
     }
 
     pub fn check_perfect_number(num: i32) -> (res: bool) 

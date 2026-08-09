@@ -6,19 +6,30 @@ impl Solution {
             pow3nm1 = pow3nm1 * 3;
             k = k + 1;
         }
-        Solution::solve(m, n, 0, introverts_count, extroverts_count, 0, pow3nm1)
+        let mut memo: Vec<i32> = Vec::new();
+        let mut mi: usize = 0;
+        while mi < 309_834 {
+            memo.push(-1);
+            mi = mi + 1;
+        }
+        Solution::solve(m, n, 0, introverts_count, extroverts_count, 0, pow3nm1, &mut memo)
     }
 
-    fn solve(m: i32, n: i32, pos: i32, ic: i32, ec: i32, profile: i32, pow3nm1: i32) -> i32 {
+    fn solve(m: i32, n: i32, pos: i32, ic: i32, ec: i32, profile: i32, pow3nm1: i32, memo: &mut Vec<i32>) -> i32 {
         if pos >= m * n {
             return 0;
+        }
+        let idx: usize = (((pos * 7 + ic) * 7 + ec) * 243 + profile) as usize;
+        let cached = memo[idx];
+        if cached != -1 {
+            return cached;
         }
         let row = pos / n;
         let col = pos % n;
         let up_type = profile % 3;
         let left_type = (profile / pow3nm1) % 3;
         let shifted = profile / 3;
-        let val_empty = Solution::solve(m, n, pos + 1, ic, ec, shifted, pow3nm1);
+        let val_empty = Solution::solve(m, n, pos + 1, ic, ec, shifted, pow3nm1, memo);
         let mut best = val_empty;
         if ic > 0 {
             let base: i32 = 120;
@@ -30,7 +41,7 @@ impl Solution {
             } else { 0 };
             let d = base + adj_up + adj_left;
             let next_pr = shifted + pow3nm1;
-            let val_intro = d + Solution::solve(m, n, pos + 1, ic - 1, ec, next_pr, pow3nm1);
+            let val_intro = d + Solution::solve(m, n, pos + 1, ic - 1, ec, next_pr, pow3nm1, memo);
             if val_intro > best {
                 best = val_intro;
             }
@@ -45,11 +56,12 @@ impl Solution {
             } else { 0 };
             let d = base + adj_up + adj_left;
             let next_pr = shifted + 2 * pow3nm1;
-            let val_extro = d + Solution::solve(m, n, pos + 1, ic, ec - 1, next_pr, pow3nm1);
+            let val_extro = d + Solution::solve(m, n, pos + 1, ic, ec - 1, next_pr, pow3nm1, memo);
             if val_extro > best {
                 best = val_extro;
             }
         }
+        memo[idx] = best;
         best
     }
 }

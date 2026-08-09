@@ -1,35 +1,59 @@
-impl Solution {
-    fn count_leq(mat: &Vec<Vec<i32>>, row: usize, col: usize, remaining: i32, cap: i32) -> i32 {
-        if row >= mat.len() {
-            if remaining >= 0 && cap >= 1 { return 1; } else { return 0; }
+fn merge_capped_exec(a: &Vec<i32>, b: &Vec<i32>, cap: usize) -> Vec<i32> {
+    let mut result: Vec<i32> = Vec::new();
+    let mut i: usize = 0;
+    let mut j: usize = 0;
+    while result.len() < cap && (i < a.len() || j < b.len()) {
+        if j >= b.len() || (i < a.len() && a[i] <= b[j]) {
+            result.push(a[i]);
+            i += 1;
+        } else {
+            result.push(b[j]);
+            j += 1;
         }
-        if col >= mat[row].len() {
-            return 0;
-        }
-        if remaining < mat[row][col] {
-            return 0;
-        }
-        let sub = Self::count_leq(mat, row + 1, 0, remaining - mat[row][col], cap);
-        if sub >= cap {
-            return cap;
-        }
-        let rest = Self::count_leq(mat, row, col + 1, remaining, cap - sub);
-        let total = sub + rest;
-        if total >= cap { cap } else { total }
     }
+    result
+}
 
+fn shift_exec(s: &Vec<i32>, shift: i32) -> Vec<i32> {
+    let mut result: Vec<i32> = Vec::new();
+    let mut idx: usize = 0;
+    while idx < s.len() {
+        result.push(s[idx] + shift);
+        idx += 1;
+    }
+    result
+}
+
+fn fold_cols_exec(mat: &Vec<Vec<i32>>, row: usize, tail: &Vec<i32>, cap: usize) -> Vec<i32> {
+    let n = mat[row].len();
+    let mut acc: Vec<i32> = Vec::new();
+    let mut c: usize = n;
+    while c > 0 {
+        c -= 1;
+        let shifted = shift_exec(tail, mat[row][c]);
+        acc = merge_capped_exec(&shifted, &acc, cap);
+    }
+    acc
+}
+
+fn capped_sums_exec(mat: &Vec<Vec<i32>>, cap: usize) -> Vec<i32> {
+    let mut tail: Vec<i32> = Vec::new();
+    if cap >= 1 {
+        tail.push(0);
+    }
+    let m = mat.len();
+    let mut row: usize = m;
+    while row > 0 {
+        row -= 1;
+        tail = fold_cols_exec(mat, row, &tail, cap);
+    }
+    tail
+}
+
+impl Solution {
     pub fn kth_smallest(mat: Vec<Vec<i32>>, k: i32) -> i32 {
-        let mut lo: i32 = 0;
-        let mut hi: i32 = (mat.len() as i32) * 5000;
-        while lo < hi {
-            let mid = lo + (hi - lo) / 2;
-            let cnt = Self::count_leq(&mat, 0, 0, mid, k);
-            if cnt >= k {
-                hi = mid;
-            } else {
-                lo = mid + 1;
-            }
-        }
-        lo
+        let l = capped_sums_exec(&mat, k as usize);
+        let ans = l[(k - 1) as usize];
+        ans
     }
 }

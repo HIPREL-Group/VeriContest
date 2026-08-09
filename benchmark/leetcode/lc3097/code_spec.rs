@@ -53,7 +53,20 @@ impl Solution {
         let best = Self::min_len_prefix(nums, k, nums.len() as int);
         if best <= nums.len() as int { best } else { -1 }
     }
+}
 
+pub open spec fn bit_set(x: i32, b: u32) -> bool {
+    (x >> b) & 1 == 1
+}
+
+fn bit_set_exec(x: i32, b: u32) -> (result: bool)
+    requires 0 <= x, b < 30,
+    ensures result == bit_set(x, b),
+{
+    (x >> b) & 1 == 1
+}
+
+impl Solution {
     pub fn minimum_subarray_length(nums: Vec<i32>, k: i32) -> (result: i32)
         requires
             1 <= nums.len() <= 200000,
@@ -63,32 +76,72 @@ impl Solution {
             result as int == Self::minimum_subarray_length_spec(nums@, k),
     {
         let n = nums.len();
-        let mut ans: i32 = n as i32 + 1;
-        let mut i: usize = 0;
-        while i < n {
-            let mut cur_or: i32 = 0;
-            let mut j: usize = i;
-            let mut best_i: i32 = n as i32 + 1;
-            while j < n {
-                cur_or = cur_or | nums[j];
-                let cand: i32;
-                if cur_or >= k {
-                    cand = (j - i + 1) as i32;
-                } else {
-                    cand = n as i32 + 1;
-                }
-                if cand < best_i {
-                    best_i = cand;
-                }
-                j = j + 1;
-            }
-            if best_i < ans {
-                ans = best_i;
-            }
-            i = i + 1;
+
+        let mut cnt: Vec<i32> = Vec::new();
+        let mut bi: usize = 0;
+        while bi < 30 {
+            cnt.push(0);
+            bi += 1;
         }
-        if ans <= n as i32 {
-            ans
+
+        let mut l: usize = 0;
+        let mut r: usize = 0;
+        let mut window_or: i32 = 0;
+        let mut best: i32 = (n as i32) + 1;
+
+        while l < n {
+            while r < n && !(r > l && window_or >= k) {
+                let old_r = r;
+                let x = nums[r];
+                let mut b: usize = 0;
+                while b < 30 {
+                    let bit_here = bit_set_exec(x, b as u32);
+                    if bit_here {
+                        cnt.set(b, cnt[b] + 1);
+                    }
+                    b += 1;
+                }
+                window_or = window_or | x;
+                r += 1;
+            }
+
+            let old_best = best;
+            if window_or >= k {
+                let candidate: i32 = (r - l) as i32;
+                if candidate < best {
+                    best = candidate;
+                } else {
+                    best = old_best;
+                }
+            } else {
+                best = old_best;
+            }
+
+            let removed = nums[l];
+            let old_l = l;
+            let mut b2: usize = 0;
+            while b2 < 30 {
+                let bit_here = bit_set_exec(removed, b2 as u32);
+                if bit_here {
+                    cnt.set(b2, cnt[b2] - 1);
+                }
+                b2 += 1;
+            }
+
+            let mut new_or: i32 = 0;
+            let mut b3: usize = 0;
+            while b3 < 30 {
+                if cnt[b3] > 0 {
+                    new_or = new_or | (1i32 << (b3 as u32));
+                }
+                b3 += 1;
+            }
+            window_or = new_or;
+            l += 1;
+        }
+
+        if best <= n as i32 {
+            best
         } else {
             -1
         }

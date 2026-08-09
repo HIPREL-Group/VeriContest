@@ -1,29 +1,28 @@
 impl Solution {
     pub fn minimum_card_pickup(cards: Vec<i32>) -> i32 {
-        let mut min_pickup = i32::MAX;
         let n = cards.len();
-        
+        let mut last_seen: Vec<i32> = Vec::new();
+        let mut vi: usize = 0;
+        while vi <= 1_000_000 {
+            last_seen.push(-1);
+            vi += 1;
+        }
+
+        let mut min_pickup: i32 = -1;
         let mut i: usize = 0;
         while i < n {
-            let mut j: usize = i + 1;
-            while j < n {
-                if cards[i] == cards[j] {
-                    let pickup = (j - i + 1) as i32;
-                    if pickup < min_pickup {
-                        min_pickup = pickup;
-                    }
-                    j = n;
-                } else {
-                    j = j + 1;
+            let v = cards[i] as usize;
+            let prev = last_seen[v];
+            if prev != -1 {
+                let cand = (i as i32) - prev + 1;
+                if min_pickup == -1 || cand < min_pickup {
+                    min_pickup = cand;
                 }
             }
-            i = i + 1;
+            last_seen[v] = i as i32;
+            i += 1;
         }
-        
-        if min_pickup == i32::MAX {
-            -1
-        } else {
-            min_pickup
-        }
+
+        min_pickup
     }
 }

@@ -25,6 +25,167 @@ impl Solution {
         Seq::new(n as nat, |i: int| Self::freq_at(requests, i, 0))
     }
 
+    pub open spec fn diff_delta(requests: Seq<Vec<i32>>, pos: int, i: int) -> int {
+        (if requests[i]@[0] as int == pos { 1int } else { 0int })
+            - (if requests[i]@[1] as int + 1 == pos { 1int } else { 0int })
+    }
+
+    pub open spec fn diff_at(requests: Seq<Vec<i32>>, pos: int, r: int) -> int
+        decreases r
+    {
+        if r <= 0 { 0int } else { Self::diff_at(requests, pos, r - 1) + Self::diff_delta(requests, pos, r - 1) }
+    }
+
+    pub open spec fn prefix_diff(requests: Seq<Vec<i32>>, idx: int, r: int) -> int
+        decreases (if idx >= 0 { idx + 1 } else { 0 }) as nat
+    {
+        if idx < 0 { 0int } else { Self::prefix_diff(requests, idx - 1, r) + Self::diff_at(requests, idx, r) }
+    }
+
+    pub open spec fn prefix_delta_sum(requests: Seq<Vec<i32>>, idx: int, i: int) -> int
+        decreases (if idx >= 0 { idx + 1 } else { 0 }) as nat
+    {
+        if idx < 0 { 0int } else { Self::prefix_delta_sum(requests, idx - 1, i) + Self::diff_delta(requests, idx, i) }
+    }
+
+    pub open spec fn prefix_point_indicator(idx: int, c: int) -> int
+        decreases (if idx >= 0 { idx + 1 } else { 0 }) as nat
+    {
+        if idx < 0 { 0int } else { Self::prefix_point_indicator(idx - 1, c) + (if idx == c { 1int } else { 0int }) }
+    }
+
+    pub open spec fn freq_at_prefix(requests: Seq<Vec<i32>>, idx: int, r: int) -> int
+        decreases r
+    {
+        if r <= 0 {
+            0int
+        } else {
+            Self::freq_at_prefix(requests, idx, r - 1)
+                + (if requests[r - 1]@[0] as int <= idx && idx <= requests[r - 1]@[1] as int { 1int } else { 0int })
+        }
+    }
+
+    proof fn lemma_freq_prefix_eq(requests: Seq<Vec<i32>>, idx: int, r: int)
+        requires 0 <= r <= requests.len(),
+        ensures Self::freq_at_prefix(requests, idx, r) + Self::freq_at(requests, idx, r) == Self::freq_at(requests, idx, 0),
+        decreases r
+    {
+        if r == 0 {
+        } else {
+            Self::lemma_freq_prefix_eq(requests, idx, r - 1);
+        }
+    }
+
+    proof fn lemma_prefix_point_indicator(idx: int, c: int)
+        requires c >= 0,
+        ensures Self::prefix_point_indicator(idx, c) == (if c <= idx { 1int } else { 0int }),
+        decreases (if idx >= 0 { idx + 1 } else { 0 }) as nat
+    {
+        if idx < 0 {
+        } else {
+            Self::lemma_prefix_point_indicator(idx - 1, c);
+        }
+    }
+
+    proof fn lemma_prefix_delta_sum_eq(requests: Seq<Vec<i32>>, idx: int, i: int)
+        requires 0 <= i < requests.len(),
+        ensures Self::prefix_delta_sum(requests, idx, i)
+            == Self::prefix_point_indicator(idx, requests[i]@[0] as int)
+                - Self::prefix_point_indicator(idx, requests[i]@[1] as int + 1),
+        decreases (if idx >= 0 { idx + 1 } else { 0 }) as nat
+    {
+        if idx < 0 {
+        } else {
+            Self::lemma_prefix_delta_sum_eq(requests, idx - 1, i);
+        }
+    }
+
+    proof fn lemma_single_spike(requests: Seq<Vec<i32>>, idx: int, i: int)
+        requires
+            0 <= i < requests.len(),
+            0 <= idx,
+            0 <= requests[i]@[0] as int <= requests[i]@[1] as int,
+        ensures
+            Self::prefix_delta_sum(requests, idx, i) ==
+                (if requests[i]@[0] as int <= idx && idx <= requests[i]@[1] as int { 1int } else { 0int }),
+    {
+        Self::lemma_prefix_delta_sum_eq(requests, idx, i);
+        Self::lemma_prefix_point_indicator(idx, requests[i]@[0] as int);
+        Self::lemma_prefix_point_indicator(idx, requests[i]@[1] as int + 1);
+    }
+
+    proof fn lemma_prefix_diff_split(requests: Seq<Vec<i32>>, idx: int, r: int)
+        requires r >= 1, idx >= -1,
+        ensures Self::prefix_diff(requests, idx, r) ==
+            Self::prefix_diff(requests, idx, r - 1) + Self::prefix_delta_sum(requests, idx, r - 1),
+        decreases (if idx >= 0 { idx + 1 } else { 0 }) as nat
+    {
+        if idx < 0 {
+        } else {
+            Self::lemma_prefix_diff_split(requests, idx - 1, r);
+        }
+    }
+
+    proof fn lemma_prefix_diff_zero(requests: Seq<Vec<i32>>, idx: int)
+        requires idx >= -1,
+        ensures Self::prefix_diff(requests, idx, 0) == 0,
+        decreases (if idx >= 0 { idx + 1 } else { 0 }) as nat
+    {
+        if idx < 0 {
+        } else {
+            Self::lemma_prefix_diff_zero(requests, idx - 1);
+        }
+    }
+
+    proof fn lemma_prefix_diff_eq(requests: Seq<Vec<i32>>, idx: int, r: int)
+        requires
+            0 <= idx,
+            0 <= r <= requests.len(),
+            forall |i: int| 0 <= i < requests.len() ==>
+                0 <= (#[trigger] requests[i])@[0] as int <= requests[i]@[1] as int,
+        ensures Self::prefix_diff(requests, idx, r) == Self::freq_at_prefix(requests, idx, r),
+        decreases r
+    {
+        if r == 0 {
+            Self::lemma_prefix_diff_zero(requests, idx);
+        } else {
+            Self::lemma_prefix_diff_eq(requests, idx, r - 1);
+            Self::lemma_prefix_diff_split(requests, idx, r);
+            Self::lemma_single_spike(requests, idx, r - 1);
+        }
+    }
+
+    proof fn lemma_prefix_diff_freq(requests: Seq<Vec<i32>>, idx: int)
+        requires
+            0 <= idx,
+            forall |i: int| 0 <= i < requests.len() ==>
+                0 <= (#[trigger] requests[i])@[0] as int <= requests[i]@[1] as int,
+        ensures Self::prefix_diff(requests, idx, requests.len() as int) == Self::freq_at(requests, idx, 0),
+    {
+        Self::lemma_prefix_diff_eq(requests, idx, requests.len() as int);
+        Self::lemma_freq_prefix_eq(requests, idx, requests.len() as int);
+    }
+
+    proof fn lemma_freq_at_prefix_nonneg(requests: Seq<Vec<i32>>, idx: int, r: int)
+        requires 0 <= r <= requests.len(),
+        ensures Self::freq_at_prefix(requests, idx, r) >= 0,
+        decreases r
+    {
+        if r > 0 {
+            Self::lemma_freq_at_prefix_nonneg(requests, idx, r - 1);
+        }
+    }
+
+    proof fn lemma_diff_at_bound(requests: Seq<Vec<i32>>, pos: int, r: int)
+        requires 0 <= r,
+        ensures -r <= Self::diff_at(requests, pos, r) <= r,
+        decreases r
+    {
+        if r > 0 {
+            Self::lemma_diff_at_bound(requests, pos, r - 1);
+        }
+    }
+
     pub open spec fn to_int_seq(s: Seq<i32>) -> Seq<int> {
         Seq::new(s.len(), |i: int| s[i] as int)
     }
@@ -1017,62 +1178,126 @@ impl Solution {
         let m = requests.len();
         let modval: i64 = 1_000_000_007;
 
-        
-        let mut count: Vec<i64> = Vec::new();
-        let mut i: usize = 0;
-        while i < n
+
+        let mut diff: Vec<i64> = Vec::new();
+        let mut z: usize = 0;
+        while z < n
+            invariant
+                diff@.len() == z as int,
+                0 <= z <= n,
+                forall |pos: int| 0 <= pos < z as int ==>
+                    (#[trigger] diff@[pos]) as int == Self::diff_at(requests@, pos, 0),
+            decreases n - z,
+        {
+            diff.push(0);
+            z = z + 1;
+        }
+
+        let mut r: usize = 0;
+        while r < m
             invariant
                 n == nums@.len(),
                 m == requests@.len(),
-                count@.len() == i as int,
-                0 <= i <= n,
+                diff@.len() == n as int,
+                0 <= r <= m,
                 1 <= n <= 100_000,
                 1 <= m <= 100_000,
-                forall |k: int| 0 <= k < i as int ==>
-                    (#[trigger] count@[k]) as int == Self::freq_at(requests@, k, 0),
-                forall |k: int| 0 <= k < i as int ==>
-                    0 <= #[trigger] count@[k] <= m as i64,
-                forall |ii: int| 0 <= ii < nums@.len() ==>
-                    0 <= #[trigger] nums@[ii] <= 100_000,
+                forall |pos: int| 0 <= pos < n as int ==>
+                    (#[trigger] diff@[pos]) as int == Self::diff_at(requests@, pos, r as int),
+                forall |pos: int| 0 <= pos < n as int ==> -100_000 <= #[trigger] diff@[pos] <= 100_000,
                 forall |ii: int| 0 <= ii < requests@.len() ==> (
                     (#[trigger] requests@[ii])@.len() == 2
                         && 0 <= requests@[ii]@[0]
                         && requests@[ii]@[0] <= requests@[ii]@[1]
                         && (requests@[ii]@[1] as int) < nums@.len() as int
                 ),
-            decreases n - i,
+            decreases m - r,
         {
-            let mut freq: i64 = 0;
-            let mut r: usize = 0;
-            while r < m
-                invariant
-                    n == nums@.len(),
-                    m == requests@.len(),
-                    0 <= i < n,
-                    0 <= r <= m,
-                    0 <= freq,
-                    freq as int <= r as int,
-                    1 <= m <= 100_000,
-                    freq as int + Self::freq_at(requests@, i as int, r as int)
-                        == Self::freq_at(requests@, i as int, 0),
-                    forall |ii: int| 0 <= ii < requests@.len() ==> (
-                        (#[trigger] requests@[ii])@.len() == 2
-                            && 0 <= requests@[ii]@[0]
-                            && requests@[ii]@[0] <= requests@[ii]@[1]
-                            && (requests@[ii]@[1] as int) < nums@.len() as int
-                    ),
-                decreases m - r,
-            {
-                if requests[r][0] as usize <= i && i <= requests[r][1] as usize {
-                    freq = freq + 1;
-                }
-                r = r + 1;
+            let s = requests[r][0] as usize;
+            let e = requests[r][1] as usize;
+            let ghost diff_before = diff@;
+            diff.set(s, diff[s] + 1);
+            proof {
+                assert(diff@ =~= diff_before.update(s as int, (diff_before[s as int] + 1) as i64));
             }
-            count.push(freq);
-            i = i + 1;
+            if e + 1 < n {
+                let ghost diff_before2 = diff@;
+                diff.set(e + 1, diff[e + 1] - 1);
+                proof {
+                    assert(diff@ =~= diff_before2.update(e as int + 1, (diff_before2[e as int + 1] - 1) as i64));
+                }
+            }
+            proof {
+                assert forall |pos: int| 0 <= pos < n as int implies
+                    (#[trigger] diff@[pos]) as int == Self::diff_at(requests@, pos, r as int + 1) by {
+                    assert(Self::diff_at(requests@, pos, r as int + 1)
+                        == Self::diff_at(requests@, pos, r as int) + Self::diff_delta(requests@, pos, r as int));
+                    if pos == s as int {
+                        assert(requests@[r as int]@[0] as int == pos);
+                    } else if pos == e as int + 1 {
+                        assert(requests@[r as int]@[1] as int + 1 == pos);
+                        assert(requests@[r as int]@[0] as int != pos);
+                    } else {
+                        assert(requests@[r as int]@[0] as int != pos);
+                        assert(requests@[r as int]@[1] as int + 1 != pos);
+                    }
+                }
+                assert forall |pos: int| 0 <= pos < n as int implies
+                    -100_000 <= #[trigger] diff@[pos] <= 100_000 by {
+                    Self::lemma_diff_at_bound(requests@, pos, r as int + 1);
+                }
+            }
+            r = r + 1;
+        }
+
+        let mut count: Vec<i64> = Vec::new();
+        let mut running: i64 = 0;
+        let mut idx: usize = 0;
+        while idx < n
+            invariant
+                n == nums@.len(),
+                m == requests@.len(),
+                diff@.len() == n as int,
+                count@.len() == idx as int,
+                0 <= idx <= n,
+                1 <= n <= 100_000,
+                1 <= m <= 100_000,
+                forall |pos: int| 0 <= pos < n as int ==>
+                    (#[trigger] diff@[pos]) as int == Self::diff_at(requests@, pos, m as int),
+                running as int == Self::prefix_diff(requests@, idx as int - 1, m as int),
+                0 <= running <= m as i64,
+                forall |k: int| 0 <= k < idx as int ==>
+                    (#[trigger] count@[k]) as int == Self::prefix_diff(requests@, k, m as int),
+                forall |ii: int| 0 <= ii < requests@.len() ==> (
+                    (#[trigger] requests@[ii])@.len() == 2
+                        && 0 <= requests@[ii]@[0]
+                        && requests@[ii]@[0] <= requests@[ii]@[1]
+                        && (requests@[ii]@[1] as int) < nums@.len() as int
+                ),
+            decreases n - idx,
+        {
+            proof {
+                assert(Self::prefix_diff(requests@, idx as int, m as int)
+                    == Self::prefix_diff(requests@, idx as int - 1, m as int) + Self::diff_at(requests@, idx as int, m as int));
+                Self::lemma_prefix_diff_freq(requests@, idx as int);
+                Self::freq_at_bounded(requests@, idx as int, 0);
+                assert(0 <= Self::prefix_diff(requests@, idx as int, m as int) <= m as int);
+            }
+            running = running + diff[idx];
+            count.push(running);
+            idx = idx + 1;
         }
         proof {
             assert(count@.len() == n as int);
+            assert forall |k: int| 0 <= k < n as int implies
+                (#[trigger] count@[k]) as int == Self::freq_at(requests@, k, 0) by {
+                Self::lemma_prefix_diff_freq(requests@, k);
+            }
+            assert forall |k: int| 0 <= k < n as int implies
+                0 <= (#[trigger] count@[k]) as int <= m as int by {
+                Self::lemma_prefix_diff_freq(requests@, k);
+                Self::freq_at_bounded(requests@, k, 0);
+            }
             assert forall |k: int| 0 <= k < n as int implies
                 Self::to_int_seq_i64(count@)[k] == Self::freq_vec(requests@, n as int)[k] by {};
             assert(Self::to_int_seq_i64(count@) =~= Self::freq_vec(requests@, n as int));

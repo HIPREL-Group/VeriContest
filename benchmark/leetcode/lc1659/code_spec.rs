@@ -64,6 +64,17 @@ pub open spec fn max_happiness(pos: int, ic: int, ec: int, profile: int, m: int,
     }
 }
 
+pub open spec fn encode(pos: int, ic: int, ec: int, profile: int) -> int {
+    ((pos * 7 + ic) * 7 + ec) * 243 + profile
+}
+
+pub open spec fn memo_ok(memo: Seq<i32>, m: int, n: int) -> bool {
+    forall |p: int, i: int, e: int, pr: int|
+        0 <= p <= m * n && 0 <= i <= 6 && 0 <= e <= 6 && 0 <= pr < pow3(n) ==>
+        (#[trigger] memo[encode(p, i, e, pr)] != -1
+            ==> memo[encode(p, i, e, pr)] as int == max_happiness(p, i, e, pr, m, n))
+}
+
 impl Solution {
     pub fn get_max_grid_happiness(m: i32, n: i32, introverts_count: i32, extroverts_count: i32) -> (result: i32)
         requires
@@ -82,10 +93,16 @@ impl Solution {
             pow3nm1 = pow3nm1 * 3;
             k = k + 1;
         }
-        Solution::solve(m, n, 0, introverts_count, extroverts_count, 0, pow3nm1)
+        let mut memo: Vec<i32> = Vec::new();
+        let mut mi: usize = 0;
+        while mi < 309_834 {
+            memo.push(-1);
+            mi = mi + 1;
+        }
+        Solution::solve(m, n, 0, introverts_count, extroverts_count, 0, pow3nm1, &mut memo)
     }
 
-    fn solve(m: i32, n: i32, pos: i32, ic: i32, ec: i32, profile: i32, pow3nm1: i32) -> (result: i32)
+    fn solve(m: i32, n: i32, pos: i32, ic: i32, ec: i32, profile: i32, pow3nm1: i32, memo: &mut Vec<i32>) -> (result: i32)
         requires
             1 <= m <= 5,
             1 <= n <= 5,
@@ -93,21 +110,32 @@ impl Solution {
             0 <= ic <= 6,
             0 <= ec <= 6,
             0 <= profile < pow3(n as int),
+            pow3(n as int) <= 243,
             pow3nm1 as int == pow3((n - 1) as int),
             1 <= pow3nm1 <= 81,
+            old(memo)@.len() == 309_834,
+            memo_ok(old(memo)@, m as int, n as int),
         ensures
             result as int == max_happiness(pos as int, ic as int, ec as int, profile as int, m as int, n as int),
+            0 <= result <= (ic + ec) * 120,
+            memo@.len() == 309_834,
+            memo_ok(memo@, m as int, n as int),
         decreases m * n - pos
     {
         if pos >= m * n {
             return 0;
+        }
+        let idx: usize = (((pos * 7 + ic) * 7 + ec) * 243 + profile) as usize;
+        let cached = memo[idx];
+        if cached != -1 {
+            return cached;
         }
         let row = pos / n;
         let col = pos % n;
         let up_type = profile % 3;
         let left_type = (profile / pow3nm1) % 3;
         let shifted = profile / 3;
-        let val_empty = Solution::solve(m, n, pos + 1, ic, ec, shifted, pow3nm1);
+        let val_empty = Solution::solve(m, n, pos + 1, ic, ec, shifted, pow3nm1, memo);
         let mut best = val_empty;
         if ic > 0 {
             let base: i32 = 120;
@@ -119,7 +147,7 @@ impl Solution {
             } else { 0 };
             let d = base + adj_up + adj_left;
             let next_pr = shifted + pow3nm1;
-            let val_intro = d + Solution::solve(m, n, pos + 1, ic - 1, ec, next_pr, pow3nm1);
+            let val_intro = d + Solution::solve(m, n, pos + 1, ic - 1, ec, next_pr, pow3nm1, memo);
             if val_intro > best {
                 best = val_intro;
             }
@@ -134,13 +162,14 @@ impl Solution {
             } else { 0 };
             let d = base + adj_up + adj_left;
             let next_pr = shifted + 2 * pow3nm1;
-            let val_extro = d + Solution::solve(m, n, pos + 1, ic, ec - 1, next_pr, pow3nm1);
+            let val_extro = d + Solution::solve(m, n, pos + 1, ic, ec - 1, next_pr, pow3nm1, memo);
             if val_extro > best {
                 best = val_extro;
             }
         }
+        memo.set(idx, best);
         best
     }
 }
 
-} 
+}

@@ -1,4 +1,5 @@
 use vstd::prelude::*;
+use vstd::relations::*;
 
 fn main() {}
 
@@ -70,7 +71,88 @@ impl Solution {
     pub open spec fn maximum_happiness_sum_spec(happiness: Seq<i32>, k: int) -> int {
         Self::maximum_from_state(happiness, k, 0)
     }
+}
 
+pub open spec fn desc_leq(a: i32, b: i32) -> bool {
+    a >= b
+}
+
+pub open spec fn merge_seq_desc(a: Seq<i32>, b: Seq<i32>) -> Seq<i32>
+    decreases a.len() + b.len()
+{
+    if a.len() == 0 {
+        b
+    } else if b.len() == 0 {
+        a
+    } else if a[0] >= b[0] {
+        seq![a[0]] + merge_seq_desc(a.drop_first(), b)
+    } else {
+        seq![b[0]] + merge_seq_desc(a, b.drop_first())
+    }
+}
+
+pub open spec fn merge_sort_seq_desc(s: Seq<i32>) -> Seq<i32>
+    decreases s.len()
+{
+    if s.len() <= 1 {
+        s
+    } else {
+        let mid = s.len() as int / 2;
+        merge_seq_desc(merge_sort_seq_desc(s.subrange(0, mid)), merge_sort_seq_desc(s.subrange(mid, s.len() as int)))
+    }
+}
+
+fn merge_exec_desc(a: &Vec<i32>, b: &Vec<i32>) -> (result: Vec<i32>)
+    requires
+        sorted_by(a@, |x: i32, y: i32| desc_leq(x, y)),
+        sorted_by(b@, |x: i32, y: i32| desc_leq(x, y)),
+    ensures
+        result@ =~= merge_seq_desc(a@, b@),
+{
+    let mut result: Vec<i32> = Vec::new();
+    let mut i: usize = 0;
+    let mut j: usize = 0;
+    while i < a.len() || j < b.len() {
+        if j >= b.len() || (i < a.len() && a[i] >= b[j]) {
+            result.push(a[i]);
+            i += 1;
+        } else {
+            result.push(b[j]);
+            j += 1;
+        }
+    }
+    result
+}
+
+fn merge_sort_exec_desc(v: &Vec<i32>) -> (result: Vec<i32>)
+    requires v.len() <= 200_000,
+    ensures result@ =~= merge_sort_seq_desc(v@),
+    decreases v.len()
+{
+    if v.len() <= 1 {
+        v.clone()
+    } else {
+        let mid = v.len() / 2;
+        let mut left: Vec<i32> = Vec::new();
+        let mut i: usize = 0;
+        while i < mid {
+            left.push(v[i]);
+            i += 1;
+        }
+        let mut right: Vec<i32> = Vec::new();
+        let mut i2: usize = mid;
+        while i2 < v.len() {
+            right.push(v[i2]);
+            i2 += 1;
+        }
+        let sorted_left = merge_sort_exec_desc(&left);
+        let sorted_right = merge_sort_exec_desc(&right);
+        let result = merge_exec_desc(&sorted_left, &sorted_right);
+        result
+    }
+}
+
+impl Solution {
     pub fn maximum_happiness_sum(happiness: Vec<i32>, k: i32) -> (result: i64)
         requires
             1 <= happiness.len() <= 200000,
@@ -79,34 +161,18 @@ impl Solution {
         ensures
             result as int == Self::maximum_happiness_sum_spec(happiness@, k as int),
     {
-        let mut a = happiness;
-        let n = a.len();
-        let ku = k as usize;
-
+        let sorted = merge_sort_exec_desc(&happiness);
         let mut ans: i64 = 0;
-        let mut taken: i32 = 0;
-        let mut round: usize = 0;
-        while round < ku {
-            let mut max_idx: usize = 0;
-            let mut j: usize = 1;
-            while j < n {
-                if a[j] >= a[max_idx] {
-                    max_idx = j;
-                }
-                j = j + 1;
-            }
-
-            let val = a[max_idx];
-            let gain = val - taken;
+        let mut i: usize = 0;
+        let ku = k as usize;
+        while i < ku {
+            let v = sorted[i] as i64;
+            let gain = v - i as i64;
             if gain > 0 {
-                ans = ans + gain as i64;
+                ans = ans + gain;
             }
-
-            a.set(max_idx, -1);
-            taken = taken + 1;
-            round = round + 1;
+            i += 1;
         }
-
         ans
     }
 }
