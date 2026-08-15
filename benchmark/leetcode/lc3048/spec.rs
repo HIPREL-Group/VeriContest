@@ -62,18 +62,6 @@ impl Solution {
             && Self::scan_state(nums, change_indices, t, t) >= 0
     }
 
-    fn can_mark(nums: &Vec<i32>, change_indices: &Vec<i32>, t: usize) -> (res: bool)
-        requires
-            1 <= nums.len() <= 2000,
-            1 <= change_indices.len() <= 2000,
-            1 <= t <= change_indices.len(),
-            forall|i: int| 0 <= i < nums.len() ==> 0 <= #[trigger] nums[i] <= 1_000_000_000,
-            forall|i: int| 0 <= i < change_indices.len() ==> 1 <= #[trigger] change_indices[i] <= nums.len(),
-        ensures
-            res == Self::can_mark_spec(nums@, change_indices@, t as int),
-    {
-    }
-
     pub fn earliest_second_to_mark_indices(nums: Vec<i32>, change_indices: Vec<i32>) -> (res: i32)
         requires
             1 <= nums.len() <= 2000,

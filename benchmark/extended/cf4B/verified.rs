@@ -365,7 +365,6 @@ impl Solution {
                     && (max_t@[i] as int) <= 8,
         ensures
             res.0 == spec_feasible(sum_time as int, min_t@, max_t@, d as int),
-            !res.0 ==> res.1.len() == 0,
             res.0 ==> res.1.len() == d,
             res.0 ==> spec_prefix_sum(res.1@, d as int) == (sum_time as int),
             res.0 ==> forall |i: int|

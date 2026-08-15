@@ -22,7 +22,7 @@ impl Solution {
                 let m = mat.len();
                 let n = mat[0].len();
                 if m * n != r as usize * c as usize {
-                    res@ =~= mat@
+                    res@ =~~= mat@
                 } else {
                     res.len() == r as int
                     && (forall |i: int| 0 <= i < r ==> #[trigger] res[i].len() == c as int)

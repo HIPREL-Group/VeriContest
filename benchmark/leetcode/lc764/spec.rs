@@ -34,22 +34,8 @@ pub open spec fn has_plus_of_order(n: int, mines: Seq<Vec<i32>>, r: int, c: int,
         )
 }
 
-fn set_cell(grid: &mut Vec<Vec<i32>>, row: usize, col: usize, value: i32)
-    requires
-        row < old(grid)@.len(),
-        col < old(grid)@[row as int].len(),
-    ensures
-        grid@.len() == old(grid)@.len(),
-        forall|r: int| 0 <= r < grid@.len() ==> #[trigger] grid@[r].len() == old(grid)@[r].len(),
-        forall|r: int, c: int|
-            0 <= r < grid@.len() && 0 <= c < grid@[r].len() ==> #[trigger] grid@[r][c]
-                == if r == row as int && c == col as int { value } else { old(grid)@[r][c] },
-{
-    }
-
 impl Solution {
     #[verifier::loop_isolation(false)]
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn order_of_largest_plus_sign(n: i32, mines: Vec<Vec<i32>>) -> (result: i32)
         requires
             1 <= n <= 500,

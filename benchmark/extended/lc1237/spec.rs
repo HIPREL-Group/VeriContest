@@ -52,6 +52,8 @@ impl Solution {
                 exists |i: int| #![auto] 0 <= i < result@.len()
                     && result@[i]@[0] == a as i32
                     && result@[i]@[1] == b as i32,
+            forall |i: int, j: int| 0 <= i < j < result@.len() ==>
+                (#[trigger] result@[i])@[0] != (#[trigger] result@[j])@[0],
     {
     }
 }

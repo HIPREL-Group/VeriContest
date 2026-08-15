@@ -151,8 +151,8 @@ impl Solution {
             forall|i: int| 0 <= i < mat.len() ==> #[trigger] mat[i].len() == mat[0].len(),
             forall|i: int, j: int| 0 <= i < mat.len() && 0 <= j < mat[0].len() ==> 1 <= #[trigger] mat[i][j] <= 9,
         ensures
-            ((res == -1) && (forall|k: int| 0 <= k < Self::all_numbers(mat@).len() ==> !Self::is_candidate_prime(#[trigger] Self::all_numbers(mat@)[k] as int))) ||
-            (Self::is_candidate_prime(res as int) &&
+            (res == -1) <==> (forall|k: int| 0 <= k < Self::all_numbers(mat@).len() ==> !Self::is_candidate_prime(#[trigger] Self::all_numbers(mat@)[k] as int)),
+            res != -1 ==> (Self::is_candidate_prime(res as int) &&
              forall|k: int| 0 <= k < Self::all_numbers(mat@).len() && Self::is_candidate_prime(#[trigger] Self::all_numbers(mat@)[k] as int) ==>
                  (Self::count_occurrences(Self::all_numbers(mat@), Self::all_numbers(mat@)[k]) < Self::count_occurrences(Self::all_numbers(mat@), res) ||
                   (Self::count_occurrences(Self::all_numbers(mat@), Self::all_numbers(mat@)[k]) == Self::count_occurrences(Self::all_numbers(mat@), res) && Self::all_numbers(mat@)[k] <= res))),

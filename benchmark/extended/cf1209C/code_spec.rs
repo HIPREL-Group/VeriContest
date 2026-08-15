@@ -48,6 +48,10 @@ pub open spec fn spec_valid_coloring(d: Seq<i32>, c: Seq<i32>) -> bool {
         && spec_adjacent_nondecreasing(spec_merged_digits(d, c, d.len() as int))
 }
 
+pub open spec fn spec_exists_valid_coloring(d: Seq<i32>) -> bool {
+    exists|c: Seq<i32>| spec_valid_coloring(d, c)
+}
+
 pub struct Solution;
 
 impl Solution {
@@ -125,6 +129,7 @@ impl Solution {
         ensures
             res.len() == 0 || res.len() == digits.len(),
             res.len() == digits.len() ==> spec_valid_coloring(digits@, res@),
+            res.len() == 0 ==> !spec_exists_valid_coloring(digits@),
     {
         let n = digits.len();
         let mut x: i32 = 0;

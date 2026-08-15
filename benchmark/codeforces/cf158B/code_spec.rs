@@ -32,6 +32,7 @@ impl Solution {
             c2 >= 0,
             c3 >= 0,
             c4 >= 0,
+            (c1 + c2 + c3 + c4) >= 1,
             (c1 + c2 + c3 + c4) <= 100_000,
         ensures
             (res as int) == spec_taxi_answer(c1 as int, c2 as int, c3 as int, c4 as int),

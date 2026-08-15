@@ -113,6 +113,8 @@ impl Solution {
             1 <= k <= mat.len() as i32,
             forall |i: int, j: int| 0 <= i < mat.len() && 0 <= j < mat[i].len()
                 ==> #[trigger] mat[i][j] == 0 || mat[i][j] == 1,
+            forall |i: int, j1: int, j2: int| 0 <= i < mat.len() && 0 <= j1 < j2 < mat[i].len()
+                && #[trigger] mat[i][j1] >= 0 && #[trigger] mat[i][j2] == 1 ==> mat[i][j1] == 1,
         ensures
             result.len() == k as int,
             forall |i: int| 0 <= i < k as int ==> 0 <= #[trigger] result@[i] < mat.len() as i32,

@@ -25,16 +25,6 @@ impl Solution {
         Self::sum_prefix(piles, speed, piles.len() as int)
     }
 
-    fn sum_with_speed(piles: &Vec<i32>, speed: i32) -> (sum: i64)
-        requires
-            1 <= piles.len() <= 10_000,
-            forall |i: int| 0 <= i < piles.len() ==> 1 <= #[trigger] piles[i] <= 1_000_000_000,
-            1 <= speed <= 1_000_000_000,
-        ensures
-            sum as int == Self::sum_by_speed(piles@, speed as int),
-    {
-    }
-
     pub fn min_eating_speed(piles: Vec<i32>, h: i32) -> (res: i32)
         requires
             1 <= piles.len() <= 10_000,

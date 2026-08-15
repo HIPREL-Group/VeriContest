@@ -18,10 +18,15 @@ pub open spec fn all_false(s: Seq<bool>) -> bool {
     forall|i: int| 0 <= i < s.len() ==> !s[i]
 }
 
+pub open spec fn remaining_all_blank(grid: Seq<u8>, remaining_rows: Seq<bool>, remaining_cols: Seq<bool>) -> bool {
+    forall|r: int, c: int| 0 <= r < 8 && 0 <= c < 8 && remaining_rows[r] && remaining_cols[c]
+        ==> #[trigger] grid[r * 8 + c] == 2u8
+}
+
 pub open spec fn realizable_helper(grid: Seq<u8>, remaining_rows: Seq<bool>, remaining_cols: Seq<bool>, fuel: nat) -> bool
     decreases fuel
 {
-    if all_false(remaining_rows) && all_false(remaining_cols) {
+    if remaining_all_blank(grid, remaining_rows, remaining_cols) {
         true
     } else if fuel == 0 {
         false

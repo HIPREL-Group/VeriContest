@@ -23,15 +23,6 @@ impl Solution {
         }
     }
 
-    pub fn is_dividing_number(n: i32) -> (result: bool)
-        requires
-            n > 0,
-        ensures
-            result == Self::is_dividing_number_spec(n as int),
-    {
-        
-    }
-
     pub fn self_dividing_numbers(left: i32, right: i32) -> (res: Vec<i32>) 
         requires
             1 <= left <= right <= 10_000, 

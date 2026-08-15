@@ -15,9 +15,9 @@ impl Solution {
             forall |i: int, j: int| 0 <= i < matrix.len() && 0 <= j < matrix[i].len()
                 ==> -1_000_000_000 <= #[trigger] matrix[i][j] <= 1_000_000_000, 
             forall |i: int, j: int| 0 <= i < matrix.len() && 0 <= j < matrix[i].len() - 1 ==> 
-                #[trigger] matrix[i][j] < matrix[i][j + 1], 
+                #[trigger] matrix[i][j] <= matrix[i][j + 1], 
             forall |i: int, j: int| 0 <= j < matrix[0].len() && 0 <= i < matrix.len() - 1 ==>
-                #[trigger] matrix[i][j] < matrix[i + 1][j], 
+                #[trigger] matrix[i][j] <= matrix[i + 1][j], 
             -1_000_000_000 <= target <= 1_000_000_000, 
         ensures 
             res == (exists |i: int, j: int| 

@@ -31,17 +31,6 @@ impl Solution {
         Solution::valid_palindrome_rec(s, 0, s.len() as int - 1)
     }
 
-    pub fn check_palindrome(s: &Vec<char>, start: usize, end: usize) -> (res: bool)
-        requires
-            start <= s.len(),
-            end < s.len(),
-            start <= end + 1,
-        ensures
-            res == Solution::is_palindrome(s@, start as int, end as int),
-    {
-
-    }
-
     pub fn valid_palindrome(s: Vec<char>) -> (res: bool)
         requires
             1 <= s.len() <= 100000,

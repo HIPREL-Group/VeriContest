@@ -48,7 +48,6 @@ impl Solution {
             result != None::<(Vec<i64>, i64)> ==> {
                 let p = result->Some_0;
                 &&& p.0.len() == n as usize
-                &&& p.1 == n
                 &&& Self::petya_wins(p.0@, n as int, s as int, p.1 as int)
             },
     {

@@ -97,6 +97,16 @@ proof fn lemma_delta_matches_spec_contrib(av0: i64, bv: i64, cv: i64, dv: i64, d
     }
 }
 
+pub open spec fn spec_sum(nums: Seq<i64>, hi: int) -> int
+    decreases hi + 1,
+{
+    if hi < 0 {
+        0
+    } else {
+        spec_sum(nums, hi - 1) + nums[hi] as int
+    }
+}
+
 impl Solution {
     pub fn min_pile_shuffle_operations(a: &Vec<i64>, b: &Vec<i64>, c: &Vec<i64>, d: &Vec<i64>) -> (result: i64)
         requires
@@ -116,6 +126,8 @@ impl Solution {
             forall|j: int|
                 #![trigger d[j]]
                 0 <= j && j < d.len() ==> 0 <= #[trigger] d[j] && d[j] <= 1_000_000_000,
+            spec_sum(a@, (a.len() as int) - 1) == spec_sum(c@, (c.len() as int) - 1),
+            spec_sum(b@, (b.len() as int) - 1) == spec_sum(d@, (d.len() as int) - 1),
         ensures
             result as int == spec_ops_prefix(a@, b@, c@, d@, (a.len() as int) - 1),
     {

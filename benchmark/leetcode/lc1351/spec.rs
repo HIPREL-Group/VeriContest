@@ -33,6 +33,10 @@ impl Solution {
             forall |r: int| 0 <= r < grid.len() ==> 1 <= #[trigger] grid[r].len() <= 100,
             forall |r: int| 0 <= r < grid.len() ==> #[trigger] grid[r].len() == grid[0].len(),
             forall |r: int, c: int| 0 <= r < grid.len() && 0 <= c < grid[r].len() ==> -100 <= #[trigger] grid[r][c] <= 100,
+            forall |r: int, c: int| 0 <= r < grid.len() && 0 <= c < grid[r].len() - 1
+                ==> #[trigger] grid[r][c] >= grid[r][c + 1],
+            forall |r: int, c: int| 0 <= r < grid.len() - 1 && 0 <= c < grid[r].len()
+                ==> #[trigger] grid[r][c] >= grid[r + 1][c],
         ensures
             res as int == Self::count_neg_in_grid(grid@, grid.len() as int),
     {

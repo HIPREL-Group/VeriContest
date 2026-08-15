@@ -72,6 +72,9 @@ impl Solution {
                 0 <= #[trigger] nums1[i] <= 200_000,
             forall|i: int| 0 <= i < nums2.len() ==>
                 0 <= #[trigger] nums2[i] <= 200_000,
+            forall|i: int| 1 <= i < nums1.len() ==>
+                ((#[trigger] nums1[i] > nums1[i - 1] && nums2[i] > nums2[i - 1])
+                    || (nums1[i] > nums2[i - 1] && nums2[i] > nums1[i - 1])),
         ensures
             result >= 0,
             result as int == {

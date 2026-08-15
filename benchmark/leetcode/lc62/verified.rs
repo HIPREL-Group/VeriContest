@@ -75,7 +75,7 @@ impl Solution {
         requires
             1 <= m <= 100,
             1 <= n <= 100,
-            Solution::unique_paths_spec(m as nat, n as nat) <= i32::MAX,
+            Solution::unique_paths_spec(m as nat, n as nat) <= 2_000_000_000,
         ensures
             result == Solution::unique_paths_spec(m as nat, n as nat),
     {
@@ -108,7 +108,7 @@ impl Solution {
                 1 <= i,
                 i <= m,
                 dp.len() == n,
-                Solution::unique_paths_spec(m as nat, n as nat) <= i32::MAX,
+                Solution::unique_paths_spec(m as nat, n as nat) <= 2_000_000_000,
                 forall |k: int| #![auto] 0 <= k < n ==>
                     dp[k] as int == Solution::unique_paths_spec(i as nat, (k + 1) as nat) as int,
             decreases m - i,
@@ -129,7 +129,7 @@ impl Solution {
                     1 <= j,
                     j <= n,
                     dp.len() == n,
-                    Solution::unique_paths_spec(m as nat, n as nat) <= i32::MAX,
+                    Solution::unique_paths_spec(m as nat, n as nat) <= 2_000_000_000,
                     forall |k: int| #![auto] 0 <= k < j ==>
                         dp[k] as int == Solution::unique_paths_spec((i + 1) as nat, (k + 1) as nat) as int,
                     forall |k: int| #![auto] j <= k < n ==>

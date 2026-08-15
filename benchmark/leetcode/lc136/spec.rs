@@ -24,8 +24,8 @@ impl Solution {
             forall |i: int| 0 <= i < nums.len() ==> -30_000 <= #[trigger] nums[i] <= 30_000, 
             exists|unique_val: i32| {
                 Self::count_occurrences(nums@, unique_val) == 1 &&
-                forall|other: i32| other != unique_val ==> 
-                    Self::count_occurrences(nums@, other) % 2 == 0
+                forall|other: i32| other != unique_val ==>
+                    Self::count_occurrences(nums@, other) == 0 || Self::count_occurrences(nums@, other) == 2
             }
         ensures 
             Self::count_occurrences(nums@, res) == 1,

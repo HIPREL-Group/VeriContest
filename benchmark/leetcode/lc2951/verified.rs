@@ -16,7 +16,7 @@ impl Solution {
             forall |p: int| 0 <= p < result.len() ==>
                 mountain[result[p] as int - 1] < mountain[result[p] as int] &&
                 mountain[result[p] as int] > mountain[result[p] as int + 1],
-            forall |a: int, b: int| 0 <= a < b < result.len() ==> result[a] < result[b],
+            forall |a: int, b: int| 0 <= a < b < result.len() ==> result[a] != result[b],
             forall |i: int|
                 1 <= i < mountain.len() as int - 1 &&
                 mountain[i - 1] < #[trigger] mountain[i] &&

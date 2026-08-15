@@ -61,6 +61,8 @@ pub open spec fn is_valid_leaves(n: usize, u_edges: Seq<usize>, v_edges: Seq<usi
         leaves[k] != center &&
         count_occ(u_edges, v_edges, leaves[k] as usize, u_edges.len() as int) == 1)
     &&
+    (forall|k1: int, k2: int| 0 <= k1 && k1 < k2 && k2 < leaves.len() ==> #[trigger] leaves[k1] != #[trigger] leaves[k2])
+    &&
     (forall|v: int| 1 <= v && v <= n ==> {
         let occ = #[trigger] count_occ(u_edges, v_edges, v as usize, u_edges.len() as int);
         (occ == 1 && v != center as int) ==>

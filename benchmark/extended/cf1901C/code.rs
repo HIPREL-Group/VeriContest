@@ -25,4 +25,32 @@ impl Solution {
         }
         Self::steps_from_diff(mx - mn)
     }
+
+    pub fn build_operations(a: Vec<i64>) -> Vec<i64> {
+        let n = a.len();
+        let mut mn = a[0];
+        let mut mx = a[0];
+        let mut idx: usize = 1;
+        while idx < n {
+            let cur = a[idx];
+            if cur < mn {
+                mn = cur;
+            }
+            if cur > mx {
+                mx = cur;
+            }
+            idx += 1;
+        }
+        let steps = Self::steps_from_diff(mx - mn);
+        let mut ops: Vec<i64> = Vec::new();
+        let mut t: i64 = 0;
+        while t < steps {
+            let x = if mn % 2 == 1 && mx % 2 == 0 { 1 } else { 0 };
+            ops.push(x);
+            mn = (mn + x) / 2;
+            mx = (mx + x) / 2;
+            t += 1;
+        }
+        ops
+    }
 }

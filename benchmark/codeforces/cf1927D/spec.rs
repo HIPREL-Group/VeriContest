@@ -21,7 +21,7 @@ impl Solution {
         let y = out.1 as int;
         ((x == -1 && y == -1) && Self::all_equal_range(a, l - 1, r - 1))
         ||
-        (l <= x < y <= r && a[x - 1] != a[y - 1])
+        (l <= x <= r && l <= y <= r && x != y && a[x - 1] != a[y - 1])
     }
 
     pub fn find_different_ones(a: Vec<i64>, queries: Vec<(usize, usize)>) -> (res: Vec<(i32, i32)>)

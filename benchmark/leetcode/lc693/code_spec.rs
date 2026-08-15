@@ -14,7 +14,7 @@ impl Solution {
 
     pub fn has_alternating_bits(n: i32) -> (result: bool)
         requires
-            1 <= n < i32::MAX,
+            1 <= n <= i32::MAX,
         ensures
             result == Solution::has_alt_bits_spec(n as u32),
     {

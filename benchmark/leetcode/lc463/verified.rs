@@ -118,6 +118,36 @@ impl Solution {
             ==> Self::reachable(grid, rows, cols, r1, c1, r2, c2, (rows * cols) as nat))
     }
 
+    pub open spec fn is_water(grid: Seq<Vec<i32>>, rows: int, cols: int, r: int, c: int) -> bool {
+        0 <= r < rows && 0 <= c < cols && grid[r][c] == 0
+    }
+
+    pub open spec fn water_reachable(grid: Seq<Vec<i32>>, rows: int, cols: int, r1: int, c1: int, r2: int, c2: int, fuel: nat) -> bool
+        decreases fuel
+    {
+        if r1 == r2 && c1 == c2 {
+            Self::is_water(grid, rows, cols, r1, c1)
+        } else if fuel == 0 {
+            false
+        } else {
+            Self::is_water(grid, rows, cols, r1, c1)
+            && exists|r3: int, c3: int|
+                Self::adjacent(r1, c1, r3, c3)
+                && Self::is_water(grid, rows, cols, r3, c3)
+                && Self::water_reachable(grid, rows, cols, r3, c3, r2, c2, (fuel - 1) as nat)
+        }
+    }
+
+    pub open spec fn is_border_water(grid: Seq<Vec<i32>>, rows: int, cols: int, r: int, c: int) -> bool {
+        Self::is_water(grid, rows, cols, r, c) && (r == 0 || r == rows - 1 || c == 0 || c == cols - 1)
+    }
+
+    pub open spec fn no_lakes(grid: Seq<Vec<i32>>, rows: int, cols: int) -> bool {
+        forall|r: int, c: int| Self::is_water(grid, rows, cols, r, c) ==>
+            exists|br: int, bc: int| Self::is_border_water(grid, rows, cols, br, bc)
+                && Self::water_reachable(grid, rows, cols, r, c, br, bc, (rows * cols) as nat)
+    }
+
     pub open spec fn cell_contribution(grid: Seq<Vec<i32>>, rows: int, cols: int, r: int, c: int) -> int {
         if grid[r][c] == 1 {
             let top = if r > 0 && grid[r - 1][c] == 1 { 2int } else { 0int };
@@ -158,6 +188,7 @@ impl Solution {
             forall |i: int, j: int|
                 0 <= i < grid.len() && 0 <= j < grid[i].len() ==> #[trigger] grid[i][j] == 0 || #[trigger] grid[i][j] == 1,
             Self::exactly_one_island(grid@, grid.len() as int, grid[0].len() as int),
+            Self::no_lakes(grid@, grid.len() as int, grid[0].len() as int),
         ensures
             res as int == Self::island_perimeter_spec(grid@, grid.len() as int, grid[0].len() as int, grid.len() as int),
     {

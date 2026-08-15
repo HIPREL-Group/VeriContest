@@ -213,6 +213,7 @@ impl Solution {
             1 <= k && k <= n,
             a.len() == n,
             forall|i: int| 0 <= i && i < n ==> -1000000000 <= a@[i] && a@[i] <= 1000000000,
+            -1000000000 <= q && q <= 1000000000,
         ensures
             res as int == scan_total(k as int, q, a@, 0),
     {

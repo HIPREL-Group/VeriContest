@@ -15,7 +15,7 @@ pub open spec fn spec_prefix_sum(nums: Seq<i32>, k: int) -> int
 }
 
 pub struct NumArray {
-    pub prefix: Vec<i64>,
+    pub nums: Vec<i32>,
 }
 
 impl NumArray {
@@ -24,21 +24,17 @@ impl NumArray {
             1 <= nums.len() <= 10000,
             forall |i: int| 0 <= i < nums.len() ==> -100000 <= #[trigger] nums[i] <= 100000,
         ensures
-            result.prefix@.len() == nums.len() + 1,
-            result.prefix@[0] == 0,
-            forall |i: int| 0 <= i < nums.len() ==>
-                result.prefix@[i + 1] == result.prefix@[i] + nums[i] as int,
+            result.nums@ == nums@,
     {
     }
 
     pub fn sum_range(&self, left: i32, right: i32) -> (result: i32)
         requires
-            self.prefix@.len() >= 1,
-            0 <= left <= right < (self.prefix@.len() - 1) as int,
-            forall |i: int| 0 <= i < self.prefix@.len() ==>
-                -1_000_000_000 <= (#[trigger] self.prefix@[i]) <= 1_000_000_000,
+            1 <= self.nums@.len() <= 10000,
+            forall |i: int| 0 <= i < self.nums@.len() ==> -100000 <= #[trigger] self.nums@[i] <= 100000,
+            0 <= left <= right < self.nums@.len() as int,
         ensures
-            result as int == self.prefix@[right as int + 1] - self.prefix@[left as int],
+            result as int == spec_prefix_sum(self.nums@, right as int + 1) - spec_prefix_sum(self.nums@, left as int),
     {
     }
 }

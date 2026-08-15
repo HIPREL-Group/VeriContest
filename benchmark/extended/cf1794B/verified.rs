@@ -23,11 +23,33 @@ pub open spec fn seq_pointwise_ge(orig: Seq<i32>, res: Seq<i32>) -> bool {
             0 <= i && i < orig.len() ==> res[i] >= orig[i])
 }
 
-pub open spec fn seq_increase_per_index_bounded(orig: Seq<i32>, res: Seq<i32>) -> bool {
+pub open spec fn seq_increase_sum(orig: Seq<i32>, res: Seq<i32>, end: int) -> int
+    decreases end,
+{
+    if end <= 0 {
+        0
+    } else {
+        seq_increase_sum(orig, res, end - 1) + ((res[end - 1] as int) - (orig[end - 1] as int))
+    }
+}
+
+pub open spec fn seq_total_increase_bounded(orig: Seq<i32>, res: Seq<i32>) -> bool {
     orig.len() == res.len()
-        && (forall|i: int|
-            #![trigger res[i]]
-            0 <= i && i < orig.len() ==> (res[i] as int) - (orig[i] as int) <= 2)
+        && seq_increase_sum(orig, res, orig.len() as int) <= 2 * orig.len()
+}
+
+proof fn lemma_seq_increase_sum_bounded(orig: Seq<i32>, res: Seq<i32>, end: int)
+    requires
+        orig.len() == res.len(),
+        0 <= end <= orig.len(),
+        forall|k: int| 0 <= k < end ==> (res[k] as int) - (orig[k] as int) <= 2,
+    ensures
+        seq_increase_sum(orig, res, end) <= 2 * end,
+    decreases end,
+{
+    if end > 0 {
+        lemma_seq_increase_sum_bounded(orig, res, end - 1);
+    }
 }
 
 proof fn lemma_i32_mod_nonneg(a: i32, b: i32)
@@ -67,7 +89,7 @@ impl Solution {
             res@.len() == a@.len(),
             seq_neighbors_not_dividing(res@),
             seq_pointwise_ge(a@, res@),
-            seq_increase_per_index_bounded(a@, res@),
+            seq_total_increase_bounded(a@, res@),
     {
         let n = a.len();
         let ghost old_a = a@;
@@ -221,7 +243,8 @@ impl Solution {
             assert(forall|k: int|
                 #![trigger v@[k]]
                 0 <= k && k < n as int ==> v@[k] as int - old_a[k] as int <= 2);
-            assert(seq_increase_per_index_bounded(old_a, v@));
+            lemma_seq_increase_sum_bounded(old_a, v@, n as int);
+            assert(seq_total_increase_bounded(old_a, v@));
         }
         v
     }

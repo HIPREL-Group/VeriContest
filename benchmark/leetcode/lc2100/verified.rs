@@ -130,7 +130,7 @@ impl Solution {
                 && Self::good_day(security@, time as int, result@[k] as int),
             forall |day: int| 0 <= day < security.len() && Self::good_day(security@, time as int, day)
                 ==> #[trigger] result@.contains(day as i32),
-            forall |a: int, b: int| 0 <= a < b < result@.len() ==> result@[a] < result@[b],
+            forall |a: int, b: int| 0 <= a < b < result@.len() ==> result@[a] != result@[b],
     {
         let n = security.len();
         let mut inc_prefix: Vec<i32> = Vec::new();

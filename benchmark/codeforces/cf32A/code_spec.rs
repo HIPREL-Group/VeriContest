@@ -38,7 +38,7 @@ impl Solution {
             1 <= n <= 1000,
             heights.len() == n,
             1 <= d <= 1000000000,
-            forall|i: int| 0 <= i < heights.len() ==> 0 <= #[trigger] heights[i] as int <= 1000000000,
+            forall|i: int| 0 <= i < heights.len() ==> -1000000000 <= #[trigger] heights[i] as int <= 1000000000,
         ensures
             result as int == 2 * count_total(heights@, n as int, d as int),
     {

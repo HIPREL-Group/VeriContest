@@ -123,6 +123,7 @@ impl Solution {
             0 <= r_start < rows,
             0 <= c_start < cols,
         ensures
+            forall |i: int| 0 <= i < res@.len() ==> #[trigger] res@[i].len() == 2,
             Self::result_coords(res@) == Self::spiral_coords(rows as int, cols as int, r_start as int, c_start as int, Self::max_layer(rows as int, cols as int, r_start as int, c_start as int) as nat),
     {
         let limit = Self::max2_exec(

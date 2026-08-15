@@ -31,7 +31,7 @@ pub open spec fn input_digits_valid(seq: Seq<u8>) -> bool {
 impl Solution {
     pub fn sort_digits(nums: Vec<u8>) -> (res: Vec<u8>)
         requires
-            1 <= nums.len() <= 100,
+            1 <= nums.len() <= 50,
             input_digits_valid(nums@),
         ensures
             res@.len() == nums@.len(),

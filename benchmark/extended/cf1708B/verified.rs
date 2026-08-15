@@ -16,10 +16,84 @@ pub open spec fn feasible(n: int, l: int, r: int) -> bool {
         0 <= j && j < n ==> spec_first_mult(l, j + 1) <= r && spec_first_mult(l, j + 1) >= l
 }
 
-pub open spec fn seq_matches_witness(n: int, l: int, r: int, s: Seq<i32>) -> bool {
+pub open spec fn spec_gcd(a: nat, b: nat) -> nat
+    decreases b,
+{
+    if b == 0 {
+        a
+    } else {
+        spec_gcd(b, a % b)
+    }
+}
+
+pub open spec fn all_distinct_gcds(n: int, s: Seq<i32>) -> bool {
     s.len() == n
-        && (forall|i: int|
-            0 <= i && i < n ==> s[i] == spec_first_mult(l, i + 1))
+        && (forall|i: int, j: int|
+            0 <= i && i < j && j < n ==>
+                spec_gcd((i + 1) as nat, s[i] as nat) != spec_gcd((j + 1) as nat, s[j] as nat))
+}
+
+proof fn lemma_gcd_of_multiple(a: nat, m: nat)
+    requires
+        a >= 1,
+        m % a == 0,
+    ensures
+        spec_gcd(a, m) == a,
+{
+    if m == 0 {
+        assert(spec_gcd(a, 0) == a);
+    } else if m == a {
+        assert(spec_gcd(a, a) == spec_gcd(a, a % a));
+        assert(a % a == 0);
+        assert(spec_gcd(a, 0) == a);
+    } else {
+        assert(m > 0);
+        assert(m == (m / a) * a + m % a) by (nonlinear_arith)
+            requires a >= 1,
+        {
+        }
+        assert(m == (m / a) * a);
+        assert(m / a >= 1) by (nonlinear_arith)
+            requires
+                a >= 1,
+                m > 0,
+                m == (m / a) * a,
+        {
+        }
+        assert(m >= a) by (nonlinear_arith)
+            requires
+                a >= 1,
+                m / a >= 1,
+                m == (m / a) * a,
+        {
+        }
+        assert(m > a);
+        assert(a % m == a) by (nonlinear_arith)
+            requires a < m,
+        {
+        }
+        assert(spec_gcd(a, m) == spec_gcd(m, a % m));
+        assert(spec_gcd(m, a) == spec_gcd(a, m % a));
+        assert(m % a == 0);
+        assert(spec_gcd(a, 0) == a);
+    }
+}
+
+proof fn lemma_gcd_of_first_mult(l: int, k: int)
+    requires
+        l >= 1,
+        k >= 1,
+        spec_first_mult(l, k) >= 1,
+    ensures
+        spec_gcd(k as nat, spec_first_mult(l, k) as nat) == k as nat,
+{
+    let m = spec_first_mult(l, k);
+    assert(m == (l + k - 1) / k * k);
+    assert(m % k == 0) by (nonlinear_arith)
+        requires
+            k >= 1,
+            m == (l + k - 1) / k * k;
+    lemma_gcd_of_multiple(k as nat, m as nat);
 }
 
 proof fn lemma_i32_div_mod_nonneg(a: i32, b: i32)
@@ -110,7 +184,7 @@ impl Solution {
             res.0 == feasible(n as int, l as int, r as int),
             !res.0 ==> res.1.len() == 0,
             res.0 ==> res.1.len() == n,
-            res.0 ==> seq_matches_witness(n as int, l as int, r as int, res.1@),
+            res.0 ==> all_distinct_gcds(n as int, res.1@),
             res.0 ==> (forall|i: int|
                 0 <= i && i < n ==> l as int <= #[trigger] res.1@[i] && res.1@[i] <= r as int),
             res.0 ==> (forall|i: int|
@@ -207,7 +281,22 @@ impl Solution {
         }
         proof {
             assert(feasible(n as int, l as int, r as int));
-            assert(seq_matches_witness(n as int, l as int, r as int, a@));
+            assert(a@.len() == n as int);
+            assert forall|ii: int| 0 <= ii && ii < n as int implies
+                spec_gcd((ii + 1) as nat, a@[ii] as nat) == (ii + 1) as nat by {
+                assert(a@[ii] == spec_first_mult(l as int, ii + 1));
+                lemma_spec_first_mult_ge_l(l as int, ii + 1);
+                assert(spec_first_mult(l as int, ii + 1) >= l as int);
+                assert(spec_first_mult(l as int, ii + 1) >= 1);
+                lemma_gcd_of_first_mult(l as int, ii + 1);
+            };
+            assert forall|i: int, j: int| 0 <= i && i < j && j < n as int implies
+                spec_gcd((i + 1) as nat, a@[i] as nat) != spec_gcd((j + 1) as nat, a@[j] as nat) by {
+                assert(spec_gcd((i + 1) as nat, a@[i] as nat) == (i + 1) as nat);
+                assert(spec_gcd((j + 1) as nat, a@[j] as nat) == (j + 1) as nat);
+                assert((i + 1) as nat != (j + 1) as nat);
+            };
+            assert(all_distinct_gcds(n as int, a@));
         }
         (true, a)
     }

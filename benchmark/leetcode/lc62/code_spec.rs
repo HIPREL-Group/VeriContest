@@ -24,7 +24,7 @@ impl Solution {
         requires
             1 <= m <= 100,
             1 <= n <= 100,
-            Solution::unique_paths_spec(m as nat, n as nat) <= i32::MAX,
+            Solution::unique_paths_spec(m as nat, n as nat) <= 2_000_000_000,
         ensures
             result == Solution::unique_paths_spec(m as nat, n as nat),
     {

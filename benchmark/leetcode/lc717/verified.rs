@@ -25,9 +25,10 @@ impl Solution {
 
     pub fn is_one_bit_character(bits: Vec<i32>) -> (res: bool) 
         requires 
-            1 <= bits.len() <= 1000, 
-            forall |i: int| 0 <= i < bits.len() ==> bits[i] == 0 || bits[i] == 1, 
-        ensures 
+            1 <= bits.len() <= 1000,
+            forall |i: int| 0 <= i < bits.len() ==> bits[i] == 0 || bits[i] == 1,
+            bits[bits.len() as int - 1] == 0,
+        ensures
             res == Self::is_one_bit_character_spec(bits@, 0), 
     {
         let n = bits.len();

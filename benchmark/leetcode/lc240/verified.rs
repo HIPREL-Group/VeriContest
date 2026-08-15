@@ -13,7 +13,7 @@ impl Solution {
             0 <= col < matrix[0].len(),
             forall |i: int| 0 <= i < matrix.len() ==> #[trigger] matrix[i].len() == matrix[0].len(),
             forall |i: int, j: int| 0 <= j < matrix[0].len() && 0 <= i < matrix.len() - 1 ==>
-                #[trigger] matrix[i][j] < matrix[i + 1][j],
+                #[trigger] matrix[i][j] <= matrix[i + 1][j],
             matrix[row][col] < target,
         ensures
             forall |i: int| 0 <= i <= row ==> matrix[i][col] < target,
@@ -23,7 +23,7 @@ impl Solution {
             if i == row {
                 assert(matrix[i][col] == matrix[row][col]);
             } else if i == row - 1 {
-                assert(matrix[i][col] < matrix[row][col]);
+                assert(matrix[i][col] <= matrix[row][col]);
             } else {
                 if row > 0 {
                     Self::lemma_column_sorted_implies_all_less(matrix, row - 1, col, target);
@@ -38,7 +38,7 @@ impl Solution {
             0 <= col < matrix[row].len(),
             forall |i: int| 0 <= i < matrix.len() ==> #[trigger] matrix[i].len() == matrix[0].len(),
             forall |i: int, j: int| 0 <= i < matrix.len() && 0 <= j < matrix[i].len() - 1 ==>
-                #[trigger] matrix[i][j] < matrix[i][j + 1],
+                #[trigger] matrix[i][j] <= matrix[i][j + 1],
             matrix[row][col] > target,
         ensures
             forall |j: int| col <= j < matrix[row].len() ==> matrix[row][j] > target,
@@ -48,7 +48,7 @@ impl Solution {
             if j == col {
                 assert(matrix[row][j] == matrix[row][col]);
             } else if j == col + 1 {
-                assert(matrix[row][col] < matrix[row][j]);
+                assert(matrix[row][col] <= matrix[row][j]);
             } else {
                 if col + 1 < matrix[row].len() {
                     Self::lemma_row_sorted_implies_all_greater(matrix, row, col + 1, target);
@@ -65,9 +65,9 @@ impl Solution {
             forall |i: int, j: int| 0 <= i < matrix.len() && 0 <= j < matrix[i].len()
                 ==> -1_000_000_000 <= #[trigger] matrix[i][j] <= 1_000_000_000, 
             forall |i: int, j: int| 0 <= i < matrix.len() && 0 <= j < matrix[i].len() - 1 ==> 
-                #[trigger] matrix[i][j] < matrix[i][j + 1], 
+                #[trigger] matrix[i][j] <= matrix[i][j + 1], 
             forall |i: int, j: int| 0 <= j < matrix[0].len() && 0 <= i < matrix.len() - 1 ==>
-                #[trigger] matrix[i][j] < matrix[i + 1][j], 
+                #[trigger] matrix[i][j] <= matrix[i + 1][j], 
             -1_000_000_000 <= target <= 1_000_000_000, 
         ensures 
             res == (exists |i: int, j: int| 
@@ -86,9 +86,9 @@ impl Solution {
                 forall |i: int, j: int| 0 <= i < matrix.len() && 0 <= j < matrix[i].len()
                     ==> -1_000_000_000 <= #[trigger] matrix[i][j] <= 1_000_000_000, 
                 forall |i: int, j: int| 0 <= i < matrix.len() && 0 <= j < matrix[i].len() - 1 ==> 
-                    #[trigger] matrix[i][j] < matrix[i][j + 1], 
+                    #[trigger] matrix[i][j] <= matrix[i][j + 1], 
                 forall |i: int, j: int| 0 <= j < matrix[0].len() && 0 <= i < matrix.len() - 1 ==>
-                    #[trigger] matrix[i][j] < matrix[i + 1][j], 
+                    #[trigger] matrix[i][j] <= matrix[i + 1][j], 
                 -1_000_000_000 <= target <= 1_000_000_000, 
                 m == matrix.len() - 1,
                 n == matrix[0].len() - 1,

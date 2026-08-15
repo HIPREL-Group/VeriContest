@@ -52,7 +52,6 @@ fn set_cell(grid: &mut Vec<Vec<i32>>, row: usize, col: usize, value: i32)
 
 impl Solution {
     #[verifier::loop_isolation(false)]
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn order_of_largest_plus_sign(n: i32, mines: Vec<Vec<i32>>) -> (result: i32)
         requires
             1 <= n <= 500,

@@ -71,6 +71,8 @@ impl Solution {
             nums.len() == cost.len(),
             forall|i: int| 0 <= i && i < nums.len() ==> 1 <= nums[i] && nums[i] <= 1_000_000,
             forall|i: int| 0 <= i && i < cost.len() ==> 1 <= cost[i] && cost[i] <= 1_000_000,
+            exists|target: int| 1 <= target && target <= 1_000_000
+                && #[trigger] Self::move_cost(nums@, cost@, target, nums.len() as int) <= 9007199254740991,
         ensures
             result >= 0,
             forall|target: int| 1 <= target && target <= 1_000_000 ==> result as int <= #[trigger] Self::move_cost(nums@, cost@, target, nums.len() as int),

@@ -213,6 +213,21 @@ impl Solution {
     {
     }
 
+    pub open spec fn valid_bishop_pair(board: Seq<i64>, n: int, p: int, q: int) -> bool
+        recommends
+            0 < n,
+            board.len() == n * n,
+    {
+        Self::valid_flat_index(n, p)
+            && Self::valid_flat_index(n, q)
+            && Self::index_parity(n, p) == 0
+            && Self::index_parity(n, q) == 1
+            && (forall |idx: int| 0 <= idx < board.len() && Self::index_parity(n, idx) == 0
+                ==> Self::cell_score_at_index(board, n, idx) <= Self::cell_score_at_index(board, n, p))
+            && (forall |idx: int| 0 <= idx < board.len() && Self::index_parity(n, idx) == 1
+                ==> Self::cell_score_at_index(board, n, idx) <= Self::cell_score_at_index(board, n, q))
+    }
+
     pub fn best_bishops(n: usize, board: Vec<i64>) -> (result: (i128, usize, usize))
         requires
             2 <= n <= 2000,
@@ -223,14 +238,10 @@ impl Solution {
         ensures
             result.1 < board.len(),
             result.2 < board.len(),
-            Self::index_parity(n as int, result.1 as int) == 0,
-            Self::index_parity(n as int, result.2 as int) == 1,
+            Self::valid_bishop_pair(board@, n as int, result.1 as int, result.2 as int)
+                || Self::valid_bishop_pair(board@, n as int, result.2 as int, result.1 as int),
             result.0 as int == Self::cell_score_at_index(board@, n as int, result.1 as int)
                 + Self::cell_score_at_index(board@, n as int, result.2 as int),
-            forall |idx: int| 0 <= idx < board.len() && Self::index_parity(n as int, idx) == 0 ==> Self::cell_score_at_index(board@, n as int, idx)
-                <= Self::cell_score_at_index(board@, n as int, result.1 as int),
-            forall |idx: int| 0 <= idx < board.len() && Self::index_parity(n as int, idx) == 1 ==> Self::cell_score_at_index(board@, n as int, idx)
-                <= Self::cell_score_at_index(board@, n as int, result.2 as int),
     {
         let diag_len = 2 * n - 1;
         let mut main_diag = Vec::new();

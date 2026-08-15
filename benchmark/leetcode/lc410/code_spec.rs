@@ -66,7 +66,8 @@ impl Solution {
             nums.len() >= 1,
             nums.len() <= 1_000,
             forall|i: int| 0 <= i < nums.len() ==> 0 <= #[trigger] nums[i] <= 1_000_000,
-            k >= 1,
+            1 <= k <= 50,
+            k as int <= nums.len(),
             0 <= max_sum <= 1_000_000_000i64,
         ensures
             result == (Self::greedy_count_spec(nums@, max_sum as int, 0, 0) <= k as int),

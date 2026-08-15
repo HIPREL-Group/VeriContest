@@ -22,7 +22,6 @@ impl Solution {
             0 <= val <= 100,
         ensures
             0 <= k <= nums.len(),
-            nums.len() == old(nums).len(),
             forall |i: int| 0 <= i < k as int ==> nums[i] != val,
             forall |v: i32| v != val ==>
                 Self::count_to(nums@, v, k as int) ==

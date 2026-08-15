@@ -89,22 +89,32 @@ impl Solution {
         ensures
             result.len() == Self::count_nonzero_digits(n as int),
             Self::spec_sum_prefix(result@, result.len() as int) == n,
-            forall|i: int| 0 <= i < result.len() ==> Self::is_base10_component(#[trigger] result[i] as int),
+            forall|i: int| #![trigger result[i]] 0 <= i < result.len() ==>
+                exists|d: int, p: int| #![trigger d * p]
+                    1 <= d <= 9 && p >= 1 && Self::is_power10(p)
+                    && result[i] == d * p
+                    && d == (n as int / p) % 10,
             forall|i: int, j: int| 0 <= i < j < result.len() ==> #[trigger] result[i] > #[trigger] result[j],
     {
         let mut m: i64 = n as i64;
         let mut place: i64 = 1;
         let mut asc: Vec<i32> = Vec::new();
+        let ghost mut places: Seq<int> = Seq::empty();
         while m > 0
             invariant
                 1 <= n <= 1_000_000_000,
                 0 <= m,
                 1 <= place <= 10_000_000_000,
                 Self::is_power10(place as int),
+                m as int == n as int / place as int,
                 0 <= Self::spec_sum_prefix(asc@, asc.len() as int),
                 Self::spec_sum_prefix(asc@, asc.len() as int) + m as int * place as int == n as int,
                 asc.len() + Self::count_nonzero_digits(m as int) == Self::count_nonzero_digits(n as int),
                 forall|i: int| 0 <= i < asc.len() ==> Self::is_base10_component(#[trigger] asc[i] as int),
+                places.len() == asc.len(),
+                forall|i: int| 0 <= i < asc.len() ==>
+                    #[trigger] places[i] >= 1 && Self::is_power10(places[i])
+                    && asc[i] as int == ((n as int / places[i]) % 10) * places[i],
                 forall|i: int| 0 <= i < asc.len() ==> 0 < #[trigger] asc[i] < place as int,
                 forall|i: int, j: int| 0 <= i < j < asc.len() ==> #[trigger] asc[i] < #[trigger] asc[j],
             decreases m,
@@ -113,6 +123,7 @@ impl Solution {
             let ghost old_m: int = m as int;
             let ghost old_place: int = place as int;
             let ghost old_sum = Self::spec_sum_prefix(old_seq, old_seq.len() as int);
+            let ghost old_places = places;
 
             let digit: i64 = m % 10;
             if digit != 0 {
@@ -153,13 +164,33 @@ impl Solution {
                             n as int <= i32::MAX,
                     ;
                     assert(exists|d: int, p: int| 1 <= d <= 9 && p >= 1 && Self::is_power10(p) && (digit as int * old_place) == #[trigger] (d * p));
+                    assert(digit as int == (n as int / old_place) % 10) by {
+                        assert(old_m == n as int / old_place);
+                        assert(digit as int == old_m % 10);
+                    }
                 }
                 asc.push((digit * place) as i32);
+                proof {
+                    places = old_places.push(old_place);
+                }
             }
 
             m = m / 10;
             proof {
                 assert(old_m == 10 * (m as int) + digit as int);
+                assert(n as int == old_place * (n as int / old_place) + (n as int % old_place)) by (nonlinear_arith)
+                    requires old_place >= 1;
+                assert(0 <= n as int % old_place < old_place) by (nonlinear_arith)
+                    requires 1 <= old_place;
+                assert(m as int == n as int / (old_place * 10)) by (nonlinear_arith)
+                    requires
+                        old_m == n as int / old_place,
+                        old_m == 10 * (m as int) + digit as int,
+                        0 <= digit as int <= 9,
+                        1 <= old_place,
+                        n as int == old_place * (n as int / old_place) + (n as int % old_place),
+                        0 <= n as int % old_place < old_place,
+                ;
                 if digit == 0 {
                     assert(Self::spec_sum_prefix(asc@, asc.len() as int) == old_sum + digit as int * old_place);
                 } else {
@@ -190,6 +221,20 @@ impl Solution {
                         Self::spec_sum_prefix(asc@, asc.len() as int) == old_sum + digit as int * old_place,
                         old_sum + old_m * old_place == n as int,
                 ;
+                assert forall|i: int| 0 <= i < asc.len() implies
+                    #[trigger] places[i] >= 1 && Self::is_power10(places[i])
+                    && asc[i] as int == ((n as int / places[i]) % 10) * places[i]
+                by {
+                    if digit != 0 && i == old_seq.len() {
+                        assert(places[i] == old_place);
+                        assert((digit * place) as int == (digit as int) * old_place);
+                        assert(asc[i] as int == (digit as int) * old_place);
+                        assert(digit as int == (n as int / old_place) % 10);
+                    } else {
+                        assert(places[i] == old_places[i]);
+                        assert(asc[i] == old_seq[i]);
+                    }
+                }
                 assert forall|i: int| 0 <= i < asc.len() implies 0 < #[trigger] asc[i] && asc[i] < old_place * 10 by {
                     if digit != 0 && i == old_seq.len() {
                         let x = (digit * place) as i32;
@@ -236,6 +281,12 @@ impl Solution {
             place = place * 10;
         }
 
+        proof {
+            assert(m == 0);
+            assert(Self::spec_sum_prefix(asc@, asc.len() as int) + 0 * (place as int) == n as int);
+            assert(Self::spec_sum_prefix(asc@, asc.len() as int) == n as int);
+        }
+
         let mut result: Vec<i32> = Vec::with_capacity(asc.len());
         let mut i: usize = asc.len();
         while i > 0
@@ -273,10 +324,30 @@ impl Solution {
             assert(Self::spec_sum_prefix(asc@, 0) == 0);
             assert(Self::spec_sum_prefix(result@, result.len() as int) == n);
 
-            assert forall|k: int| 0 <= k < result.len() implies Self::is_base10_component(#[trigger] result[k] as int) by {
+            assert forall|k: int| #![trigger result[k]] 0 <= k < result.len() implies
+                exists|d: int, p: int| #![trigger d * p]
+                    1 <= d <= 9 && p >= 1 && Self::is_power10(p)
+                    && result[k] == d * p
+                    && d == (n as int / p) % 10
+            by {
                 assert(result[k] == asc[asc.len() - 1 - k]);
                 assert(0 <= asc.len() - 1 - k < asc.len());
-                assert(Self::is_base10_component(asc[asc.len() - 1 - k] as int));
+                let idx = asc.len() - 1 - k;
+                let p = places[idx];
+                assert(p >= 1 && Self::is_power10(p));
+                assert(asc[idx] as int == ((n as int / p) % 10) * p);
+                let d = (n as int / p) % 10;
+                assert(result[k] as int == d * p);
+                assert(0 <= d <= 9);
+                assert(asc[idx] as int > 0);
+                assert(result[k] as int > 0);
+                assert(1 <= d) by (nonlinear_arith)
+                    requires
+                        result[k] as int == d * p,
+                        result[k] as int > 0,
+                        0 <= d,
+                        p >= 1,
+                ;
             }
 
             assert forall|a: int, b: int| 0 <= a < b < result.len() implies #[trigger] result[a] > #[trigger] result[b] by {

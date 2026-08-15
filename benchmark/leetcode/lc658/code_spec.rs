@@ -13,6 +13,10 @@ impl Solution {
         da < db || (da == db && a < b)
     }
 
+    pub open spec fn should_move_right(arr: Seq<i32>, s: int, k: int, x: int) -> bool {
+        x - arr[s] as int > arr[s + k] as int - x
+    }
+
     pub fn find_closest_elements(arr: Vec<i32>, k: i32, x: i32) -> (result: Vec<i32>)
         requires
             1 <= k <= arr.len() as i32,
@@ -28,49 +32,30 @@ impl Solution {
             exists|start: int| #![trigger arr[start + 0]]
                 0 <= start <= arr.len() - k as int
                 && forall|i: int| 0 <= i < k as int ==> result[i] == arr[start + i]
-                && (start == 0 || !Self::closer(arr[start - 1], arr[start + k as int - 1], x))
-                && (start + k as int >= arr.len() as int || !Self::closer(arr[start + k as int], arr[start], x)),
+                && (start == 0 || Self::should_move_right(arr@, start - 1, k as int, x as int))
+                && (start + k as int >= arr.len() as int || !Self::should_move_right(arr@, start, k as int, x as int)),
     {
         let n = arr.len();
         let k_usize = k as usize;
-        if x <= arr[0] {
-            let mut res = Vec::new();
-            let mut i: usize = 0;
-            while i < k_usize {
-                res.push(arr[i]);
-                i += 1;
+        let mut low: usize = 0;
+        let mut high = n - k_usize;
+        while low < high {
+            let mid = low + (high - low) / 2;
+            let left_dist = x as i64 - arr[mid] as i64;
+            let right_dist = arr[mid + k_usize] as i64 - x as i64;
+            if left_dist > right_dist {
+                low = mid + 1;
+            } else {
+                high = mid;
             }
-            res
-        } else if x >= arr[n - 1] {
-            let mut res = Vec::new();
-            let start = n - k_usize;
-            let mut i = start;
-            while i < n {
-                res.push(arr[i]);
-                i += 1;
-            }
-            res
-        } else {
-            let mut low: usize = 0;
-            let mut high = n - k_usize;
-            while low < high {
-                let mid = low + (high - low) / 2;
-                let left_dist = x as i64 - arr[mid] as i64;
-                let right_dist = arr[mid + k_usize] as i64 - x as i64;
-                if left_dist > right_dist {
-                    low = mid + 1;
-                } else {
-                    high = mid;
-                }
-            }
-            let mut res = Vec::new();
-            let mut i = low;
-            while i < low + k_usize {
-                res.push(arr[i]);
-                i += 1;
-            }
-            res
         }
+        let mut res = Vec::new();
+        let mut i = low;
+        while i < low + k_usize {
+            res.push(arr[i]);
+            i += 1;
+        }
+        res
     }
 }
 

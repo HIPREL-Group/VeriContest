@@ -27,11 +27,26 @@ impl Solution {
         Self::dot_prefix(a, b, a.len() as int)
     }
 
+    pub open spec fn abs_val(x: i32) -> int {
+        if x >= 0 { x as int } else { -(x as int) }
+    }
+
+    pub open spec fn abs_sum_prefix(b: Seq<i32>, n: int) -> int
+        decreases n,
+    {
+        if n <= 0 {
+            0
+        } else {
+            Self::abs_sum_prefix(b, n - 1) + Self::abs_val(b[n - 1])
+        }
+    }
+
     pub open spec fn valid_coeffs(a: Seq<i32>, b: Seq<i32>) -> bool {
         &&& a.len() == b.len()
         &&& 2 <= a.len()
         &&& forall|i: int| 0 <= i < a.len() ==> #[trigger] b[i] != 0
         &&& Self::dot(a, b) == 0
+        &&& Self::abs_sum_prefix(b, b.len() as int) <= 1_000_000_000
     }
 
     pub fn construct_coeffs(a: Vec<i32>) -> (b: Vec<i32>)

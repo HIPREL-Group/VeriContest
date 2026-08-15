@@ -159,7 +159,7 @@ proof fn lemma_count_digit_same_prefix(seq1: Seq<u8>, seq2: Seq<u8>, v: int, end
 impl Solution {
     pub fn sort_digits(nums: Vec<u8>) -> (res: Vec<u8>)
         requires
-            1 <= nums.len() <= 100,
+            1 <= nums.len() <= 50,
             input_digits_valid(nums@),
         ensures
             res@.len() == nums@.len(),

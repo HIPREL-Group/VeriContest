@@ -20,7 +20,7 @@ impl Solution {
 
     pub fn find_complement_nonzero(num: i32) -> (res: i32)
         requires
-            1 <= num <= i32::MAX,
+            1 <= num <= 999999999,
         ensures
             res == Solution::bitwise_complement_spec(num as nat),
     {

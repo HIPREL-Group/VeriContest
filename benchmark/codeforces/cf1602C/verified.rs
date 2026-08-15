@@ -22,6 +22,7 @@ impl Solution {
     {
         &&& forall|idx: int| 0 <= idx < ans.len() ==> 1 <= ans[idx] as int <= n && Self::common_divisor(cnt, ans[idx] as int)
         &&& forall|d: int| 1 <= d <= n && Self::common_divisor(cnt, d) ==> exists|idx: int| 0 <= idx < ans.len() && ans[idx] as int == d
+        &&& forall|i: int, j: int| 0 <= i < j < ans.len() ==> #[trigger] ans[i] < #[trigger] ans[j]
     }
 
     pub fn valid_k_values(n: usize, cnt: Vec<i32>) -> (ans: Vec<i32>)
@@ -44,6 +45,7 @@ impl Solution {
                 forall|idx: int| 0 <= idx < ans.len() ==> 1 <= (ans[idx] as int) && (ans[idx] as int) < (k as int) && Self::common_divisor(cnt@, ans[idx] as int),
                 forall|d: int| 1 <= d < k as int && #[trigger] Self::common_divisor(cnt@, d)
                     ==> exists|idx: int| 0 <= idx < ans.len() && ans[idx] as int == d,
+                forall|i: int, j: int| 0 <= i < j < ans.len() ==> #[trigger] ans[i] < #[trigger] ans[j],
             decreases
                 n + 1 - k,
         {
@@ -81,6 +83,16 @@ impl Solution {
                 ans.push(k as i32);
                 proof {
                     assert(ans@ == ans_before.push(k as i32));
+                    assert forall|i: int, j: int| 0 <= i < j < ans@.len() implies #[trigger] ans@[i] < #[trigger] ans@[j] by {
+                        if j < ans_before.len() {
+                            assert(ans@[i] == ans_before[i]);
+                            assert(ans@[j] == ans_before[j]);
+                        } else {
+                            assert(j == ans_before.len());
+                            assert(ans@[j] == k as i32);
+                            assert(ans@[i] == ans_before[i]);
+                        }
+                    };
                 }
             } else {
                 proof {
@@ -132,6 +144,7 @@ impl Solution {
                 implies exists|idx: int| 0 <= idx < ans@.len() && ans@[idx] as int == d by {
                 assert(1 <= d < k as int);
             }
+            assert(forall|i: int, j: int| 0 <= i < j < ans@.len() ==> #[trigger] ans@[i] < #[trigger] ans@[j]);
             assert(Self::valid_answer(n as int, cnt@, ans@));
         }
 

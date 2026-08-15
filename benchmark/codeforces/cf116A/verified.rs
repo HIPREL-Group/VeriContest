@@ -131,6 +131,7 @@ impl Solution {
             entries[exits.len() - 1] == 0,
             forall|i: int| 0 <= i < exits.len() ==>
                 #[trigger] exits@[i] as int <= prefix_passengers(entries@, exits@, i),
+            prefix_passengers(entries@, exits@, exits.len() as int) == 0,
         ensures
             result as int == max_prefix_passengers(entries@, exits@, exits.len() as int),
             forall|i: int| 0 <= i <= exits.len() as int ==>

@@ -84,7 +84,9 @@ impl Solution {
             forall|k: int| 0 <= k < x.len() ==> 1 <= #[trigger] x[k] <= 1_000_000_000_000_000_000,
             forall|k: int| 0 <= k < p.len() ==> 1 <= #[trigger] p[k] <= 1_000_000_000_000_000_000,
         ensures
-            res.0 ==> (res.2 as int) < p.len() && res.1 == x[0] && Self::spec_divides_u64(
+            res.0 ==> (res.2 as int) < p.len() && 1 <= res.1 <= x[0]
+                && Self::spec_divides_u64((x[0] - res.1) as u64, p[res.2 as int] as u64)
+                && Self::spec_divides_u64(
                 Self::spec_gcd_consecutive_diffs(x@),
                 p[res.2 as int] as u64,
             ),

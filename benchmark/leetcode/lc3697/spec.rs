@@ -49,7 +49,11 @@ impl Solution {
         ensures
             result.len() == Self::count_nonzero_digits(n as int),
             Self::spec_sum_prefix(result@, result.len() as int) == n,
-            forall|i: int| 0 <= i < result.len() ==> Self::is_base10_component(#[trigger] result[i] as int),
+            forall|i: int| #![trigger result[i]] 0 <= i < result.len() ==>
+                exists|d: int, p: int| #![trigger d * p]
+                    1 <= d <= 9 && p >= 1 && Self::is_power10(p)
+                    && result[i] == d * p
+                    && d == (n as int / p) % 10,
             forall|i: int, j: int| 0 <= i < j < result.len() ==> #[trigger] result[i] > #[trigger] result[j],
     {
     }

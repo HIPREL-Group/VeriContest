@@ -84,6 +84,8 @@ impl Solution {
                 exists |i: int| #![auto] 0 <= i < result@.len()
                     && result@[i]@[0] == a as i32
                     && result@[i]@[1] == b as i32,
+            forall |i: int, j: int| 0 <= i < j < result@.len() ==>
+                (#[trigger] result@[i])@[0] != (#[trigger] result@[j])@[0],
     {
         let mut result: Vec<Vec<i32>> = Vec::new();
         let mut x: usize = 1;
@@ -106,6 +108,10 @@ impl Solution {
                     exists |i: int| #![auto] 0 <= i < result@.len()
                         && result@[i]@[0] == a as i32
                         && result@[i]@[1] == b as i32,
+                forall |i: int| 0 <= i < result@.len() ==>
+                    (#[trigger] result@[i])@[0] < x as int,
+                forall |i: int, j: int| 0 <= i < j < result@.len() ==>
+                    (#[trigger] result@[i])@[0] != (#[trigger] result@[j])@[0],
             decreases 1001 - x + y,
         {
             let val = customfunction.f(x as i32, y as i32);
@@ -173,6 +179,26 @@ impl Solution {
                             assert(a == old_x && b == old_y);
                             assert(result@[old_len]@[0] == a as i32);
                             assert(result@[old_len]@[1] == b as i32);
+                        }
+                    };
+
+                    assert forall |i: int| 0 <= i < result@.len()
+                    implies (#[trigger] result@[i])@[0] < (old_x + 1) as int by {
+                        if i < old_len {
+                            assert(old_result[i]@[0] < old_x);
+                            assert(result@[i]@[0] == old_result[i]@[0]);
+                        } else {
+                            assert(result@[old_len]@[0] == old_x as i32);
+                        }
+                    };
+
+                    assert forall |i: int, j: int| 0 <= i < j < result@.len()
+                    implies (#[trigger] result@[i])@[0] != (#[trigger] result@[j])@[0] by {
+                        if j < old_len {
+                            assert(old_result[i]@[0] != old_result[j]@[0]);
+                        } else {
+                            assert(old_result[i]@[0] < old_x);
+                            assert(result@[j]@[0] == old_x as i32);
                         }
                     };
                 }

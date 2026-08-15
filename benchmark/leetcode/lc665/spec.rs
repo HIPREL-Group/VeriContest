@@ -18,24 +18,6 @@ impl Solution {
             && Self::is_non_decreasing(#[trigger] nums.update(k, v))
     }
 
-    pub open spec fn can_fix_at_index(nums: Seq<i32>, k: int) -> bool {
-        &&& 0 <= k < nums.len() as int
-        &&& forall|j: int|
-                0 <= j < nums.len() as int - 1 ==>
-                (j == k - 1 || j == k || #[trigger] nums[j] <= nums[j + 1])
-        &&& (0 < k && k < nums.len() as int - 1 ==> nums[k - 1] <= nums[k + 1])
-    }
-
-    fn check_index(nums: &Vec<i32>, k: usize) -> (ok: bool)
-        requires
-            1 <= nums.len(),
-            k < nums.len(),
-        ensures
-            ok <==> Self::can_fix_at_index(nums@, k as int),
-    {
-        
-    }
-
     pub fn check_possibility(nums: Vec<i32>) -> (result: bool)
         requires
             1 <= nums.len() <= 10_000,

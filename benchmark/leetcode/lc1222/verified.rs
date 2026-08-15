@@ -90,6 +90,8 @@ impl Solution {
                 exists |i: int| 0 <= i < result.len() &&
                     result[i][0] == queens[qi][0] && result[i][1] == queens[qi][1]
             ),
+            forall |i: int, j: int| 0 <= i < j < result.len() ==>
+                !(result[i][0] == result[j][0] && result[i][1] == result[j][1]),
     {
         let kr = king[0];
         let kc = king[1];
@@ -125,7 +127,9 @@ impl Solution {
                     result[ri][1] == queens[qi_map[ri] as int][1] &&
                     directly_attacks(queens@, qi_map[ri], king[0] as int, king[1] as int)
                 ),
-                
+                forall |ri: int| #![trigger qi_map[ri]] 0 <= ri < qi_map.len() ==> qi_map[ri] < i as int,
+                forall |a: int, b: int| 0 <= a < b < qi_map.len() ==> qi_map[a] < qi_map[b],
+
                 ri_map.len() == queens.len(),
                 forall |qi: int| #![trigger ri_map[qi]] 0 <= qi < i as int &&
                     directly_attacks(queens@, qi, king[0] as int, king[1] as int) ==> (
@@ -135,6 +139,7 @@ impl Solution {
                 ),
             decreases n - i,
         {
+            let ghost i_before: int = i as int;
             let qr = queens[i][0];
             let qc = queens[i][1];
             let dr: i32 = if qr > kr { qr - kr } else { kr - qr };
@@ -313,16 +318,45 @@ impl Solution {
                                 assert(result[ri_map[qi]] == old_result[ri_map[qi] as int]);
                             }
                         };
+
+                        assert forall |ri: int| 0 <= ri < qi_map.len() implies #[trigger] qi_map[ri] <= i_before by {
+                            if ri == pre_len as int {
+                                assert(qi_map[ri] == i as int);
+                            } else {
+                                assert(qi_map[ri] == old_qi_map[ri]);
+                                assert(old_qi_map[ri] < i_before);
+                            }
+                        };
+                        assert forall |a: int, b: int| 0 <= a < b < qi_map.len() implies qi_map[a] < qi_map[b] by {
+                            if b < pre_len as int {
+                                assert(qi_map[a] == old_qi_map[a]);
+                                assert(qi_map[b] == old_qi_map[b]);
+                                assert(old_qi_map[a] < old_qi_map[b]);
+                            } else {
+                                assert(b == pre_len as int);
+                                assert(qi_map[b] == i as int);
+                                if a < pre_len as int {
+                                    assert(qi_map[a] == old_qi_map[a]);
+                                    assert(old_qi_map[a] < i_before);
+                                }
+                            }
+                        };
                     }
                 } else {
                     proof {
                         reveal(directly_attacks);
                         assert(!directly_attacks(queens@, i as int, kr as int, kc as int));
+                        assert forall |ri: int| 0 <= ri < qi_map.len() implies #[trigger] qi_map[ri] <= i_before by {
+                            assert(qi_map[ri] < i_before);
+                        };
                     }
                 }
             } else {
                 proof {
                     reveal(directly_attacks);
+                    assert forall |ri: int| 0 <= ri < qi_map.len() implies #[trigger] qi_map[ri] <= i_before by {
+                        assert(qi_map[ri] < i_before);
+                    };
                     assert(!on_line(qr as int, qc as int, kr as int, kc as int));
                     assert(!directly_attacks(queens@, i as int, kr as int, kc as int));
                     
@@ -408,6 +442,18 @@ impl Solution {
                 assert(0 <= w < result.len() as int);
                 assert(result[w][0] == queens[qi][0]);
                 assert(result[w][1] == queens[qi][1]);
+            };
+
+            assert forall |a: int, b: int| 0 <= a < b < result.len() implies
+                !(result[a][0] == result[b][0] && result[a][1] == result[b][1]) by {
+                let qa = qi_map[a];
+                let qb = qi_map[b];
+                assert(qa < qb);
+                assert(result[a][0] == queens[qa as int][0]);
+                assert(result[a][1] == queens[qa as int][1]);
+                assert(result[b][0] == queens[qb as int][0]);
+                assert(result[b][1] == queens[qb as int][1]);
+                assert(!(queens[qa as int][0] == queens[qb as int][0] && queens[qa as int][1] == queens[qb as int][1]));
             };
         }
         result

@@ -13,6 +13,10 @@ impl Solution {
         da < db || (da == db && a < b)
     }
 
+    pub open spec fn should_move_right(arr: Seq<i32>, s: int, k: int, x: int) -> bool {
+        x - arr[s] as int > arr[s + k] as int - x
+    }
+
     pub fn find_closest_elements(arr: Vec<i32>, k: i32, x: i32) -> (result: Vec<i32>)
         requires
             1 <= k <= arr.len() as i32,
@@ -28,8 +32,8 @@ impl Solution {
             exists|start: int| #![trigger arr[start + 0]]
                 0 <= start <= arr.len() - k as int
                 && forall|i: int| 0 <= i < k as int ==> result[i] == arr[start + i]
-                && (start == 0 || !Self::closer(arr[start - 1], arr[start + k as int - 1], x))
-                && (start + k as int >= arr.len() as int || !Self::closer(arr[start + k as int], arr[start], x)),
+                && (start == 0 || Self::should_move_right(arr@, start - 1, k as int, x as int))
+                && (start + k as int >= arr.len() as int || !Self::should_move_right(arr@, start, k as int, x as int)),
     {
     }
 }

@@ -11,6 +11,7 @@ impl Solution {
         1 <= starts.len() <= 50
             && starts.len() == ends.len()
             && forall|i: int| 0 <= i < starts.len() ==> 0 <= #[trigger] starts[i] < #[trigger] ends[i] <= 1000
+            && forall|i: int| 0 <= i < starts.len() - 1 ==> #[trigger] ends[i] < starts[i + 1]
     }
 
     pub open spec fn intervals_overlap_at_shift(

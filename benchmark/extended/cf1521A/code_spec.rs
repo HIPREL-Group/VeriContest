@@ -16,6 +16,8 @@ pub open spec fn is_nearly_good(a: int, b: int, v: int) -> bool {
 
 pub open spec fn valid_triple(a: int, b: int, x: int, y: int, z: int) -> bool {
     x + y == z
+    && x != y && y != z && x != z
+    && x <= 1_000_000_000_000_000_000 && y <= 1_000_000_000_000_000_000 && z <= 1_000_000_000_000_000_000
     && (
         (is_good(a, b, x) && is_nearly_good(a, b, y) && is_nearly_good(a, b, z))
         || (is_good(a, b, y) && is_nearly_good(a, b, x) && is_nearly_good(a, b, z))

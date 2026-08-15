@@ -23,6 +23,7 @@ impl Solution {
             old(nums2).len() == n as int,
             forall |i: int| 0 <= i < m as int ==>
                 -1_000_000_000 <= #[trigger] old(nums1)[i] <= 1_000_000_000,
+            forall |i: int| m as int <= i < (m + n) as int ==> #[trigger] old(nums1)[i] == 0,
             forall |i: int| 0 <= i < n as int ==>
                 -1_000_000_000 <= #[trigger] old(nums2)[i] <= 1_000_000_000,
             forall |i: int, j: int| 0 <= i <= j < m as int ==>

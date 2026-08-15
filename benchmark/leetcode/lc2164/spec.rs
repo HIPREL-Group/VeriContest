@@ -7,6 +7,7 @@ verus! {
 pub struct Solution;
 
 impl Solution {
+    #[verifier::opaque]
     pub open spec fn is_reorder_of<T>(r: Seq<int>, p: Seq<T>, s: Seq<T>) -> bool {
         &&& r.len() == s.len()
         &&& p.len() == s.len()
@@ -39,7 +40,8 @@ impl Solution {
             result.len() == nums.len(),
             Self::even_indices_sorted(result@),
             Self::odd_indices_sorted(result@),
-            exists |r: Seq<int>| Self::is_reorder_of(r, result@, nums@),
+            exists |r: Seq<int>| Self::is_reorder_of(r, result@, nums@)
+                && forall |i: int| 0 <= i < r.len() ==> #[trigger] r[i] % 2 == i % 2,
     {
     }
 }

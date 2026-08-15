@@ -27,11 +27,26 @@ impl Solution {
         Self::dot_prefix(a, b, a.len() as int)
     }
 
+    pub open spec fn abs_val(x: i32) -> int {
+        if x >= 0 { x as int } else { -(x as int) }
+    }
+
+    pub open spec fn abs_sum_prefix(b: Seq<i32>, n: int) -> int
+        decreases n,
+    {
+        if n <= 0 {
+            0
+        } else {
+            Self::abs_sum_prefix(b, n - 1) + Self::abs_val(b[n - 1])
+        }
+    }
+
     pub open spec fn valid_coeffs(a: Seq<i32>, b: Seq<i32>) -> bool {
         &&& a.len() == b.len()
         &&& 2 <= a.len()
         &&& forall|i: int| 0 <= i < a.len() ==> #[trigger] b[i] != 0
         &&& Self::dot(a, b) == 0
+        &&& Self::abs_sum_prefix(b, b.len() as int) <= 1_000_000_000
     }
 
     proof fn lemma_pair_prefix(a: Seq<i32>, b: Seq<i32>, i: int)
@@ -70,6 +85,48 @@ impl Solution {
         }
     }
 
+    proof fn lemma_abs_sum_prefix_step(b: Seq<i32>, i: int)
+        requires
+            0 <= i,
+            i < b.len(),
+        ensures
+            Self::abs_sum_prefix(b, i + 1) == Self::abs_sum_prefix(b, i) + Self::abs_val(b[i]),
+    {
+    }
+
+    proof fn lemma_abs_sum_prefix_append_invariant(b1: Seq<i32>, b2: Seq<i32>, n: int)
+        requires
+            0 <= n <= b1.len(),
+            b1.len() <= b2.len(),
+            forall|k: int| 0 <= k < n ==> b1[k] == b2[k],
+        ensures
+            Self::abs_sum_prefix(b1, n) == Self::abs_sum_prefix(b2, n),
+        decreases n,
+    {
+        if n > 0 {
+            Self::lemma_abs_sum_prefix_append_invariant(b1, b2, n - 1);
+        }
+    }
+
+    proof fn lemma_pair_abs_bound(b: Seq<i32>, i: int, n: int)
+        requires
+            0 <= i <= n <= b.len(),
+            (n - i) % 2 == 0,
+            forall|j: int|
+                i <= j < n && (j - i) % 2 == 0
+                    ==> #[trigger] Self::abs_val(b[j]) + Self::abs_val(b[j + 1]) <= 20000,
+        ensures
+            Self::abs_sum_prefix(b, n) <= Self::abs_sum_prefix(b, i) + 10000 * (n - i),
+        decreases n - i,
+    {
+        if i < n {
+            Self::lemma_pair_abs_bound(b, i + 2, n);
+            Self::lemma_abs_sum_prefix_step(b, i);
+            Self::lemma_abs_sum_prefix_step(b, i + 1);
+            assert(Self::abs_val(b[i]) + Self::abs_val(b[i + 1]) <= 20000);
+        }
+    }
+
     pub fn construct_coeffs(a: Vec<i32>) -> (b: Vec<i32>)
         requires
             2 <= a.len() <= 100000,
@@ -85,6 +142,11 @@ impl Solution {
             let x0 = a[0];
             let x1 = a[1];
             let x2 = a[2];
+            proof {
+                assert(-10000 <= a@[0] as int <= 10000);
+                assert(-10000 <= a@[1] as int <= 10000);
+                assert(-10000 <= a@[2] as int <= 10000);
+            }
             if x0 + x1 != 0 {
                 b.push(x2);
                 b.push(x2);
@@ -107,6 +169,14 @@ impl Solution {
                             a@[0] == x0,
                             a@[1] == x1,
                             a@[2] == x2;
+                    assert(Self::abs_sum_prefix(b@, 1)
+                        == Self::abs_sum_prefix(b@, 0) + Self::abs_val(b@[0]));
+                    assert(Self::abs_sum_prefix(b@, 2)
+                        == Self::abs_sum_prefix(b@, 1) + Self::abs_val(b@[1]));
+                    assert(Self::abs_sum_prefix(b@, 3)
+                        == Self::abs_sum_prefix(b@, 2) + Self::abs_val(b@[2]));
+                    assert(Self::abs_sum_prefix(b@, 0) == 0);
+                    assert(Self::abs_sum_prefix(b@, 3) <= 40000);
                 }
             } else if x0 + x2 != 0 {
                 b.push(x1);
@@ -130,6 +200,14 @@ impl Solution {
                             a@[0] == x0,
                             a@[1] == x1,
                             a@[2] == x2;
+                    assert(Self::abs_sum_prefix(b@, 1)
+                        == Self::abs_sum_prefix(b@, 0) + Self::abs_val(b@[0]));
+                    assert(Self::abs_sum_prefix(b@, 2)
+                        == Self::abs_sum_prefix(b@, 1) + Self::abs_val(b@[1]));
+                    assert(Self::abs_sum_prefix(b@, 3)
+                        == Self::abs_sum_prefix(b@, 2) + Self::abs_val(b@[2]));
+                    assert(Self::abs_sum_prefix(b@, 0) == 0);
+                    assert(Self::abs_sum_prefix(b@, 3) <= 40000);
                 }
             } else {
                 b.push(-(x1 + x2));
@@ -160,6 +238,14 @@ impl Solution {
                             a@[0] == x0,
                             a@[1] == x1,
                             a@[2] == x2;
+                    assert(Self::abs_sum_prefix(b@, 1)
+                        == Self::abs_sum_prefix(b@, 0) + Self::abs_val(b@[0]));
+                    assert(Self::abs_sum_prefix(b@, 2)
+                        == Self::abs_sum_prefix(b@, 1) + Self::abs_val(b@[1]));
+                    assert(Self::abs_sum_prefix(b@, 3)
+                        == Self::abs_sum_prefix(b@, 2) + Self::abs_val(b@[2]));
+                    assert(Self::abs_sum_prefix(b@, 0) == 0);
+                    assert(Self::abs_sum_prefix(b@, 3) <= 40000);
                 }
             }
 
@@ -181,6 +267,7 @@ impl Solution {
                         + (a[1] as int) * (b[1] as int)
                         + (a[2] as int) * (b[2] as int)
                         == 0,
+                    Self::abs_sum_prefix(b@, 3) <= 40000,
                     forall|j: int|
                         3 <= j < i as int && (j - 3) % 2 == 0
                             ==> #[trigger] b[j] == a[j + 1],
@@ -190,10 +277,12 @@ impl Solution {
                 decreases n - i,
             {
                 let ghost old_i = i;
+                let ghost b_before = b@;
                 b.push(a[i + 1]);
                 b.push(-a[i]);
                 i = i + 2;
                 proof {
+                    Self::lemma_abs_sum_prefix_append_invariant(b_before, b@, 3);
                     assert(b[old_i as int] == a[old_i as int + 1]);
                     assert(b[old_i as int + 1] == -a[old_i as int]);
                     assert forall|j: int|
@@ -265,6 +354,22 @@ impl Solution {
                 Self::lemma_even_pairs_zero(a@, b@, 3, a@.len() as int);
                 assert(Self::dot(a@, b@) == Self::dot_prefix(a@, b@, a@.len() as int));
                 assert(Self::dot(a@, b@) == 0);
+                assert forall|j: int|
+                    3 <= j < a.len() && (j - 3) % 2 == 0
+                        implies #[trigger] Self::abs_val(b[j]) + Self::abs_val(b[j + 1]) <= 20000 by {
+                    assert(b[j] == a[j + 1]);
+                    assert((j + 1 - 4) % 2 == 0);
+                    assert(b[j + 1] == -a[j]);
+                    assert(-10000 <= a[j] as int <= 10000);
+                    assert(-10000 <= a[j + 1] as int <= 10000);
+                };
+                Self::lemma_pair_abs_bound(b@, 3, a@.len() as int);
+                assert(Self::abs_sum_prefix(b@, 3) <= 40000);
+                assert(n % 2 == 1);
+                assert(n <= 99999);
+                assert(Self::abs_sum_prefix(b@, a@.len() as int)
+                    <= Self::abs_sum_prefix(b@, 3) + 10000 * (a@.len() as int - 3));
+                assert(Self::abs_sum_prefix(b@, a@.len() as int) <= 1_000_000_000);
             }
         } else {
             let mut i: usize = 0;
@@ -339,6 +444,21 @@ impl Solution {
                 Self::lemma_even_pairs_zero(a@, b@, 0, a@.len() as int);
                 assert(Self::dot(a@, b@) == Self::dot_prefix(a@, b@, a@.len() as int));
                 assert(Self::dot(a@, b@) == 0);
+                assert forall|j: int|
+                    0 <= j < a.len() && j % 2 == 0
+                        implies #[trigger] Self::abs_val(b[j]) + Self::abs_val(b[j + 1]) <= 20000 by {
+                    assert(b[j] == a[j + 1]);
+                    assert((j + 1) % 2 == 1);
+                    assert(b[j + 1] == -a[j]);
+                    assert(-10000 <= a[j] as int <= 10000);
+                    assert(-10000 <= a[j + 1] as int <= 10000);
+                };
+                Self::lemma_pair_abs_bound(b@, 0, a@.len() as int);
+                assert(Self::abs_sum_prefix(b@, 0) == 0);
+                assert(Self::abs_sum_prefix(b@, a@.len() as int)
+                    <= Self::abs_sum_prefix(b@, 0) + 10000 * (a@.len() as int - 0));
+                assert(n <= 100000);
+                assert(Self::abs_sum_prefix(b@, a@.len() as int) <= 1_000_000_000);
             }
         }
 

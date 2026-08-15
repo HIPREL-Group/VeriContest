@@ -152,6 +152,23 @@ impl Solution {
         assert(s.push(elem).drop_last() =~= s);
     }
 
+    proof fn lemma_count_pos_implies_exists(s: Seq<i32>, value: i32)
+        requires
+            Self::count_occurrences(s, value) > 0,
+        ensures
+            exists|k: int| 0 <= k < s.len() && s[k] == value,
+        decreases s.len(),
+    {
+        if s.len() == 0 {
+        } else if s.last() == value {
+            assert(s[s.len() - 1] == value);
+        } else {
+            Self::lemma_count_pos_implies_exists(s.drop_last(), value);
+            let k = choose|k: int| 0 <= k < s.drop_last().len() && s.drop_last()[k] == value;
+            assert(s[k] == value);
+        }
+    }
+
     pub open spec fn max_path_num(step: int) -> int
         decreases step,
     {
@@ -271,8 +288,8 @@ impl Solution {
             forall|i: int| 0 <= i < mat.len() ==> #[trigger] mat[i].len() == mat[0].len(),
             forall|i: int, j: int| 0 <= i < mat.len() && 0 <= j < mat[0].len() ==> 1 <= #[trigger] mat[i][j] <= 9,
         ensures
-            ((res == -1) && (forall|k: int| 0 <= k < Self::all_numbers(mat@).len() ==> !Self::is_candidate_prime(#[trigger] Self::all_numbers(mat@)[k] as int))) ||
-            (Self::is_candidate_prime(res as int) &&
+            (res == -1) <==> (forall|k: int| 0 <= k < Self::all_numbers(mat@).len() ==> !Self::is_candidate_prime(#[trigger] Self::all_numbers(mat@)[k] as int)),
+            res != -1 ==> (Self::is_candidate_prime(res as int) &&
              forall|k: int| 0 <= k < Self::all_numbers(mat@).len() && Self::is_candidate_prime(#[trigger] Self::all_numbers(mat@)[k] as int) ==>
                  (Self::count_occurrences(Self::all_numbers(mat@), Self::all_numbers(mat@)[k]) < Self::count_occurrences(Self::all_numbers(mat@), res) ||
                   (Self::count_occurrences(Self::all_numbers(mat@), Self::all_numbers(mat@)[k]) == Self::count_occurrences(Self::all_numbers(mat@), res) && Self::all_numbers(mat@)[k] <= res))),
@@ -541,6 +558,18 @@ impl Solution {
                 }
             }
             i += 1;
+        }
+
+        proof {
+            assert(i == nums.len());
+            if best != -1 {
+                assert(best_count > 0);
+                assert(Self::count_occurrences(nums@, best) > 0);
+                Self::lemma_count_pos_implies_exists(nums@, best);
+                let k = choose|k: int| 0 <= k < nums@.len() && nums@[k] == best;
+                assert(Self::is_candidate_prime(nums@[k] as int));
+                assert(!(forall|kk: int| 0 <= kk < Self::all_numbers(mat@).len() ==> !Self::is_candidate_prime(#[trigger] Self::all_numbers(mat@)[kk] as int)));
+            }
         }
 
         best

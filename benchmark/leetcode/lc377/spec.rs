@@ -44,7 +44,7 @@ impl Solution {
             forall |i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 1000,
             forall |i: int, j: int| 0 <= i < j < nums.len() ==> nums[i] != nums[j],
             1 <= target <= 1000,
-            forall |t: int| 0 <= t <= target as int ==> #[trigger] Self::combination_count(nums@, t as nat) <= i32::MAX,
+            Self::combination_count(nums@, target as nat) <= i32::MAX,
         ensures
             res as int == Self::combination_count(nums@, target as nat),
     {

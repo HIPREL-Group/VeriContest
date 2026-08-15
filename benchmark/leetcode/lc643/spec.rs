@@ -17,16 +17,17 @@ impl Solution {
         }
     }
 
-    pub fn find_max_average_core(nums: Vec<i32>, k: i32) -> (result: i64)
+    pub fn find_max_average(nums: Vec<i32>, k: i32) -> (result: (i64, i32))
         requires
             nums.len() <= 100_000,
             1 <= k <= nums.len(),
             forall |i: int| 0 <= i < nums.len() ==> -10_000 <= #[trigger] nums@[i] <= 10_000,
         ensures
+            result.1 == k,
             forall |i: int| 0 <= i <= nums@.len() - (k as int) ==>
-                Self::window_sum(nums@, i, k as int) <= result as int,
+                Self::window_sum(nums@, i, k as int) <= result.0 as int,
             exists |i: int| 0 <= i <= nums@.len() - (k as int)
-                && result as int == Self::window_sum(nums@, i, k as int),
+                && result.0 as int == Self::window_sum(nums@, i, k as int),
     {
     }
 }

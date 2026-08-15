@@ -27,6 +27,10 @@ impl Solution {
         Self::prefix_sum(nums, hi) - Self::prefix_sum(nums, lo)
     }
 
+    pub open spec fn exists_valid_partition(a: Seq<i64>, na: int, b: Seq<i64>, nb: int, k: int) -> bool {
+        exists|pa: Seq<int>, pb: Seq<int>| Self::valid_equal_partition(a, na, b, nb, k, pa, pb)
+    }
+
     pub open spec fn valid_equal_partition(
         a: Seq<i64>, na: int, b: Seq<i64>, nb: int,
         k: int, pa: Seq<int>, pb: Seq<int>,
@@ -59,6 +63,8 @@ impl Solution {
             result >= 0 ==> result >= 1,
             result >= 0 ==> exists|pa: Seq<int>, pb: Seq<int>|
                 Self::valid_equal_partition(a@, a.len() as int, b@, b.len() as int, result as int, pa, pb),
+            result >= 0 ==> forall|k: int| k > result as int ==>
+                !(#[trigger] Self::exists_valid_partition(a@, a.len() as int, b@, b.len() as int, k)),
     {
     }
 }

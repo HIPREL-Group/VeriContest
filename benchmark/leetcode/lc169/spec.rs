@@ -18,7 +18,6 @@ impl Solution {
         }
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn majority_element(nums: Vec<i32>) -> (res: i32) 
         requires 
             1 <= nums.len() <= 50_000, 

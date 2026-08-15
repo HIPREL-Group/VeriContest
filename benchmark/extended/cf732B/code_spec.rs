@@ -49,6 +49,21 @@ pub open spec fn greedy_additional_prefix(a: Seq<i32>, k: int, end: nat) -> int
     }
 }
 
+pub open spec fn spec_total_extra(a: Seq<i32>, b: Seq<i32>, end: nat) -> int
+    recommends
+        (end as int) <= a.len(),
+        (end as int) <= b.len(),
+    decreases
+        end,
+{
+    if end == 0nat {
+        0
+    } else {
+        let last = (end - 1) as int;
+        spec_total_extra(a, b, (end - 1) as nat) + (b[last] as int - a[last] as int)
+    }
+}
+
 impl Solution {
     pub fn cormen_walk_schedule(a: Vec<i32>, k: i32) -> (result: (i64, Vec<i32>))
         requires
@@ -57,8 +72,9 @@ impl Solution {
             forall|i: int| 0 <= i < a.len() ==> 0 <= #[trigger] a[i] && a[i] <= 500,
         ensures
             walk_feasible(a@, result.1@, k as int),
-            result.0 as int == greedy_additional_prefix(a@, k as int, a.len() as nat),
-            forall|i: int| 0 <= i < a.len() ==> #[trigger] result.1[i] == greedy_walk_at(a@, k as int, i as nat),
+            result.0 as int == spec_total_extra(a@, result.1@, a.len() as nat),
+            forall|bp: Seq<i32>| walk_feasible(a@, bp, k as int) ==>
+                result.0 as int <= spec_total_extra(a@, bp, a.len() as nat),
     {
         let n = a.len();
         let mut b: Vec<i32> = Vec::new();

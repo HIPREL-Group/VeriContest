@@ -22,6 +22,7 @@ impl Solution {
     {
         &&& forall|idx: int| 0 <= idx < ans.len() ==> 1 <= ans[idx] as int <= n && Self::common_divisor(cnt, ans[idx] as int)
         &&& forall|d: int| 1 <= d <= n && Self::common_divisor(cnt, d) ==> exists|idx: int| 0 <= idx < ans.len() && ans[idx] as int == d
+        &&& forall|i: int, j: int| 0 <= i < j < ans.len() ==> #[trigger] ans[i] < #[trigger] ans[j]
     }
 
     pub fn valid_k_values(n: usize, cnt: Vec<i32>) -> (ans: Vec<i32>)

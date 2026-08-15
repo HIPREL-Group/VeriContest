@@ -21,6 +21,8 @@ impl Solution {
             forall |i: int| 0 <= i < grid.len() ==> grid[i][i] == 0,
             forall |i: int, j: int| 0 <= i < grid.len() && 0 <= j < grid.len() && i != j ==>
                 grid[i][j] + grid[j][i] == 1,
+            forall |a: int, b: int, c: int| 0 <= a < grid.len() && 0 <= b < grid.len() && 0 <= c < grid.len()
+                && #[trigger] grid[a][b] == 1 && #[trigger] grid[b][c] == 1 ==> grid[a][c] == 1,
             exists |c: int| Self::is_champion(grid@, c),
         ensures
             Self::is_champion(grid@, result as int),

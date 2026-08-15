@@ -61,6 +61,8 @@ pub open spec fn is_valid_leaves(n: usize, u_edges: Seq<usize>, v_edges: Seq<usi
         leaves[k] != center &&
         count_occ(u_edges, v_edges, leaves[k] as usize, u_edges.len() as int) == 1)
     &&
+    (forall|k1: int, k2: int| 0 <= k1 && k1 < k2 && k2 < leaves.len() ==> #[trigger] leaves[k1] != #[trigger] leaves[k2])
+    &&
     (forall|v: int| 1 <= v && v <= n ==> {
         let occ = #[trigger] count_occ(u_edges, v_edges, v as usize, u_edges.len() as int);
         (occ == 1 && v != center as int) ==>
@@ -176,6 +178,8 @@ impl Solution {
                         let l = #[trigger] leaves@[k];
                         1 <= l && l < i && l != center && degrees@[l as int] == 1
                     },
+                    forall|k1: int, k2: int| 0 <= k1 && k1 < k2 && k2 < leaves.len() ==>
+                        #[trigger] leaves@[k1] < #[trigger] leaves@[k2],
                     forall|v: int| 1 <= v && v < i ==> {
                         (#[trigger] degrees@[v] == 1 && v != center) ==> 
                             (exists|k: int| 0 <= k && k < leaves.len() && #[trigger] leaves@[k] == v as usize)
@@ -191,6 +195,18 @@ impl Solution {
                         assert forall|v: int| 1 <= v && v < i && #[trigger] degrees@[v] == 1 && v != center implies (exists|k: int| 0 <= k && k < leaves.len() && #[trigger] leaves@[k] == v as usize) by {
                             let k_old = choose|k: int| 0 <= k && k < old_leaves.len() && #[trigger] old_leaves@[k] == v as usize;
                             assert(leaves@[k_old] == v as usize);
+                        }
+                        assert forall|k1: int, k2: int| 0 <= k1 && k1 < k2 && k2 < leaves.len() implies
+                            #[trigger] leaves@[k1] < #[trigger] leaves@[k2]
+                        by {
+                            if k2 < new_leaf_idx as int {
+                                assert(leaves@[k1] == old_leaves@[k1]);
+                                assert(leaves@[k2] == old_leaves@[k2]);
+                            } else {
+                                assert(k2 == new_leaf_idx as int);
+                                assert(leaves@[k1] == old_leaves@[k1]);
+                                assert(1 <= old_leaves@[k1] && old_leaves@[k1] < i);
+                            }
                         }
                     }
                 } else {
@@ -209,6 +225,11 @@ impl Solution {
                 }
                 assert forall|v: int| 1 <= v && v <= n && #[trigger] count_occ(u_edges@, v_edges@, v as usize, u_edges.len() as int) == 1 && v != center as int implies exists|k: int| 0 <= k && k < leaves@.len() && #[trigger] leaves@[k] == v as usize by {
                     assert(degrees@[v] == count_occ(u_edges@, v_edges@, v as usize, u_edges.len() as int));
+                }
+                assert forall|k1: int, k2: int| 0 <= k1 && k1 < k2 && k2 < leaves@.len() implies
+                    #[trigger] leaves@[k1] != #[trigger] leaves@[k2]
+                by {
+                    assert(leaves@[k1] < leaves@[k2]);
                 }
                 assert(is_valid_leaves(n, u_edges@, v_edges@, center, leaves@));
             }

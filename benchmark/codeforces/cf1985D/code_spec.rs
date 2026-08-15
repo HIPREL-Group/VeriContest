@@ -14,6 +14,24 @@ pub open spec fn is_mark(grid: Seq<Vec<i32>>, i: int, j: int) -> bool
     grid[i][j] == 1
 }
 
+pub open spec fn manhattan_dist(i: int, j: int, cr: int, cc: int) -> int {
+    let di = if i >= cr { i - cr } else { cr - i };
+    let dj = if j >= cc { j - cc } else { cc - j };
+    di + dj
+}
+
+pub open spec fn is_whole_manhattan_circle(grid: Seq<Vec<i32>>, cr: int, cc: int, r: int) -> bool
+    recommends
+        0 < grid.len(),
+        0 < grid[0].len(),
+{
+    r >= 1
+    && 0 <= cr < grid.len()
+    && 0 <= cc < grid[0].len()
+    && forall|i: int, j: int| 0 <= i < grid.len() && 0 <= j < grid[0].len() ==>
+        (#[trigger] is_mark(grid, i, j) <==> manhattan_dist(i, j, cr, cc) < r)
+}
+
 pub open spec fn is_min_marked_row(grid: Seq<Vec<i32>>, r: int) -> bool
     recommends
         0 < grid.len(),
@@ -67,7 +85,7 @@ impl Solution {
             forall|i: int| 0 <= i < grid.len() ==> #[trigger] grid[i].len() == grid[0].len(),
             forall|i: int, j: int|
                 0 <= i < grid.len() && 0 <= j < grid[0].len() ==> (#[trigger] grid[i][j] == 0 || #[trigger] grid[i][j] == 1),
-            exists|i: int, j: int| 0 <= i < grid.len() && 0 <= j < grid[0].len() && #[trigger] is_mark(grid@, i, j),
+            exists|cr: int, cc: int, r: int| is_whole_manhattan_circle(grid@, cr, cc, r),
         ensures
             1 <= center.0 <= grid.len() as i32,
             1 <= center.1 <= grid[0].len() as i32,

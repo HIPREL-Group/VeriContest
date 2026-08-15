@@ -15,7 +15,9 @@ impl Solution {
         if a <= b { a } else { b }
     }
 
-    pub open spec fn range_sum(a: Seq<i64>, start: int, len: int) -> int {
+    pub open spec fn range_sum(a: Seq<i64>, start: int, len: int) -> int
+        decreases if len <= 0 { 0 } else { len },
+    {
         if start < 0 || len <= 0 || start + len > a.len() {
             0
         } else {

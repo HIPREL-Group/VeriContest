@@ -3,18 +3,34 @@ use std::io::{self, Read};
 struct Solution;
 
 impl Solution {
-    pub fn is_complementary_xor_possible(a: Vec<i64>, b: Vec<i64>) -> bool {
+    pub fn complementary_xor_ops(a: Vec<i64>, b: Vec<i64>) -> (bool, Vec<(usize, usize)>) {
         let n = a.len();
         let first_xor = if a[0] == b[0] { 0i64 } else { 1i64 };
         let mut i: usize = 1;
         while i < n {
             let cur_xor = if a[i] == b[i] { 0i64 } else { 1i64 };
             if cur_xor != first_xor {
-                return false;
+                return (false, Vec::new());
             }
             i = i + 1;
         }
-        true
+        let mut ops: Vec<(usize, usize)> = Vec::with_capacity(n + 3);
+        let mut ones: usize = 0;
+        let mut j: usize = 0;
+        while j < n {
+            if a[j] == 1 {
+                ones = ones + 1;
+                ops.push((j + 1, j + 1));
+            }
+            j = j + 1;
+        }
+        let parity = (ones % 2) as i64;
+        if parity != first_xor {
+            ops.push((1, 1));
+            ops.push((2, n));
+            ops.push((1, n));
+        }
+        (true, ops)
     }
 }
 
@@ -36,25 +52,9 @@ fn main() {
             b.push(if b_str.as_bytes()[j] == b'1' { 1i64 } else { 0i64 });
             j = j + 1;
         }
-        if Solution::is_complementary_xor_possible(a.clone(), b.clone()) {
+        let (possible, ops) = Solution::complementary_xor_ops(a.clone(), b.clone());
+        if possible {
             println!("YES");
-            let mut ops: Vec<(usize, usize)> = Vec::with_capacity(n + 3);
-            let first_xor = if a[0] == b[0] { 0i64 } else { 1i64 };
-            let mut ones: usize = 0;
-            let mut i: usize = 0;
-            while i < n {
-                if a[i] == 1 {
-                    ones = ones + 1;
-                    ops.push((i + 1, i + 1));
-                }
-                i = i + 1;
-            }
-            let parity = (ones % 2) as i64;
-            if parity != first_xor {
-                ops.push((1, 1));
-                ops.push((2, n));
-                ops.push((1, n));
-            }
             println!("{}", ops.len());
             let mut k: usize = 0;
             while k < ops.len() {

@@ -38,39 +38,42 @@ impl Solution {
         }
     }
 
+    fn combo_rec(nums: &Vec<i32>, t: usize) -> (res: i32)
+        requires
+            forall |i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 1000,
+            nums.len() <= 200,
+            Self::combination_count(nums@, t as nat) <= i32::MAX,
+        ensures
+            res as int == Self::combination_count(nums@, t as nat),
+        decreases t,
+    {
+        if t == 0 {
+            return 1;
+        }
+        let mut total: i32 = 0;
+        let mut j: usize = 0;
+        while j < nums.len() {
+            let num = nums[j];
+            if (num as usize) <= t {
+                let sub = Self::combo_rec(nums, t - num as usize);
+                total = total + sub;
+            }
+            j += 1;
+        }
+        total
+    }
+
     pub fn combination_sum4(nums: Vec<i32>, target: i32) -> (res: i32)
         requires
             1 <= nums.len() <= 200,
             forall |i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 1000,
             forall |i: int, j: int| 0 <= i < j < nums.len() ==> nums[i] != nums[j],
             1 <= target <= 1000,
-            forall |t: int| 0 <= t <= target as int ==> #[trigger] Self::combination_count(nums@, t as nat) <= i32::MAX,
+            Self::combination_count(nums@, target as nat) <= i32::MAX,
         ensures
             res as int == Self::combination_count(nums@, target as nat),
     {
-        let target_usize = target as usize;
-        let mut dp: Vec<i32> = Vec::new();
-        let mut k: usize = 0;
-        while k <= target_usize {
-            dp.push(0);
-            k += 1;
-        }
-        dp.set(0, 1);
-        let mut i: usize = 1;
-        while i <= target_usize {
-            let mut total: i32 = 0;
-            let mut j: usize = 0;
-            while j < nums.len() {
-                let num = nums[j];
-                if num <= i as i32 {
-                    total = total + dp[i - num as usize];
-                }
-                j += 1;
-            }
-            dp.set(i, total);
-            i += 1;
-        }
-        dp[target_usize]
+        Self::combo_rec(&nums, target as usize)
     }
 }
 

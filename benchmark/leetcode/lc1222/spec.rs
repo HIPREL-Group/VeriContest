@@ -89,6 +89,8 @@ impl Solution {
                 exists |i: int| 0 <= i < result.len() &&
                     result[i][0] == queens[qi][0] && result[i][1] == queens[qi][1]
             ),
+            forall |i: int, j: int| 0 <= i < j < result.len() ==>
+                !(result[i][0] == result[j][0] && result[i][1] == result[j][1]),
     {
     }
 }

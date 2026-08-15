@@ -180,6 +180,55 @@ impl Solution {
         }
     }
 
+    pub open spec fn in_dom(j: int, bound: int) -> bool {
+        0 <= j < bound
+    }
+
+    proof fn lemma_full_coverage(s: Seq<i32>, indices: Seq<int>, ki: int, ni: int)
+        requires
+            1 <= ki, ki < ni, ni <= 10_000,
+            s.len() == ni,
+            indices.len() == ki,
+            forall |a: int| 0 <= a < ki ==> indices[a] == a,
+            forall |i: int| 0 <= i < ki ==> Self::adj_diff(s, i) == ki - i,
+            ki + 1 < ni ==> Self::adj_diff(s, ki) == ki - (ki - 1) / 2,
+            forall |j: int| ki < j < ni - 1 ==> Self::adj_diff(s, j) == 1,
+        ensures
+            forall |j: int| #[trigger] Self::in_dom(j, s.len() - 1) ==>
+                exists |a: int| 0 <= a < indices.len()
+                && Self::adj_diff(s, j) == Self::adj_diff(s, indices[a]),
+    {
+        assert forall |j: int| #[trigger] Self::in_dom(j, s.len() - 1) implies
+            exists |a: int| 0 <= a < indices.len()
+            && Self::adj_diff(s, j) == Self::adj_diff(s, indices[a])
+        by {
+            assert(0 <= j < s.len() - 1);
+            if j < ki {
+                assert(indices[j] == j);
+                assert(0 <= j < indices.len());
+                assert(Self::adj_diff(s, indices[j]) == ki - j);
+                assert(Self::adj_diff(s, j) == ki - j);
+                assert(Self::adj_diff(s, j) == Self::adj_diff(s, indices[j]));
+            } else if j > ki {
+                assert(Self::adj_diff(s, j) == 1);
+                assert(indices[ki - 1] == ki - 1);
+                assert(0 <= ki - 1 < indices.len());
+                assert(Self::adj_diff(s, indices[ki - 1]) == ki - (ki - 1));
+                assert(Self::adj_diff(s, j) == Self::adj_diff(s, indices[ki - 1]));
+            } else {
+                assert(j == ki);
+                assert(ki + 1 < ni);
+                let w = (ki - 1) / 2;
+                assert(0 <= w < ki);
+                assert(indices[w] == w);
+                assert(0 <= w < indices.len());
+                assert(Self::adj_diff(s, indices[w]) == ki - w);
+                assert(Self::adj_diff(s, ki) == ki - (ki - 1) / 2);
+                assert(Self::adj_diff(s, j) == Self::adj_diff(s, indices[w]));
+            }
+        };
+    }
+
     pub fn construct_array(n: i32, k: i32) -> (result: Vec<i32>)
         requires
             1 <= k < n <= 10_000,
@@ -191,14 +240,14 @@ impl Solution {
                 0 <= i < j < result@.len() ==> result@[i] != result@[j],
             exists |indices: Seq<int>|
                 indices.len() == k as int
-                && forall |a: int| 0 <= a < indices.len() ==>
-                    0 <= #[trigger] indices[a] < result@.len() - 1
-                && forall |a: int, b: int|
+                && (forall |a: int| 0 <= a < indices.len() ==>
+                    0 <= #[trigger] indices[a] < result@.len() - 1)
+                && (forall |a: int, b: int|
                     0 <= a < b < indices.len() ==>
-                    #[trigger] Self::adj_diff(result@, indices[a]) != #[trigger] Self::adj_diff(result@, indices[b])
-                && forall |j: int| 0 <= j < result@.len() - 1 ==>
+                    #[trigger] Self::adj_diff(result@, indices[a]) != #[trigger] Self::adj_diff(result@, indices[b]))
+                && (forall |j: int| 0 <= j < result@.len() - 1 ==>
                     exists |a: int| 0 <= a < indices.len()
-                    && #[trigger] Self::adj_diff(result@, j) == Self::adj_diff(result@, indices[a]),
+                    && #[trigger] Self::adj_diff(result@, j) == Self::adj_diff(result@, indices[a])),
     {
         let mut result = Vec::new();
         let mut i: usize = 0;
@@ -303,36 +352,50 @@ impl Solution {
                 Self::lemma_zigzag_adj_diff(s, b, ki);
             };
 
-            assert forall |j: int| 0 <= j < s.len() - 1 implies
-                exists |a: int| 0 <= a < indices.len()
-                && #[trigger] Self::adj_diff(s, j) == Self::adj_diff(s, indices[a]) by {
-                if j < ki {
-                    Self::lemma_witness_idx(ki, j);
-                    assert(Self::adj_diff(s, j) == Self::adj_diff(s, indices[j]));
-                } else if j > ki {
-                    assert(s[j] == (j + 1) as i32);
-                    assert(s[j + 1] == (j + 2) as i32);
-                    assert(Self::adj_diff(s, j) == 1);
-                    Self::lemma_witness_idx(ki, ki - 1);
-                    Self::lemma_zigzag_adj_diff(s, ki - 1, ki);
-                    assert(Self::adj_diff(s, indices[ki - 1]) == 1);
-                } else {
-                    assert(j == ki);
-                    if ki + 1 < ni {
-                        assert(s[ki + 1] == (ki + 2) as i32);
-                        Self::lemma_transition_adj_diff(s, ki, ni);
-                        assert(Self::adj_diff(s, ki) == ki - (ki - 1) / 2);
-                        let w = (ki - 1) / 2;
-                        assert(0 <= w < ki);
-                        Self::lemma_witness_idx(ki, w);
-                        Self::lemma_zigzag_adj_diff(s, w, ki);
-                        assert(Self::adj_diff(s, indices[w]) == ki - w);
-                        assert(ki - w == ki - (ki - 1) / 2);
-                    } else {
-                        assert(false);
-                    }
-                }
+            assert(forall |i: int| 0 <= i <= ki ==> s[i] == Self::zigzag_val(i, ki));
+            assert(forall |j: int| ki < j < ni ==> s[j] as int == j + 1);
+
+            assert forall |a: int| 0 <= a < ki implies indices[a] == a by {
+                Self::lemma_witness_idx(ki, a);
             };
+            assert(indices.len() == ki);
+
+            assert forall |i: int| 0 <= i < ki implies
+                Self::adj_diff(s, i) == ki - i by {
+                Self::lemma_zigzag_adj_diff(s, i, ki);
+            };
+            if ki + 1 < ni {
+                assert(s[ki + 1] as int == ki + 2);
+                Self::lemma_transition_adj_diff(s, ki, ni);
+            }
+            assert forall |j: int| ki < j < ni - 1 implies
+                Self::adj_diff(s, j) == 1 by {
+                assert(s[j] as int == j + 1);
+                assert(s[j + 1] as int == j + 2);
+            };
+
+            Self::lemma_full_coverage(s, indices, ki, ni);
+
+            assert(indices.len() == ki);
+            assert(s == result@);
+
+            assert forall |j: int| #![trigger Self::adj_diff(s, j)] 0 <= j < s.len() - 1 implies
+                exists |a: int| 0 <= a < indices.len()
+                && Self::adj_diff(s, j) == Self::adj_diff(s, indices[a])
+            by {
+                assert(Self::in_dom(j, s.len() - 1));
+            };
+
+            assert(exists |indices2: Seq<int>|
+                indices2.len() == k as int
+                && (forall |a: int| 0 <= a < indices2.len() ==>
+                    0 <= #[trigger] indices2[a] < result@.len() - 1)
+                && (forall |a: int, b: int|
+                    0 <= a < b < indices2.len() ==>
+                    #[trigger] Self::adj_diff(result@, indices2[a]) != #[trigger] Self::adj_diff(result@, indices2[b]))
+                && (forall |j: int| 0 <= j < result@.len() - 1 ==>
+                    exists |a: int| 0 <= a < indices2.len()
+                    && #[trigger] Self::adj_diff(result@, j) == Self::adj_diff(result@, indices2[a])));
         }
         result
     }

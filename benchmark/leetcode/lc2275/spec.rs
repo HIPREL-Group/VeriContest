@@ -38,17 +38,6 @@ impl Solution {
         }
     }
 
-    fn count_for_bit(candidates: &Vec<i32>, bit: i32) -> (result: i32)
-        requires
-            1 <= candidates.len() <= 100000,
-            0 <= bit < 31,
-            forall |i: int| 0 <= i < candidates.len() ==> 1 <= #[trigger] candidates[i] <= 10_000_000,
-        ensures
-            result as nat == Self::count_for_bit_spec(candidates@, bit as nat),
-            0 <= result <= candidates.len(),
-    {
-    }
-
     pub fn largest_combination(candidates: Vec<i32>) -> (result: i32)
         requires
             1 <= candidates.len() <= 100000,

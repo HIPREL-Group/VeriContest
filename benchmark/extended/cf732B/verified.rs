@@ -49,6 +49,91 @@ pub open spec fn greedy_additional_prefix(a: Seq<i32>, k: int, end: nat) -> int
     }
 }
 
+pub open spec fn spec_total_extra(a: Seq<i32>, b: Seq<i32>, end: nat) -> int
+    recommends
+        (end as int) <= a.len(),
+        (end as int) <= b.len(),
+    decreases
+        end,
+{
+    if end == 0nat {
+        0
+    } else {
+        let last = (end - 1) as int;
+        spec_total_extra(a, b, (end - 1) as nat) + (b[last] as int - a[last] as int)
+    }
+}
+
+proof fn lemma_total_extra_matches_greedy(a: Seq<i32>, b: Seq<i32>, k: int, end: nat)
+    requires
+        (end as int) <= a.len(),
+        (end as int) <= b.len(),
+        forall|j: int| 0 <= j < (end as int) ==> #[trigger] b[j] == greedy_walk_at(a, k, j as nat),
+    ensures
+        spec_total_extra(a, b, end) == greedy_additional_prefix(a, k, end),
+    decreases
+        end,
+{
+    if end != 0nat {
+        lemma_total_extra_matches_greedy(a, b, k, (end - 1) as nat);
+    }
+}
+
+proof fn lemma_extra_minimal(a: Seq<i32>, k: int, bp: Seq<i32>, end: nat)
+    requires
+        1 <= a.len(),
+        k >= 1,
+        forall|i: int| 0 <= i < a.len() ==> (a[i] as int) >= 0,
+        walk_feasible(a, bp, k),
+        (end as int) <= a.len(),
+    ensures
+        greedy_additional_prefix(a, k, end) <= spec_total_extra(a, bp, end),
+    decreases end,
+{
+    if end == 0nat {
+    } else if end == 1nat {
+        assert(greedy_walk_at(a, k, 0nat) == a[0] as int);
+        assert(greedy_additional_prefix(a, k, 1nat) == greedy_additional_prefix(a, k, 0nat)
+            + (greedy_walk_at(a, k, 0nat) - a[0] as int));
+        assert(greedy_additional_prefix(a, k, 0nat) == 0);
+        assert(spec_total_extra(a, bp, 1nat) == spec_total_extra(a, bp, 0nat) + (bp[0] as int - a[0] as int));
+        assert(spec_total_extra(a, bp, 0nat) == 0);
+        assert((bp[0] as int) >= (a[0] as int));
+    } else {
+        let endi = end as int;
+        let i = endi - 1;
+        let prev_g = greedy_walk_at(a, k, (i - 1) as nat);
+        if (a[i] as int) >= k - prev_g {
+            assert(greedy_walk_at(a, k, i as nat) == a[i] as int);
+            lemma_extra_minimal(a, k, bp, (end - 1) as nat);
+            assert(greedy_additional_prefix(a, k, end) == greedy_additional_prefix(a, k, (end - 1) as nat)
+                + (greedy_walk_at(a, k, i as nat) - a[i] as int));
+            assert(greedy_additional_prefix(a, k, end) == greedy_additional_prefix(a, k, (end - 1) as nat));
+            assert(spec_total_extra(a, bp, end) == spec_total_extra(a, bp, (end - 1) as nat)
+                + (bp[i] as int - a[i] as int));
+            assert((bp[i] as int) >= (a[i] as int));
+        } else {
+            assert(greedy_walk_at(a, k, i as nat) == k - prev_g);
+            lemma_extra_minimal(a, k, bp, (end - 2) as nat);
+            assert(greedy_additional_prefix(a, k, end) == greedy_additional_prefix(a, k, (end - 1) as nat)
+                + (greedy_walk_at(a, k, i as nat) - a[i] as int));
+            assert(greedy_additional_prefix(a, k, (end - 1) as nat) == greedy_additional_prefix(a, k, (end - 2) as nat)
+                + (greedy_walk_at(a, k, (i - 1) as nat) - a[i - 1] as int));
+            assert(greedy_additional_prefix(a, k, end) == greedy_additional_prefix(a, k, (end - 2) as nat)
+                + (prev_g - a[i - 1] as int) + ((k - prev_g) - a[i] as int));
+            assert(greedy_additional_prefix(a, k, end) == greedy_additional_prefix(a, k, (end - 2) as nat)
+                + k - (a[i - 1] as int) - (a[i] as int));
+            assert(spec_total_extra(a, bp, end) == spec_total_extra(a, bp, (end - 1) as nat)
+                + (bp[i] as int - a[i] as int));
+            assert(spec_total_extra(a, bp, (end - 1) as nat) == spec_total_extra(a, bp, (end - 2) as nat)
+                + (bp[i - 1] as int - a[i - 1] as int));
+            assert(spec_total_extra(a, bp, end) == spec_total_extra(a, bp, (end - 2) as nat)
+                + (bp[i - 1] as int) + (bp[i] as int) - (a[i - 1] as int) - (a[i] as int));
+            assert((bp[i - 1] as int) + (bp[i] as int) >= k);
+        }
+    }
+}
+
 proof fn lemma_greedy_additional_prefix_bound(a: Seq<i32>, k: int, end: nat)
     requires
         (end as int) <= a.len(),
@@ -245,8 +330,9 @@ impl Solution {
             forall|i: int| 0 <= i < a.len() ==> 0 <= #[trigger] a[i] && a[i] <= 500,
         ensures
             walk_feasible(a@, result.1@, k as int),
-            result.0 as int == greedy_additional_prefix(a@, k as int, a.len() as nat),
-            forall|i: int| 0 <= i < a.len() ==> #[trigger] result.1[i] == greedy_walk_at(a@, k as int, i as nat),
+            result.0 as int == spec_total_extra(a@, result.1@, a.len() as nat),
+            forall|bp: Seq<i32>| walk_feasible(a@, bp, k as int) ==>
+                result.0 as int <= spec_total_extra(a@, bp, a.len() as nat),
     {
         let n = a.len();
         let ghost a_seq = a@;
@@ -323,6 +409,12 @@ impl Solution {
             assert(forall|j: int| 0 <= j < a_seq.len() as int ==> b[j] == greedy_walk_at(a_seq, k as int, j as nat));
             assert(total as int == greedy_additional_prefix(a_seq, k as int, a_seq.len() as nat));
             lemma_walk_feasible_from_greedy(a_seq, b@, k as int);
+            lemma_total_extra_matches_greedy(a_seq, b@, k as int, a_seq.len() as nat);
+            assert(total as int == spec_total_extra(a_seq, b@, a_seq.len() as nat));
+            assert forall|bp: Seq<i32>| walk_feasible(a_seq, bp, k as int) implies
+                total as int <= spec_total_extra(a_seq, bp, a_seq.len() as nat) by {
+                lemma_extra_minimal(a_seq, k as int, bp, a_seq.len() as nat);
+            };
         }
         (total, b)
     }

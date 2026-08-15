@@ -80,6 +80,7 @@ impl Solution {
             prefix_sum(piles@, piles.len() as int) <= 9_223_372_036_854_775_807,
             forall|i: int| 0 <= i < queries.len() ==> 1 <= #[trigger] (queries[i] as int)
                 && (queries[i] as int) <= prefix_sum(piles@, piles.len() as int),
+            forall|i: int| 0 <= i < queries.len() - 1 ==> #[trigger] queries[i] < queries[i + 1],
         ensures
             res.len() == queries.len(),
             forall|k: int|

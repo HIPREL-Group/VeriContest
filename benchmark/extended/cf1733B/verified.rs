@@ -38,6 +38,19 @@ pub open spec fn spec_win_at(n: i64, hi: int, i: int) -> int
     2 + (i / hi) * hi
 }
 
+pub open spec fn spec_win_at_choice(n: i64, hi: int, i: int, first_winner: int) -> int
+    recommends
+        0 <= i < n as int - 1,
+{
+    if i / hi == 0 { first_winner } else { 2 + (i / hi) * hi }
+}
+
+impl Solution {
+    pub open spec fn is_valid_first_winner(first_winner: int) -> bool {
+        first_winner == 1 || first_winner == 2
+    }
+}
+
 impl Solution {
     pub fn rule_of_league(n: i64, x: i64, y: i64) -> (r: Option<Vec<i64>>)
         requires
@@ -49,9 +62,9 @@ impl Solution {
             r != None::<Vec<i64>> <==> {
                 &&& league_feasible(n, x, y)
                 &&& r->0@.len() == (n as int) - 1
-                &&& forall|i: int|
+                &&& exists|first_winner: int| #[trigger] Self::is_valid_first_winner(first_winner) && forall|i: int|
                     #![trigger r->0@[i]]
-                    0 <= i < r->0@.len() ==> r->0@[i] as int == spec_win_at(n, league_hi(x, y), i)
+                    0 <= i < r->0@.len() ==> r->0@[i] as int == spec_win_at_choice(n, league_hi(x, y), i, first_winner)
             },
     {
         let lo = if x < y { x } else { y };
@@ -190,6 +203,18 @@ impl Solution {
             assert(out->0@.len() == (n as int) - 1);
             assert forall|j: int| 0 <= j < out->0@.len() implies out->0@[j] as int == spec_win_at(n, league_hi(x, y), j) by {
                 assert(out->0@ == w@);
+            }
+            assert forall|j: int| 0 <= j < out->0@.len() implies
+                out->0@[j] as int == spec_win_at_choice(n, league_hi(x, y), j, 2)
+            by {
+                assert(out->0@[j] as int == spec_win_at(n, league_hi(x, y), j));
+            }
+            assert(Self::is_valid_first_winner(2));
+            assert(exists|first_winner: int| #[trigger] Self::is_valid_first_winner(first_winner) && forall|i: int|
+                #![trigger out->0@[i]]
+                0 <= i < out->0@.len() ==> out->0@[i] as int == spec_win_at_choice(n, league_hi(x, y), i, first_winner)) by {
+                assert(Self::is_valid_first_winner(2) && forall|i: int|
+                    0 <= i < out->0@.len() ==> out->0@[i] as int == spec_win_at_choice(n, league_hi(x, y), i, 2));
             }
         }
         out
