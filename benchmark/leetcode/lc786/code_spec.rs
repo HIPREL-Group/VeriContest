@@ -64,39 +64,48 @@ impl Solution {
                 && Self::count_fractions_less(arr@, i, j) == (k - 1) as nat,
     {
         let n = arr.len();
-        let mut ptr: Vec<usize> = Vec::with_capacity(n);
-        let mut idx: usize = 0;
-        while idx < n {
-            ptr.push(0);
-            idx += 1;
-        }
-
+        let scale: i64 = 1i64 << 32;
+        let mut lo: i64 = 0;
+        let mut hi: i64 = scale;
         let mut ans_i: usize = 0;
         let mut ans_j: usize = 1;
 
-        let mut t: i32 = 0;
-        while t < k {
-            let mut best_j: usize = 0;
+        let mut iter: u32 = 0;
+        while iter < 32 {
+            let mid: i64 = lo + (hi - lo) / 2;
+            let mut count: i32 = 0;
+            let mut best_i: usize = 0;
+            let mut best_j: usize = 1;
+            let mut found: bool = false;
+            let mut i: usize = 0;
             let mut j: usize = 1;
             while j < n {
-                if ptr[j] < j {
-                    let take = if best_j == 0 {
+                i = 0;
+                while i < j && (arr[i] as i64) * scale <= mid * (arr[j] as i64) {
+                    let take = if !found {
                         true
                     } else {
-                        (arr[ptr[j]] as i64) * (arr[best_j] as i64) < (arr[ptr[best_j]] as i64) * (arr[j] as i64)
+                        (arr[i] as i64) * (arr[best_j] as i64) >= (arr[best_i] as i64) * (arr[j] as i64)
                     };
                     if take {
+                        best_i = i;
                         best_j = j;
+                        found = true;
                     }
+                    i += 1;
                 }
+                count = count + (i as i32);
                 j += 1;
             }
 
-            ans_i = ptr[best_j];
-            ans_j = best_j;
-            ptr[best_j] = ptr[best_j] + 1;
-
-            t += 1;
+            if count < k {
+                lo = mid;
+            } else {
+                hi = mid;
+                ans_i = best_i;
+                ans_j = best_j;
+            }
+            iter += 1;
         }
 
         let mut result = Vec::new();
