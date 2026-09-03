@@ -6,6 +6,12 @@ verus! {
 
 pub struct Solution;
 
+pub open spec fn pow2(n: int) -> int
+    decreases n,
+{
+    if n <= 0 { 1 } else { 2 * pow2(n - 1) }
+}
+
 pub open spec fn xor_sum_rec(nums: Seq<i32>, idx: int, current_xor: i32) -> int
     decreases nums.len() - idx,
 {
@@ -35,6 +41,7 @@ impl Solution {
             0 <= current_xor <= 31,
         ensures
             result as int == xor_sum_rec(nums@, idx as int, current_xor),
+            0 <= result as int <= 31 * pow2((nums.len() - idx) as int),
         decreases nums.len() - idx,
     {
         if idx == nums.len() {

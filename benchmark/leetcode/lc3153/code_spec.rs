@@ -114,8 +114,15 @@ impl Solution {
 
 }
 
+pub open spec fn digit_at(n: int, p: int) -> int
+    decreases p,
+{
+    if p <= 0 { n % 10 } else { digit_at(n / 10, p - 1) }
+}
+
 fn digit_at_exec(n: i32, p: usize) -> (res: usize)
     requires 0 <= n < 1_000_000_000, p <= 8,
+    ensures res as int == digit_at(n as int, p as int), res < 10,
     decreases p,
 {
     if p == 0 {

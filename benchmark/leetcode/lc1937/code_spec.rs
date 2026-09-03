@@ -109,6 +109,11 @@ impl Solution {
             forall|path: Seq<int>|
                 Self::valid_path(path, points@.len() as int, points@[0].len() as int)
                 ==> Self::path_score(points@, path) <= res as int,
+            res as int == Self::max_col(
+                points@,
+                (points@.len() - 1) as int,
+                (points@[0].len() - 1) as int,
+            ),
     {
         let m = points.len();
         let n = points[0].len();

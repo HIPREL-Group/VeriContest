@@ -130,6 +130,8 @@ impl Solution {
                 0 <= i < grid.len() && 0 <= j < grid[0].len() ==> 0 <= #[trigger] grid[i][j] <= 15,
             r + 2 < grid.len(),
             c + 2 < grid[0].len(),
+        ensures
+            ok == Self::is_magic_square_at(grid@, r as int, c as int),
     {
         let a = grid[r][c];
         let b = grid[r][c + 1];

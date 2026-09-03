@@ -53,6 +53,12 @@ impl Solution {
     }
 
     fn is_prime_from_exec(x: i32, d: i32, rem: i32) -> (res: bool)
+        requires
+            1 <= x <= 4_000_000,
+            2 <= d,
+            0 <= rem <= x,
+        ensures
+            res == Self::is_prime_from_spec(x as int, d as int, rem as int),
         decreases rem,
     {
         if d > x / d || rem <= 0 {
@@ -64,7 +70,12 @@ impl Solution {
         }
     }
 
-    fn is_prime_exec(x: i32) -> (res: bool) {
+    fn is_prime_exec(x: i32) -> (res: bool)
+        requires
+            1 <= x <= 4_000_000,
+        ensures
+            res == Self::is_prime_spec(x as int),
+    {
         if x <= 1 {
             false
         } else {
@@ -72,11 +83,27 @@ impl Solution {
         }
     }
 
-    fn max2_exec(a: i32, b: i32) -> (res: i32) {
+    fn max2_exec(a: i32, b: i32) -> (res: i32)
+        requires
+            0 <= a <= 4_000_000,
+            0 <= b <= 4_000_000,
+        ensures
+            res as int == Self::max2(a as int, b as int),
+            0 <= res <= 4_000_000,
+    {
         if a >= b { a } else { b }
     }
 
     fn scan_diag(nums: &Vec<Vec<i32>>, i: usize, best: i32) -> (res: i32)
+        requires
+            i <= nums.len(),
+            0 <= best <= 4_000_000,
+            nums.len() <= 300,
+            forall |r: int| 0 <= r < nums.len() ==> #[trigger] nums[r].len() == nums.len(),
+            forall |r: int, c: int| 0 <= r < nums.len() && 0 <= c < nums[r].len() ==> 1 <= #[trigger] nums[r][c] <= 4_000_000,
+        ensures
+            res as int == Self::diagonal_prime_from(nums@, i as int, best as int),
+            0 <= res <= 4_000_000,
         decreases nums.len() - i,
     {
         if i >= nums.len() {

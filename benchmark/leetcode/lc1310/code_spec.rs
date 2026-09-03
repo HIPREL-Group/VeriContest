@@ -35,9 +35,14 @@ impl Solution {
         ensures
             answer.len() == queries.len(),
             forall |k: int| 0 <= k < queries.len() ==> {
+                queries[k].len() == 2
+                && 0 <= queries[k][0] <= queries[k][1]
+                && (queries[k][1] as int) < arr.len()
+                && {
                 let l = queries[k][0] as int;
                 let r = queries[k][1] as int;
                 #[trigger] answer[k] == Self::range_xor(arr@, l, r)
+                }
             },
     {
         let n = arr.len();

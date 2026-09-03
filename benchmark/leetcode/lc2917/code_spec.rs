@@ -44,11 +44,24 @@ impl Solution {
         Self::find_k_or_from_spec(nums, k, 0)
     }
 
-    fn bit_set_exec(x: i32, bit: usize) -> (res: bool) {
+    fn bit_set_exec(x: i32, bit: usize) -> (res: bool)
+        requires
+            0 <= x < 2_147_483_648,
+            bit <= 30,
+        ensures
+            res == Self::bit_set_spec(x, bit as int),
+    {
         ((x >> (bit as u32)) & 1) == 1
     }
 
     fn count_bit_exec(nums: &Vec<i32>, bit: usize, idx: usize) -> (res: i32)
+        requires
+            nums.len() <= 50,
+            bit <= 30,
+            idx <= nums.len(),
+            forall |i: int| 0 <= i < nums.len() ==> 0 <= #[trigger] nums[i] < 2_147_483_648,
+        ensures
+            res as int == Self::count_bit_spec(nums@, bit as int, idx as int),
         decreases nums.len() - idx,
     {
         if idx >= nums.len() {
@@ -61,6 +74,13 @@ impl Solution {
     }
 
     fn find_k_or_from_exec(nums: &Vec<i32>, k: i32, bit: usize) -> (res: i32)
+        requires
+            nums.len() <= 50,
+            bit <= 31,
+            1 <= k <= nums.len(),
+            forall |i: int| 0 <= i < nums.len() ==> 0 <= #[trigger] nums[i] < 2_147_483_648,
+        ensures
+            res == Self::find_k_or_from_spec(nums@, k as int, bit as int),
         decreases 31 - bit,
     {
         if bit >= 31 {

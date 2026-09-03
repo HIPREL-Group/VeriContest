@@ -38,6 +38,12 @@ impl Solution {
     }
 
     fn count_value_exec(nums: &Vec<i32>, target: i32, idx: usize) -> (res: usize)
+        requires
+            idx <= nums.len(),
+            nums.len() <= 100,
+        ensures
+            res as int == Self::count_value(nums@, target as int, idx as int),
+            res <= nums.len() - idx,
         decreases nums.len() - idx,
     {
         if idx >= nums.len() {
@@ -50,6 +56,13 @@ impl Solution {
     }
 
     fn check_single_exec(nums: &Vec<i32>, v: usize, n: usize) -> (res: bool)
+        requires
+            nums.len() <= 100,
+            n + 1 == nums.len(),
+            1 <= v,
+            v <= n + 1,
+        ensures
+            res == Self::all_single(nums@, v as int, n as int),
         decreases n + 1 - v,
     {
         if v >= n {

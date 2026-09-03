@@ -25,6 +25,39 @@ pub open spec fn total_cost(a: Seq<i64>, n: usize, k: i64, x: i64) -> int {
     total_cost_rec(a, n, k, x, (n / 2) as int)
 }
 
+pub open spec fn b2i(b: bool) -> int {
+    if b { 1 } else { 0 }
+}
+
+pub open spec fn pair_lo(ai: i64, aj: i64) -> i64 {
+    if ai < aj { ai } else { aj }
+}
+
+pub open spec fn pair_hi(ai: i64, aj: i64) -> i64 {
+    if ai > aj { ai } else { aj }
+}
+
+pub open spec fn exact_count_rec(a: Seq<i64>, n: usize, x: i64, end: int) -> int
+    decreases end
+{
+    if end <= 0 { 0 }
+    else {
+        exact_count_rec(a, n, x, end - 1)
+            + b2i(a[end - 1] + a[n as int - end] == x)
+    }
+}
+
+pub open spec fn diff_delta_rec(a: Seq<i64>, n: usize, k: i64, pos: i64, end: int) -> int
+    decreases end
+{
+    if end <= 0 { 0 }
+    else {
+        diff_delta_rec(a, n, k, pos, end - 1)
+            + b2i(pair_lo(a[end - 1], a[n as int - end]) + 1 == pos)
+            - b2i(pair_hi(a[end - 1], a[n as int - end]) + k + 1 == pos)
+    }
+}
+
 pub struct Solution;
 
 impl Solution {
@@ -38,6 +71,10 @@ impl Solution {
         ensures
             res.0.len() == (2 * k + 2) as usize,
             res.1.len() == (2 * k + 2) as usize,
+            forall|pos: int| 0 <= pos && pos < (2 * k + 2) ==>
+                res.0@[pos] as int == diff_delta_rec(a@, n, k, pos as i64, (n / 2) as int),
+            forall|pos: int| 0 <= pos && pos < (2 * k + 2) ==>
+                res.1@[pos] as int == exact_count_rec(a@, n, pos as i64, (n / 2) as int),
     {
         let half = n / 2;
         let size = (2 * k + 2) as usize;

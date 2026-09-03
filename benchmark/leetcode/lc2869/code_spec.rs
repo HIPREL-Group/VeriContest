@@ -21,6 +21,8 @@ impl Solution {
     fn contains_in_suffix(nums: &Vec<i32>, ops: usize, v: i32) -> (found: bool)
         requires
             ops <= nums.len(),
+        ensures
+            found == Self::seen_in_suffix(nums@, v as int, ops as int),
     {
         let n = nums.len();
         let mut t: usize = 0;

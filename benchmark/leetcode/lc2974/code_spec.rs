@@ -52,8 +52,12 @@ impl Solution {
     }
 
     fn count_value_exec(nums: &Vec<i32>, value: i32) -> (c: i32)
+        requires
+            nums.len() <= 100,
+            forall |i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 100,
         ensures
             c as int == Self::count_value(nums@, value as int, nums.len() as int),
+            0 <= c <= nums.len(),
     {
         let n = nums.len();
         let mut i: usize = 0;

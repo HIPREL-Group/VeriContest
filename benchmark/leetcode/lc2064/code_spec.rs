@@ -33,6 +33,7 @@ impl Solution {
             1 <= x <= 100000,
         ensures
             need as int == Self::stores_needed(quantities@, x as int),
+            0 <= need as int <= quantities.len() as int * 100000,
     {
         let mut need: i64 = 0;
         let mut i: usize = 0;

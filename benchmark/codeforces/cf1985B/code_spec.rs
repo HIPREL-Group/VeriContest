@@ -20,6 +20,8 @@ impl Solution {
         requires
             2 <= x <= n,
             2 <= n <= 100,
+        ensures
+            s as int == Self::sum_multiples(x as int, n as int),
     {
         let k = n / x;
         x * k * (k + 1) / 2

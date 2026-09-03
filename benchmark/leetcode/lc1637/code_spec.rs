@@ -43,7 +43,13 @@ impl Solution {
         else { Self::x_coords(points.drop_last()).push(points.last()@[0]) }
     }
 
-    fn ms_merge(a: &Vec<i32>, b: &Vec<i32>) -> (result: Vec<i32>) {
+    fn ms_merge(a: &Vec<i32>, b: &Vec<i32>) -> (result: Vec<i32>)
+        requires Self::sorted(a@), Self::sorted(b@)
+        ensures
+            Self::sorted(result@),
+            result@.len() == a@.len() + b@.len(),
+            Self::is_perm(result@, a@ + b@),
+    {
         let mut result: Vec<i32> = Vec::new();
         let mut i: usize = 0;
         let mut j: usize = 0;
@@ -60,7 +66,11 @@ impl Solution {
         result
     }
 
-    fn ms_sort(nums: &Vec<i32>) -> (result: Vec<i32>) {
+    fn ms_sort(nums: &Vec<i32>) -> (result: Vec<i32>)
+        ensures
+            Self::sorted(result@),
+            Self::is_perm(result@, nums@),
+    {
         let n = nums.len();
         if n <= 1 {
             let mut result = Vec::new();

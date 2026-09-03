@@ -72,6 +72,7 @@ impl Solution {
             0 <= burgers <= 1_000_000_000_301,
         ensures
             result as int == needed_purchase(recipe as int, stock as int, burgers as int) * price as int,
+            0 <= result <= 10_000_000_003_010_000,
     {
         let needed = burgers * recipe - stock;
         if needed > 0 {

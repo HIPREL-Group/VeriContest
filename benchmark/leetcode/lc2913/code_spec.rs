@@ -48,6 +48,8 @@ impl Solution {
     }
 
     fn contains_range(nums: &Vec<i32>, start: usize, end: usize, value: i32) -> (found: bool)
+        requires
+            start <= end <= nums.len(),
         ensures
             found == Self::contains_in_range(nums@, start as int, end as int, value as int),
     {
@@ -63,8 +65,12 @@ impl Solution {
     }
 
     fn distinct_count_range(nums: &Vec<i32>, start: usize, end: usize) -> (count: i32)
+        requires
+            start < end <= nums.len(),
+            forall |i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 100,
         ensures
             count as int == Self::distinct_count(nums@, start as int, end as int, 100),
+            0 <= count <= 100,
     {
         let mut value: i32 = 1;
         let mut count: i32 = 0;

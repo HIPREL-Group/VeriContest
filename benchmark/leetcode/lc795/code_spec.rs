@@ -49,6 +49,7 @@ impl Solution {
         ensures
             ans >= 0,
             ans as int == Self::count_at_most(nums@, bound as int, nums.len() as int),
+            ans as int <= nums.len() as int * (nums.len() as int + 1) / 2,
     {
         let n = nums.len();
         let mut ans: i64 = 0;

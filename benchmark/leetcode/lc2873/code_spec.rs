@@ -56,6 +56,15 @@ impl Solution {
     }
 
     fn solve_k(nums: &Vec<i32>, i: usize, j: usize, k: usize, acc: i64) -> (res: i64)
+        requires
+            i < j,
+            j < nums.len(),
+            j <= k,
+            k <= nums.len(),
+            forall |t: int| 0 <= t < nums.len() ==> 0 <= #[trigger] nums[t] <= 1_000_000,
+            -9_223_372_036_854_775_808 <= acc <= 9_223_372_036_854_775_807,
+        ensures
+            res as int == Self::max_k(nums@, i as int, j as int, k as int, acc as int),
         decreases nums.len() - k,
     {
         if k >= nums.len() {
@@ -68,6 +77,14 @@ impl Solution {
     }
 
     fn solve_j(nums: &Vec<i32>, i: usize, j: usize, acc: i64) -> (res: i64)
+        requires
+            i < j,
+            i < nums.len(),
+            j <= nums.len(),
+            forall |t: int| 0 <= t < nums.len() ==> 0 <= #[trigger] nums[t] <= 1_000_000,
+            -9_223_372_036_854_775_808 <= acc <= 9_223_372_036_854_775_807,
+        ensures
+            res as int == Self::max_j(nums@, i as int, j as int, acc as int),
         decreases nums.len() - j,
     {
         if j >= nums.len() {
@@ -79,6 +96,12 @@ impl Solution {
     }
 
     fn solve_i(nums: &Vec<i32>, i: usize, acc: i64) -> (res: i64)
+        requires
+            i <= nums.len(),
+            forall |t: int| 0 <= t < nums.len() ==> 0 <= #[trigger] nums[t] <= 1_000_000,
+            -9_223_372_036_854_775_808 <= acc <= 9_223_372_036_854_775_807,
+        ensures
+            res as int == Self::max_i(nums@, i as int, acc as int),
         decreases nums.len() - i,
     {
         if i >= nums.len() {

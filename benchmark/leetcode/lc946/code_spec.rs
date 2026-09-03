@@ -60,7 +60,13 @@ impl Solution {
         Self::state_j(pushed, popped, n) == popped.len() && Self::state_stack(pushed, popped, n).len() == 0
     }
 
-    fn reduce_stack_exec(stack: &mut Vec<i32>, popped: &Vec<i32>, j: usize) -> (result: usize) {
+    fn reduce_stack_exec(stack: &mut Vec<i32>, popped: &Vec<i32>, j: usize) -> (result: usize)
+        requires
+            j <= popped.len(),
+        ensures
+            result as int == Self::reduce_j(old(stack)@, popped@, j as int),
+            stack@ == Self::reduce_stack(old(stack)@, popped@, j as int),
+    {
         if stack.len() > 0 && j < popped.len() && stack[stack.len() - 1] == popped[j] {
             stack.pop();
             Self::reduce_stack_exec(stack, popped, j + 1)

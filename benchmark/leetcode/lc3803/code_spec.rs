@@ -47,6 +47,8 @@ impl Solution {
     fn is_first_at(s: &String, p: usize) -> (res: bool)
         requires
             p < s@.len(),
+        ensures
+            res <==> Self::is_first_occurrence(s@, p as nat),
     {
         let mut q: usize = 0;
         while q < p {

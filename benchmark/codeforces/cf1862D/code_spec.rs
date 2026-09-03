@@ -7,7 +7,12 @@ verus! {
 pub struct Solution;
 
 impl Solution {
-    fn tri_safe(x: u64) -> (t: u64) {
+    fn tri_safe(x: u64) -> (t: u64)
+        requires
+            1 <= x <= 2_000_000_001u64,
+        ensures
+            t as int == (x as int) * ((x as int) - 1) / 2,
+    {
         if x % 2 == 0 {
             (x / 2) * (x - 1)
         } else {

@@ -90,6 +90,7 @@ impl Solution {
         ensures
             res <= 0x0FFFu32,
             res == Self::add12_closed(x, y),
+            res == (((x + y) as u32) & 0x0FFFu32),
     {
         let mask: u32 = 0x0FFFu32;
 

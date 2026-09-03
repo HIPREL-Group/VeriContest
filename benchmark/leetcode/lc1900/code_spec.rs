@@ -111,6 +111,8 @@ impl Solution {
         ensures
             result.0 as int == spec_earliest(l as int, r as int, m as int),
             result.1 as int == spec_latest(l as int, r as int, m as int),
+            0 <= result.0 <= 30,
+            0 <= result.1 <= m,
         decreases m,
     {
         if l == r {

@@ -45,7 +45,19 @@ impl Solution {
         if 2 * m > n { 2 * m - n } else { n % 2 }
     }
 
-    fn merge(left: Vec<i32>, right: Vec<i32>) -> (result: Vec<i32>) {
+    pub open spec fn sorted(s: Seq<i32>) -> bool {
+        forall|i: int, j: int| 0 <= i < j < s.len() ==> s[i] <= s[j]
+    }
+
+    fn merge(left: Vec<i32>, right: Vec<i32>) -> (result: Vec<i32>)
+        requires
+            Self::sorted(left@),
+            Self::sorted(right@),
+        ensures
+            Self::sorted(result@),
+            result.len() == left.len() + right.len(),
+            forall|v: int| Self::spec_count(result@, v) == Self::spec_count(left@, v) + Self::spec_count(right@, v),
+    {
         let mut result: Vec<i32> = Vec::new();
         let mut i: usize = 0;
         let mut j: usize = 0;
@@ -73,7 +85,12 @@ impl Solution {
         result
     }
 
-    fn merge_sort(a: Vec<i32>) -> (result: Vec<i32>) {
+    fn merge_sort(a: Vec<i32>) -> (result: Vec<i32>)
+        ensures
+            Self::sorted(result@),
+            result.len() == a.len(),
+            forall|v: int| Self::spec_count(result@, v) == Self::spec_count(a@, v),
+    {
         let n = a.len();
         if n <= 1 {
             a
@@ -98,7 +115,17 @@ impl Solution {
         }
     }
 
-    fn compute_rank(s: &Vec<i32>) -> (rank: Vec<i32>) {
+    fn compute_rank(s: &Vec<i32>) -> (rank: Vec<i32>)
+        requires
+            Self::sorted(s@),
+            s.len() >= 1,
+            s.len() <= 200000,
+        ensures
+            rank.len() == s.len(),
+            rank[0] == 1,
+            forall|t: int| 0 < t < rank.len() ==> #[trigger] rank[t] == rank[t - 1] + if s[t] > s[t - 1] { 1int } else { 0int },
+            forall|t: int| 0 <= t < rank.len() ==> 1 <= #[trigger] rank[t] <= t + 1,
+    {
         let n = s.len();
         let mut rank: Vec<i32> = Vec::new();
         rank.push(1);
@@ -112,7 +139,14 @@ impl Solution {
         rank
     }
 
-    fn find_index(s: &Vec<i32>, x: i32) -> (pos: usize) {
+    fn find_index(s: &Vec<i32>, x: i32) -> (pos: usize)
+        requires
+            Self::sorted(s@),
+            Self::spec_count(s@, x as int) > 0,
+        ensures
+            pos < s.len(),
+            s[pos as int] == x,
+    {
         let mut lo: usize = 0;
         let mut hi: usize = s.len();
         while lo < hi {
@@ -128,7 +162,15 @@ impl Solution {
         0
     }
 
-    fn compress(a: &Vec<i32>) -> (comp: Vec<i32>) {
+    fn compress(a: &Vec<i32>) -> (comp: Vec<i32>)
+        requires
+            a.len() >= 1,
+            a.len() <= 200000,
+        ensures
+            comp.len() == a.len(),
+            forall|t: int| 0 <= t < comp.len() ==> 1 <= #[trigger] comp[t] <= a.len(),
+            forall|k: int| 0 <= k < a.len() ==> Self::spec_count(comp@, comp[k] as int) == Self::spec_count(a@, a[k] as int),
+    {
         let mut a_copy: Vec<i32> = Vec::new();
         let mut ci: usize = 0;
         while ci < a.len() {

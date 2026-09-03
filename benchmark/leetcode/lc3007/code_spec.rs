@@ -51,6 +51,9 @@ impl Solution {
     fn pow2(exp: i32) -> (result: i64)
         requires
             0 <= exp <= 60,
+        ensures
+            1 <= result,
+            result as int == Self::pow2_spec(exp as int),
     {
         let mut p = 1i64;
         let mut t = 0i32;
@@ -64,7 +67,12 @@ impl Solution {
     fn count_price_upto(num: i64, x: i32) -> (result: i64)
         requires
             0 <= num,
+            0 <= num <= 1_152_921_504_606_846_975,
             1 <= x <= 8,
+        ensures
+            0 <= result,
+            result < i64::MAX ==> result as int == Self::count_price_upto_spec(num as int, x as int),
+            result == i64::MAX ==> Self::count_price_upto_spec(num as int, x as int) >= i64::MAX as int,
     {
         let n = if num == i64::MAX { i64::MAX } else { num + 1 };
         let mut i = 1i32;

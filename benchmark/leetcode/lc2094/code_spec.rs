@@ -50,8 +50,12 @@ impl Solution {
     }
 
     fn count_digit_exec(nums: &Vec<i32>, digit: i32) -> (c: i32)
+        requires
+            nums.len() <= 100,
+            forall |i: int| 0 <= i < nums.len() ==> 0 <= #[trigger] nums[i] <= 9,
         ensures
             c as int == Self::count_digit(nums@, digit as int, nums.len() as int),
+            0 <= c <= nums.len(),
     {
         let n = nums.len();
         let mut i: usize = 0;
@@ -71,6 +75,7 @@ impl Solution {
             0 <= digit <= 9,
         ensures
             c as int == Self::need_count(num as int, digit as int),
+            0 <= c <= 3,
     {
         let h = num / 100;
         let t = (num / 10) % 10;
@@ -90,6 +95,7 @@ impl Solution {
 
     fn can_form_exec(nums: &Vec<i32>, num: i32) -> (ok: bool)
         requires
+            nums.len() <= 100,
             100 <= num < 1000,
             num % 2 == 0,
             forall |i: int| 0 <= i < nums.len() ==> 0 <= #[trigger] nums[i] <= 9,

@@ -48,6 +48,7 @@ impl Solution {
             a.len() == n,
             forall|i: int| 0 <= i && i < n ==> s@[i] == 'R' || s@[i] == 'B',
             forall|i: int| 0 <= i && i < n ==> 1 <= a@[i] && a@[i] <= 1000000000,
+            0 <= p && p <= 1000000000,
         ensures
             res == valid_for_penalty(n, k, s@, a@, p)
     {

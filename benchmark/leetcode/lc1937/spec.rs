@@ -11,7 +11,11 @@ impl Solution {
         if x >= 0 { x } else { -x }
     }
 
-    
+    pub open spec fn max_spec(a: int, b: int) -> int {
+        if a >= b { a } else { b }
+    }
+
+
     pub open spec fn valid_path(path: Seq<int>, m: int, n: int) -> bool {
         path.len() == m
         && forall|r: int| 0 <= r < m ==> 0 <= #[trigger] path[r] < n
@@ -51,6 +55,43 @@ impl Solution {
         - Self::path_transition_cost(path, path.len() as int - 1)
     }
 
+    pub open spec fn dp_val(points: Seq<Vec<i32>>, row: int, col: int) -> int
+        decreases row + 1, 0nat,
+    {
+        if row <= 0 {
+            points[0][col] as int
+        } else {
+            let n = points[0].len() as int;
+            points[row][col] as int + Self::best_transfer(points, row, col, n - 1)
+        }
+    }
+
+    pub open spec fn best_transfer(points: Seq<Vec<i32>>, row: int, target: int, up_to: int) -> int
+        decreases row, up_to + 1,
+    {
+        if up_to < 0 {
+            i64::MIN as int
+        } else {
+            Self::max_spec(
+                Self::dp_val(points, row - 1, up_to) - Self::abs_spec(up_to - target),
+                Self::best_transfer(points, row, target, up_to - 1),
+            )
+        }
+    }
+
+    pub open spec fn max_col(points: Seq<Vec<i32>>, row: int, up_to: int) -> int
+        decreases up_to + 1,
+    {
+        if up_to < 0 {
+            i64::MIN as int
+        } else {
+            Self::max_spec(
+                Self::dp_val(points, row, up_to),
+                Self::max_col(points, row, up_to - 1),
+            )
+        }
+    }
+
     pub fn max_points(points: Vec<Vec<i32>>) -> (res: i64)
         requires
             1 <= points.len() <= 100_000,
@@ -68,6 +109,11 @@ impl Solution {
             forall|path: Seq<int>|
                 Self::valid_path(path, points@.len() as int, points@[0].len() as int)
                 ==> Self::path_score(points@, path) <= res as int,
+            res as int == Self::max_col(
+                points@,
+                (points@.len() - 1) as int,
+                (points@[0].len() - 1) as int,
+            ),
     {
     }
 }

@@ -163,6 +163,7 @@ impl Solution {
     fn is_prime(num: i32) -> (res: bool)
         requires
             num >= 0,
+            num <= 999_999,
         ensures
             res == Self::prime_int(num as int),
     {

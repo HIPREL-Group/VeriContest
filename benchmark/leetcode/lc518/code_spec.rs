@@ -24,6 +24,12 @@ impl Solution {
         }
     }
 
+    pub open spec fn memo_sound(coins: Seq<i32>, memo: Seq<i32>, width: int) -> bool {
+        forall |ii: int, aa: int| 0 <= ii <= coins.len() && 0 <= aa < width
+            ==> #[trigger] memo[ii * width + aa] != -1
+                ==> memo[ii * width + aa] as int == Self::coin_change_ways(coins, ii as nat, aa)
+    }
+
     fn coin_rec(coins: &Vec<i32>, i: usize, a: usize, memo: &mut Vec<i32>, width: usize) -> (res: i32)
         requires
             forall |k: int| 0 <= k < coins.len() ==> 1 <= #[trigger] coins[k] <= 5000,
@@ -32,9 +38,12 @@ impl Solution {
             old(memo).len() == (coins.len() + 1) * width,
             i <= coins.len(),
             a < width,
+            Self::memo_sound(coins@, old(memo)@, width as int),
             Self::coin_change_ways(coins@, i as nat, a as int) <= i32::MAX,
         ensures
             res as int == Self::coin_change_ways(coins@, i as nat, a as int),
+            memo.len() == old(memo).len(),
+            Self::memo_sound(coins@, memo@, width as int),
     {
         let idx = i * width + a;
         let cur = memo[idx];

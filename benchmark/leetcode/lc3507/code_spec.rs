@@ -83,7 +83,10 @@ impl Solution {
         Self::steps_to_sort_fuel(s, s.len() as nat)
     }
 
-    fn is_non_decreasing_vec(arr: &Vec<i32>) -> (res: bool) {
+    fn is_non_decreasing_vec(arr: &Vec<i32>) -> (res: bool)
+        ensures
+            res == Self::is_non_decreasing(arr@),
+    {
         if arr.len() <= 1 {
             return true;
         }

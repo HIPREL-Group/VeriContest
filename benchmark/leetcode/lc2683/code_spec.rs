@@ -26,6 +26,11 @@ impl Solution {
     }
 
     fn xor_all_exec(derived: &Vec<i32>, idx: usize) -> (res: i32)
+        requires
+            idx <= derived.len(),
+            forall |i: int| 0 <= i < derived.len() ==> (derived[i] == 0 || derived[i] == 1),
+        ensures
+            res == Self::xor_all_spec(derived@, idx as int),
     {
         let mut i: usize = idx;
         let mut acc: i32 = 0;

@@ -51,7 +51,13 @@ pub open spec fn max_win_streak_upto(days: Seq<Vec<u8>>, hi: int) -> int
 pub struct Solution;
 
 impl Solution {
-    fn is_win_row(row: &Vec<u8>) -> bool {
+    fn is_win_row(row: &Vec<u8>) -> bool
+        requires
+            row.len() <= 100,
+            forall|j: int| 0 <= j && j < row.len() ==> row[j] == 48u8 || row[j] == 49u8,
+        returns
+            arya_beats(row@),
+    {
         let n = row.len();
         let mut j = 0usize;
         let mut found = false;

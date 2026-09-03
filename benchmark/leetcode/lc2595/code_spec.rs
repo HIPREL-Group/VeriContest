@@ -27,6 +27,7 @@ impl Solution {
             div > 0,
         ensures
             result as int == ((n as int / div as int) % 2),
+            0 <= result <= 1,
     {
         (n / div) % 2
     }

@@ -69,7 +69,39 @@ impl Solution {
         Self::best_value_upto(a, x, k, a.len() as int + 1)
     }
 
-    fn max_sum_for_len(a: &Vec<i64>, len: usize) -> (res: i64) {
+    pub open spec fn candidate_from_best(best: Seq<i64>, x: int, k: int, len: int) -> int {
+        if len < 0 || len >= best.len() {
+            Self::neg_inf()
+        } else {
+            best[len] as int + x * Self::min_int(k, len)
+        }
+    }
+
+    pub open spec fn best_from_best_upto(best: Seq<i64>, x: int, k: int, upto: int) -> int
+        decreases if upto <= 0 { 0 } else { upto },
+    {
+        if upto <= 0 {
+            Self::neg_inf()
+        } else {
+            let prev = Self::best_from_best_upto(best, x, k, upto - 1);
+            let cur = Self::candidate_from_best(best, x, k, upto - 1);
+            if prev <= cur { cur } else { prev }
+        }
+    }
+
+    pub open spec fn best_from_best(best: Seq<i64>, x: int, k: int) -> int {
+        Self::best_from_best_upto(best, x, k, best.len() as int)
+    }
+
+    fn max_sum_for_len(a: &Vec<i64>, len: usize) -> (res: i64)
+        requires
+            1 <= a.len() <= 5000,
+            1 <= len <= a.len(),
+            forall|i: int| 0 <= i < a.len() ==> -100000 <= #[trigger] a@[i] <= 100000,
+        ensures
+            res as int == Self::max_len_sum(a@, len as int),
+            -500000000 <= res as int <= 500000000,
+    {
         let n = a.len();
         let mut j: usize = 0;
         let mut window_sum: i64 = 0;
@@ -91,7 +123,16 @@ impl Solution {
         best_len
     }
 
-    fn best_answer_from_best(best: &Vec<i64>, x: i64, k: usize) -> (res: i64) {
+    fn best_answer_from_best(best: &Vec<i64>, x: i64, k: usize) -> (res: i64)
+        requires
+            1 <= best.len() <= 5001,
+            0 <= x <= 100000,
+            0 <= k < best.len(),
+            forall|l: int| 0 <= l < best.len() ==> -500000000 <= #[trigger] best@[l] as int <= 500000000,
+        ensures
+            res as int == Self::best_from_best(best@, x as int, k as int),
+            Self::neg_inf() <= res as int <= 1000000000,
+    {
         let n = best.len() - 1;
         let mut cur: i64 = -1_000_000_000_000;
         let mut used_len: usize = 0;
