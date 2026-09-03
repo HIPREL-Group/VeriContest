@@ -24,6 +24,15 @@ impl Solution {
         (l <= x <= r && l <= y <= r && x != y && a[x - 1] != a[y - 1])
     }
 
+    pub open spec fn spec_is_next_diff(a: Seq<i64>, i: int, v: int) -> bool
+        recommends
+            0 <= i < a.len(),
+    {
+        &&& i + 1 <= v <= a.len()
+        &&& forall|u: int| i < u < v ==> #[trigger] a[u] == a[i]
+        &&& v < a.len() ==> a[v] != a[i]
+    }
+
     pub fn find_different_ones(a: Vec<i64>, queries: Vec<(usize, usize)>) -> (res: Vec<(i32, i32)>)
         requires
             2 <= a.len() <= 200000,
@@ -49,6 +58,14 @@ impl Solution {
             nxt.push(n);
             p += 1;
         }
+
+        proof {
+            assert(nxt[n as int - 1] == n);
+            assert(Self::spec_is_next_diff(a@, n as int - 1, n as int)) by {
+                assert(n as int + 1 <= n as int + 1);
+            }
+        }
+
         let mut idx: usize = n - 1;
         while idx > 0
             invariant
@@ -57,15 +74,36 @@ impl Solution {
                 nxt.len() == n,
                 0 <= idx <= n - 1,
                 forall|j: int| 0 <= j < n as int ==> 1 <= #[trigger] a[j] <= 1000000,
+                forall|i: int| idx as int <= i < n as int ==> Self::spec_is_next_diff(a@, i, #[trigger] nxt[i] as int),
             decreases idx,
         {
             let i = idx - 1;
             if a[i] != a[i + 1] {
                 nxt[i] = i + 1;
+                proof {
+                    assert(Self::spec_is_next_diff(a@, i as int, i as int + 1));
+                }
             } else {
-                nxt[i] = nxt[i + 1];
+                let v = nxt[i + 1];
+                nxt[i] = v;
+                proof {
+                    assert(Self::spec_is_next_diff(a@, i as int + 1, v as int));
+                    assert forall|u: int| (i as int) < u && u < (v as int) implies #[trigger] a[u] == a[i as int] by {
+                        if u == i as int + 1 {
+                        } else {
+                            assert((i as int + 1) < u && u < (v as int));
+                        }
+                    };
+                    assert(Self::spec_is_next_diff(a@, i as int, v as int));
+                }
             }
             idx -= 1;
+        }
+
+        proof {
+            assert forall|i: int| 0 <= i < n as int implies Self::spec_is_next_diff(a@, i, #[trigger] nxt[i] as int) by {
+                assert(0 as int <= i);
+            }
         }
 
         let mut ans: Vec<(i32, i32)> = Vec::with_capacity(queries.len());
@@ -77,70 +115,44 @@ impl Solution {
                 nxt.len() == n,
                 ans.len() == qi,
                 0 <= qi <= queries.len(),
-                forall|idx: int| 0 <= idx < a.len() as int ==> 1 <= #[trigger] a[idx] <= 1000000,
+                forall|idx2: int| 0 <= idx2 < a.len() as int ==> 1 <= #[trigger] a[idx2] <= 1000000,
                 forall|k2: int| 0 <= k2 < queries.len() as int ==> 1 <= #[trigger] queries[k2].0 < queries[k2].1 <= a.len(),
+                forall|i: int| 0 <= i < n as int ==> Self::spec_is_next_diff(a@, i, #[trigger] nxt[i] as int),
                 forall|k2: int| 0 <= k2 < qi as int ==> Self::valid_query_answer(a@, queries[k2], #[trigger] ans[k2]),
             decreases queries.len() - qi,
         {
             let l = queries[qi].0;
             let r = queries[qi].1;
             let li = l - 1;
-            let ri = r - 1;
-            let mut found: bool = false;
-            let mut pos: usize = li;
-            let mut t: usize = li + 1;
-            while t <= ri
-                invariant
-                    2 <= a.len() <= 200000,
-                    1 <= l < r <= a.len(),
-                    li + 1 <= t <= ri + 1,
-                    li < ri < a.len(),
-                    !found ==> forall|u: int| (li as int) < u && u < (t as int) ==> #[trigger] a[u] == a[li as int],
-                    found ==> li < pos < t,
-                    found ==> a[pos as int] != a[li as int],
-                decreases ri + 1 - t,
-            {
-                if !found && a[t] != a[li] {
-                    found = true;
-                    pos = t;
-                }
-                t += 1;
+            proof {
+                assert(1 <= l < r <= a.len());
+                assert(Self::spec_is_next_diff(a@, li as int, nxt[li as int] as int));
             }
             let j = nxt[li];
-            let j = if found { pos } else { r };
             if j < r {
                 ans.push((l as i32, j as i32 + 1));
                 proof {
-                    assert(1 <= l < r <= a.len());
-                    assert(found);
-                    assert(li < pos <= ri);
-                    assert(1 <= l <= r <= a.len());
-                    assert(l as int <= l as int);
-                    assert(j as int + 1 <= r as int);
-                    assert(a[l as int - 1] != a[pos as int]);
+                    assert(li as int + 1 <= j as int <= a.len() as int);
+                    assert(a[j as int] != a[li as int]);
                     assert(Self::valid_query_answer(a@, queries[qi as int], ans[qi as int]));
                 }
             } else {
                 ans.push((-1, -1));
                 proof {
-                    if !found {
-                        assert(t == ri + 1);
-                        assert forall|p0: int, q0: int| li as int <= p0 && p0 < q0 && q0 <= ri as int implies a[p0] == a[q0] by {
-                            if p0 == li as int {
-                                assert((li as int) < q0 && q0 < (t as int));
-                                assert(a[q0] == a[li as int]);
-                            } else {
-                                assert((li as int) < p0 && p0 < (t as int));
-                                assert((li as int) < q0 && q0 < (t as int));
-                                assert(a[p0] == a[li as int]);
-                                assert(a[q0] == a[li as int]);
-                            }
-                        };
-                        assert(Self::all_equal_range(a@, li as int, ri as int));
-                        assert(Self::valid_query_answer(a@, queries[qi as int], ans[qi as int]));
-                    } else {
-                        assert(false);
-                    }
+                    assert forall|u0: int, v0: int| (li as int) <= u0 && u0 < v0 && v0 <= (r as int - 1)
+                        implies a[u0] == a[v0] by {
+                        if u0 == li as int {
+                            assert((li as int) < v0 && v0 < (j as int));
+                            assert(a[v0] == a[li as int]);
+                        } else {
+                            assert((li as int) < u0 && u0 < (j as int));
+                            assert((li as int) < v0 && v0 < (j as int));
+                            assert(a[u0] == a[li as int]);
+                            assert(a[v0] == a[li as int]);
+                        }
+                    };
+                    assert(Self::all_equal_range(a@, li as int, r as int - 1));
+                    assert(Self::valid_query_answer(a@, queries[qi as int], ans[qi as int]));
                 }
             }
             qi += 1;

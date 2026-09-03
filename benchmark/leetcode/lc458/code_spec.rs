@@ -31,7 +31,8 @@ impl Solution {
         let mut pigs: i32 = 0;
         let mut capacity: i32 = 1;
         while capacity < buckets {
-            let prod: i64 = capacity as i64 * states as i64;
+            let old_capacity = capacity;
+            let prod: i64 = old_capacity as i64 * states as i64;
             capacity = prod as i32;
             pigs += 1;
         }

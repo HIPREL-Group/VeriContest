@@ -64,48 +64,45 @@ impl Solution {
                 && Self::count_fractions_less(arr@, i, j) == (k - 1) as nat,
     {
         let n = arr.len();
-        let target = k;
+        let mut ptr: Vec<usize> = Vec::with_capacity(n);
+        let mut idx: usize = 0;
+        while idx < n {
+            ptr.push(0);
+            idx += 1;
+        }
 
-        let mut low = 0.0f64;
-        let mut high = 1.0f64;
-        let mut ans_num = arr[0];
-        let mut ans_den = arr[n - 1];
+        let mut ans_i: usize = 0;
+        let mut ans_j: usize = 1;
 
-        let mut iter = 0usize;
-        while iter < 64
-        {
-            let mid = (low + high) / 2.0f64;
-            let mut count = 0i32;
-            let mut best_num = 0i32;
-            let mut best_den = 1i32;
-
-            let mut i = 0usize;
-            let mut j = 1usize;
-            while j < n
-            {
-                while i < j && (arr[i] as f64) <= mid * (arr[j] as f64)
-                {
-                    if (arr[i] as i64) * (best_den as i64) > (best_num as i64) * (arr[j] as i64) {
-                        best_num = arr[i];
-                        best_den = arr[j];
+        let mut t: i32 = 0;
+        while t < k {
+            let mut best_j: usize = 0;
+            let mut j: usize = 1;
+            while j < n {
+                if ptr[j] < j {
+                    let take = if best_j == 0 {
+                        true
+                    } else {
+                        (arr[ptr[j]] as i64) * (arr[best_j] as i64) < (arr[ptr[best_j]] as i64) * (arr[j] as i64)
+                    };
+                    if take {
+                        best_j = j;
                     }
-                    i += 1;
                 }
-                count += i as i32;
                 j += 1;
             }
 
-            if count < target {
-                low = mid;
-            } else {
-                ans_num = best_num;
-                ans_den = best_den;
-                high = mid;
-            }
-            iter += 1;
+            ans_i = ptr[best_j];
+            ans_j = best_j;
+            ptr[best_j] = ptr[best_j] + 1;
+
+            t += 1;
         }
 
-        vec![ans_num, ans_den]
+        let mut result = Vec::new();
+        result.push(arr[ans_i]);
+        result.push(arr[ans_j]);
+        result
     }
 }
 

@@ -75,7 +75,7 @@ impl Solution {
         let pairs = n / 2;
         let ku = k as usize;
         let mut change_count = vec![0i32; ku + 2];
-        change_count.set(0, pairs as i32);
+        change_count[0] = pairs as i32;
 
         let mut i = 0usize;
         while i < pairs {
@@ -96,11 +96,11 @@ impl Solution {
             let max_diff = max_diff_i32 as usize;
 
             if cur_diff <= ku {
-                change_count.set(cur_diff, change_count[cur_diff].checked_sub(1).unwrap_or(change_count[cur_diff]));
-                change_count.set(cur_diff + 1, change_count[cur_diff + 1].checked_add(1).unwrap_or(change_count[cur_diff + 1]));
+                change_count[cur_diff] = change_count[cur_diff].checked_sub(1).unwrap_or(change_count[cur_diff]);
+                change_count[cur_diff + 1] = change_count[cur_diff + 1].checked_add(1).unwrap_or(change_count[cur_diff + 1]);
             }
             if max_diff <= ku {
-                change_count.set(max_diff + 1, change_count[max_diff + 1].checked_add(1).unwrap_or(change_count[max_diff + 1]));
+                change_count[max_diff + 1] = change_count[max_diff + 1].checked_add(1).unwrap_or(change_count[max_diff + 1]);
             }
 
             i += 1;

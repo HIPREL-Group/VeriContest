@@ -111,6 +111,97 @@ impl Solution {
         }
     }
 
+    pub proof fn lemma_bit_price_upto_mono(num1: int, num2: int, i: int)
+        requires
+            0 <= num1 <= num2,
+            1 <= i <= 60,
+        ensures
+            Self::bit_price_upto(num1, i) <= Self::bit_price_upto(num2, i),
+    {
+        let n1 = num1 + 1;
+        let n2 = num2 + 1;
+        let block = Self::pow2_spec(i);
+        let half = Self::pow2_spec(i - 1);
+        Self::lemma_pow2_spec_pos(i);
+        Self::lemma_pow2_spec_pos(i - 1);
+        assert(block == 2 * half);
+        assert(0 < block);
+        vstd::arithmetic::div_mod::lemma_div_is_ordered(n1, n2, block);
+        let q1 = n1 / block;
+        let q2 = n2 / block;
+        assert(q1 <= q2);
+        let rem1 = n1 % block;
+        let rem2 = n2 % block;
+        lemma_fundamental_div_mod(n1, block);
+        lemma_fundamental_div_mod(n2, block);
+        assert(n1 == block * q1 + rem1);
+        assert(n2 == block * q2 + rem2);
+        assert(0 <= rem1 < block);
+        assert(0 <= rem2 < block);
+        assert(Self::bit_price_upto(num1, i) == q1 * half + (if rem1 > half { rem1 - half } else { 0 }));
+        assert(Self::bit_price_upto(num2, i) == q2 * half + (if rem2 > half { rem2 - half } else { 0 }));
+        if q1 < q2 {
+            assert(q1 + 1 <= q2);
+            assert(rem1 < 2 * half);
+            assert(1 <= half);
+            assert(Self::bit_price_upto(num1, i) < q1 * half + half) by (nonlinear_arith)
+                requires
+                    rem1 < 2 * half,
+                    1 <= half,
+                    Self::bit_price_upto(num1, i) == q1 * half + (if rem1 > half { rem1 - half } else { 0 }),
+            {
+            }
+            assert(q1 * half + half <= q2 * half) by (nonlinear_arith)
+                requires
+                    q1 + 1 <= q2,
+                    half >= 0,
+            {
+            }
+            assert(q2 * half <= Self::bit_price_upto(num2, i)) by (nonlinear_arith)
+                requires
+                    Self::bit_price_upto(num2, i) == q2 * half + (if rem2 > half { rem2 - half } else { 0 }),
+            {
+            }
+        } else {
+            assert(q1 == q2);
+            assert(rem1 <= rem2) by (nonlinear_arith)
+                requires
+                    n1 <= n2,
+                    n1 == block * q1 + rem1,
+                    n2 == block * q1 + rem2,
+            {
+            }
+        }
+    }
+
+    proof fn lemma_total_price_upto_mono(num1: int, num2: int, x: int, i: int)
+        requires
+            0 <= num1 <= num2,
+            1 <= x <= 8,
+            1 <= i <= 61,
+        ensures
+            Self::total_price_upto(num1, x, i) <= Self::total_price_upto(num2, x, i),
+        decreases 61 - i,
+    {
+        if i > 60 {
+        } else {
+            Self::lemma_total_price_upto_mono(num1, num2, x, i + 1);
+            if i % x == 0 {
+                Self::lemma_bit_price_upto_mono(num1, num2, i);
+            }
+        }
+    }
+
+    pub proof fn lemma_count_price_upto_spec_mono(num1: int, num2: int, x: int)
+        requires
+            0 <= num1 <= num2,
+            1 <= x <= 8,
+        ensures
+            Self::count_price_upto_spec(num1, x) <= Self::count_price_upto_spec(num2, x),
+    {
+        Self::lemma_total_price_upto_mono(num1, num2, x, 1);
+    }
+
     pub proof fn lemma_count_price_zero(x: int)
         requires
             1 <= x <= 8,
@@ -306,6 +397,11 @@ impl Solution {
                 upper == 1_152_921_504_606_846_975,
                 1 <= k <= 1_000_000_000_000_000,
                 1 <= x <= 8,
+                low <= high + 1,
+                low > 0 ==> ans as int == low as int - 1,
+                low == 0 ==> ans == 0,
+                low > 0 ==> Self::count_price_upto_spec(low as int - 1, x as int) <= k as int,
+                high < upper ==> Self::count_price_upto_spec(high as int + 1, x as int) > k as int,
             decreases high - low + 1,
         {
             let mid = low + (high - low) / 2;
@@ -316,68 +412,58 @@ impl Solution {
             assert(0 <= mid <= 1_152_921_504_606_846_975);
             let price = Self::count_price_upto(mid, x);
             if price <= k {
+                assert(price < i64::MAX);
+                assert(Self::count_price_upto_spec(mid as int, x as int) <= k as int);
                 ans = mid;
-                if mid < upper {
-                    low = mid + 1;
-                } else {
-                    break;
-                }
+                low = mid + 1;
             } else {
+                if price < i64::MAX {
+                    assert(price as int == Self::count_price_upto_spec(mid as int, x as int));
+                } else {
+                    assert(price == i64::MAX);
+                    assert(Self::count_price_upto_spec(mid as int, x as int) >= i64::MAX as int);
+                }
+                assert(Self::count_price_upto_spec(mid as int, x as int) > k as int);
                 high = mid - 1;
             }
         }
-        ans = 0;
-        proof {
-            Self::lemma_count_price_zero(x as int);
-        }
-        let mut scan = 0i64;
-        while scan <= upper
-            invariant
-                upper == 1_152_921_504_606_846_975,
-                0 <= scan <= upper + 1,
-                0 <= ans <= upper,
-                1 <= k <= 1_000_000_000_000_000,
-                1 <= x <= 8,
-                Self::count_price_upto_spec(ans as int, x as int) <= k as int,
-                forall |candidate: int|
-                    0 <= candidate < scan
+        assert(low == high + 1);
+        if low > 0 {
+            assert(Self::count_price_upto_spec(ans as int, x as int) <= k as int);
+            if low <= upper {
+                assert(high < upper);
+                assert(Self::count_price_upto_spec(low as int, x as int) > k as int);
+                assert forall |candidate: int|
+                    0 <= candidate <= upper as int
                         && Self::count_price_upto_spec(candidate, x as int) <= k as int
-                    ==> candidate <= ans,
-            decreases upper - scan + 1,
-        {
-            assert(0 <= scan <= 1_152_921_504_606_846_975);
-            let price = Self::count_price_upto(scan, x);
-            if price <= k {
-                assert(price < i64::MAX);
-                assert(Self::count_price_upto_spec(scan as int, x as int) <= k as int);
-                ans = scan;
+                    implies candidate <= ans as int
+                by {
+                    if candidate >= low as int {
+                        Self::lemma_count_price_upto_spec_mono(low as int, candidate, x as int);
+                        assert(Self::count_price_upto_spec(candidate, x as int)
+                            >= Self::count_price_upto_spec(low as int, x as int));
+                        assert(false);
+                    }
+                }
             } else {
-                if price < i64::MAX {
-                    assert(price as int == Self::count_price_upto_spec(scan as int, x as int));
-                    assert(Self::count_price_upto_spec(scan as int, x as int) > k as int);
-                } else {
-                    assert(price == i64::MAX);
-                    assert(Self::count_price_upto_spec(scan as int, x as int) >= i64::MAX as int);
-                    assert(Self::count_price_upto_spec(scan as int, x as int) > k as int);
+                assert(low == upper + 1);
+                assert(ans == upper);
+                assert forall |candidate: int|
+                    0 <= candidate <= upper as int
+                        && Self::count_price_upto_spec(candidate, x as int) <= k as int
+                    implies candidate <= ans as int
+                by {
                 }
             }
-            assert forall |candidate: int|
-                0 <= candidate < scan + 1
-                    && Self::count_price_upto_spec(candidate, x as int) <= k as int
-                implies candidate <= ans
-            by {
-                if candidate < scan {
-                } else {
-                    assert(candidate == scan);
-                }
+        } else {
+            assert(high == -1);
+            assert(-1 < upper);
+            assert(Self::count_price_upto_spec(0, x as int) > k as int);
+            proof {
+                Self::lemma_count_price_zero(x as int);
             }
-            if scan < upper {
-                scan += 1;
-            } else {
-                scan = upper + 1;
-            }
+            assert(false);
         }
-        assert(scan == upper + 1);
         ans
     }
 }

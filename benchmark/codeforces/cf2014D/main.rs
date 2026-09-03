@@ -7,19 +7,41 @@ fn next_i32<'a, I: Iterator<Item = &'a str>>(it: &mut I) -> Option<i32> {
 }
 
 impl Solution {
-    pub fn best_start_days(n: i32, d: i32, left: Vec<i32>, right: Vec<i32>) -> (i32, i32) {
-        let m = n - d + 1;
+    pub fn overlaps_window(start: i32, d: i32, l: i32, r: i32) -> bool
+    {
+        (start as i64) <= (r as i64) && (l as i64) <= (start as i64) + (d as i64) - 1
+    }
 
+    pub fn overlap_count(start: i32, d: i32, left: &Vec<i32>, right: &Vec<i32>) -> i32
+    {
+        let mut cnt: i32 = 0;
+        let mut j: usize = 0;
+        while j < left.len()
+        {
+            if Self::overlaps_window(start, d, left[j], right[j]) {
+                cnt = cnt + 1;
+            }
+            j = j + 1;
+        }
+        cnt
+    }
+
+    pub fn best_start_days(n: i32, d: i32, left: Vec<i32>, right: Vec<i32>) -> (i32, i32)
+    {
+        let m = n - d + 1;
         let mm = m as usize;
+
         let mut diff: Vec<i32> = Vec::with_capacity(mm + 2);
         let mut p: usize = 0;
-        while p < mm + 2 {
+        while p < mm + 2
+        {
             diff.push(0);
             p += 1;
         }
 
         let mut j: usize = 0;
-        while j < left.len() {
+        while j < left.len()
+        {
             let l = left[j];
             let r = right[j];
             let lo = if l - d + 1 > 1 { l - d + 1 } else { 1 };
@@ -27,9 +49,9 @@ impl Solution {
             if lo <= hi {
                 let li = lo as usize;
                 let hi1 = (hi + 1) as usize;
-                diff[li] += 1;
-                diff[hi1] -= 1;
-            }
+                diff[li] = diff[li] + 1;
+                diff[hi1] = diff[hi1] - 1;
+            } 
             j += 1;
         }
 
@@ -40,8 +62,15 @@ impl Solution {
 
         let mut cur: i32 = 0;
         let mut start: usize = 1;
-        while start <= mm {
+        while start <= mm
+        {
             cur += diff[start];
+
+            let old_best_bro = best_bro;
+            let old_best_mom = best_mom;
+            let old_best_bro_count = best_bro_count;
+            let old_best_mom_count = best_mom_count;
+
             if cur > best_bro_count {
                 best_bro_count = cur;
                 best_bro = start as i32;
@@ -50,6 +79,7 @@ impl Solution {
                 best_mom_count = cur;
                 best_mom = start as i32;
             }
+
             start += 1;
         }
 

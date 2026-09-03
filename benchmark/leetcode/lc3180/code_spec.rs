@@ -68,10 +68,10 @@ impl Solution {
             let key = vals[a];
             let mut b = a;
             while b > 0 && vals[b - 1] > key {
-                vals.set(b, vals[b - 1]);
+                vals[b] = vals[b - 1];
                 b -= 1;
             }
-            vals.set(b, key);
+            vals[b] = key;
             a += 1;
         }
 

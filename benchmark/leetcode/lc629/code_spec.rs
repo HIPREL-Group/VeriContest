@@ -57,7 +57,7 @@ impl Solution {
             dp.push(0);
             t += 1;
         }
-        dp.set(0, 1);
+        dp[0] = 1;
 
         let mut i: i32 = 1;
         while i <= n {
@@ -78,7 +78,7 @@ impl Solution {
                 if window < 0 {
                     window += m;
                 }
-                next.set(j as usize, window as i32);
+                next[j as usize] = window as i32;
                 j += 1;
             }
             dp = next;
