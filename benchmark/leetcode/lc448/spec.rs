@@ -23,6 +23,7 @@ impl Solution {
         ensures
             forall|i: int| 0 <= i < result.len() ==> #[trigger] Self::is_disappeared(nums@, result[i]),
             forall|k: int| 1 <= k <= nums.len() && Self::is_disappeared(nums@, k as i32) ==> #[trigger] Self::seq_contains(result@, k as i32),
+            result@.no_duplicates(),
     {
     }
 }

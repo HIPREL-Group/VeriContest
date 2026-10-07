@@ -8,12 +8,12 @@ Competitive-Programming Benchmark for Verifiable Code Generation"**
 Project website:
 [hiprel-group.github.io/VeriContest](https://hiprel-group.github.io/VeriContest/).
 
-The benchmark contains 946 main benchmark problems: 690 from LeetCode and 256
+The current benchmark contains 1,006 problems: 722 from LeetCode and 284
 from Codeforces. Each problem pairs a natural-language description with
 expert-validated formal specifications, judge-accepted Rust code, and
-Verus-checked proofs. The repository also includes an `extended/` set of
-problems that were constructed with specifications, code, and proofs but are not
-part of the main benchmark evaluation.
+Verus-checked proofs. All problems are organized by source platform. Some
+problems accept multiple feasible answers and require a problem-specific
+checker instead of comparison with a single expected output.
 
 The complete dataset release, including positive and mutated negative testcase files, is
 available on Hugging Face:
@@ -23,9 +23,9 @@ available on Hugging Face:
 
 ```text
 benchmark/
-  codeforces/       # 256 main Codeforces benchmark problems
-  leetcode/         # 690 main LeetCode benchmark problems
-  extended/         # 61 verified problems excluded from the main benchmark
+  codeforces/       # 284 Codeforces problems
+  leetcode/         # 722 LeetCode problems
+  CHECKERS.md       # Problem-specific judging rules and input/output schemas
 lemmas/             # Reusable Verus proof lemmas (arithmetic, bits, sequences)
 skills/             # Authoring guides and scripts for adding new problems
 verus/              # Bundled Verus toolchain, 0.2026.04.10, Linux x86-64 (invoked as ./verus/verus)
@@ -73,16 +73,22 @@ stdin/stdout handling.
 - `verified.rs`: The full Verus-vefified programs with specifications, code, and 
   proofs. It establishes that the code satisfies the specification.
 - `main.rs`: Codeforces-only executable entry point and stdin/stdout plumbing.
+- `tests/checker.py`: Problem-specific output judge, when supplied. Use it to
+  accept any valid answer, not only the stored reference answer.
 
-## Main Benchmark
+## Benchmark
 
-The main benchmark is under:
+All problems are under:
 
 - `benchmark/codeforces/`
 - `benchmark/leetcode/`
 
-These 946 problems are the benchmark instances used for the paper's primary
-evaluation. VeriContest supports isolated and compositional evaluation of:
+The paper's primary evaluation used 946 problems (690 LeetCode and 256
+Codeforces). The current unified collection contains 1,006 problems; its full
+set is not the same evaluation scope as the paper. Pin the repository revision
+and explicit problem list when reporting results.
+
+VeriContest supports isolated and compositional evaluation of:
 
 - **SpecGen**: generate formal specifications from natural-language problem
   descriptions.
@@ -99,25 +105,6 @@ repository. The GitHub repository is intended to make the problem artifacts,
 specifications, code, proofs, and tooling easy to inspect and version. The
 complete release is available on Hugging Face:
 [Gax-c/VeriContest](https://huggingface.co/datasets/Gax-c/VeriContest).
-
-## Extended Problems
-
-`benchmark/extended/` contains 61 additional verified problems that were
-filtered out during benchmark construction.
-
-These problems have the necessary verification components: specifications, 
-code, and proofs.
-
-They are excluded from the main benchmark because they are not suitable for the
-testcase-only evaluation pipeline used by the benchmark. In particular, some
-problems use Rust patterns such as `&mut`, and some allow multiple feasible
-outputs. For the these problems, correctness cannot be determined by comparing
-against a single expected output string; each problem needs a problem-specific
-judge.
-
-We keep these problems in `extended/` because they are still useful as verified
-Verus examples and as candidates for future benchmark extensions with custom
-judging support.
 
 ## Benchmark Construction
 

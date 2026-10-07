@@ -32,7 +32,6 @@ document those commands so the agent knows how to run them.
 
 ## Related Repository Folders
 
-- `benchmark/` — where finished problems live (`leetcode/`, `codeforces/`,
-  `extended/`).
+- `benchmark/` — where finished problems live (`leetcode/`, `codeforces/`).
 - `lemmas/` — reusable Verus proof lemmas to consult while proving. 
 - `verus/` — the bundled Verus toolchain, invoked as `./verus/verus`.

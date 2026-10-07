@@ -18,11 +18,12 @@ impl Solution {
     pub fn find_disappeared_numbers(nums: Vec<i32>) -> (result: Vec<i32>)
         requires
             nums.len() >= 1,
-            nums.len() <= 100_000, 
+            nums.len() <= 100_000,
             forall|i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= nums.len(),
         ensures
             forall|i: int| 0 <= i < result.len() ==> #[trigger] Self::is_disappeared(nums@, result[i]),
             forall|k: int| 1 <= k <= nums.len() && Self::is_disappeared(nums@, k as i32) ==> #[trigger] Self::seq_contains(result@, k as i32),
+            result@.no_duplicates(),
     {
         let n = nums.len();
         
@@ -177,6 +178,16 @@ impl Solution {
             k += 1;
         }
 
+        proof {
+            assert forall|i: int, j: int| 0 <= i < result.len() && 0 <= j < result.len() && i != j implies
+                result@[i] != result@[j] by {
+                if i < j {
+                    assert(result[i] < result[j]);
+                } else {
+                    assert(result[j] < result[i]);
+                }
+            }
+        }
         result
     }
 }

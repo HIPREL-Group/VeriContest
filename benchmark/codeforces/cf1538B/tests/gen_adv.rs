@@ -1,0 +1,159 @@
+use vstd::prelude::*;
+
+verus! {
+
+pub fn generate_test_case(values: &Vec<i64>) -> (result: Vec<i64>)
+    requires
+        1 <= values.len() <= 200_000,
+        forall |k: int| 0 <= k < values.len() ==> 0 <= #[trigger] values[k] <= 10_000,
+    ensures
+        1 <= result.len() <= 200_000,
+        forall |k: int| 0 <= k < result.len() ==> 0 <= #[trigger] result[k] <= 10_000,
+{
+    let n = values.len();
+    let mut out: Vec<i64> = Vec::new();
+    let mut i: usize = 0;
+    while i < n
+        invariant
+            n == values.len(),
+            0 <= i <= n,
+            out.len() == i,
+            forall |k: int| 0 <= k < values.len() ==> 0 <= #[trigger] values[k] <= 10_000,
+            forall |k: int| 0 <= k < i as int ==> #[trigger] out[k] == values[k],
+        decreases n - i,
+    {
+        out.push(values[i]);
+        i = i + 1;
+    }
+    out
+}
+
+}
+
+use std::io::Write;
+
+struct Rng(u64);
+impl Rng {
+    fn new(seed: u64) -> Self { Self(seed) }
+    fn next_u64(&mut self) -> u64 {
+        self.0 = self.0.wrapping_mul(6364136223846793005).wrapping_add(1442695040888963407);
+        self.0
+    }
+    fn gen_range_i64(&mut self, lo: i64, hi: i64) -> i64 {
+        let r = (hi as i128 - lo as i128 + 1) as u128;
+        (lo as i128 + (self.next_u64() as u128 % r) as i128) as i64
+    }
+    fn gen_range_usize(&mut self, lo: usize, hi: usize) -> usize {
+        lo + (self.next_u64() as usize) % (hi - lo + 1)
+    }
+}
+
+fn fmt_json_str(s: &str) -> String {
+    let mut out = String::with_capacity(s.len() + 2);
+    out.push('"');
+    for c in s.chars() {
+        match c {
+            '"' => out.push_str("\\\""),
+            '\\' => out.push_str("\\\\"),
+            '\n' => out.push_str("\\n"),
+            '\r' => out.push_str("\\r"),
+            '\t' => out.push_str("\\t"),
+            c if (c as u32) < 0x20 => out.push_str(&format!("\\u{:04x}", c as u32)),
+            c => out.push(c),
+        }
+    }
+    out.push('"');
+    out
+}
+
+struct Solution;
+include!("../code.rs");
+
+fn build_input(cases: &[Vec<i64>]) -> String {
+    let mut s = format!("{}\n", cases.len());
+    for a in cases {
+        s.push_str(&format!("{}\n", a.len()));
+        let parts: Vec<String> = a.iter().map(|x| x.to_string()).collect();
+        s.push_str(&parts.join(" "));
+        s.push('\n');
+    }
+    s
+}
+
+fn build_output(answers: &[i32]) -> String {
+    let mut s = String::new();
+    for &a in answers {
+        s.push_str(&format!("{}\n", a));
+    }
+    s
+}
+
+fn gen_arr(rng: &mut Rng, n: usize, mode: u64) -> Vec<i64> {
+    let mut a: Vec<i64> = Vec::with_capacity(n);
+    match mode {
+        0 => for _ in 0..n { a.push(0); },
+        1 => for _ in 0..n { a.push(10000); },
+        2 => { let v = rng.gen_range_i64(0, 10000); for _ in 0..n { a.push(v); } },
+        3 => for _ in 0..n { a.push(rng.gen_range_i64(0, 5)); },
+        4 => { // sum divisible likely
+            let v = rng.gen_range_i64(0, 100);
+            for _ in 0..n { a.push(v); }
+            if n > 0 { a[0] = v + n as i64 - 1; for i in 1..n { a[i] = v - 1; } }
+        }
+        _ => for _ in 0..n { a.push(rng.gen_range_i64(0, 10000)); },
+    }
+    // ensure non-negative
+    for x in &mut a { if *x < 0 { *x = 0; } }
+    a
+}
+
+fn main() {
+    let target: usize = 200;
+    let mut rng = Rng::new(31337);
+    let out_path = std::path::Path::new(file!()).parent().unwrap().join("adv_testcase.jsonl");
+    let f = std::fs::File::create(&out_path).unwrap();
+    let mut out = std::io::BufWriter::new(f);
+    let mut count = 0usize;
+
+    // Big single
+    {
+        let cases: Vec<Vec<i64>> = vec![(0..1000).map(|i| (i % 10000) as i64).collect()];
+        let answers: Vec<i32> = cases.iter().map(|a| Solution::min_friends_for_equal_candies(a.clone())).collect();
+        let inp = build_input(&cases);
+        let outp = build_output(&answers);
+        writeln!(out, "{{\"input\":{},\"output\":{}}}", fmt_json_str(&inp), fmt_json_str(&outp)).unwrap();
+        count += 1;
+    }
+
+    while count < target {
+        let t: usize = match count % 5 {
+            0 => 1,
+            1 => rng.gen_range_usize(2, 10),
+            2 => rng.gen_range_usize(10, 50),
+            3 => rng.gen_range_usize(50, 200),
+            _ => rng.gen_range_usize(200, 1000),
+        };
+        let mut cases: Vec<Vec<i64>> = Vec::new();
+        let mut total = 0;
+        for _ in 0..t {
+            let n = match rng.next_u64() % 5 {
+                0 => 1,
+                1 => rng.gen_range_usize(1, 5),
+                2 => rng.gen_range_usize(5, 30),
+                3 => rng.gen_range_usize(30, 100),
+                _ => rng.gen_range_usize(100, 300),
+            };
+            if total + n > 50000 { break; }
+            total += n;
+            let mode = rng.next_u64() % 6;
+            cases.push(gen_arr(&mut rng, n, mode));
+        }
+        if cases.is_empty() { continue; }
+        let answers: Vec<i32> = cases.iter().map(|a| Solution::min_friends_for_equal_candies(a.clone())).collect();
+        let inp = build_input(&cases);
+        let outp = build_output(&answers);
+        writeln!(out, "{{\"input\":{},\"output\":{}}}", fmt_json_str(&inp), fmt_json_str(&outp)).unwrap();
+        count += 1;
+    }
+}
+

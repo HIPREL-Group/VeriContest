@@ -17,6 +17,12 @@ build/
 *.o
 *.rlib
 
+# Per-problem test sources are versioned; generated datasets and binaries are not.
+/benchmark/**/tests/*
+!/benchmark/**/tests/*.rs
+!/benchmark/**/tests/checker.py
+!/benchmark/**/tests/README.md
+
 # Exception: the bundled Verus toolchain ships prebuilt runtime libraries that
 # ./verus/verus needs to run. Keep them tracked.
 !verus/*.so

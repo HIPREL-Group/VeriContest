@@ -1,0 +1,178 @@
+use vstd::prelude::*;
+
+verus! {
+
+pub fn generate_test_case(
+    raw_a: Vec<i8>,
+    raw_qls: Vec<usize>,
+    raw_qrs: Vec<usize>,
+    mutation_kind: u8,
+) -> (result: (Vec<i8>, Vec<usize>, Vec<usize>))
+    requires
+        1 <= raw_a.len() <= 200000,
+        1 <= raw_qls.len() <= 200000,
+        raw_qls.len() == raw_qrs.len(),
+        forall|i: int| 0 <= i < raw_a.len() ==> #[trigger] raw_a[i] == 1i8 || raw_a[i] == -1i8,
+        forall|i: int| 0 <= i < raw_qls.len() ==> 1 <= #[trigger] raw_qls[i] <= raw_qrs[i] <= raw_a.len(),
+    ensures
+        1 <= result.0.len() <= 200000,
+        1 <= result.1.len() <= 200000,
+        result.1.len() == result.2.len(),
+        forall|i: int| 0 <= i < result.0.len() ==> #[trigger] result.0[i] == 1i8 || result.0[i] == -1i8,
+        forall|i: int| 0 <= i < result.1.len() ==> 1 <= #[trigger] result.1[i] <= result.2[i] <= result.0.len(),
+{
+    let n = raw_a.len();
+    if mutation_kind == 0 {
+        (raw_a, raw_qls, raw_qrs)
+    } else if mutation_kind == 1 {
+        let mut a = raw_a;
+        let mut i: usize = 0;
+        while i < a.len()
+            invariant
+                0 <= i <= a.len(),
+                a.len() == n,
+                1 <= n <= 200000,
+                forall|j: int| 0 <= j < i ==> a[j] == 1i8,
+                forall|j: int| i <= j < a.len() ==> #[trigger] a[j] == 1i8 || a[j] == -1i8,
+            decreases a.len() - i,
+        {
+            a.set(i, 1i8);
+            i += 1;
+        }
+        (a, raw_qls, raw_qrs)
+    } else if mutation_kind == 2 {
+        let mut a = raw_a;
+        let mut i: usize = 0;
+        while i < a.len()
+            invariant
+                0 <= i <= a.len(),
+                a.len() == n,
+                1 <= n <= 200000,
+                forall|j: int| 0 <= j < i ==> a[j] == -1i8,
+                forall|j: int| i <= j < a.len() ==> #[trigger] a[j] == 1i8 || a[j] == -1i8,
+            decreases a.len() - i,
+        {
+            a.set(i, -1i8);
+            i += 1;
+        }
+        (a, raw_qls, raw_qrs)
+    } else {
+        (raw_a, raw_qls, raw_qrs)
+    }
+}
+
+}
+
+use std::io::Write;
+use std::collections::HashSet;
+
+struct Rng(u64);
+impl Rng {
+    fn new(seed: u64) -> Self { Self(seed) }
+    fn next_u64(&mut self) -> u64 {
+        self.0 = self.0.wrapping_mul(6364136223846793005).wrapping_add(1442695040888963407);
+        self.0
+    }
+    fn gen_range_usize(&mut self, lo: usize, hi: usize) -> usize {
+        lo + (self.next_u64() as usize) % (hi - lo + 1)
+    }
+}
+
+fn fmt_json_str(s: &str) -> String {
+    let mut out = String::with_capacity(s.len() + 2);
+    out.push('"');
+    for c in s.chars() {
+        match c {
+            '"' => out.push_str("\\\""),
+            '\\' => out.push_str("\\\\"),
+            '\n' => out.push_str("\\n"),
+            '\r' => out.push_str("\\r"),
+            '\t' => out.push_str("\\t"),
+            c if (c as u32) < 0x20 => out.push_str(&format!("\\u{:04x}", c as u32)),
+            c => out.push(c),
+        }
+    }
+    out.push('"');
+    out
+}
+
+struct Solution;
+include!("../code.rs");
+
+fn build_input(a: &Vec<i8>, qls: &Vec<usize>, qrs: &Vec<usize>) -> String {
+    let n = a.len();
+    let m = qls.len();
+    let mut s = format!("{} {}\n", n, m);
+    for i in 0..n {
+        if i > 0 { s.push(' '); }
+        s.push_str(&format!("{}", a[i]));
+    }
+    s.push('\n');
+    for i in 0..m {
+        s.push_str(&format!("{} {}\n", qls[i], qrs[i]));
+    }
+    s
+}
+
+fn build_output(ans: &Vec<u8>) -> String {
+    let mut s = String::new();
+    for v in ans {
+        s.push_str(&format!("{}\n", v));
+    }
+    s
+}
+
+fn main() {
+    let target: usize = 100;
+    let mut rng = Rng::new(302);
+    let mut seen: HashSet<String> = HashSet::new();
+    let out_path = std::path::Path::new(file!()).parent().unwrap().join("testcases.jsonl");
+    let f = std::fs::File::create(&out_path).unwrap();
+    let mut out = std::io::BufWriter::new(f);
+    let mut count = 0usize;
+
+    let mut emit = |a: Vec<i8>, qls: Vec<usize>, qrs: Vec<usize>, seen: &mut HashSet<String>, out: &mut std::io::BufWriter<std::fs::File>, count: &mut usize| {
+        if *count >= target { return; }
+        let n = a.len();
+        let m = qls.len();
+        if n < 1 || n > 200000 || m < 1 || m > 200000 { return; }
+        if qls.len() != qrs.len() { return; }
+        for i in 0..m {
+            if !(qls[i] >= 1 && qls[i] <= qrs[i] && qrs[i] <= n) { return; }
+        }
+        let inp = build_input(&a, &qls, &qrs);
+        if !seen.insert(inp.clone()) { return; }
+        let ans = Solution::answer_queries(a, qls, qrs);
+        let outp = build_output(&ans);
+        writeln!(out, "{{\"input\":{},\"output\":{}}}", fmt_json_str(&inp), fmt_json_str(&outp)).unwrap();
+        *count += 1;
+    };
+
+    // Sample tests
+    emit(vec![1i8, -1], vec![1usize, 1, 2], vec![1usize, 2, 2], &mut seen, &mut out, &mut count);
+    emit(vec![-1i8, 1, 1, 1, -1], vec![1usize, 2, 3, 2, 1], vec![1usize, 3, 5, 5, 5], &mut seen, &mut out, &mut count);
+
+    // Random tests
+    let mut tries = 0usize;
+    while count < target && tries < target * 200 {
+        tries += 1;
+        let n = match tries % 5 {
+            0 => rng.gen_range_usize(1, 5),
+            1 => rng.gen_range_usize(5, 20),
+            2 => rng.gen_range_usize(20, 100),
+            3 => rng.gen_range_usize(100, 1000),
+            _ => rng.gen_range_usize(1000, 5000),
+        };
+        let m = rng.gen_range_usize(1, n.min(20));
+        let a: Vec<i8> = (0..n).map(|_| if rng.next_u64() % 2 == 0 { 1i8 } else { -1i8 }).collect();
+        let mut qls: Vec<usize> = Vec::new();
+        let mut qrs: Vec<usize> = Vec::new();
+        for _ in 0..m {
+            let l = rng.gen_range_usize(1, n);
+            let r = rng.gen_range_usize(l, n);
+            qls.push(l);
+            qrs.push(r);
+        }
+        emit(a, qls, qrs, &mut seen, &mut out, &mut count);
+    }
+}

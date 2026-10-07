@@ -1,5 +1,13 @@
 # VeriContest Test Case Generator
 
+The existing per-problem Rust sources are included under
+`benchmark/<kind>/<problem>/tests/`. Large testcase files and compiled binaries
+are not versioned here. For problems with `tests/checker.py`, use that checker
+to judge outputs rather than comparing against one reference answer; see
+[CHECKERS.md](../benchmark/CHECKERS.md) for the input/output schemas. The
+presence of generator sources alone does not certify their compatibility with
+the current specifications or released datasets.
+
 | File | Role | Property under test |
 |---|---|---|
 | `tests/testcases.jsonl` | **positive** cases | the postcondition must **accept** every case |
