@@ -38,31 +38,6 @@ impl Solution {
         }
     }
 
-    fn combo_rec(nums: &Vec<i32>, t: usize) -> (res: i32)
-        requires
-            forall |i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 1000,
-            nums.len() <= 200,
-            Self::combination_count(nums@, t as nat) <= i32::MAX,
-        ensures
-            res as int == Self::combination_count(nums@, t as nat),
-        decreases t,
-    {
-        if t == 0 {
-            return 1;
-        }
-        let mut total: i32 = 0;
-        let mut j: usize = 0;
-        while j < nums.len() {
-            let num = nums[j];
-            if (num as usize) <= t {
-                let sub = Self::combo_rec(nums, t - num as usize);
-                total = total + sub;
-            }
-            j += 1;
-        }
-        total
-    }
-
     pub fn combination_sum4(nums: Vec<i32>, target: i32) -> (res: i32)
         requires
             1 <= nums.len() <= 200,
@@ -73,7 +48,27 @@ impl Solution {
         ensures
             res as int == Self::combination_count(nums@, target as nat),
     {
-        Self::combo_rec(&nums, target as usize)
+        let t = target as usize;
+        let mut dp: Vec<i64> = Vec::new();
+        dp.push(1);
+        let mut i: usize = 1;
+        while i <= t {
+            let mut total: i64 = 0;
+            let mut j: usize = 0;
+            while j < nums.len() {
+                let num = nums[j] as usize;
+                if num <= i {
+                    total = total + dp[i - num];
+                    if total > 2147483648 {
+                        total = 2147483648;
+                    }
+                }
+                j += 1;
+            }
+            dp.push(total);
+            i += 1;
+        }
+        dp[t] as i32
     }
 }
 

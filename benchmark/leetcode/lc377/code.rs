@@ -1,22 +1,26 @@
 impl Solution {
-    fn combo_rec(nums: &Vec<i32>, t: usize) -> i32 {
-        if t == 0 {
-            return 1;
-        }
-        let mut total: i32 = 0;
-        let mut j: usize = 0;
-        while j < nums.len() {
-            let num = nums[j];
-            if (num as usize) <= t {
-                let sub = Self::combo_rec(nums, t - num as usize);
-                total = total + sub;
+    pub fn combination_sum4(nums: Vec<i32>, target: i32) -> i32
+    {
+        let t = target as usize;
+        let mut dp: Vec<i64> = Vec::new();
+        dp.push(1);
+        let mut i: usize = 1;
+        while i <= t {
+            let mut total: i64 = 0;
+            let mut j: usize = 0;
+            while j < nums.len() {
+                let num = nums[j] as usize;
+                if num <= i {
+                    total = total + dp[i - num];
+                    if total > 2147483648 {
+                        total = 2147483648;
+                    }
+                }
+                j += 1;
             }
-            j += 1;
+            dp.push(total);
+            i += 1;
         }
-        total
-    }
-
-    pub fn combination_sum4(nums: Vec<i32>, target: i32) -> i32 {
-        Self::combo_rec(&nums, target as usize)
+        dp[t] as i32
     }
 }

@@ -200,17 +200,16 @@ impl Solution {
         }
     }
 
-    pub fn find_max_average(nums: Vec<i32>, k: i32) -> (result: (i64, i32))
+    pub fn find_max_average_core(nums: Vec<i32>, k: i32) -> (result: i64)
         requires
             nums.len() <= 100_000,
             1 <= k <= nums.len(),
             forall |i: int| 0 <= i < nums.len() ==> -10_000 <= #[trigger] nums@[i] <= 10_000,
         ensures
-            result.1 == k,
             forall |i: int| 0 <= i <= nums@.len() - (k as int) ==>
-                Self::window_sum(nums@, i, k as int) <= result.0 as int,
+                Self::window_sum(nums@, i, k as int) <= result as int,
             exists |i: int| 0 <= i <= nums@.len() - (k as int)
-                && result.0 as int == Self::window_sum(nums@, i, k as int),
+                && result as int == Self::window_sum(nums@, i, k as int),
     {
         let n = nums.len();
         let k_usize = k as usize;
@@ -289,8 +288,14 @@ impl Solution {
                 assert(max_sum as int == Self::window_sum(nums@, idx, k_int));
             }
         }
-        (max_sum, k)
+        max_sum
     }
 }
 
+}
+
+impl Solution {
+    pub fn find_max_average(nums: Vec<i32>, k: i32) -> f64 {
+        (Solution::find_max_average_core(nums, k) as f64) / (k as f64)
+    }
 }
