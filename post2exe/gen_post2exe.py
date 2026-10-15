@@ -1258,6 +1258,29 @@ fn mod_floor_i64(a: i64, b: i64) -> i64 {
 '''
 
 
+SEQ_KEY_HELPER = r'''
+// Memo key for a sequence parameter: hashed and compared by allocation, not by
+// contents.  Holding the `Rc` keeps that allocation alive, so its address
+// cannot be recycled while the key is in the cache.
+struct SeqKey<T>(Rc<Vec<T>>);
+
+impl<T> PartialEq for SeqKey<T> {
+    fn eq(&self, other: &Self) -> bool {
+        Rc::ptr_eq(&self.0, &other.0)
+    }
+}
+
+impl<T> Eq for SeqKey<T> {}
+
+impl<T> std::hash::Hash for SeqKey<T> {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        (Rc::as_ptr(&self.0) as usize).hash(state);
+    }
+}
+
+'''
+
+
 class DirectTranslationError(RuntimeError):
     pass
 
@@ -1370,7 +1393,10 @@ def _comparison_op(node) -> str | None:
     op_node = node.child_by_field_name("operator")
     if op_node is None:
         return None
-    return op_node.text.decode("utf-8")
+    op = op_node.text.decode("utf-8")
+    # `=~~=` is the deep form of `=~=`.  Both lower to Rust `==`, whose derived
+    # `PartialEq` on the owned representations is already element-wise.
+    return "=~=" if op == "=~~=" else op
 
 
 def _unwrap_attrs_and_parens(node, keep_view: bool = False):
@@ -1597,6 +1623,262 @@ def _pattern_bound_names(node, src: bytes) -> list[str]:
             names.extend(_pattern_bound_names(child, src))
         return names
     return []
+
+
+def _block_value_node(node):
+    """The expression a block evaluates to, or None."""
+    if node is None or node.type != "block":
+        return None
+    named = [c for c in node.named_children if c.type != "inner_attribute_item"]
+    if not named:
+        return None
+    tail = named[-1]
+    if tail.type == "expression_statement" and tail.named_children:
+        tail = tail.named_children[0]
+    return _unwrap_attrs_and_parens(tail)
+
+
+def _strip_casts(node):
+    node = _unwrap_attrs_and_parens(node)
+    while node is not None and node.type == "type_cast_expression":
+        node = _unwrap_attrs_and_parens(node.named_children[0])
+    return node
+
+
+def _int_literal_value(node, src: bytes) -> int | None:
+    node = _strip_casts(node)
+    if node is None or node.type != "integer_literal":
+        return None
+    m = re.match(r"\d+", _node_src(node, src).strip())
+    return int(m.group(0)) if m is not None else None
+
+
+def _method_call(node, src: bytes) -> tuple[object, str, list] | None:
+    """Split `recv.method(args...)` into receiver, method name and arguments."""
+    if node is None or node.type != "call_expression":
+        return None
+    callee = node.child_by_field_name("function")
+    args = node.child_by_field_name("arguments")
+    if callee is None or args is None or callee.type != "field_expression":
+        return None
+    named = callee.named_children
+    if len(named) != 2:
+        return None
+    return named[0], _node_src(named[1], src).strip(), list(args.named_children)
+
+
+def _seq_end_read(node, src: bytes, seq: str) -> str | None:
+    """Which end of `seq` an element access reads: `last`, `first` or None."""
+    node = _unwrap_attrs_and_parens(node)
+    call = _method_call(node, src)
+    if call is not None:
+        recv, method, args = call
+        if not args and method in {"last", "first"} and _node_src(recv, src).strip() == seq:
+            return method
+        return None
+    if node is not None and node.type == "index_expression":
+        named = node.named_children
+        if (
+            len(named) == 2
+            and _node_src(named[0], src).strip() == seq
+            and _int_literal_value(named[1], src) == 0
+        ):
+            return "first"
+    return None
+
+
+def _seq_end_dropped(node, src: bytes, seq: str) -> str | None:
+    """Which end a step that removes exactly one element of `seq` drops."""
+    call = _method_call(_unwrap_attrs_and_parens(node), src)
+    if call is None:
+        return None
+    recv, method, args = call
+    if _node_src(recv, src).strip() != seq:
+        return None
+    if not args:
+        return {"drop_last": "last", "drop_first": "first"}.get(method)
+    if _int_literal_value(args[0], src) != 1:
+        return None
+    if method == "skip" and len(args) == 1:
+        return "first"
+    if method == "subrange" and len(args) == 2:
+        end = _strip_casts(args[1])
+        if end is not None and _normalize_expr_source(_node_src(end, src)) == f"{seq}.len()":
+            return "first"
+    return None
+
+
+def _occurrence_indicator_end(node, src: bytes, seq: str, value: str) -> str | None:
+    """Which end `if seq.<end>() == value { 1 } else { 0 }` inspects."""
+    if node is None or node.type != "if_expression":
+        return None
+    cond = _unwrap_attrs_and_parens(node.child_by_field_name("condition"))
+    if cond is None or _comparison_op(cond) != "==":
+        return None
+    end = _seq_end_read(cond.child_by_field_name("left"), src, seq)
+    other = _unwrap_attrs_and_parens(cond.child_by_field_name("right"))
+    if end is None or other is None or _node_src(other, src).strip() != value:
+        return None
+    if _int_literal_value(_block_value_node(node.child_by_field_name("consequence")), src) != 1:
+        return None
+    alt = node.child_by_field_name("alternative")
+    alt_named = alt.named_children if alt is not None else []
+    if not alt_named or _int_literal_value(_block_value_node(alt_named[0]), src) != 0:
+        return None
+    return end
+
+
+def _occurrence_recursion_end(node, src: bytes, name: str, seq: str, value: str) -> str | None:
+    """Which end the recursive call `name(seq.<step>(), value)` drops."""
+    if node is None or node.type != "call_expression":
+        return None
+    callee = node.child_by_field_name("function")
+    args = node.child_by_field_name("arguments")
+    if callee is None or args is None:
+        return None
+    called = _node_src(callee, src).replace("Self::", "").replace("Solution::", "").strip()
+    arg_nodes = list(args.named_children)
+    if called != name or len(arg_nodes) != 2:
+        return None
+    if _node_src(_unwrap_attrs_and_parens(arg_nodes[1]), src).strip() != value:
+        return None
+    return _seq_end_dropped(arg_nodes[0], src, seq)
+
+
+def _self_call_nodes(node, src: bytes, name: str) -> list:
+    """Every call inside `node` whose callee resolves to `name`."""
+    found = []
+    if node.type == "call_expression":
+        callee = node.child_by_field_name("function")
+        if callee is not None:
+            called = _node_src(callee, src).replace("Self::", "").replace("Solution::", "").strip()
+            if called == name:
+                found.append(node)
+    for child in node.named_children:
+        found.extend(_self_call_nodes(child, src, name))
+    return found
+
+
+def _seq_params_passed_through(fn: DirectFunction) -> set[str]:
+    """Sequence parameters every recursive call of `fn` passes on unchanged.
+
+    Keying a memo entry on such a parameter's allocation costs nothing: the
+    whole recursion shares one allocation, so identity and contents agree, and
+    the O(n) hash of the contents per level goes away.  A parameter that gets
+    sliced is the opposite case -- distinct allocations holding equal contents
+    are the norm there, so an identity key would both miss the cache and retain
+    every slice.
+    """
+    src = fn.source.encode("utf-8")
+    body = fn.node.child_by_field_name("body")
+    calls = _self_call_nodes(body, src, fn.name) if body is not None else []
+    if not calls:
+        return set()
+    kept: set[str] = set()
+    for idx, param in enumerate(fn.params):
+        if _sequence_elem_spec_type(param.spec_type) is None:
+            continue
+        args_at_idx = []
+        for call in calls:
+            args = call.child_by_field_name("arguments")
+            arg_nodes = list(args.named_children) if args is not None else []
+            args_at_idx.append(
+                _unwrap_attrs_and_parens(arg_nodes[idx]) if idx < len(arg_nodes) else None
+            )
+        if all(a is not None and _node_src(a, src).strip() == param.name for a in args_at_idx):
+            kept.add(param.name)
+    return kept
+
+
+def _render_occurrence_count_fn(
+    emitted_name: str,
+    params: list[str],
+    ret_ty: str,
+    counted: tuple[str, str],
+    param_scope: dict[str, str],
+) -> str | None:
+    """Emit an occurrence counter as a histogram lookup instead of a recursion.
+
+    The recursive form costs O(n) per level -- `seq_drop_last` copies the vector
+    and the memo key hashes it -- so counting over every distinct value of an
+    n-element sequence is quadratic in both time and live memory.  One histogram
+    per sequence makes it linear.  The histogram is cached on the `Rc` address
+    with the `Rc` retained, so the address cannot be recycled under a live key;
+    the cache is dropped once it holds more sequences than a clause needs, which
+    bounds its size across testcases.
+    """
+    seq_name, value_name = counted
+    elem_ty = _direct_vec_elem_type(param_scope.get(seq_name))
+    if elem_ty is None or not _direct_type_supports_hash(elem_ty):
+        return None
+    cache_stem = re.sub(r"\W+", "_", emitted_name).upper()
+    cache_name = f"__{cache_stem}_HISTOGRAM"
+    return (
+        "thread_local! {\n"
+        f"    static {cache_name}: std::cell::RefCell<std::collections::HashMap<\n"
+        f"        usize, (std::rc::Rc<Vec<{elem_ty}>>, std::collections::HashMap<{elem_ty}, i64>)>> =\n"
+        "        std::cell::RefCell::new(std::collections::HashMap::new());\n"
+        "}\n\n"
+        f"fn {emitted_name}({', '.join(params)}) -> {ret_ty} {{\n"
+        f"    {cache_name}.with(|cache| {{\n"
+        "        let mut cache = cache.borrow_mut();\n"
+        "        if cache.len() > 4 {\n"
+        "            cache.clear();\n"
+        "        }\n"
+        f"        let entry = cache.entry(std::rc::Rc::as_ptr(&{seq_name}) as usize)\n"
+        f"            .or_insert_with(|| ({seq_name}.clone(), seq_to_multiset({seq_name}.clone())));\n"
+        f"        *entry.1.get(&{value_name}).unwrap_or(&0)\n"
+        "    })\n"
+        "}"
+    )
+
+
+def _occurrence_count_params(fn: DirectFunction) -> tuple[str, str] | None:
+    """`(sequence, value)` parameter names when `fn` counts occurrences.
+
+    Recognises `if s.len() == 0 { 0 } else { (if s.last() == v { 1 } else { 0 })
+    + fn(s.drop_last(), v) }`, its `first`/`drop_first` mirror, and either
+    summand order.  Such an `fn` denotes the number of positions of `s` holding
+    `v`, which is what licenses replacing a call with a histogram lookup and
+    `forall|v| fn(a, v) == fn(b, v)` with multiset equality.
+    """
+    if len(fn.params) != 2 or spec_to_direct_rust_type(fn.ret_type) != "i64":
+        return None
+    seq, value = fn.params[0].name, fn.params[1].name
+    if _sequence_elem_spec_type(fn.params[0].spec_type) != fn.params[1].spec_type:
+        return None
+    src = fn.source.encode("utf-8")
+    top = _block_value_node(fn.node.child_by_field_name("body"))
+    if top is None or top.type != "if_expression":
+        return None
+    cond = _unwrap_attrs_and_parens(top.child_by_field_name("condition"))
+    if cond is None or _comparison_op(cond) != "==":
+        return None
+    len_call = _method_call(_unwrap_attrs_and_parens(cond.child_by_field_name("left")), src)
+    if (
+        len_call is None
+        or len_call[1] != "len"
+        or _node_src(len_call[0], src).strip() != seq
+        or _int_literal_value(cond.child_by_field_name("right"), src) != 0
+        or _int_literal_value(_block_value_node(top.child_by_field_name("consequence")), src) != 0
+    ):
+        return None
+    alt = top.child_by_field_name("alternative")
+    alt_named = alt.named_children if alt is not None else []
+    total = _block_value_node(alt_named[0]) if alt_named else None
+    if total is None or _comparison_op(total) != "+":
+        return None
+    terms = [
+        _unwrap_attrs_and_parens(total.child_by_field_name("left")),
+        _unwrap_attrs_and_parens(total.child_by_field_name("right")),
+    ]
+    for indicator, recursion in (terms, terms[::-1]):
+        end = _occurrence_indicator_end(indicator, src, seq, value)
+        if end is not None and end == _occurrence_recursion_end(
+            recursion, src, fn.name, seq, value
+        ):
+            return seq, value
+    return None
 
 
 def _helper_call_name(
@@ -2496,22 +2778,14 @@ class DirectSpecTranslator:
             raise DirectTranslationError(
                 f"unsupported direct return type `{fn.ret_type}` in {fn.name}"
             )
-        if (
-            ret_ty == "bool"
-            and len(fn.params) == 2
-            and fn.params[0].spec_type == fn.params[1].spec_type
-            and _sequence_elem_spec_type(fn.params[0].spec_type) in {"int", "i32"}
-            and "count(" in fn.body_text
-            and any(token in fn.name.lower() for token in ("perm", "multiset"))
-        ):
-            left_name = fn.params[0].name
-            right_name = fn.params[1].name
-            return (
-                f"fn {emitted_name}({', '.join(params)}) -> bool {{\n"
-                f"    (({left_name}).len() == ({right_name}).len())\n"
-                f"        && (seq_to_multiset(({left_name}).clone()) == seq_to_multiset(({right_name}).clone()))\n"
-                "}"
-            )
+        if modulus_source is None:
+            counted = _occurrence_count_params(fn)
+            if counted is not None:
+                histogram = _render_occurrence_count_fn(
+                    emitted_name, params, ret_ty, counted, param_scope
+                )
+                if histogram is not None:
+                    return histogram
         body_node = fn.node.child_by_field_name("body")
         if body_node is None:
             raise DirectTranslationError(f"missing body for {fn.name}")
@@ -2523,10 +2797,15 @@ class DirectSpecTranslator:
             self.current_modulus_rust_override = "__modulus__"
         try:
             body = self.translate_block(body_node, fn, push_scope=False)
+            body_ty = self.infer_expr_type(body_node, fn)
         finally:
             self.current_modulus_source = saved_modulus
             self.current_modulus_rust_override = saved_override
             self.pop_scope()
+        if _direct_int_type(ret_ty) and _direct_int_type(body_ty) and body_ty != ret_ty:
+            # A body whose value is an unwidened element read (`s[k+1] - s[k]`
+            # over `Seq<i32>`) does not match the widened return type.
+            body = f"{{\n    ({body}) as {ret_ty}\n}}"
         if not self._is_recursive_function(fn) or not all(
             _direct_type_supports_hash(param_scope.get(param.name))
             for param in fn.params
@@ -2544,14 +2823,24 @@ class DirectSpecTranslator:
             # moduli (the harness runs many testcases sequentially) don't
             # cross-pollute results.
             cache_key_param_names.append("__modulus__")
+        passed_through = _seq_params_passed_through(fn)
         cache_key_types: list[str] = []
+        cache_key_exprs: list[str] = []
         for nm in cache_key_param_names:
-            ty = param_scope.get(nm)
-            if ty is None:
-                ty = "i64"
-            cache_key_types.append(ty)
+            ty = param_scope.get(nm) or "i64"
+            elem_ty = _direct_vec_elem_type(ty)
+            if elem_ty is None or nm not in passed_through:
+                cache_key_types.append(ty)
+                cache_key_exprs.append(f"{nm}.clone()")
+                continue
+            # Hashing a sequence hashes its contents, so a recursion that keeps
+            # the sequence and walks an index costs O(n) per level.  Key on the
+            # allocation instead: identity is finer than content equality, so it
+            # can only miss, never hit wrongly.
+            cache_key_types.append(f"SeqKey<{elem_ty}>")
+            cache_key_exprs.append(f"SeqKey({nm}.clone())")
         key_type = _tuple_type(cache_key_types)
-        key_expr = _tuple_expr([f"{nm}.clone()" for nm in cache_key_param_names])
+        key_expr = _tuple_expr(cache_key_exprs)
         all_param_names = [param.name for param in fn.params]
         if modulus_source is not None:
             all_param_names.append("__modulus__")
@@ -3203,7 +3492,7 @@ class DirectSpecTranslator:
                 left_text, right_text = self._coerce_numeric_pair(
                     left_text, left_ty, right_text, right_ty
                 )
-        elif op in {"+", "-", "*", "/", "%"}:
+        elif op in {"+", "-", "*", "/", "%", "&", "|", "^"}:
             left_text, right_text = self._coerce_numeric_pair(
                 left_text, left_ty, right_text, right_ty
             )
@@ -4172,6 +4461,124 @@ class DirectSpecTranslator:
             f"({elem_lower}) as i64, ({elem_upper}) as i64)"
         )
 
+    def _index_pair_property(self, node, fn: DirectFunction, binders) -> str | None:
+        """Lower `forall|i, j| 0 <= i < j < n ==> a[i] OP a[j]` to a single scan.
+
+        Pairwise distinctness holds iff no value repeats among the first `n`
+        elements, and for a transitive comparison the pairwise property is
+        equivalent to the adjacent-pair one.  Both replace n^2/2 iterations with
+        n, which is what makes the clause finish on the input sizes its own
+        testcases use.
+        """
+        if len(binders) != 2:
+            return None
+        (i_name, i_ty), (j_name, j_ty) = binders
+        if {spec_to_direct_rust_type(i_ty), spec_to_direct_rust_type(j_ty)} != {"i64"}:
+            return None
+        node = _unwrap_attrs_and_parens(node)
+        if node is None or _comparison_op(node) != "==>":
+            return None
+        src = fn.source.encode("utf-8")
+        chain = _flatten_comparison_chain(node.child_by_field_name("left"))
+        if chain is None:
+            return None
+        items, ops = chain
+        names = {i_name, j_name}
+        # Only the strict chain: `i <= j` admits `i == j`, where `a[i] != a[j]`
+        # is false and the clause means something else entirely.
+        if (
+            len(items) != 4
+            or ops != ["<=", "<", "<"]
+            or _int_literal_value(items[0], src) != 0
+            or _node_src(_unwrap_attrs_and_parens(items[1]), src).strip() != i_name
+            or _node_src(_unwrap_attrs_and_parens(items[2]), src).strip() != j_name
+            or _node_mentions_any_binder(items[3], src, names)
+        ):
+            return None
+        body = _unwrap_attrs_and_parens(node.child_by_field_name("right"))
+        op = _comparison_op(body)
+        if op not in {"!=", "<", "<=", ">", ">="}:
+            return None
+        indexed = [
+            _unwrap_attrs_and_parens(body.child_by_field_name(side))
+            for side in ("left", "right")
+        ]
+        if any(n is None or n.type != "index_expression" for n in indexed):
+            return None
+        seqs = [n.named_children[0] for n in indexed]
+        if (
+            [_node_src(_unwrap_attrs_and_parens(n.named_children[1]), src).strip() for n in indexed]
+            != [i_name, j_name]
+            or _normalize_expr_source(_node_src(seqs[0], src))
+            != _normalize_expr_source(_node_src(seqs[1], src))
+            or _node_mentions_any_binder(seqs[0], src, names)
+        ):
+            return None
+        elem_ty = _direct_vec_elem_type(self.infer_expr_type(seqs[0], fn))
+        if elem_ty is None:
+            return None
+        prologue = (
+            "{\n"
+            f"    let __seq = ({self.translate_expr(seqs[0], fn)}).clone();\n"
+            f"    let __n = std::cmp::min({self._translate_numeric_to(items[3], fn, 'i64')},"
+            " __seq.len() as i64).max(0) as usize;\n"
+        )
+        if op == "!=":
+            if not _direct_type_supports_hash(elem_ty):
+                return None
+            return (
+                prologue
+                + "    let mut __seen = std::collections::HashSet::new();\n"
+                "    (0..__n).all(|__i| __seen.insert(__seq[__i].clone()))\n"
+                "}"
+            )
+        if not (_direct_int_type(elem_ty) or elem_ty in {"char", "bool"}):
+            return None
+        return prologue + f"    (1..__n).all(|__i| __seq[__i - 1] {op} __seq[__i])\n}}"
+
+    def _multiset_equality(self, node, fn: DirectFunction, binder: str) -> str | None:
+        """Lower `forall|v| count(a, v) == count(b, v)` to a multiset compare.
+
+        The two are equivalent by the definition of a multiset, and the compare
+        is Theta(n) where the binder ranges over the whole element type.
+        """
+        node = _unwrap_attrs_and_parens(node)
+        if node is None or _comparison_op(node) != "==":
+            return None
+        src = fn.source.encode("utf-8")
+        counters: set[str] = set()
+        seq_texts: list[str] = []
+        for side in ("left", "right"):
+            call = _unwrap_attrs_and_parens(node.child_by_field_name(side))
+            if call is None or call.type != "call_expression":
+                return None
+            callee = call.child_by_field_name("function")
+            args = call.child_by_field_name("arguments")
+            if callee is None or args is None:
+                return None
+            name = _node_src(callee, src).replace("Self::", "").replace("Solution::", "").strip()
+            helper = self.functions.get(name)
+            if helper is None or _occurrence_count_params(helper) is None:
+                return None
+            elem_ty = spec_to_direct_rust_type(helper.params[1].spec_type)
+            if not _direct_type_supports_hash(elem_ty):
+                return None
+            arg_nodes = list(args.named_children)
+            if len(arg_nodes) != 2:
+                return None
+            if _node_src(_unwrap_attrs_and_parens(arg_nodes[1]), src).strip() != binder:
+                return None
+            if _node_mentions_any_binder(arg_nodes[0], src, {binder}):
+                return None
+            counters.add(name)
+            seq_texts.append(self.translate_expr(arg_nodes[0], fn))
+        if len(counters) != 1:
+            return None
+        left, right = seq_texts
+        return (
+            f"(seq_to_multiset(({left}).clone()) == seq_to_multiset(({right}).clone()))"
+        )
+
     def translate_quantifier(self, node, fn: DirectFunction) -> str:
         binders = self._binders(node, fn)
         if not binders:
@@ -4193,7 +4600,24 @@ class DirectSpecTranslator:
             body_node = named[-1] if named else None
         if body_node is None:
             raise DirectTranslationError(f"missing quantifier body in {fn.name}")
-        cond_text = self.translate_expr(body_node, fn)
+        if kind == "forall":
+            if len(binders) == 1:
+                multiset = self._multiset_equality(body_node, fn, binders[0][0])
+                if multiset is not None:
+                    return multiset
+            linear = self._index_pair_property(body_node, fn, binders)
+            if linear is not None:
+                return linear
+        # Bind the binders while translating the body: without their types a
+        # comparison against a narrower expression (`result@[i] == x` for an
+        # `int` binder `x`) loses its widening cast and fails to typecheck.
+        self.push_scope(
+            {name: spec_to_direct_rust_type(ty) or "i64" for name, ty in binders}
+        )
+        try:
+            cond_text = self.translate_expr(body_node, fn)
+        finally:
+            self.pop_scope()
         domains: dict[str, dict[str, list[tuple[str, bool]]]] = {
             name: {"lower": [], "upper": []} for name, _ in binders
         }
@@ -4395,17 +4819,61 @@ _TYPED_INT_CONST_RE = re.compile(
 )
 
 
+_INT_CONST_WIDTHS = {
+    "i8": 8, "i16": 16, "i32": 32, "i64": 64, "i128": 128, "isize": 64,
+    "u8": 8, "u16": 16, "u32": 32, "u64": 64, "u128": 128, "usize": 64,
+}
+
+_COMPARISON_SUFFIXES = ("<", "<=", ">", ">=", "==", "!=")
+
+
+def _int_const_value(text: str) -> int | None:
+    m = re.fullmatch(r"(\w+)::(MIN|MAX|BITS)", text)
+    if m is not None:
+        ty, field = m.groups()
+        bits = _INT_CONST_WIDTHS[ty]
+        if field == "BITS":
+            return bits
+        if ty.startswith("u"):
+            return (1 << bits) - 1 if field == "MAX" else 0
+        return (1 << (bits - 1)) - 1 if field == "MAX" else -(1 << (bits - 1))
+    m = re.fullmatch(r"([\d_]+)\w+", text)
+    return int(m.group(1).replace("_", "")) if m is not None else None
+
+
 def _cast_narrow_int_literals_to_i64(clause: str) -> str:
-    """Wrap fixed-width int consts/literals so they typecheck against the
-    i64 every scalar param is already widened to by
-    `_widen_direct_post_param_type`.  `extract_requires_clauses` /
-    `extract_ensures_clauses` copy clause text verbatim from the source
-    spec, so a bound like `i32::MIN <= x` keeps its pre-widening i32 type
-    and mismatches once `x` becomes i64.  Note: this matches the existing
-    widen-everything-to-i64 behavior (also lossy for u64/u128 bounds
-    above i64::MAX) rather than introducing wider handling.
+    """Retype fixed-width int consts/literals against the i64 every scalar
+    param is already widened to by `_widen_direct_post_param_type`.
+    `extract_requires_clauses` / `extract_ensures_clauses` copy clause text
+    verbatim from the source spec, so a bound like `i32::MIN <= x` keeps its
+    pre-widening i32 type and mismatches once `x` becomes i64.
+
+    A constant outside i64's range cannot be cast: `usize::MAX as i64` is -1,
+    which turns `len * len <= usize::MAX` into an unsatisfiable guard that
+    silently drops every testcase.  Such a constant is replaced by the i64
+    bound instead, which is equivalent because the operand it is compared
+    against is itself an i64 and cannot exceed that bound.  That argument only
+    holds in a comparison, so outside one the constant is left alone and the
+    mismatch stays a compile error rather than becoming a wrong verdict.
+    (`isize`/`usize` are taken as 64-bit, matching the only supported hosts.)
     """
-    return _TYPED_INT_CONST_RE.sub(lambda m: f"({m.group(0)} as i64)", clause)
+    def retype(m: re.Match) -> str:
+        text = m.group(0)
+        value = _int_const_value(text)
+        if value is None:
+            return text
+        if -(1 << 63) <= value < (1 << 63):
+            return f"({text} as i64)"
+        before = re.sub(r"[\s(]+$", "", clause[: m.start()])
+        after = re.sub(r"^[\s)]+", "", clause[m.end() :])
+        if not (
+            before.endswith(_COMPARISON_SUFFIXES)
+            or after.startswith(_COMPARISON_SUFFIXES)
+        ):
+            return text
+        return "i64::MAX" if value > 0 else "i64::MIN"
+
+    return _TYPED_INT_CONST_RE.sub(retype, clause)
 
 
 def _render_direct_requires_text(
@@ -4514,7 +4982,9 @@ def _translate_direct_const_line(
     line: str,
     translator: DirectSpecTranslator,
 ) -> str:
-    m = re.match(r"(?:pub\s+)?const\s+(\w+)\s*:\s*(.+?)\s*=\s*(.+);", line.strip())
+    m = re.match(
+        r"(?:pub\s+)?(?:spec\s+)?const\s+(\w+)\s*:\s*(.+?)\s*=\s*(.+);", line.strip()
+    )
     if not m:
         raise DirectTranslationError(f"unsupported const declaration `{line.strip()}`")
     name, ty, expr = m.groups()
@@ -6342,14 +6812,16 @@ def generate_direct_post2exe(problem_dir: Path) -> tuple[str, list[str]]:
         const_block = "\n".join(translated_consts)
         if const_block:
             const_block += "\n\n"
+        fn_block = "\n\n".join(translated_fns)
         full_code = (
             "// post2exe-backend: direct\n"
             + RUST_HELPERS
             + "\n"
             + DIRECT_HELPERS
             + "\n"
+            + (SEQ_KEY_HELPER if "SeqKey<" in fn_block else "")
             + const_block
-            + "\n\n".join(translated_fns)
+            + fn_block
             + "\n\n"
             + main_fn
             + "\n"

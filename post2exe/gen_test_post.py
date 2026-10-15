@@ -317,7 +317,7 @@ def extract_const_lines(text: str) -> list[str]:
     seen: set[str] = set()
     lines: list[str] = []
     for m in re.finditer(
-        r"^\s*(?:pub\s+)?const\s+\w+\s*:\s*[^=;]+\s*=\s*[^;]+;\s*$",
+        r"^\s*(?:pub\s+)?(?:spec\s+)?const\s+\w+\s*:\s*[^=;]+\s*=\s*[^;]+;\s*$",
         text,
         re.MULTILINE,
     ):
