@@ -1,0 +1,23 @@
+{
+  "id": "2026-10.1",
+  "label": "VeriContest \u00b7 1,006 problems",
+  "git_tag": "v2026.10.1",
+  "benchmark_revision": "0fede470992d79acb7b376fa87a25f78a5ce4a0b",
+  "counts": {
+    "leetcode": 722,
+    "codeforces": 284,
+    "full": 1006
+  },
+  "problem_ids_sha256": "30ce91cb076d26b5e40b26ea3fefa65beb62988e2576535dce54034bdc43ab6b",
+  "verus": {
+    "version": "0.2026.04.10.01bf489",
+    "commit": "01bf489a0479ecb1f4278e9c82b3c0981684e7f6",
+    "toolchain": "1.94.0-x86_64-unknown-linux-gnu",
+    "platform": "x86_64-linux",
+    "flags": "--no-cheating --expand-errors --rlimit 100000"
+  },
+  "verus_archive": {
+    "url": "https://github.com/HIPREL-Group/VeriContest/releases/download/v2026.10.1/verus-0.2026.04.10.01bf489-x86-linux.tar.gz",
+    "sha256": "a776c931d5e9fd09714e9ee00edc0c245d9bc35fea701c01c5015c89ef06cc94"
+  }
+}

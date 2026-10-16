@@ -1,0 +1,3 @@
+# Model-track runner: install the SDK for the backend you use. The scorer needs only the standard library.
+openai>=1.79
+anthropic>=0.64

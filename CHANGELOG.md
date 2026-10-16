@@ -8,27 +8,20 @@ problem IDs when a change touches benchmark artifacts.
 
 ## Unreleased
 
-- Removed the shared Model-track output-token cap. `--max-output-tokens` now
-  declares a model-specific limit; omission uses provider defaults where
-  supported. Anthropic requires an explicit value. Run and trajectory metadata
-  record the selected limit or its omission.
-- Model-track temperature is now optional and omitted from API requests by
-  default. `--temperature` records an explicit model-specific value;
-  `--no-temperature` remains a compatibility alias for omission.
-- Evaluation now compares integer and boolean outputs exactly, with recursive
-  type-aware checks for structured outputs. Numerical tolerance applies only
-  to floating-point reference values; nonfinite outputs are rejected.
-- The Model-track runner rejects provider-body overrides of fixed generation
-  fields and records the explicit generation parameters in each trajectory.
-  Provider-specific reasoning options remain configurable and disclosed.
+## v2026.10.1
+
+Commit `0fede47`. Verus `0.2026.04.10.01bf489`.
+
+- Added `evaluation/`: `generate.py` runs a model on a task with its fixed
+  prompt, and `score.py` scores one program per problem
+  (see `evaluation/README.md`).
 - Fixed six LeetCode reference drivers that failed compilation (`lc7`,
   `lc2110`, `lc2960`, `lc3105`, `lc3206`, `lc413`), implemented `lc344`'s
   character-array parser, and corrected the output schema of all twelve in-place
   problems, including the two that use only an embedded harness. The harness generator now emits
   post-call argument values and any return value for in-place functions.
 - Added published camelCase input-key compatibility to 32 reference drivers
-  and corrected `lc1095`'s array key. Evaluation now uses benchmark drivers
-  directly, without runtime repairs or inferred argument-type rewrites.
+  and corrected `lc1095`'s array key.
 - `leetcode/lc377`: restored the O(target × n) dynamic program in `code.rs`,
   `code_spec.rs`, and `verified.rs`, replacing an exponential recursion that
   exceeded the time limit. DP entries saturate at 2^31, so intermediate counts
@@ -48,20 +41,19 @@ problem IDs when a change touches benchmark artifacts.
 - `codeforces/cf1915C`, `leetcode/lc3148`: `verified.rs` adds assertions so
   the proofs no longer depend on the file name they are verified under; both
   failed as `verify.rs`, the name the scorer uses.
+- `codeforces/cf1750C`, `codeforces/cf1901C`: `description.md` now gives the
+  functions that `spec.rs` and `main.rs` define. `cf1750C` asks for
+  `complementary_xor_ops(a, b) -> (bool, Vec<(usize, usize)>)` instead of
+  `is_complementary_xor_possible(a, b) -> bool`; `cf1901C` asks for
+  `min_operations(a)` and `build_operations(a)` instead of
+  `build_operations(mn, mx, steps)`.
 - `codeforces/cf1547D`: `spec.rs` and `code_spec.rs` give `is_co_growing` an
   explicit trigger, which Verus could not infer. `leetcode/lc327`:
   `code_spec.rs` defines the four spec functions its helper's postcondition
   uses.
-- The ProofGen code-and-spec check (patched lynette) accepts proof-only
-  termination annotations (`decreases` on executable functions, `when`/`via`
-  on spec functions), `loop_isolation`, `Ghost(..)` lets, and split `impl`
-  blocks. All 1,006 reference proofs pass it.
 - Test drivers compile their rustc stand-ins for vstd's `set`, `get_char`, and
-  `unicode_len` only without Verus; 140 reference programs failed to compile
-  against them. Verus test builds use `-O`, and a driver function that the
-  program also defines is dropped.
-- The SpecGen typecheck stubs every executable function body; 27 reference
-  specifications failed the previous stub.
+  `unicode_len` only without Verus, so Verus programs that call these methods
+  compile.
 - Regenerated 40 embedded test harnesses (`tests/harness.rs`) that lagged
   behind their `reference_oracle.rs` repairs or kept a generator placeholder
   (`lc680`). Removed leftover scratch files (`test.rs` in nine problems,

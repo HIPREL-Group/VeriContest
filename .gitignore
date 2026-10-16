@@ -29,3 +29,7 @@ build/
 !verus/*.rlib
 
 spec_validation/
+
+# Evaluation: tools built by evaluation/setup_tools.sh and local run outputs.
+evaluation/tools/
+evaluation/runs/

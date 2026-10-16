@@ -1,0 +1,966 @@
+diff --git a/utils/lynette/source/lynette/Cargo.toml b/utils/lynette/source/lynette/Cargo.toml
+index 06929be..b1dfb0e 100644
+--- a/utils/lynette/source/lynette/Cargo.toml
++++ b/utils/lynette/source/lynette/Cargo.toml
+@@ -17,7 +17,7 @@ once_cell = "1.8.0"
+ [dependencies.syn_verus]
+ git = "https://github.com/verus-lang/verus"
+ subdirectory = "dependencies/syn"
+-features = ["full", "extra-traits", "parsing"]
++features = ["full", "extra-traits", "parsing", "visit-mut"]
+ rev = "f0662d3"
+ 
+ [dependencies.prettyplease_verus]
+diff --git a/utils/lynette/source/lynette/src/deghost.rs b/utils/lynette/source/lynette/src/deghost.rs
+index a37d753..a8a9971 100644
+--- a/utils/lynette/source/lynette/src/deghost.rs
++++ b/utils/lynette/source/lynette/src/deghost.rs
+@@ -1,186 +1,38 @@
+ use crate::{utils::*, DeghostMode};
+ use proc_macro2::TokenStream;
+ use quote::ToTokens;
++use std::collections::{HashMap, HashSet};
+ use std::path::PathBuf;
+-use syn_verus::Token;
+-use syn_verus::TraitItemMethod;
++use syn_verus::visit_mut::{self, VisitMut};
+ 
+-fn remove_ghost_local(local: &syn_verus::Local) -> Option<syn_verus::Local> {
+-    match local.ghost {
+-        Some(_) => None,
+-        None => Some(local.clone()),
+-    }
++/*
++ * Ghost-code removal for `lynette compare`.
++ *
++ * Only ghost code is removed: assert / assume / reveal statements, `proof { }`
++ * blocks, ghost and tracked lets (also `let x = Ghost(..)` / `Tracked(..)`),
++ * proof fns, broadcast items, loop invariants / decreases / ensures /
++ * `loop_isolation` attributes, the `via` / `when` of a spec fn's `decreases` and,
++ * per mode, fn specs. Executable structure is kept: an
++ * `if`, loop, match arm or fn whose body held only ghost code stays, with an
++ * empty body. (The previous version dropped such constructs, so exec code next
++ * to them, e.g. the then-branch of `if c { x = 1; } else { proof { .. } }`, was
++ * never compared, while a candidate that left out the ghost-only `else` was
++ * reported as different.)
++ *
++ * Normalizations, applied to both files: an empty `else {}` equals no `else`;
++ * an `if` with an empty body, no `else` and no call in its condition equals no
++ * `if`; lint / doc / verifier attributes and `use vstd::..` imports are ignored.
++ */
++
++fn is_assert_kept(a: &syn_verus::Assert, mode: &DeghostMode) -> bool {
++    mode.asserts
++        || (mode.asserts_anno
++            && a.attrs.iter().any(|attr| attr.tokens.to_string() == "(llm_do_not_change)"))
+ }
+ 
+-fn remove_ghost_expr(expr: &syn_verus::Expr, mode: &DeghostMode) -> Option<syn_verus::Expr> {
+-    //println!("{}\n", expr.to_token_stream().to_string());
++fn is_ghost_expr(expr: &syn_verus::Expr, mode: &DeghostMode) -> bool {
+     match expr {
+-        syn_verus::Expr::Block(b) => remove_ghost_block(&b.block, mode).map(|new_block| {
+-            syn_verus::Expr::Block(syn_verus::ExprBlock {
+-                attrs: b.attrs.clone(),
+-                label: b.label.clone(),
+-                block: syn_verus::Block {
+-                    brace_token: b.block.brace_token.clone(),
+-                    stmts: new_block.stmts,
+-                },
+-            })
+-        }),
+-        syn_verus::Expr::Call(c) => {
+-            let new_args: syn_verus::punctuated::Punctuated<syn_verus::Expr, Token![,]> = c
+-                .args
+-                .iter()
+-                .map(|arg| {
+-                    if let syn_verus::Expr::Closure(c) = arg {
+-                        remove_ghost_expr(&*c.body, mode).unwrap()
+-                    } else {
+-                        arg.clone()
+-                    }
+-                })
+-                .collect();
+-
+-            Some(syn_verus::Expr::Call(syn_verus::ExprCall {
+-                attrs: c.attrs.clone(),
+-                func: c.func.clone(),
+-                paren_token: c.paren_token.clone(),
+-                args: new_args,
+-            }))
+-        }
+-        syn_verus::Expr::Closure(c) => remove_ghost_expr(&*c.body, mode).map(|new_body| {
+-            syn_verus::Expr::Closure(syn_verus::ExprClosure {
+-                attrs: c.attrs.clone(),
+-                asyncness: c.asyncness.clone(),
+-                movability: c.movability.clone(),
+-                capture: c.capture.clone(),
+-                or1_token: c.or1_token.clone(),
+-                inputs: c.inputs.clone(),
+-                or2_token: c.or2_token.clone(),
+-                output: c.output.clone(),
+-                requires: if mode.requires { c.requires.clone() } else { None },
+-                ensures: if mode.ensures { c.ensures.clone() } else { None },
+-                inner_attrs: c.inner_attrs.clone(),
+-                body: Box::new(new_body),
+-            })
+-        }),
+-        syn_verus::Expr::While(w) => {
+-            /*
+-             * Fields to remove:
+-             * - invariant_except_break
+-             * - invariant
+-             * - invariant_ensures
+-             * - ensures
+-             * - decreases
+-             */
+-            remove_ghost_block(&w.body, mode).map(|new_body| {
+-                syn_verus::Expr::While(syn_verus::ExprWhile {
+-                    attrs: w.attrs.clone(),
+-                    label: w.label.clone(),
+-                    while_token: w.while_token.clone(),
+-                    cond: w.cond.clone(),
+-                    body: new_body,
+-                    invariant_except_break: None, // Removed
+-                    invariant: None,              // Removed
+-                    invariant_ensures: None,      // Removed
+-                    ensures: None,                // Removed
+-                    decreases: None,              // Removed
+-                })
+-            })
+-        }
+-        syn_verus::Expr::ForLoop(f) => {
+-            /*
+-             * Fields to remove:
+-             * - invariant
+-             * - decreases
+-             */
+-            remove_ghost_block(&f.body, mode).map(|new_body| {
+-                syn_verus::Expr::ForLoop(syn_verus::ExprForLoop {
+-                    attrs: f.attrs.clone(),
+-                    label: f.label.clone(),
+-                    for_token: f.for_token.clone(),
+-                    pat: f.pat.clone(),
+-                    in_token: f.in_token.clone(),
+-                    expr: f.expr.clone(),
+-                    body: new_body,
+-                    expr_name: f.expr_name.clone(),
+-                    invariant: None, // Removed
+-                    decreases: None, // Removed
+-                })
+-            })
+-        }
+-        syn_verus::Expr::Unary(u) => {
+-            match u.op {
+-                /*
+-                 * verus:
+-                 * Proof
+-                 * Forall
+-                 * Exists
+-                 * Choose
+-                 */
+-                syn_verus::UnOp::Proof(_)
+-                | syn_verus::UnOp::Forall(_)
+-                | syn_verus::UnOp::Exists(_)
+-                | syn_verus::UnOp::Choose(_) => None,
+-                _ => Some(expr.clone()),
+-            }
+-        }
+-        syn_verus::Expr::If(i) => {
+-            remove_ghost_block(&i.then_branch, mode).and_then(|new_then_branch| {
+-                if let Some((else_token, else_expr)) = i.else_branch.as_ref() {
+-                    remove_ghost_expr(&*else_expr, mode).map(|new_else_branch| {
+-                        syn_verus::Expr::If(syn_verus::ExprIf {
+-                            attrs: i.attrs.clone(),
+-                            if_token: i.if_token.clone(),
+-                            cond: i.cond.clone(),
+-                            then_branch: new_then_branch,
+-                            else_branch: Some((else_token.clone(), Box::new(new_else_branch))),
+-                        })
+-                    })
+-                } else {
+-                    Some(syn_verus::Expr::If(syn_verus::ExprIf {
+-                        attrs: i.attrs.clone(),
+-                        if_token: i.if_token.clone(),
+-                        cond: i.cond.clone(),
+-                        then_branch: new_then_branch,
+-                        else_branch: None,
+-                    }))
+-                }
+-            })
+-        }
+-        syn_verus::Expr::Match(m) => {
+-            let new_arms: Vec<syn_verus::Arm> = m
+-                .arms
+-                .iter()
+-                .filter_map(|arm| {
+-                    remove_ghost_expr(&*arm.body, mode).map(|new_body| syn_verus::Arm {
+-                        attrs: arm.attrs.clone(),
+-                        pat: arm.pat.clone(),
+-                        guard: arm.guard.clone(),
+-                        fat_arrow_token: arm.fat_arrow_token.clone(),
+-                        body: Box::new(new_body),
+-                        comma: arm.comma.clone(),
+-                    })
+-                })
+-                .collect();
+-
+-            Some(syn_verus::Expr::Match(syn_verus::ExprMatch {
+-                attrs: m.attrs.clone(),
+-                match_token: m.match_token.clone(),
+-                expr: m.expr.clone(),
+-                brace_token: m.brace_token.clone(),
+-                arms: new_arms,
+-            }))
+-        }
+-        // veurs:
+-        syn_verus::Expr::Assert(a) => {
+-            fn annotated_assert(a: &syn_verus::Assert) -> bool {
+-                a.attrs.iter().any(|attr| attr.tokens.to_string() == "(llm_do_not_change)")
+-            }
+-
+-            if mode.asserts || (mode.asserts_anno && annotated_assert(a)) {
+-                Some(expr.clone())
+-            } else {
+-                None
+-            }
+-        }
++        syn_verus::Expr::Assert(a) => !is_assert_kept(a, mode),
+         syn_verus::Expr::Assume(..)
+         | syn_verus::Expr::AssertForall(..)
+         | syn_verus::Expr::RevealHide(..)
+@@ -190,38 +42,198 @@ fn remove_ghost_expr(expr: &syn_verus::Expr, mode: &DeghostMode) -> Option<syn_v
+         | syn_verus::Expr::Is(..)
+         | syn_verus::Expr::Has(..)
+         | syn_verus::Expr::Matches(..)
+-        | syn_verus::Expr::GetField(..) => None,
+-        _ => Some(expr.clone()),
++        | syn_verus::Expr::GetField(..) => true,
++        syn_verus::Expr::Unary(u) => matches!(
++            u.op,
++            syn_verus::UnOp::Proof(_)
++                | syn_verus::UnOp::Forall(_)
++                | syn_verus::UnOp::Exists(_)
++                | syn_verus::UnOp::Choose(_)
++        ),
++        _ => false,
++    }
++}
++
++fn is_ghost_item(item: &syn_verus::Item) -> bool {
++    match item {
++        syn_verus::Item::Fn(f) => matches!(f.sig.mode, syn_verus::FnMode::Proof(_)),
++        syn_verus::Item::BroadcastUse(..) | syn_verus::Item::BroadcastGroup(..) => true,
++        _ => false,
++    }
++}
++
++/// `Ghost(e)` / `Tracked(e)`: the verus macro checks `e` in ghost mode and
++/// erases the wrapper, so it has no executable effect.
++fn is_ghost_wrapper(expr: &syn_verus::Expr) -> bool {
++    match expr {
++        syn_verus::Expr::Call(c) => matches!(
++            &*c.func,
++            syn_verus::Expr::Path(p) if p.qself.is_none()
++                && (p.path.is_ident("Ghost") || p.path.is_ident("Tracked"))
++        ),
++        _ => false,
+     }
+ }
+ 
+-fn remove_ghost_stmt(stmt: &syn_verus::Stmt, mode: &DeghostMode) -> Option<syn_verus::Stmt> {
++fn is_ghost_stmt(stmt: &syn_verus::Stmt, mode: &DeghostMode) -> bool {
+     match stmt {
+-        syn_verus::Stmt::Local(l) => remove_ghost_local(l).map(syn_verus::Stmt::Local),
+-        syn_verus::Stmt::Item(i) => {
+-            // While we do have visit_item, I am not sure if we need to visit the item here
+-            // or just keep it as is.
+-            Some(syn_verus::Stmt::Item(i.clone()))
+-            // match visit_item(i) {
+-            //     Some(new_item) => Some(syn_verus::Stmt::Item(new_item)),
+-            //     None => None
+-            // }
++        // `let x: Ghost<T> = Ghost(e);` is a ghost let written in exec syntax.
++        syn_verus::Stmt::Local(l) => {
++            l.ghost.is_some()
++                || l.tracked.is_some()
++                || matches!(&l.init, Some((_, e)) if is_ghost_wrapper(e))
++        }
++        // `x = Ghost(e);` updates such a let; only a plain variable on the left.
++        syn_verus::Stmt::Semi(syn_verus::Expr::Assign(a), _)
++            if is_ghost_wrapper(&a.right)
++                && matches!(&*a.left, syn_verus::Expr::Path(p) if p.path.get_ident().is_some()) =>
++        {
++            true
+         }
+-        syn_verus::Stmt::Expr(e) => remove_ghost_expr(e, mode).map(syn_verus::Stmt::Expr),
+-        syn_verus::Stmt::Semi(e, _semi) => remove_ghost_expr(e, mode)
+-            .map(|new_expr| syn_verus::Stmt::Semi(new_expr, _semi.clone())),
++        syn_verus::Stmt::Expr(e) | syn_verus::Stmt::Semi(e, _) => is_ghost_expr(e, mode),
++        syn_verus::Stmt::Item(i) => is_ghost_item(i),
+     }
+ }
+ 
+-fn remove_ghost_block(block: &syn_verus::Block, mode: &DeghostMode) -> Option<syn_verus::Block> {
+-    let new_stms: Vec<syn_verus::Stmt> =
+-        block.stmts.iter().filter_map(|stmt| remove_ghost_stmt(stmt, mode)).collect();
++/// `#[verifier::loop_isolation(..)]` on a loop: only changes which facts the
++/// verifier carries into the loop body.
++fn is_loop_isolation_attr(a: &syn_verus::Attribute) -> bool {
++    let segs: Vec<String> = a.path.segments.iter().map(|s| s.ident.to_string()).collect();
++    match segs.as_slice() {
++        [v, l] => v == "verifier" && l == "loop_isolation",
++        [v] => v == "verifier" && a.tokens.to_string().trim_start_matches(['(', ' ']).starts_with("loop_isolation"),
++        _ => false,
++    }
++}
+ 
+-    if new_stms.is_empty() {
+-        return None;
++fn is_empty_block_expr(expr: &syn_verus::Expr) -> bool {
++    matches!(expr, syn_verus::Expr::Block(b) if b.block.stmts.is_empty() && b.label.is_none())
++}
++
++/// `if cond {}` with no `else` and no call in `cond`: a no-op.
++fn is_noop_if(expr: &syn_verus::Expr) -> bool {
++    match expr {
++        syn_verus::Expr::If(i) => {
++            i.then_branch.stmts.is_empty()
++                && i.else_branch.is_none()
++                && !i.cond.to_token_stream().to_string().contains('(')
++        }
++        _ => false,
+     }
++}
+ 
+-    Some(syn_verus::Block { brace_token: block.brace_token.clone(), stmts: new_stms })
++struct Deghost<'a> {
++    mode: &'a DeghostMode,
++}
++
++impl<'a> VisitMut for Deghost<'a> {
++    fn visit_block_mut(&mut self, b: &mut syn_verus::Block) {
++        let mode = self.mode;
++        b.stmts.retain(|s| !is_ghost_stmt(s, mode));
++        for s in b.stmts.iter_mut() {
++            self.visit_stmt_mut(s);
++        }
++        b.stmts.retain(|s| match s {
++            syn_verus::Stmt::Expr(e) | syn_verus::Stmt::Semi(e, _) => !is_noop_if(e),
++            _ => true,
++        });
++    }
++
++    fn visit_expr_if_mut(&mut self, i: &mut syn_verus::ExprIf) {
++        visit_mut::visit_expr_if_mut(self, i);
++        let drop_else = match &i.else_branch {
++            Some((_, e)) => is_empty_block_expr(e) || is_noop_if(e),
++            None => false,
++        };
++        if drop_else {
++            i.else_branch = None;
++        }
++    }
++
++    fn visit_expr_while_mut(&mut self, w: &mut syn_verus::ExprWhile) {
++        w.attrs.retain(|a| !is_loop_isolation_attr(a));
++        w.invariant_except_break = None;
++        w.invariant = None;
++        w.invariant_ensures = None;
++        w.ensures = None;
++        w.decreases = None;
++        visit_mut::visit_expr_while_mut(self, w);
++    }
++
++    fn visit_expr_for_loop_mut(&mut self, f: &mut syn_verus::ExprForLoop) {
++        f.attrs.retain(|a| !is_loop_isolation_attr(a));
++        f.invariant = None;
++        f.decreases = None;
++        visit_mut::visit_expr_for_loop_mut(self, f);
++    }
++
++    fn visit_expr_loop_mut(&mut self, l: &mut syn_verus::ExprLoop) {
++        l.attrs.retain(|a| !is_loop_isolation_attr(a));
++        l.invariant_except_break = None;
++        l.invariant = None;
++        l.invariant_ensures = None;
++        l.ensures = None;
++        l.decreases = None;
++        visit_mut::visit_expr_loop_mut(self, l);
++    }
++
++    fn visit_expr_closure_mut(&mut self, c: &mut syn_verus::ExprClosure) {
++        if !self.mode.requires {
++            c.requires = None;
++        }
++        if !self.mode.ensures {
++            c.ensures = None;
++        }
++        visit_mut::visit_expr_closure_mut(self, c);
++    }
++}
++
++/// Inside a spec fn: removes proof statements (`proof { }`, assert, assume,
++/// reveal) -- e.g. termination proofs of a recursive spec fn -- and nothing
++/// else; every expression that gives the spec fn its value stays.
++struct SpecProofStrip;
++
++impl VisitMut for SpecProofStrip {
++    fn visit_block_mut(&mut self, b: &mut syn_verus::Block) {
++        b.stmts.retain(|s| match s {
++            syn_verus::Stmt::Semi(e, _) | syn_verus::Stmt::Expr(e) => !matches!(
++                e,
++                syn_verus::Expr::Assert(..)
++                    | syn_verus::Expr::Assume(..)
++                    | syn_verus::Expr::AssertForall(..)
++                    | syn_verus::Expr::RevealHide(..)
++            ) && !matches!(e, syn_verus::Expr::Unary(u) if matches!(u.op, syn_verus::UnOp::Proof(_))),
++            _ => true,
++        });
++        visit_mut::visit_block_mut(self, b);
++    }
++}
++
++fn strip_spec_fn_proofs(block: &syn_verus::Block) -> syn_verus::Block {
++    let mut b = block.clone();
++    SpecProofStrip.visit_block_mut(&mut b);
++    b
++}
++
++/// Termination-proof parts of a spec fn's `decreases`: `via lemma` only
++/// proves termination, and `when c` only weakens the fn's defining axiom to
++/// `c ==> f(..) == body`, which the original fn still satisfies, so whatever
++/// is proved still holds for the original spec. The measure stays.
++fn strip_spec_fn_termination(sig: &mut syn_verus::Signature) {
++    if let Some(d) = sig.decreases.as_mut() {
++        d.when = None;
++        d.via = None;
++    }
++}
++
++fn deghost_block(block: &syn_verus::Block, mode: &DeghostMode) -> syn_verus::Block {
++    let mut b = block.clone();
++    Deghost { mode }.visit_block_mut(&mut b);
++    b
++}
++
++fn is_spec_mode(mode: &syn_verus::FnMode) -> bool {
++    matches!(mode, syn_verus::FnMode::Spec(_) | syn_verus::FnMode::SpecChecked(_))
+ }
+ 
+ fn remove_ghost_sig(
+@@ -309,18 +321,12 @@ fn remove_ghost_sig(
+     })
+ }
+ 
+-fn is_verifier_attr(attr: &syn_verus::Attribute) -> bool {
+-    attr.path.segments.len() > 0 && attr.path.segments[0].ident.to_string() == "verifier"
+-}
+-
+-fn remove_verifier_attr(attr: &Vec<syn_verus::Attribute>) -> Vec<syn_verus::Attribute> {
+-    attr.iter().filter(|a| !is_verifier_attr(a)).map(|a| a.clone()).collect()
+-}
+ 
+ /*
+  * Target Mode:
+- *  Executable function: qualifiers cannot be modifified; executable part cannot be modified
+- *  spec function: cannot be modified at all
++ *  Executable function: qualifiers cannot be modified; executable part cannot be modified
++ *  spec function: cannot be modified (compared as is, except proof
++ *                 statements in its body)
+  *  proof function: do not care at all
+  * Non-Target Mode:
+  *  Executable function: qualifiers can be modified; executable part cannot be modified
+@@ -329,140 +335,332 @@ fn remove_verifier_attr(attr: &Vec<syn_verus::Attribute>) -> Vec<syn_verus::Attr
+  */
+ 
+ fn remove_ghost_fn(func: &syn_verus::ItemFn, mode: &DeghostMode) -> Option<syn_verus::ItemFn> {
+-    remove_ghost_sig(&func.sig, mode).and_then(|new_sig| {
+-        if matches!(new_sig.mode, syn_verus::FnMode::Spec(_) | syn_verus::FnMode::SpecChecked(_)) {
+-            Some(func.clone())
+-        } else {
+-            remove_ghost_block(&(*func.block), mode).map(|new_block| {
+-                syn_verus::ItemFn {
+-                    attrs: remove_verifier_attr(&func.attrs),
+-                    vis: func.vis.clone(),
+-                    sig: new_sig,
+-                    block: Box::new(new_block), // Box the new block
+-                    semi_token: func.semi_token.clone(), // XXX: What is this?
+-                }
+-            })
+-        }
++    let new_sig = remove_ghost_sig(&func.sig, mode)?;
++    if is_spec_mode(&new_sig.mode) {
++        let mut f = func.clone();
++        strip_spec_fn_termination(&mut f.sig);
++        f.block = Box::new(strip_spec_fn_proofs(&func.block));
++        return Some(f);
++    }
++    Some(syn_verus::ItemFn {
++        attrs: func.attrs.clone(),
++        vis: func.vis.clone(),
++        sig: new_sig,
++        block: Box::new(deghost_block(&func.block, mode)),
++        semi_token: func.semi_token.clone(),
+     })
+ }
+ 
+ fn remove_ghost_impl(i: &syn_verus::ItemImpl, mode: &DeghostMode) -> syn_verus::ItemImpl {
+-    syn_verus::ItemImpl {
+-        attrs: i.attrs.clone(),
+-        defaultness: i.defaultness.clone(),
+-        unsafety: i.unsafety.clone(),
+-        impl_token: i.impl_token.clone(),
+-        generics: i.generics.clone(),
+-        trait_: i.trait_.clone(),
+-        self_ty: i.self_ty.clone(),
+-        brace_token: i.brace_token.clone(),
+-        items: i
+-            .items
+-            .iter()
+-            .filter_map(|it| {
+-                if let syn_verus::ImplItem::Method(func) = it {
+-                    remove_ghost_sig(&func.sig, mode).and_then(|new_sig| {
+-                        {
+-                            if matches!(
+-                                new_sig.mode,
+-                                syn_verus::FnMode::Spec(_) | syn_verus::FnMode::SpecChecked(_)
+-                            ) {
+-                                Some(func.clone())
+-                            } else {
+-                                remove_ghost_block(&func.block, mode).map(|new_block| {
+-                                    syn_verus::ImplItemMethod {
+-                                        attrs: func.attrs.clone(),
+-                                        vis: func.vis.clone(),
+-                                        defaultness: func.defaultness.clone(),
+-                                        sig: new_sig,
+-                                        block: new_block,
+-                                        semi_token: func.semi_token.clone(), // XXX: What is this?
+-                                    }
+-                                })
+-                            }
+-                        }
+-                        .and_then(|new_method| Some(syn_verus::ImplItem::Method(new_method)))
+-                    })
+-                } else {
+-                    Some(it.clone())
++    let mut new_impl = i.clone();
++    new_impl.items = i
++        .items
++        .iter()
++        .filter_map(|it| match it {
++            syn_verus::ImplItem::Method(func) => {
++                let new_sig = remove_ghost_sig(&func.sig, mode)?;
++                if is_spec_mode(&new_sig.mode) {
++                    let mut m = func.clone();
++                    strip_spec_fn_termination(&mut m.sig);
++                    m.block = strip_spec_fn_proofs(&func.block);
++                    return Some(syn_verus::ImplItem::Method(m));
+                 }
+-            })
+-            .collect(),
+-    }
++                let mut m = func.clone();
++                m.sig = new_sig;
++                m.block = deghost_block(&func.block, mode);
++                Some(syn_verus::ImplItem::Method(m))
++            }
++            syn_verus::ImplItem::BroadcastGroup(..) => None,
++            _ => Some(it.clone()),
++        })
++        .collect();
++    new_impl
++}
++
++fn is_vstd_use(u: &syn_verus::ItemUse) -> bool {
++    u.tree.to_token_stream().to_string().trim_start_matches(|c| c == ':' || c == ' ').starts_with("vstd")
+ }
+ 
+ fn remove_ghost_item(item: &syn_verus::Item, mode: &DeghostMode) -> Option<syn_verus::Item> {
+     match item {
+-        syn_verus::Item::Fn(f) => match remove_ghost_fn(f, mode) {
+-            Some(new_func) => Some(syn_verus::Item::Fn(new_func)),
+-            None => None,
+-        },
++        syn_verus::Item::Fn(f) => remove_ghost_fn(f, mode).map(syn_verus::Item::Fn),
+         syn_verus::Item::Impl(i) => Some(syn_verus::Item::Impl(remove_ghost_impl(i, mode))),
+-        syn_verus::Item::Trait(t) => Some(syn_verus::Item::Trait(syn_verus::ItemTrait {
+-            attrs: t.attrs.clone(),
+-            vis: t.vis.clone(),
+-            unsafety: t.unsafety.clone(),
+-            auto_token: t.auto_token.clone(),
+-            trait_token: t.trait_token.clone(),
+-            ident: t.ident.clone(),
+-            generics: t.generics.clone(),
+-            colon_token: t.colon_token.clone(),
+-            supertraits: t.supertraits.clone(),
+-            brace_token: t.brace_token.clone(),
+-            items: t
++        syn_verus::Item::Trait(t) => {
++            let mut new_trait = t.clone();
++            new_trait.items = t
+                 .items
+                 .iter()
+-                .filter_map(|i| match i {
++                .filter_map(|ti| match ti {
+                     syn_verus::TraitItem::Method(func) => {
+-                        Some(syn_verus::TraitItem::Method(TraitItemMethod {
+-                            attrs: func.attrs.clone(),
+-                            sig: remove_ghost_sig(&func.sig, mode)?,
+-                            default: func.default.as_ref().map(|b| {
+-                                remove_ghost_block(b, mode).unwrap_or_else(|| syn_verus::Block {
+-                                    brace_token: Default::default(),
+-                                    stmts: Vec::new(),
+-                                })
+-                            }),
+-                            semi_token: func.semi_token.clone(),
+-                        }))
++                        let mut m = func.clone();
++                        m.sig = remove_ghost_sig(&func.sig, mode)?;
++                        m.default = func.default.as_ref().map(|b| deghost_block(b, mode));
++                        Some(syn_verus::TraitItem::Method(m))
+                     }
+-                    _ => Some(i.clone()),
++                    _ => Some(ti.clone()),
+                 })
+-                .collect::<Vec<syn_verus::TraitItem>>(),
+-        })),
+-        _ => Some(item.clone()), // syn_verus::Item::Macro(m) => visit_macro(m),
+-                                 // syn_verus::Item::Mod(m) => visit_mod(m),
+-                                 // syn_verus::Item::Use(u) => visit_use(u),
+-                                 // syn_verus::Item::Struct(s) => visit_struct(s),
+-                                 // syn_verus::Item::Enum(e) => visit_enum(e),
+-                                 // syn_verus::Item::Type(t) => visit_type(t),
+-                                 // syn_verus::Item::Const(c) => visit_const(c),
+-                                 // syn_verus::Item::Static(s) => visit_static(s),
+-                                 // syn_verus::Item::Union(u) => visit_union(u),
+-                                 // syn_verus::Item::TraitAlias(t) => visit_trait_alias(t),
+-                                 // syn_verus::Item::ExternCrate(e) => visit_extern_crate(e),
+-                                 // syn_verus::Item::ForeignMod(f) => visit_foreign_mod(f),
+-                                 // syn_verus::Item::Macro2(m) => visit_macro2(m),
+-                                 // syn_verus::Item::Verbatim(v) => visit_verbatim(v),
++                .collect();
++            Some(syn_verus::Item::Trait(new_trait))
++        }
++        syn_verus::Item::Mod(m) => {
++            let mut new_mod = m.clone();
++            if let Some((brace, items)) = &m.content {
++                new_mod.content = Some((brace.clone(), deghost_items(items, mode)));
++            }
++            Some(syn_verus::Item::Mod(new_mod))
++        }
++        syn_verus::Item::BroadcastUse(..) | syn_verus::Item::BroadcastGroup(..) => None,
++        syn_verus::Item::Use(u) if is_vstd_use(u) => None,
++        _ => Some(item.clone()),
+     }
+ }
+ 
++/// Deghosts a module's items; a `verus! { .. }` nested in the module is
++/// expanded in place (only top-level `verus!` macros are extracted elsewhere).
++fn deghost_items(items: &[syn_verus::Item], mode: &DeghostMode) -> Vec<syn_verus::Item> {
++    let mut out = Vec::new();
++    for item in items {
++        if let syn_verus::Item::Macro(m) = item {
++            if is_verus_macro(&m.mac) {
++                if let Ok(inner) = syn_verus::parse2::<syn_verus::File>(m.mac.tokens.clone()) {
++                    out.extend(deghost_items(&inner.items, mode));
++                    continue;
++                }
++            }
++        }
++        if let Some(new_item) = remove_ghost_item(item, mode) {
++            out.push(new_item);
++        }
++    }
++    out
++}
++
+ pub fn remove_ghost_from_file(file: &syn_verus::File, mode: &DeghostMode) -> syn_verus::File {
+-    let mut new_items: Vec<syn_verus::Item> = Vec::new();
++    syn_verus::File {
++        shebang: file.shebang.clone(),
++        attrs: file.attrs.clone(),
++        items: file.items.iter().filter_map(|item| remove_ghost_item(item, mode)).collect(),
++    }
++}
+ 
++/// Drops attributes that do not change what is verified or executed: lints
++/// (`allow`/`warn`/`deny`/`forbid`/`expect`), docs and `verifier::..`.
++struct DropAttrs;
++
++fn keep_attr(a: &syn_verus::Attribute) -> bool {
++    match a.path.segments.first() {
++        Some(seg) => !matches!(
++            seg.ident.to_string().as_str(),
++            "allow" | "warn" | "deny" | "forbid" | "expect" | "doc" | "verifier"
++        ),
++        None => true,
++    }
++}
++
++impl VisitMut for DropAttrs {
++    fn visit_file_mut(&mut self, f: &mut syn_verus::File) {
++        f.attrs.retain(keep_attr);
++        visit_mut::visit_file_mut(self, f);
++    }
++    fn visit_item_fn_mut(&mut self, i: &mut syn_verus::ItemFn) {
++        i.attrs.retain(keep_attr);
++        visit_mut::visit_item_fn_mut(self, i);
++    }
++    fn visit_item_impl_mut(&mut self, i: &mut syn_verus::ItemImpl) {
++        i.attrs.retain(keep_attr);
++        visit_mut::visit_item_impl_mut(self, i);
++    }
++    fn visit_impl_item_method_mut(&mut self, i: &mut syn_verus::ImplItemMethod) {
++        i.attrs.retain(keep_attr);
++        visit_mut::visit_impl_item_method_mut(self, i);
++    }
++    fn visit_item_struct_mut(&mut self, i: &mut syn_verus::ItemStruct) {
++        i.attrs.retain(keep_attr);
++        visit_mut::visit_item_struct_mut(self, i);
++    }
++    fn visit_item_enum_mut(&mut self, i: &mut syn_verus::ItemEnum) {
++        i.attrs.retain(keep_attr);
++        visit_mut::visit_item_enum_mut(self, i);
++    }
++    fn visit_item_const_mut(&mut self, i: &mut syn_verus::ItemConst) {
++        i.attrs.retain(keep_attr);
++        visit_mut::visit_item_const_mut(self, i);
++    }
++    fn visit_item_use_mut(&mut self, i: &mut syn_verus::ItemUse) {
++        i.attrs.retain(keep_attr);
++        visit_mut::visit_item_use_mut(self, i);
++    }
++    fn visit_item_mod_mut(&mut self, i: &mut syn_verus::ItemMod) {
++        i.attrs.retain(keep_attr);
++        visit_mut::visit_item_mod_mut(self, i);
++    }
++    fn visit_item_trait_mut(&mut self, i: &mut syn_verus::ItemTrait) {
++        i.attrs.retain(keep_attr);
++        visit_mut::visit_item_trait_mut(self, i);
++    }
++    fn visit_trait_item_method_mut(&mut self, i: &mut syn_verus::TraitItemMethod) {
++        i.attrs.retain(keep_attr);
++        visit_mut::visit_trait_item_method_mut(self, i);
++    }
++    fn visit_local_mut(&mut self, i: &mut syn_verus::Local) {
++        i.attrs.retain(keep_attr);
++        visit_mut::visit_local_mut(self, i);
++    }
++}
++
++/// Key of a fn: `name`, or `SelfType::name` for a method.
++fn fn_entries(file: &syn_verus::File) -> Vec<(String, &syn_verus::Signature)> {
++    let mut out = Vec::new();
+     for item in &file.items {
+-        if let Some(item) = remove_ghost_item(item, mode) {
+-            new_items.push(item);
++        match item {
++            syn_verus::Item::Fn(f) => out.push((f.sig.ident.to_string(), &f.sig)),
++            syn_verus::Item::Impl(i) => {
++                let ty = i.self_ty.to_token_stream().to_string();
++                for ii in &i.items {
++                    if let syn_verus::ImplItem::Method(m) = ii {
++                        out.push((format!("{}::{}", ty, m.sig.ident), &m.sig));
++                    }
++                }
++            }
++            _ => {}
+         }
+     }
++    out
++}
+ 
+-    let new_file = syn_verus::File {
+-        shebang: file.shebang.clone(),
+-        attrs: file.attrs.clone(),
+-        items: new_items,
++/// Target mode: undo the additions a proof may legitimately make to the
++/// original program, so they do not count as differences:
++///  - new spec fns (proof helpers);
++///  - `ensures` on a fn that had none (the fn body must establish it);
++///  - `requires` on a fn that had none, if another fn of the original calls it
++///    somewhere (its callers must establish it; an entry fn nobody calls
++///    could otherwise assume `false`);
++///  - `decreases` on an exec fn that had none (a termination measure the
++///    fn's recursive calls must satisfy).
++/// Changes to anything the original has are still differences.
++pub fn allow_additions(orig: &syn_verus::File, cand: &mut syn_verus::File) {
++    let orig_sigs: HashMap<String, (bool, bool, bool, bool)> = fn_entries(orig)
++        .into_iter()
++        .map(|(k, s)| {
++            (
++                k,
++                (
++                    is_spec_mode(&s.mode),
++                    s.requires.is_some(),
++                    s.ensures.is_some(),
++                    s.decreases.is_some(),
++                ),
++            )
++        })
++        .collect();
++    let orig_specs: HashSet<String> =
++        orig_sigs.iter().filter(|(_, v)| v.0).map(|(k, _)| k.clone()).collect();
++    let orig_text = orig.to_token_stream().to_string();
++    // Text of each fn's own definition(s): a call from inside the fn itself
++    // (recursion) does not count, or a recursive entry fn could gain a
++    // `requires` that only its own recursive calls have to establish.
++    let mut own_text: HashMap<String, String> = HashMap::new();
++    for item in &orig.items {
++        match item {
++            syn_verus::Item::Fn(f) => {
++                own_text.entry(f.sig.ident.to_string()).or_default().push_str(&f.to_token_stream().to_string())
++            }
++            syn_verus::Item::Impl(i) => {
++                for ii in &i.items {
++                    if let syn_verus::ImplItem::Method(m) = ii {
++                        own_text.entry(m.sig.ident.to_string()).or_default().push_str(&m.to_token_stream().to_string());
++                    }
++                }
++            }
++            _ => {}
++        }
++    }
++    let called = |name: &str| {
++        let pat = format!("{} (", name);
++        let own = own_text.get(name).map_or(0, |t| t.matches(&pat).count());
++        orig_text.matches(&pat).count() > own
++    };
++    let relax = |key: &str, sig: &mut syn_verus::Signature| {
++        if let Some((false, had_req, had_ens, had_dec)) = orig_sigs.get(key) {
++            if !had_ens {
++                sig.ensures = None;
++            }
++            if !had_req && called(&sig.ident.to_string()) {
++                sig.requires = None;
++            }
++            if !had_dec && !is_spec_mode(&sig.mode) {
++                sig.decreases = None;
++            }
++        }
+     };
++    cand.items.retain(|it| match it {
++        syn_verus::Item::Fn(f) => {
++            !(is_spec_mode(&f.sig.mode) && !orig_specs.contains(&f.sig.ident.to_string()))
++        }
++        _ => true,
++    });
++    for it in cand.items.iter_mut() {
++        match it {
++            syn_verus::Item::Fn(f) => {
++                let key = f.sig.ident.to_string();
++                relax(&key, &mut f.sig);
++            }
++            syn_verus::Item::Impl(i) => {
++                let ty = i.self_ty.to_token_stream().to_string();
++                i.items.retain(|ii| match ii {
++                    syn_verus::ImplItem::Method(m) => !(is_spec_mode(&m.sig.mode)
++                        && !orig_specs.contains(&format!("{}::{}", ty, m.sig.ident))),
++                    _ => true,
++                });
++                for ii in i.items.iter_mut() {
++                    if let syn_verus::ImplItem::Method(m) = ii {
++                        let key = format!("{}::{}", ty, m.sig.ident);
++                        relax(&key, &mut m.sig);
++                    }
++                }
++            }
++            _ => {}
++        }
++    }
++}
+ 
+-    new_file
++/// Inherent `impl` header (attrs, generics, self type); `None` for a trait impl.
++fn inherent_impl_header(i: &syn_verus::ItemImpl) -> Option<String> {
++    if i.trait_.is_some() {
++        return None;
++    }
++    let mut header = i.clone();
++    header.items.clear();
++    Some(header.to_token_stream().to_string())
++}
++
++fn merge_impl_items(items: &mut Vec<syn_verus::Item>) {
++    let mut out: Vec<syn_verus::Item> = Vec::new();
++    for mut item in items.drain(..) {
++        if let syn_verus::Item::Mod(m) = &mut item {
++            if let Some((_, inner)) = m.content.as_mut() {
++                merge_impl_items(inner);
++            }
++        }
++        if let (Some(syn_verus::Item::Impl(prev)), syn_verus::Item::Impl(cur)) = (out.last_mut(), &item) {
++            let h = inherent_impl_header(cur);
++            if h.is_some() && h == inherent_impl_header(prev) {
++                prev.items.extend(cur.items.iter().cloned());
++                continue;
++            }
++        }
++        out.push(item);
++    }
++    out.retain(|it| !matches!(it, syn_verus::Item::Impl(i) if i.items.is_empty() && i.trait_.is_none()));
++    *items = out;
++}
++
++/// Splitting an inherent impl into adjacent blocks (e.g. around proof
++/// helpers, which are removed before this runs) does not change the program:
++/// adjacent inherent impls with the same header are merged, and an empty
++/// inherent impl is dropped. Applied to both files after `allow_additions`.
++pub fn merge_inherent_impls(file: &mut syn_verus::File) {
++    merge_impl_items(&mut file.items);
+ }
+ 
+ fn remove_verus_macro(file: &syn_verus::File) -> syn_verus::File {
+@@ -511,7 +709,10 @@ fn merge_files(file: &syn_verus::File, verus_files: Vec<syn_verus::File>) -> syn
+ 
+ pub fn fextract_pure_rust(filepath: PathBuf, mode: &DeghostMode) -> Result<syn_verus::File, Error> {
+     let orig_file = fload_file(&filepath)?;
+-    let pure_file = remove_verus_macro(&orig_file);
++    // Items outside `verus!` are deghosted too: normally plain Rust (a no-op),
++    // but e.g. a `#[cfg(FALSE)] mod { .. }` copy of the solution may carry
++    // loop invariants.
++    let pure_file = remove_ghost_from_file(&remove_verus_macro(&orig_file), mode);
+ 
+     extract_verus_macro(&orig_file).and_then(|verus_macros| {
+         let mut verus_files: Vec<syn_verus::File> = Vec::new();
+@@ -526,6 +727,9 @@ pub fn fextract_pure_rust(filepath: PathBuf, mode: &DeghostMode) -> Result<syn_v
+ 
+         //println!("{}", fprint_file(&merge_files(&pure_file, verus_files.clone()), VFormatter::VerusFmt));
+ 
+-        Ok(merge_files(&pure_file, verus_files))
++        let mut merged = merge_files(&pure_file, verus_files);
++        merged.items.retain(|item| !matches!(item, syn_verus::Item::Use(u) if is_vstd_use(u)));
++        DropAttrs.visit_file_mut(&mut merged);
++        Ok(merged)
+     })
+ }
+diff --git a/utils/lynette/source/lynette/src/main.rs b/utils/lynette/source/lynette/src/main.rs
+index edcb826..dda28cb 100644
+--- a/utils/lynette/source/lynette/src/main.rs
++++ b/utils/lynette/source/lynette/src/main.rs
+@@ -332,14 +332,22 @@ fn compare_files(args: &CompareArgs) -> Result<bool, Error> {
+         m.ensures = true;
+         m.assumes = true;
+         m.decreases = true;
++        // Spec fns define what the ensures mean: compare them (without this
++        // they were dropped, so a candidate could redefine one to `true`).
++        m.spec = true;
+ 
+         m
+     } else {
+         args.opts.clone()
+     };
+ 
+-    fextract_pure_rust(f1, &mode).and_then(|result1| {
+-        fextract_pure_rust(f2, &mode).and_then(|result2| {
++    fextract_pure_rust(f1, &mode).and_then(|mut result1| {
++        fextract_pure_rust(f2, &mode).and_then(|mut result2| {
++            if target_mode {
++                deghost::allow_additions(&result1, &mut result2);
++            }
++            deghost::merge_inherent_impls(&mut result1);
++            deghost::merge_inherent_impls(&mut result2);
+ 
+             if args.verbose {
+                 println!("{}", fprint_file(&result1, Formatter::VerusFmt));
