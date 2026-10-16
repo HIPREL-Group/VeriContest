@@ -156,8 +156,8 @@ impl Solution {
                 0 <= s as int <= ((j as int) - 1) * 500_000_000,
             decreases n - 1 - j,
         {
-            let j0 = j;
-            let old_s = s;
+            let ghost j0 = j;
+            let ghost old_s = s;
             proof {
                 assert(1 <= j0 as int <= (n as int) - 2);
                 assert(0 <= (j0 as int) && (j0 as int) < a_spec.len());

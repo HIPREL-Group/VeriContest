@@ -1,6 +1,10 @@
 impl Solution {
     pub fn non_special_count(l: i32, r: i32) -> i32 {
-        let limit = (r as f64).sqrt() as i32 + 1;
+        let mut root = 0i32;
+        while (root + 1) * (root + 1) <= r {
+            root += 1;
+        }
+        let limit = root + 1;
         let mut is_prime = vec![true; limit as usize + 1];
         is_prime[0] = false;
         if limit >= 1 {

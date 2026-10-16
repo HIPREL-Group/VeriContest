@@ -159,8 +159,8 @@ impl Solution {
                             0 <= sum as int <= 255 * count as int,
                         decreases right - y,
                     {
-                        let prev_sum = sum;
-                        let prev_count = count;
+                        let ghost prev_sum = sum;
+                        let ghost prev_count = count;
                         proof {
                             assert(img[x as int].len() == cols);
                             assert(y < cols);

@@ -55,7 +55,6 @@ pub open spec fn max_loving_petals_spec(a: Seq<i32>) -> int {
 }
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn max_loving_petals(a: Vec<i32>) -> (result: i32)
         requires
             1 <= a.len() <= 100,

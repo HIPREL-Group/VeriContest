@@ -60,18 +60,24 @@ impl Solution {
 
 use std::io::{self, BufRead, Write, BufWriter};
 
+// Stand-ins for vstd's exec helpers when code.rs is compiled with rustc. Under
+// Verus (cfg verus_keep_ghost) vstd provides them and these would be ambiguous.
+#[cfg(not(verus_keep_ghost))]
 trait StrExt {
     fn unicode_len(&self) -> usize;
     fn get_char(&self, i: usize) -> char;
 }
+#[cfg(not(verus_keep_ghost))]
 impl StrExt for str {
     fn unicode_len(&self) -> usize { self.chars().count() }
     fn get_char(&self, i: usize) -> char { self.chars().nth(i).unwrap() }
 }
 
+#[cfg(not(verus_keep_ghost))]
 trait VecExt<T> {
     fn set(&mut self, i: usize, val: T);
 }
+#[cfg(not(verus_keep_ghost))]
 impl<T> VecExt<T> for Vec<T> {
     fn set(&mut self, i: usize, val: T) { self[i] = val; }
 }
@@ -160,6 +166,10 @@ fn parse_string(s: &str) -> String {
     } else {
         s.to_string()
     }
+}
+
+fn parse_char_vec(s: &str) -> Vec<char> {
+    parse_string(s).chars().collect()
 }
 
 fn parse_num_array<T: ParseNum>(s: &str) -> Vec<T> {
@@ -294,6 +304,10 @@ fn format_string_array(v: &[String]) -> String {
     format!("[{}]", parts.join(","))
 }
 
+fn format_char_vec(v: &[char]) -> String {
+    format_json_string(&v.iter().collect::<String>())
+}
+
 fn format_2d_num_array<T: std::fmt::Display>(v: &[Vec<T>]) -> String {
     let parts: Vec<String> = v.iter().map(|row| format_num_array(row)).collect();
     format!("[{}]", parts.join(","))
@@ -301,6 +315,11 @@ fn format_2d_num_array<T: std::fmt::Display>(v: &[Vec<T>]) -> String {
 
 fn format_2d_bool_array(v: &[Vec<bool>]) -> String {
     let parts: Vec<String> = v.iter().map(|row| format_bool_array(row)).collect();
+    format!("[{}]", parts.join(","))
+}
+
+fn format_tuple2_array_json<T: std::fmt::Display, U: std::fmt::Display>(v: &[(T, U)]) -> String {
+    let parts: Vec<String> = v.iter().map(|(a, b)| format!("[{},{}]", a, b)).collect();
     format!("[{}]", parts.join(","))
 }
 
@@ -313,7 +332,7 @@ fn main() {
         let line = line.trim();
         if line.is_empty() || !line.starts_with('{') { continue; }
         let target: i32 = parse_number::<i32>(get_field(line, "target"));
-        let _struct_mountain_arr_data: Vec<i32> = parse_num_array::<i32>(get_field(line, "data"));
+        let _struct_mountain_arr_data: Vec<i32> = parse_num_array::<i32>(get_field(line, "mountain_arr"));
         let _f0 = format!("\"target\": {}", target);
         let _f1 = format!("\"data\": {}", format_num_array(&_struct_mountain_arr_data));
         let mountain_arr = MountainArray { data: _struct_mountain_arr_data };

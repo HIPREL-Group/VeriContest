@@ -102,7 +102,7 @@ impl Solution {
             assert(cnt[need as int] <= 500_000i64);
             assert(ans + cnt[need as int] <= 125_000_500_000i64);
             assert(ans + cnt[need as int] <= i64::MAX);
-            let add = cnt[need];
+            let ghost add = cnt[need as int];
             assert(ans.checked_add(add).is_some());
             ans = ans.checked_add(cnt[need]).unwrap_or(ans);
             assert(ans as int == Self::pair_count_prefix(hours@, (i + 1) as int));

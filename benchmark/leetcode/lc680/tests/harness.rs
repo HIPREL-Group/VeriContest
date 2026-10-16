@@ -40,18 +40,24 @@ impl Solution {
 
 use std::io::{self, BufRead, Write, BufWriter};
 
+// Stand-ins for vstd's exec helpers when code.rs is compiled with rustc. Under
+// Verus (cfg verus_keep_ghost) vstd provides them and these would be ambiguous.
+#[cfg(not(verus_keep_ghost))]
 trait StrExt {
     fn unicode_len(&self) -> usize;
     fn get_char(&self, i: usize) -> char;
 }
+#[cfg(not(verus_keep_ghost))]
 impl StrExt for str {
     fn unicode_len(&self) -> usize { self.chars().count() }
     fn get_char(&self, i: usize) -> char { self.chars().nth(i).unwrap() }
 }
 
+#[cfg(not(verus_keep_ghost))]
 trait VecExt<T> {
     fn set(&mut self, i: usize, val: T);
 }
+#[cfg(not(verus_keep_ghost))]
 impl<T> VecExt<T> for Vec<T> {
     fn set(&mut self, i: usize, val: T) { self[i] = val; }
 }
@@ -284,6 +290,14 @@ fn format_2d_bool_array(v: &[Vec<bool>]) -> String {
     format!("[{}]", parts.join(","))
 }
 
+fn parse_char_vec(s: &str) -> Vec<char> {
+    parse_string(s).chars().collect()
+}
+
+fn format_char_vec(v: &[char]) -> String {
+    format_json_string(&v.iter().collect::<String>())
+}
+
 fn main() {
     let stdin = io::stdin();
     let stdout = io::stdout();
@@ -292,8 +306,8 @@ fn main() {
         let line = line.expect("read line");
         let line = line.trim();
         if line.is_empty() || !line.starts_with('{') { continue; }
-        let s: Vec<char> = todo!("parse Vec<char>"); // MANUAL REVIEW
-        let _f0 = format!("\"s\": {}", format!("{:?}", s) /* MANUAL REVIEW */);
+        let s: Vec<char> = parse_char_vec(get_field(line, "s"));
+        let _f0 = format!("\"s\": {}", format_char_vec(&s));
         let result = Solution::valid_palindrome(s);
         let _out = format!("\"output\": {}", if result { "true" } else { "false" });
         let _all = vec![_f0, _out];

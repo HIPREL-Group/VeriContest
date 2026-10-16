@@ -230,7 +230,7 @@ impl Solution {
                 Self::lemma_max_index_prefix_bounds(cap_before, m as int);
             }
 
-            let max_cap = cap[max_idx];
+            let ghost max_cap = cap[max_idx as int];
             need = need - cap[max_idx] as i64;
             cap.set(max_idx, 0);
             used = used + 1;

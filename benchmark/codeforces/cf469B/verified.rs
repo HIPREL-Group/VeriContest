@@ -201,7 +201,7 @@ impl Solution {
                     assert(!Self::suitable_shift(z_starts@, z_ends@, x_starts@, x_ends@, t as int));
                 }
             }
-            let prev_result = result;
+            let ghost prev_result = result;
             if found {
                 proof {
                     assert(0 <= result <= t - l);

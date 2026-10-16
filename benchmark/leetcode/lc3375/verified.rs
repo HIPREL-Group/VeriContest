@@ -151,7 +151,7 @@ impl Solution {
                 Self::lemma_count_extend(nums@, k as int + 1, value as int);
             }
 
-            let old_ans = ans;
+            let ghost old_ans = ans;
             if found {
                 ans = ans + 1;
             }

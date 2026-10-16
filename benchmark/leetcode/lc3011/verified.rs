@@ -133,7 +133,7 @@ impl Solution {
         {
             let ghost old_y = y as int;
             let ghost old_bits = bits as int;
-            let bit = y % 2;
+            let ghost bit = y % 2;
             proof {
                 assert(0 < old_y);
                 assert(0 <= old_y % 2 <= 1);

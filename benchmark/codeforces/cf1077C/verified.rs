@@ -427,7 +427,7 @@ impl Solution {
                 assert((i as int) < (a.len() as int));
                 lemma_spec_sum_step(a@, i as int);
             }
-            let oldc = freq[v];
+            let ghost oldc = freq[v as int];
             let ghost old_freq = freq@;
             proof {
                 assert(1 <= a@[i as int] as int && a@[i as int] as int <= 1_000_000);
@@ -468,7 +468,7 @@ impl Solution {
                     }
                 }
             }
-            let ai = a[i];
+            let ghost ai = a[i as int];
             proof {
                 lemma_i64_sum_add_safe(s, ai, i as int, n as int, a@);
             }

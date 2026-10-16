@@ -54,8 +54,8 @@ impl Solution {
                     == Solution::reverse_checked_spec(n as nat),
             decreases cur,
         {
-            let old_cur = cur;
-            let old_rev = rev;
+            let ghost old_cur = cur;
+            let ghost old_rev = rev;
             let digit: i32 = cur % 10;
             match rev.checked_mul(10) {
                 None => {

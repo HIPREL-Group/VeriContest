@@ -247,7 +247,7 @@ impl Solution {
         let left = Self::encode12(a);
         let right = Self::encode12(b);
         let bits = Self::add12_bits(left, right);
-        let total = left + right;
+        let ghost total: u32 = (left + right) as u32;
         proof {
             Self::lemma_mask_mod_4096(total);
             Self::lemma_encode12_sum(a as int, b as int);

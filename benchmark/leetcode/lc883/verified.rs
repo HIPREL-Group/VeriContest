@@ -192,9 +192,9 @@ impl Solution {
                 }
                 let row_val = grid[i][j];
                 let col_val = grid[j][i];
-                let old_row_max = row_max;
-                let old_col_max = col_max;
-                let old_top = top;
+                let ghost old_row_max = row_max;
+                let ghost old_col_max = col_max;
+                let ghost old_top = top;
 
                 if row_val > row_max {
                     row_max = row_val;

@@ -741,7 +741,7 @@ impl Solution {
                         == cnt as int + Self::greedy_from(nums@, target, idx as int, cur),
                 decreases n - idx,
             {
-                let cur_before: i32 = cur;
+                let ghost cur_before: i32 = cur;
                 cur = cur & nums[idx];
                 proof {
                     assert(cur == cur_before & nums@[idx as int]);
@@ -770,7 +770,7 @@ impl Solution {
                 Self::lemma_pow2_ge(bit as int);
             }
 
-            let ans_before: i32 = ans;
+            let ghost ans_before: i32 = ans;
             if cnt > k {
                 proof {
                     Self::lemma_or_in_range(ans, bit_val);

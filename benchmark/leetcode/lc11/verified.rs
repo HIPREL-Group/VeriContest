@@ -51,8 +51,8 @@ impl Solution {
         {}
 
         let mut max_area: i32 = init_width * init_h;
-        let mut best_i: usize = left;
-        let mut best_j: usize = right;
+        let ghost mut best_i: usize = left;
+        let ghost mut best_j: usize = right;
 
         assert(max_area as int == (best_j as int - best_i as int) * Solution::min(
             height[best_i as int] as int,
@@ -115,8 +115,8 @@ impl Solution {
 
             if area > max_area {
                 max_area = area;
-                best_i = cur_left;
-                best_j = cur_right;
+                proof { best_i = cur_left; }
+                proof { best_j = cur_right; }
                 assert(max_area as int == (best_j as int - best_i as int) * Solution::min(
                     height[best_i as int] as int,
                     height[best_j as int] as int,

@@ -136,8 +136,8 @@ impl Solution {
             {
                 let ghost base = Self::sorted_values(nums@, value as int - 1);
                 let ghost pref = base + Self::repeat_value(value as int, t as int);
-                let old_has_pending = has_pending;
-                let old_pending = pending;
+                let ghost old_has_pending = has_pending;
+                let ghost old_pending = pending;
                 let ghost old_result = result@;
                 if has_pending {
                     result.push(value);

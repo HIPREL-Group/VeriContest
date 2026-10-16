@@ -114,7 +114,7 @@ impl Solution {
         {
             let ghost old_pos = pos;
             let ghost old_m = m;
-            let bit = (m & 1u32) == 1u32;
+            let ghost bit = (m & 1u32) == 1u32;
             proof {
                 assert(Self::bit_is_one(nu, pos as int) == (((nu >> pos) & 1u32) == 1u32));
                 assert(((nu >> pos) & 1u32) == (m & 1u32)) by (bit_vector)
@@ -130,8 +130,8 @@ impl Solution {
             }
             if (m & 1u32) == 1u32 {
                 if has_last {
-                    let old_best = best;
-                    let old_last = last;
+                    let ghost old_best = best;
+                    let ghost old_last = last;
                     let gap = pos - last;
                     if gap > best {
                         best = gap;

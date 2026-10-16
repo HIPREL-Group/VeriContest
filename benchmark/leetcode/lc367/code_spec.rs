@@ -12,7 +12,6 @@ impl Solution {
         exists|k: nat| pow(k as int, 2) == num
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn is_perfect_square(num: i32) -> bool
         requires
             1 <= num <= i32::MAX,

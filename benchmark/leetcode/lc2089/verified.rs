@@ -42,7 +42,7 @@ impl Solution {
         let n = nums.len();
         let mut less: usize = 0;
         let mut eq: usize = 0;
-        let mut found: bool = false;
+        let ghost mut found: bool = false;
         let mut i: usize = 0;
         while i < n
             invariant
@@ -73,7 +73,7 @@ impl Solution {
             }
             if nums[i] == target {
                 eq = eq + 1;
-                found = true;
+                proof { found = true; }
             }
             i = i + 1;
         }

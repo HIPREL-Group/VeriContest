@@ -492,7 +492,7 @@ impl Solution {
                 0 <= i < l.len() ==> 0 <= #[trigger] l[i] && l[i] <= r[i] && r[i] <= 1_000_000_000);
         }
         let mut ans = 0i64;
-        let mut witness = 0usize;
+        let ghost mut witness = 0usize;
         let mut k = 0usize;
         while k < n
             invariant
@@ -605,10 +605,10 @@ impl Solution {
             }
             if k == 0 {
                 ans = cand;
-                witness = k;
+                proof { witness = k; }
             } else if cand > ans {
                 ans = cand;
-                witness = k;
+                proof { witness = k; }
             } else {
             }
             proof {

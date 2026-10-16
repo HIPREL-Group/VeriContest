@@ -113,6 +113,7 @@ impl Rng {
     }
 }
 
+struct Solution;
 include!("../code.rs");
 
 fn mutate(prices: Vec<i32>, mutation_kind: u8) -> Vec<i32> {

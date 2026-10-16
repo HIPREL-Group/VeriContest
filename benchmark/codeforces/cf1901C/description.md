@@ -68,7 +68,7 @@ impl Solution {
         
     }
 
-    pub fn build_operations(mut mn: i64, mut mx: i64, steps: i64) -> Vec<i64> {
+    pub fn build_operations(a: Vec<i64>) -> Vec<i64> {
         
     }
 }
@@ -84,25 +84,17 @@ fn main() {
     for _ in 0..t {
         let n: usize = it.next().unwrap().parse().unwrap();
         let mut a: Vec<i64> = Vec::with_capacity(n);
-        let mut mn: i64 = 1_000_000_000;
-        let mut mx: i64 = 0;
 
         for _ in 0..n {
             let v: i64 = it.next().unwrap().parse().unwrap();
-            if v < mn {
-                mn = v;
-            }
-            if v > mx {
-                mx = v;
-            }
             a.push(v);
         }
 
-        let k = Solution::min_operations(a);
+        let k = Solution::min_operations(a.clone());
         out.push_str(&format!("{}\n", k));
 
         if k <= n as i64 {
-            let ops = Solution::build_operations(mn, mx, k);
+            let ops = Solution::build_operations(a.clone());
             if !ops.is_empty() {
                 for i in 0..ops.len() {
                     if i > 0 {

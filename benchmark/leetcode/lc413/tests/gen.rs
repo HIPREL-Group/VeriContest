@@ -116,6 +116,7 @@ impl Rng {
     }
 }
 
+struct Solution;
 include!("../code.rs");
 
 fn main() {
@@ -137,7 +138,7 @@ fn main() {
         vec![1],
     ];
     for nums in &examples {
-        let result = number_of_arithmetic_slices(nums.clone());
+        let result = Solution::number_of_arithmetic_slices(nums.clone());
         writeln!(out, "{}", json!({
             "input": {"nums": nums},
             "output": result
@@ -192,7 +193,7 @@ fn main() {
         let mutation_kind: u8 = rng.gen_range_usize(0, 9) as u8;
         let mutated = generate_test_case(nums, mutation_kind);
 
-        let result = number_of_arithmetic_slices(mutated.clone());
+        let result = Solution::number_of_arithmetic_slices(mutated.clone());
         writeln!(out, "{}", json!({
             "input": {"nums": mutated},
             "output": result

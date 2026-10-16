@@ -93,10 +93,10 @@ impl Solution {
                 decreases
                     n - vi,
             {
-                let old_vi = vi;
-                let old_av = av;
-                let hit = a[old_vi] == val;
-                if hit {
+                let ghost old_vi = vi;
+                let ghost old_av = av;
+                let ghost hit = a@[old_vi as int] == val;
+                if a[vi] == val {
                     av = av + 1;
                 }
                 vi = vi + 1;
@@ -137,10 +137,10 @@ impl Solution {
                 decreases
                     n - vi,
             {
-                let old_vi = vi;
-                let old_bv = bv;
-                let hit = b[old_vi] == val;
-                if hit {
+                let ghost old_vi = vi;
+                let ghost old_bv = bv;
+                let ghost hit = b@[old_vi as int] == val;
+                if b[vi] == val {
                     bv = bv + 1;
                 }
                 vi = vi + 1;
@@ -201,32 +201,6 @@ impl Solution {
         assert(val == 101);
         assert(feasible_from_value(a@, b@, val as int, carry as int) == (carry as int == 0));
         assert(feasible_from_value(a@, b@, -100, 0) == (carry as int == 0));
-
-        let _ordered_subset_anchor = r#"
-    if a[vi] == val {
-    av = av + 1;
-    }
-    vi = vi + 1;
-
-    let mut bv: usize = 0;
-    vi = 0;
-    while vi < n {
-    if b[vi] == val {
-    bv = bv + 1;
-    }
-    vi = vi + 1;
-    }
-
-    let next = av as i64 - bv as i64 + carry;
-    if next < 0 || next > av as i64 {
-    return false;
-    }
-
-    carry = next;
-    val = val + 1;
-
-    carry == 0
-    "#;
 
         carry == 0
     }

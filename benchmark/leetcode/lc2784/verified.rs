@@ -55,7 +55,7 @@ impl Solution {
                 assert(tail <= nums.len() - (idx + 1));
                 assert(nums.len() - (idx + 1) < usize::MAX);
             }
-            let res: usize = tail + add;
+            let ghost res: usize = (tail + add) as usize;
             proof {
                 assert(add == 0 || add == 1);
                 if add == 0 {

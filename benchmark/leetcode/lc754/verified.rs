@@ -83,8 +83,8 @@ impl Solution {
                         (step as int) < 50_000,
                 ;
             }
-            let old_step = step;
-            let old_sum = sum;
+            let ghost old_step = step;
+            let ghost old_sum = sum;
             step += 1;
             sum += step;
             proof {
@@ -120,8 +120,8 @@ impl Solution {
                         (sum as int) == Self::tri(step as int),
                 ;
             }
-            let old_step = step;
-            let old_sum = sum;
+            let ghost old_step = step;
+            let ghost old_sum = sum;
             step += 1;
             sum += step;
             proof {
@@ -163,8 +163,8 @@ impl Solution {
                             (sum as int) == Self::tri(step as int),
                     ;
                 }
-                let old_step = step;
-                let old_sum = sum;
+                let ghost old_step = step;
+                let ghost old_sum = sum;
                 step += 1;
                 sum += step;
                 proof {

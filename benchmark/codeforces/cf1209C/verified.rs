@@ -1116,7 +1116,7 @@ impl Solution {
             }
             i = i + 1;
         }
-        let mlen: usize = merged.len();
+        let ghost mlen: usize = merged.len();
         proof {
             assert(merged@ == spec_merged_digits(digits@, colors@, n as int));
             lemma_lens_add_n(digits@, colors@, n as int);

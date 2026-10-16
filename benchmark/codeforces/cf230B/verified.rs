@@ -206,7 +206,7 @@ impl Solution {
                 false
             };
             let ghost old_res = res@;
-            let cur = i;
+            let ghost cur = i;
             proof {
                 if root * root == x {
                     assert(answer == is_prime(root as int));

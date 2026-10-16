@@ -9,8 +9,7 @@ verus! {
 
 pub open spec fn is_co_growing(x: Seq<u32>, y: Seq<u32>, n: usize) -> bool {
     x.len() == n && y.len() == n &&
-    forall|i: int| 0 <= i && i < n as int - 1 ==>
-        #[trigger] x[i] == x[i] &&
+    forall|i: int| #![trigger x[i]] 0 <= i && i < n as int - 1 ==>
         (x[i] ^ y[i]) & (x[i + 1] ^ y[i + 1]) == (x[i] ^ y[i])
 }
 
@@ -349,7 +348,7 @@ impl Solution {
                     (x@[j] ^ y@[j]) & (x@[j + 1] ^ y@[j + 1]) == (x@[j] ^ y@[j]),
             decreases n - i
         {
-            let xi = x[i];
+            let ghost xi = x[i as int];
             let old_z = z;
             z = z | x[i];
             let yi = z ^ x[i];

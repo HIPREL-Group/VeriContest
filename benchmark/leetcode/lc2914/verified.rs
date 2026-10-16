@@ -53,7 +53,7 @@ impl Solution {
                 ans as int == Self::pair_mismatch_prefix(s@, i as int / 2),
             decreases len - i,
         {
-            let p = i / 2;
+            let ghost p = i / 2;
             let a = s.as_str().get_char(i);
             let b = s.as_str().get_char(i + 1);
             if a != b {

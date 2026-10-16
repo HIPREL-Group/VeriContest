@@ -288,7 +288,7 @@ impl Solution {
             let j = i - 1;
             if arr[j] <= arr[j + 1] {
                 let ghost old_up = up_end@;
-                let value = up_end[j + 1];
+                let ghost value = up_end[(j + 1) as int];
                 up_end.set(j, up_end[j + 1]);
                 proof {
                     assert(value as int == up_end_spec(arr@, j as int + 1));
@@ -350,7 +350,7 @@ impl Solution {
             let j = i - 1;
             if arr[j] >= arr[j + 1] {
                 let ghost old_down = down_end@;
-                let value = down_end[j + 1];
+                let ghost value = down_end[(j + 1) as int];
                 down_end.set(j, down_end[j + 1]);
                 proof {
                     assert(value as int == down_end_spec(arr@, j as int + 1));
@@ -426,7 +426,7 @@ impl Solution {
                 assert(answer == is_ladder(arr@, l as int, r as int));
             }
             let ghost old_res = res@;
-            let cur = qi;
+            let ghost cur = qi;
             res.push(answer);
             qi = qi + 1;
             proof {

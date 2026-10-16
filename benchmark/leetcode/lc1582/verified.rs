@@ -196,10 +196,8 @@ impl Solution {
                         + Self::count_special_in_row(mat@, i as int, j as int),
                 decreases n - j
             {
-                let mut is_spec = false;
-                if mat[i][j] == 1 && row_sums[i] == 1 && col_sums[j] == 1 {
-                    is_spec = true;
-                }
+                let ghost is_spec = mat@[i as int]@[j as int] == 1 && row_sums@[i as int] == 1
+                    && col_sums@[j as int] == 1;
                 proof {
                     assert(mat@[i as int]@.len() == n as int);
                     assert(row_sums@[i as int] as int == Self::count_ones_in_row(mat@, i as int, n as int));
@@ -213,7 +211,7 @@ impl Solution {
                         == Self::count_special_in_row(mat@, i as int, j as int)
                             + if Self::is_special(mat@, i as int, j as int) { 1int } else { 0int });
                 }
-                if is_spec {
+                if mat[i][j] == 1 && row_sums[i] == 1 && col_sums[j] == 1 {
                     assert((count as int) < 10000) by(nonlinear_arith)
                         requires
                             0 <= count as int,

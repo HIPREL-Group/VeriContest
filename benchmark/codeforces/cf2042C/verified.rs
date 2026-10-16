@@ -135,7 +135,7 @@ impl Solution {
                 Self::lemma_suffix_bounds(owners@, i0 as int);
             }
             let ghost old_counts = counts@;
-            let old_suffix = suffix;
+            let ghost old_suffix = suffix;
             if owners[i0] == 1 {
                 suffix = suffix + 1;
             } else {

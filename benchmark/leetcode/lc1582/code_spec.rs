@@ -56,7 +56,6 @@ impl Solution {
         }
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn num_special(mat: Vec<Vec<i32>>) -> (res: i32)
         requires
             1 <= mat.len() <= 100,

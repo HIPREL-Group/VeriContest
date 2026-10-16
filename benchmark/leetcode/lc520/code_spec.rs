@@ -7,7 +7,6 @@ verus! {
 pub struct Solution;
 
 impl Solution {
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn detect_capital_use(word: String) -> (res: bool) 
         requires
             1 <= word@.len() <= 100,

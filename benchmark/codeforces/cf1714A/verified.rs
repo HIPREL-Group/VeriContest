@@ -46,7 +46,7 @@ impl Solution {
     {
         let n = alarms.len();
         let mut best = Self::wait_minutes(now, alarms[0]);
-        let mut best_idx: usize = 0;
+        let ghost mut best_idx: usize = 0;
         let mut i: usize = 1;
         while i < n
             invariant
@@ -63,11 +63,11 @@ impl Solution {
                         ==> best as int <= #[trigger] Self::spec_wait_minutes(now as int, alarms[j] as int),
             decreases n - i,
         {
-            let old_best = best;
+            let ghost old_best = best;
             let d = Self::wait_minutes(now, alarms[i]);
             if d < best {
                 best = d;
-                best_idx = i;
+                proof { best_idx = i; }
             }
             proof {
                 assert(d as int == Self::spec_wait_minutes(now as int, alarms[i as int] as int));

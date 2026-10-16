@@ -984,7 +984,7 @@ impl Solution {
                 Self::is_valid_split_spec(nums@.len() as int, k as int, cuts)
                 ==> result as int <= #[trigger] Self::max_segment_sum_spec(nums@, k as int, cuts),
     {
-        let n = nums.len();
+        let ghost n = nums.len();
         let mut left: i64 = 0;
         let mut right: i64 = 0;
         let mut i: usize = 0;

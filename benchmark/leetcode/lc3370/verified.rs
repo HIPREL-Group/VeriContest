@@ -39,7 +39,7 @@ impl Solution {
                 forall|j: nat| j < exp ==> #[trigger] pow2(j) < target as int,
             decreases 2001 - p,
         {
-            let old_p = p;
+            let ghost old_p = p;
             let ghost old_exp = exp;
             p = p * 2;
             proof {
@@ -76,7 +76,7 @@ impl Solution {
             }
         }
 
-        let r = p - 1;
+        let ghost r = p - 1;
         proof {
             assert(p >= target);
             assert(r as int == p as int - 1);

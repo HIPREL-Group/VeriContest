@@ -313,7 +313,7 @@ impl Solution {
                     0 <= result as int <= r as int * col_limit as int + c as int,
                 decreases col_limit - c,
             {
-                let old_result = result;
+                let ghost old_result = result;
                 let ok = Self::is_magic_square(&grid, r, c);
                 if ok {
                         proof {

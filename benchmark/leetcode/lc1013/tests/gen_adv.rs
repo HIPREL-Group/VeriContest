@@ -30,17 +30,6 @@ impl Solution {
             s1 == s2 && s2 == s3
         }
     }
-
-    pub fn can_three_parts_equal_sum(arr: Vec<i32>) -> (result: bool)
-        requires
-            3 <= arr.len() <= 50_000,
-            forall |i: int| 0 <= i < arr.len() ==> -10_000 <= #[trigger] arr[i] <= 10_000,
-        ensures
-            result == (exists |a: int, b: int| Self::valid_partition(arr@, a, b)),
-    {
-        assume(false);
-        false
-    }
 }
 
 pub fn generate_test_case(

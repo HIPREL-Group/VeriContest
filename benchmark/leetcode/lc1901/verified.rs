@@ -87,7 +87,7 @@ impl Solution {
                     assert(mat[best_row as int].len() == cols);
                     assert(best_col < mat[best_row as int].len());
                 }
-                let old_best = best_val;
+                let ghost old_best = best_val;
                 if mat[i][j] > best_val {
                     best_row = i;
                     best_col = j;

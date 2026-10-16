@@ -44,7 +44,7 @@ impl Solution {
             res as int == spec_min_meeting_cells(ax as int, ay as int, bx as int, by as int, cx as int, cy as int),
     {
         let mut ans: i64 = 1;
-        let mut x_part: i64 = 0;
+        let ghost mut x_part: i64 = 0;
 
         let dx_b = bx - ax;
         let dx_c = cx - ax;
@@ -52,7 +52,7 @@ impl Solution {
             let ab = if dx_b >= 0 { dx_b } else { -dx_b };
             let ac = if dx_c >= 0 { dx_c } else { -dx_c };
             ans += if ab < ac { ab } else { ac };
-            x_part = if ab < ac { ab } else { ac };
+            proof { x_part = if ab < ac { ab } else { ac }; }
             proof {
                 assert(spec_abs((bx as int) - (ax as int)) == ab as int);
                 assert(spec_abs((cx as int) - (ax as int)) == ac as int);
@@ -70,14 +70,14 @@ impl Solution {
             }
         }
 
-        let mut y_part: i64 = 0;
+        let ghost mut y_part: i64 = 0;
         let dy_b = by - ay;
         let dy_c = cy - ay;
         if (dy_b > 0 && dy_c > 0) || (dy_b < 0 && dy_c < 0) {
             let ab = if dy_b >= 0 { dy_b } else { -dy_b };
             let ac = if dy_c >= 0 { dy_c } else { -dy_c };
             ans += if ab < ac { ab } else { ac };
-            y_part = if ab < ac { ab } else { ac };
+            proof { y_part = if ab < ac { ab } else { ac }; }
             proof {
                 assert(spec_abs((by as int) - (ay as int)) == ab as int);
                 assert(spec_abs((cy as int) - (ay as int)) == ac as int);

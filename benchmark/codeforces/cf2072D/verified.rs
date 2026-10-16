@@ -83,7 +83,7 @@ impl Solution {
                     forall|rr: int| l as int <= rr < r as int ==> Self::shift_delta(orig, best_l as int, best_r as int) <= #[trigger] Self::shift_delta(orig, l as int, rr),
                 decreases n - r,
             {
-                let old_cur_delta = cur_delta;
+                let ghost old_cur_delta = cur_delta;
                 if a[r] < a[l] {
                     cur_delta = cur_delta - 1;
                 } else if a[r] > a[l] {

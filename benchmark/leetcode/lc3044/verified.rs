@@ -246,7 +246,7 @@ impl Solution {
                 }
                 return false;
             }
-            let old_d = d;
+            let ghost old_d = d;
             d += 1;
             proof {
                 assert(old_d as int * old_d as int <= num as int);
@@ -299,8 +299,8 @@ impl Solution {
         assert(m * n <= 36) by(nonlinear_arith)
             requires 1 <= m <= 6usize, 1 <= n <= 6usize;
         let total = m * n;
-        let dx = [0, 1, 1, 1, 0, -1, -1, -1];
-        let dy = [1, 1, 0, -1, -1, -1, 0, 1];
+        let ghost dx = [0, 1, 1, 1, 0, -1, -1, -1];
+        let ghost dy = [1, 1, 0, -1, -1, -1, 0, 1];
 
         let mut nums: Vec<i32> = Vec::new();
         let mut idx = 0;

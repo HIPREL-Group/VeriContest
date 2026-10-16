@@ -66,7 +66,7 @@ impl Solution {
             decreases n - i,
         {
             let buy = if i <= kk { target } else { target - 1 };
-            let ti = tickets[i];
+            let ghost ti = tickets[i as int];
             if tickets[i] < buy {
                 total = total + tickets[i];
             } else {

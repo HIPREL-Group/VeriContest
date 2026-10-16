@@ -466,7 +466,6 @@ impl Solution {
 
         let mut i: usize = 0;
         let mut prev: Vec<i128> = Vec::new();
-        i = 0;
         while i <= n
             invariant
                 0 <= i <= n + 1 <= 5001,

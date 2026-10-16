@@ -38,7 +38,7 @@ impl Solution {
         let mut k: i128 = 1;
         let mut found: bool = false;
         let mut best: i128 = -1;
-        let mut best_k: i128 = 1;
+        let ghost mut best_k: i128 = 1;
 
         while k <= b
             invariant
@@ -65,8 +65,8 @@ impl Solution {
             decreases b - k + 1,
         {
             let cur_k = k;
-            let prev_found = found;
-            let prev_best = best;
+            let ghost prev_found = found;
+            let ghost prev_best = best;
             let mut cur_valid = false;
             let mut cur_even = false;
             let mut cur_sum: i128 = 0;
@@ -106,7 +106,7 @@ impl Solution {
                             assert(cur_sum % 2 == 0);
                         }
                         best = cur_sum;
-                        best_k = cur_k;
+                        proof { best_k = cur_k; }
                         found = true;
                     }
                 }

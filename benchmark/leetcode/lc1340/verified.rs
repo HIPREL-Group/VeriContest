@@ -952,6 +952,8 @@ impl Solution {
                 };
             j = idx;
             while j > left_bound
+                invariant_except_break
+                    (j as int) < (idx as int) ==> arr@[j as int] < arr@[idx as int],
                 invariant
                     n == arr.len(),
                     n <= 1000,
@@ -966,7 +968,6 @@ impl Solution {
                     dp.len() == n,
                     best >= 0,
                     best as nat >= right_total,
-                    (j as int) < (idx as int) ==> arr@[j as int] < arr@[idx as int],
                     forall|t: int| j as int <= t && t < idx as int
                         && arr@[t] < arr@[idx as int]
                         ==> best as nat >= dp_at(arr@, d as int, t),
@@ -1018,7 +1019,6 @@ impl Solution {
                             assert(best as nat >= dp_at(arr@, d as int, (j + 1) as int));
                         }
                     }
-                    j += 1;
                     break;
                 }
                 proof {

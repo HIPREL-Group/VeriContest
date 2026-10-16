@@ -144,7 +144,7 @@ impl Solution {
             assert((inx as int) == pn);
         }
 
-        let ans = i1 as i32 + (n as i32 - 1 - inx as i32) - if i1 > inx { 1 } else { 0 };
+        let ghost ans = i1 as i32 + (n as i32 - 1 - inx as i32) - if i1 > inx { 1int } else { 0int };
         proof {
             assert(0 <= i1 as int <= n as int - 1);
             assert(0 <= inx as int <= n as int - 1);

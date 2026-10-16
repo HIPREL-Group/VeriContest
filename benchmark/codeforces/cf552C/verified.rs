@@ -402,8 +402,8 @@ impl Solution {
                     == Self::balanced_representable_recursive(w as int, m as int, 31),
             decreases digits_left,
         {
-            let prev_current = current;
-            let prev_digits_left = digits_left;
+            let ghost prev_current = current;
+            let ghost prev_digits_left = digits_left;
             let rem = current % w;
             if rem == 0 {
                 proof {

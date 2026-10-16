@@ -18,7 +18,7 @@ impl Solution {
             0
         } else {
             let sq = p * p;
-            let add = if Self::is_prime(p) && l <= sq && sq <= r { 1 } else { 0 };
+            let add: int = if Self::is_prime(p) && l <= sq && sq <= r { 1 } else { 0 };
             add + Self::count_prime_squares_from(l, r, p + 1)
         }
     }

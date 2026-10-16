@@ -125,7 +125,7 @@ impl Solution {
                     Self::lemma_count_segments_bounded(orig, idx as int, i as int);
                     assert(prev_segments[idx as int] as nat <= i as nat);
                 }
-                let cur = segments[idx];
+                let ghost cur = segments[idx as int];
                 segments.set(idx, segments[idx] + 1);
                 proof {
                     assert forall |v: int| 0 <= v <= n implies #[trigger] segments@[v] as int == Self::count_x_segments(orig, v, i as int + 1) by {

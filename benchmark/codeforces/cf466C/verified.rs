@@ -324,8 +324,8 @@ impl Solution {
                 answer as int <= idx as int * idx as int,
             decreases n - 1 - idx,
         {
-            let prev_seen = seen_targets;
-            let prev_answer = answer;
+            let ghost prev_seen = seen_targets;
+            let ghost prev_answer = answer;
             proof {
                 Self::lemma_prefix_sum_step(nums@, idx as int);
             }

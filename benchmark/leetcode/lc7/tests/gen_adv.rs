@@ -2,9 +2,9 @@ use vstd::prelude::*;
 
 verus! {
 
-pub fn generate_test_case(x: u32) -> (res: u32)
+pub fn generate_test_case(x: i32) -> (res: i32)
     ensures
-        0 <= res <= u32::MAX,
+        i32::MIN <= res <= i32::MAX,
 {
     x
 }
@@ -27,54 +27,68 @@ impl Rng {
         self.state
     }
 
-    fn gen_range_u32(&mut self, lo: u32, hi: u32) -> u32 {
-        let span = (hi as u64) - (lo as u64) + 1;
-        lo + ((self.next_u64() % span) as u32)
+    fn gen_range_i32(&mut self, lo: i32, hi: i32) -> i32 {
+        let span = (hi as i64 - lo as i64 + 1) as u64;
+        (lo as i64 + (self.next_u64() % span) as i64) as i32
     }
 }
 
-fn pick_for_mode(rng: &mut Rng, mode: usize) -> u32 {
+fn pick_for_mode(rng: &mut Rng, mode: usize) -> i32 {
     match mode {
         0 => 0,
-        1 => u32::MAX,
-        2 => 1,
-        3 => 10,
-        4 => 123,
-        5 => 120,
-        6 => {
-            // Values whose reversal would overflow u32
-            // u32::MAX = 4294967295, reversed is 5927694924 which is > u32::MAX
-            rng.gen_range_u32(1_000_000_000, u32::MAX)
-        }
-        7 => {
-            // Palindromic numbers
-            let candidates = [121u32, 1221, 12321, 1234321, 123454321, 1];
+        1 => i32::MAX,
+        2 => i32::MIN,
+        3 => {
+            let candidates = [1i32, -1, 10, -10, 123, -123, 120, -120];
             candidates[(rng.next_u64() as usize) % candidates.len()]
         }
-        8 => {
+        4 => {
+            // Values whose reversal overflows i32, e.g. 1534236469 -> 9646324351
+            if rng.next_u64() % 2 == 0 {
+                rng.gen_range_i32(1_000_000_000, i32::MAX)
+            } else {
+                rng.gen_range_i32(i32::MIN, -1_000_000_000)
+            }
+        }
+        5 => {
+            // Reversal just inside the range, e.g. 1463847412 -> 2147483641
+            let candidates = [1463847412i32, -1463847412, 1463847413, -2147483412, 1563847412];
+            candidates[(rng.next_u64() as usize) % candidates.len()]
+        }
+        6 => {
+            // Palindromic numbers
+            let candidates = [121i32, 1221, 12321, 1234321, 123454321, -121, -12321];
+            candidates[(rng.next_u64() as usize) % candidates.len()]
+        }
+        7 => {
             // Trailing zeros
-            let v = rng.gen_range_u32(1, 100_000);
+            let v = rng.gen_range_i32(-100_000, 100_000);
             v * 1000
         }
-        9 => {
+        8 => {
             // Powers of 10
-            let pows = [1u32, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000];
-            pows[(rng.next_u64() as usize) % pows.len()]
+            let pows = [1i32, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000];
+            let p = pows[(rng.next_u64() as usize) % pows.len()];
+            if rng.next_u64() % 2 == 0 { p } else { -p }
+        }
+        9 => {
+            // Small values
+            rng.gen_range_i32(-100, 100)
         }
         10 => {
-            // Small values
-            rng.gen_range_u32(0, 100)
+            // Medium values
+            rng.gen_range_i32(-1_000_000, 1_000_000)
         }
         11 => {
-            // Medium values
-            rng.gen_range_u32(100, 1_000_000)
+            // Near the upper boundary
+            rng.gen_range_i32(i32::MAX - 100, i32::MAX)
         }
         12 => {
-            // Near boundary
-            rng.gen_range_u32(u32::MAX - 100, u32::MAX)
+            // Near the lower boundary
+            rng.gen_range_i32(i32::MIN, i32::MIN + 100)
         }
         _ => {
-            rng.gen_range_u32(0, u32::MAX)
+            rng.gen_range_i32(i32::MIN, i32::MAX)
         }
     }
 }

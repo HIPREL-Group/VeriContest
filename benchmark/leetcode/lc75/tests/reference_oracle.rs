@@ -5,18 +5,24 @@ include!("../code.rs");
 
 use std::io::{self, BufRead, Write, BufWriter};
 
+// Stand-ins for vstd's exec helpers when code.rs is compiled with rustc. Under
+// Verus (cfg verus_keep_ghost) vstd provides them and these would be ambiguous.
+#[cfg(not(verus_keep_ghost))]
 trait StrExt {
     fn unicode_len(&self) -> usize;
     fn get_char(&self, i: usize) -> char;
 }
+#[cfg(not(verus_keep_ghost))]
 impl StrExt for str {
     fn unicode_len(&self) -> usize { self.chars().count() }
     fn get_char(&self, i: usize) -> char { self.chars().nth(i).unwrap() }
 }
 
+#[cfg(not(verus_keep_ghost))]
 trait VecExt<T> {
     fn set(&mut self, i: usize, val: T);
 }
+#[cfg(not(verus_keep_ghost))]
 impl<T> VecExt<T> for Vec<T> {
     fn set(&mut self, i: usize, val: T) { self[i] = val; }
 }
@@ -260,7 +266,8 @@ fn main() {
         let mut nums: Vec<i32> = parse_num_array::<i32>(get_field(line, "nums"));
         let _f0 = format!("\"nums\": {}", format_num_array(&nums));
         Solution::sort_colors(&mut nums);
-        let _out = String::from("\"output\": null");
+        let _mut_nums = format!("\"nums\": {}", format_num_array(&nums));
+        let _out = format!("\"output\": {{{}}}", vec![_mut_nums].join(", "));
         let _all = vec![_f0, _out];
         write!(out, "{{").unwrap();
         for (i, part) in _all.iter().enumerate() {

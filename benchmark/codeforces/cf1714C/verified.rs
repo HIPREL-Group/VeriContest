@@ -126,8 +126,8 @@ impl Solution {
                 pow10(d as int) * (mul as int) <= 1000000000int,
             decreases d,
         {
-            let old_d = d;
-            let old_mul = mul;
+            let ghost old_d = d;
+            let ghost old_mul = mul;
             proof {
                 lemma_pow10_pos(d as int);
                 lemma_pow10_pos((d - 1) as int);

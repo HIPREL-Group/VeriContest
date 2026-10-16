@@ -65,7 +65,7 @@ impl Solution {
                 };
             };
 
-            let peak_here = i > 0 && i + 1 < n && mountain[i - 1] < mountain[i] && mountain[i] > mountain[i + 1];
+            let ghost peak_here = i > 0 && i + 1 < n && mountain[(i - 1) as int] < mountain[i as int] && mountain[i as int] > mountain[(i + 1) as int];
             if i > 0 && i + 1 < n && mountain[i - 1] < mountain[i] && mountain[i] > mountain[i + 1] {
                 result.push(i as i32);
                 assert(result@ == old_result.push(i as i32));

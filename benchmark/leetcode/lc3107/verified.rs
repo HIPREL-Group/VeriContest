@@ -730,13 +730,6 @@ fn encode_exec(v: i32, i: usize) -> (result: i64)
     (v as i64) * 200000 + (i as i64)
 }
 
-fn decode_idx_exec(e: i64) -> (result: i64)
-    requires 0 <= e <= 1_000_000_000i64 * 200000i64 + 199999i64,
-    ensures result as int == decode_idx(e as int),
-{
-    e % 200000
-}
-
 fn decode_val_exec(e: i64) -> (result: i64)
     requires 0 <= e <= 1_000_000_000i64 * 200000i64 + 199999i64,
     ensures result as int == decode_val(e as int),

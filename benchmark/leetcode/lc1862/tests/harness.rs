@@ -1,45 +1,84 @@
 pub struct Solution;
 
-// Algorithm: O(n²) brute-force pairwise summation.
-// Best-feasible in Verus: the optimal O(V log V) divisor-sieve + prefix-sum
-// algorithm computes the same answer via frequency counting, but proving its
-// equivalence to the pairwise spec (outer_sum / inner_sum) requires deep
-// number-theoretic reasoning (divisor-counting identities) that is beyond
-// current Verus automation. A prior optimization attempt was reverted for
-// this reason.
 impl Solution {
     pub fn sum_of_floored_pairs(nums: Vec<i32>) -> i32 {
         let n = nums.len();
         let modulo: i64 = 1_000_000_007;
-        let mut sum: i64 = 0;
+
+        let mut count: Vec<i64> = Vec::new();
+        let mut vi: usize = 0;
+        while vi <= 100_000 {
+            count.push(0);
+            vi = vi + 1;
+        }
+
         let mut i: usize = 0;
         while i < n {
-            let mut j: usize = 0;
-            while j < n {
-                let div_val = (nums[i] as i64) / (nums[j] as i64);
-                sum = (sum + div_val) % modulo;
-                j = j + 1;
-            }
+            let val = nums[i] as usize;
+            count[val] = count[val] + 1;
             i = i + 1;
         }
-        (sum % modulo) as i32
+
+        let mut prefix: Vec<i64> = Vec::new();
+        prefix.push(count[0]);
+        let mut v1: usize = 1;
+        while v1 <= 100_000 {
+            let next = prefix[v1 - 1] + count[v1];
+            prefix.push(next);
+            v1 = v1 + 1;
+        }
+
+        let mut gval: Vec<i64> = Vec::new();
+        gval.push(0);
+        let mut v2: usize = 1;
+        while v2 <= 100_000 {
+            let kmax_bound: usize = 100_000 / v2;
+            let mut g: i64 = 0;
+            let mut k: usize = 1;
+            while k <= kmax_bound {
+                let lo = k * v2;
+                let k1 = k + 1;
+                let hi_raw = k1 * v2 - 1;
+                let hi: usize = if hi_raw > 100_000 { 100_000 } else { hi_raw };
+                let range_count = prefix[hi] - prefix[lo - 1];
+                g = g + (k as i64) * range_count;
+                k = k + 1;
+            }
+            gval.push(g);
+            v2 = v2 + 1;
+        }
+
+        let mut total: i64 = 0;
+        let mut j: usize = 0;
+        while j < n {
+            let val = nums[j] as usize;
+            total = (total + gval[val]) % modulo;
+            j = j + 1;
+        }
+        (total % modulo) as i32
     }
 }
 
 use std::io::{self, BufRead, Write, BufWriter};
 
+// Stand-ins for vstd's exec helpers when code.rs is compiled with rustc. Under
+// Verus (cfg verus_keep_ghost) vstd provides them and these would be ambiguous.
+#[cfg(not(verus_keep_ghost))]
 trait StrExt {
     fn unicode_len(&self) -> usize;
     fn get_char(&self, i: usize) -> char;
 }
+#[cfg(not(verus_keep_ghost))]
 impl StrExt for str {
     fn unicode_len(&self) -> usize { self.chars().count() }
     fn get_char(&self, i: usize) -> char { self.chars().nth(i).unwrap() }
 }
 
+#[cfg(not(verus_keep_ghost))]
 trait VecExt<T> {
     fn set(&mut self, i: usize, val: T);
 }
+#[cfg(not(verus_keep_ghost))]
 impl<T> VecExt<T> for Vec<T> {
     fn set(&mut self, i: usize, val: T) { self[i] = val; }
 }
@@ -128,6 +167,10 @@ fn parse_string(s: &str) -> String {
     } else {
         s.to_string()
     }
+}
+
+fn parse_char_vec(s: &str) -> Vec<char> {
+    parse_string(s).chars().collect()
 }
 
 fn parse_num_array<T: ParseNum>(s: &str) -> Vec<T> {
@@ -262,6 +305,10 @@ fn format_string_array(v: &[String]) -> String {
     format!("[{}]", parts.join(","))
 }
 
+fn format_char_vec(v: &[char]) -> String {
+    format_json_string(&v.iter().collect::<String>())
+}
+
 fn format_2d_num_array<T: std::fmt::Display>(v: &[Vec<T>]) -> String {
     let parts: Vec<String> = v.iter().map(|row| format_num_array(row)).collect();
     format!("[{}]", parts.join(","))
@@ -269,6 +316,11 @@ fn format_2d_num_array<T: std::fmt::Display>(v: &[Vec<T>]) -> String {
 
 fn format_2d_bool_array(v: &[Vec<bool>]) -> String {
     let parts: Vec<String> = v.iter().map(|row| format_bool_array(row)).collect();
+    format!("[{}]", parts.join(","))
+}
+
+fn format_tuple2_array_json<T: std::fmt::Display, U: std::fmt::Display>(v: &[(T, U)]) -> String {
+    let parts: Vec<String> = v.iter().map(|(a, b)| format!("[{},{}]", a, b)).collect();
     format!("[{}]", parts.join(","))
 }
 

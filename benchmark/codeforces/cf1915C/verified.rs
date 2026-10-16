@@ -189,7 +189,8 @@ impl Solution {
                 assert(lo > 0) by {
                     if lo <= 0 {
                         assert(lo == 0);
-                        assert(Self::square_of(lo as int) == 0);
+                        assert(Self::square_of(lo as int) == lo as int * lo as int);
+                        assert(lo as int * lo as int == 0) by (nonlinear_arith) requires lo == 0;
                         assert(sum_spec >= 1);
                         assert(0 > 1);
                     }

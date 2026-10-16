@@ -334,7 +334,7 @@ impl Solution {
                     forall|m: int| #![trigger spf[m]] i as int <= m < j as int && m % (i as int) == 0 ==> spf[m] != 0usize && least_divisor(m, spf[m] as int),
                 decreases 5_000_000usize + i - j,
             {
-                let cur = j;
+                let ghost cur = j;
                 let ghost old_spf = spf@;
                 if spf[j] == 0usize {
                     spf.set(j, i);
@@ -612,7 +612,7 @@ impl Solution {
                     ),
             decreases queries.len() - i,
         {
-            let cur = i;
+            let ghost cur = i;
             let (a, b) = queries[i];
             proof {
                 lemma_omega_prefix_difference(b as int, a as int);

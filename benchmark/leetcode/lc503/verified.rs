@@ -192,7 +192,7 @@ impl Solution {
                 assert(i_int < (nums@.len() as int));
             }
             let mut k: usize = 1;
-            let mut found: bool = false;
+            let ghost mut found: bool = false;
             while k < n
                 invariant
                     1 <= k <= n,
@@ -290,7 +290,7 @@ impl Solution {
                             lemma_is_next_greater_preserved_update(nums@, res_before, i_int, idx, val);
                         }
                     }
-                    found = true;
+                    proof { found = true; }
                     k = n;
                 } else {
                     proof {

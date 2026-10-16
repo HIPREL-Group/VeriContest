@@ -184,7 +184,7 @@ impl Solution {
                 candidate_is_max_right_with_min_left(left@, right@, candidate as int, i as int),
             decreases left.len() - i,
         {
-            let old_candidate = candidate;
+            let ghost old_candidate = candidate;
             if left[i] < left[candidate] || (left[i] == left[candidate] && right[candidate] < right[i]) {
                 proof {
                     lemma_take_new_candidate(left@, right@, candidate as int, i as int);

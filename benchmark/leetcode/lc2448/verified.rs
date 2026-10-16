@@ -344,7 +344,7 @@ impl Solution {
         {
             let value = nums[i] as usize;
             let c = cost[i] as i64;
-            let prev_bucket = weights[value];
+            let ghost prev_bucket = weights[value as int];
             let ghost prev_weights = weights@;
             let ghost k = i as int;
 
@@ -455,7 +455,7 @@ impl Solution {
                 forall|u: int| 1 <= u && u <= target as int ==> best as int <= #[trigger] Self::move_cost(nums@, cost@, u, n as int),
             decreases max_value - target,
         {
-            let old_best = best;
+            let ghost old_best = best;
             let ghost old_best_target = best_target;
             let ghost old_target = target as int;
             let delta = prefix - (total_weight - prefix);

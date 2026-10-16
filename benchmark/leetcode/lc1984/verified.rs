@@ -269,7 +269,7 @@ impl Solution {
     {
         let sorted = Self::ms_sort(&nums);
         let n = sorted.len();
-        let ku = k as usize;
+        let ghost ku = k as usize;
 
         proof {
             Self::perm_preserves_bounds(sorted@, nums@, 0, 100_000);

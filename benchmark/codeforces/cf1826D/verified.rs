@@ -197,19 +197,19 @@ impl Solution {
             let ii = i as i64;
             let cand128: i128 = (dp2 as i128) + (bi as i128) - (ii as i128);
             let res128: i128 = res as i128;
-            let res_old = res;
+            let ghost res_old = res;
             if cand128 > res128 {
                 res = cand128 as i64;
             }
             let t2: i128 = (dp1 as i128) + (bi as i128);
             let dp2_128: i128 = dp2 as i128;
-            let dp2_old = dp2;
+            let ghost dp2_old = dp2;
             if t2 > dp2_128 {
                 dp2 = t2 as i64;
             }
             let t1: i128 = (bi as i128) + (ii as i128);
             let dp1_128: i128 = dp1 as i128;
-            let dp1_old = dp1;
+            let ghost dp1_old = dp1;
             if t1 > dp1_128 {
                 dp1 = t1 as i64;
             }

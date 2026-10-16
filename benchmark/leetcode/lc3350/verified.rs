@@ -59,7 +59,7 @@ impl Solution {
         let mut prev = 0usize;
         let mut curr = 1usize;
         let mut ans = 0usize;
-        let mut start = 0usize;
+        let ghost mut start = 0usize;
         let ghost mut best_a: int = 0;
         let mut i = 1usize;
 
@@ -138,7 +138,7 @@ impl Solution {
                 }
             } else {
                 prev = curr;
-                start = i;
+                proof { start = i; }
                 curr = 1;
                 proof {
                     assert(prev as int == old_curr);

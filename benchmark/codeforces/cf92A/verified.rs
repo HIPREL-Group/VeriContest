@@ -61,9 +61,9 @@ impl Solution {
         }
         let r_sum: u32 = n * (n + 1) / 2;
         let mut remaining: u32 = m % r_sum;
-        let initial_remaining: u32 = remaining;
+        let ghost initial_remaining: u32 = remaining;
         let mut walrus: u32 = 1;
-        let mut subtracted: u32 = 0;
+        let ghost mut subtracted: u32 = 0;
         proof {
             assert(remaining as int == after_full_rounds(n as int, m as int));
             assert(remaining < r_sum);
@@ -83,7 +83,7 @@ impl Solution {
             decreases (n + 1) - walrus,
         {
             remaining = remaining - walrus;
-            subtracted = subtracted + walrus;
+            proof { subtracted = (subtracted + walrus) as u32; }
             walrus = walrus + 1;
             proof {
                 assert(subtracted as int == (walrus as int - 1) * walrus as int / 2) by (nonlinear_arith)

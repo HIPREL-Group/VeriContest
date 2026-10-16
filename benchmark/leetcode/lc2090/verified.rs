@@ -170,135 +170,134 @@ impl Solution {
                 }
             }
             return result;
-        } else {
-            let mut sum: i64 = 0;
-            i = 0;
-            while i < window_len
-                invariant
-                    n == nums.len(),
-                    1 <= n <= 100_000,
-                    0 <= k <= 100_000,
-                    radius == k as usize,
-                    window_len == 2 * radius + 1,
-                    k_int == k as int,
-                    n_int == n as int,
-                    radius_int == radius as int,
-                    radius_int == k_int,
-                    window_len_int == window_len as int,
-                    window_len_int == 2 * radius_int + 1,
-                    window_len <= n,
-                    0 <= i <= window_len,
-                    forall |j: int| 0 <= j < nums.len() ==> 0 <= #[trigger] nums[j] <= 100_000,
-                    result.len() == n,
-                    forall |j: int| 0 <= j < result.len() ==> #[trigger] result@[j] == -1,
-                    sum as int == Self::window_sum(nums@, 0, i as int),
-                    0 <= sum as int <= (i as int) * 100_000,
-                decreases window_len - i,
-            {
-                proof {
-                    Self::lemma_window_sum_step(nums@, 0, i as int);
-                    assert(sum as int + nums[i as int] as int <= ((i as int) + 1) * 100_000) by (nonlinear_arith)
-                        requires
-                            0 <= sum as int,
-                            sum as int <= (i as int) * 100_000,
-                            nums[i as int] as int <= 100_000,
-                    {};
-                }
-                sum += nums[i] as i64;
-                i += 1;
-            }
-
-            let denom = window_len as i64;
-            let limit = n - radius;
-            let mut center = radius;
+        }
+        let mut sum: i64 = 0;
+        i = 0;
+        while i < window_len
+            invariant
+                n == nums.len(),
+                1 <= n <= 100_000,
+                0 <= k <= 100_000,
+                radius == k as usize,
+                window_len == 2 * radius + 1,
+                k_int == k as int,
+                n_int == n as int,
+                radius_int == radius as int,
+                radius_int == k_int,
+                window_len_int == window_len as int,
+                window_len_int == 2 * radius_int + 1,
+                window_len <= n,
+                0 <= i <= window_len,
+                forall |j: int| 0 <= j < nums.len() ==> 0 <= #[trigger] nums[j] <= 100_000,
+                result.len() == n,
+                forall |j: int| 0 <= j < result.len() ==> #[trigger] result@[j] == -1,
+                sum as int == Self::window_sum(nums@, 0, i as int),
+                0 <= sum as int <= (i as int) * 100_000,
+            decreases window_len - i,
+        {
             proof {
-                assert(radius < limit) by (nonlinear_arith)
+                Self::lemma_window_sum_step(nums@, 0, i as int);
+                assert(sum as int + nums[i as int] as int <= ((i as int) + 1) * 100_000) by (nonlinear_arith)
                     requires
-                        window_len <= n,
-                        window_len == 2 * radius + 1,
-                        limit == n - radius,
+                        0 <= sum as int,
+                        sum as int <= (i as int) * 100_000,
+                        nums[i as int] as int <= 100_000,
                 {};
             }
-            while center < limit
-                invariant
-                    n == nums.len(),
-                    1 <= n <= 100_000,
-                    0 <= k <= 100_000,
-                    radius == k as usize,
-                    window_len == 2 * radius + 1,
-                    k_int == k as int,
-                    n_int == n as int,
-                    radius_int == radius as int,
-                    radius_int == k_int,
-                    window_len_int == window_len as int,
-                    window_len_int == 2 * radius_int + 1,
-                    window_len <= n,
-                    denom == window_len as i64,
-                    limit == n - radius,
-                    radius < limit <= n,
-                    radius <= center <= limit,
-                    forall |j: int| 0 <= j < nums.len() ==> 0 <= #[trigger] nums[j] <= 100_000,
-                    result.len() == n,
-                    forall |j: int| 0 <= j < radius_int ==> #[trigger] result@[j] == -1,
-                    forall |j: int| radius_int <= j < center as int ==> #[trigger] result@[j] as int == Self::window_sum(nums@, j - radius_int, window_len_int) / window_len_int,
-                    forall |j: int| center as int <= j < n_int ==> #[trigger] result@[j] == -1,
-                    center < limit ==> sum as int == Self::window_sum(nums@, center as int - radius_int, window_len_int),
-                    0 <= sum as int <= window_len_int * 100_000,
-                decreases limit - center,
-            {
-                let ghost center_int = center as int;
-                proof {
-                    Self::lemma_window_sum_nonneg(nums@, center_int - radius_int, window_len_int);
-                    Self::lemma_window_sum_upper(nums@, center_int - radius_int, window_len_int);
-                    assert(0 < window_len_int);
-                    assert(0 <= sum as int / window_len_int <= 100_000) by (nonlinear_arith)
-                        requires
-                            0 <= sum as int,
-                            sum as int <= window_len_int * 100_000,
-                            0 < window_len_int,
-                    {};
-                }
-                let avg = (sum / denom) as i32;
-                proof {
-                    assert(avg as int == sum as int / window_len_int);
-                    assert(avg as int == Self::window_sum(nums@, center_int - radius_int, window_len_int) / window_len_int);
-                }
-                let ghost old_result = result@;
-                result.set(center, avg);
-                proof {
-                    assert(result@ == old_result.update(center_int, avg));
-                    assert forall |j: int| 0 <= j < radius_int implies #[trigger] result@[j] == -1 by {
-                        assert(result@[j] == old_result[j]);
-                    }
-                    assert forall |j: int| radius_int <= j < center_int + 1 implies #[trigger] result@[j] as int == Self::window_sum(nums@, j - radius_int, window_len_int) / window_len_int by {
-                        if j < center_int {
-                            assert(result@[j] == old_result[j]);
-                        } else {
-                            assert(j == center_int);
-                        }
-                    }
-                    assert forall |j: int| center_int + 1 <= j < n_int implies #[trigger] result@[j] == -1 by {
-                        assert(result@[j] == old_result[j]);
-                    }
-                }
-                if center + 1 < limit {
-                    let ghost old_sum = sum as int;
-                    sum += nums[center + radius + 1] as i64;
-                    sum -= nums[center - radius] as i64;
-                    proof {
-                        Self::lemma_window_slide(nums@, center_int - radius_int, window_len_int);
-                        assert(old_sum == Self::window_sum(nums@, center_int - radius_int, window_len_int));
-                        assert(sum as int == old_sum + nums[center_int + radius_int + 1] as int - nums[center_int - radius_int] as int);
-                        assert(sum as int == Self::window_sum(nums@, center_int + 1 - radius_int, window_len_int));
-                        Self::lemma_window_sum_nonneg(nums@, center_int + 1 - radius_int, window_len_int);
-                        Self::lemma_window_sum_upper(nums@, center_int + 1 - radius_int, window_len_int);
-                    }
-                }
-                center += 1;
-            }
-
-            result
+            sum += nums[i] as i64;
+            i += 1;
         }
+
+        let denom = window_len as i64;
+        let limit = n - radius;
+        let mut center = radius;
+        proof {
+            assert(radius < limit) by (nonlinear_arith)
+                requires
+                    window_len <= n,
+                    window_len == 2 * radius + 1,
+                    limit == n - radius,
+            {};
+        }
+        while center < limit
+            invariant
+                n == nums.len(),
+                1 <= n <= 100_000,
+                0 <= k <= 100_000,
+                radius == k as usize,
+                window_len == 2 * radius + 1,
+                k_int == k as int,
+                n_int == n as int,
+                radius_int == radius as int,
+                radius_int == k_int,
+                window_len_int == window_len as int,
+                window_len_int == 2 * radius_int + 1,
+                window_len <= n,
+                denom == window_len as i64,
+                limit == n - radius,
+                radius < limit <= n,
+                radius <= center <= limit,
+                forall |j: int| 0 <= j < nums.len() ==> 0 <= #[trigger] nums[j] <= 100_000,
+                result.len() == n,
+                forall |j: int| 0 <= j < radius_int ==> #[trigger] result@[j] == -1,
+                forall |j: int| radius_int <= j < center as int ==> #[trigger] result@[j] as int == Self::window_sum(nums@, j - radius_int, window_len_int) / window_len_int,
+                forall |j: int| center as int <= j < n_int ==> #[trigger] result@[j] == -1,
+                center < limit ==> sum as int == Self::window_sum(nums@, center as int - radius_int, window_len_int),
+                0 <= sum as int <= window_len_int * 100_000,
+            decreases limit - center,
+        {
+            let ghost center_int = center as int;
+            proof {
+                Self::lemma_window_sum_nonneg(nums@, center_int - radius_int, window_len_int);
+                Self::lemma_window_sum_upper(nums@, center_int - radius_int, window_len_int);
+                assert(0 < window_len_int);
+                assert(0 <= sum as int / window_len_int <= 100_000) by (nonlinear_arith)
+                    requires
+                        0 <= sum as int,
+                        sum as int <= window_len_int * 100_000,
+                        0 < window_len_int,
+                {};
+            }
+            let avg = (sum / denom) as i32;
+            proof {
+                assert(avg as int == sum as int / window_len_int);
+                assert(avg as int == Self::window_sum(nums@, center_int - radius_int, window_len_int) / window_len_int);
+            }
+            let ghost old_result = result@;
+            result.set(center, avg);
+            proof {
+                assert(result@ == old_result.update(center_int, avg));
+                assert forall |j: int| 0 <= j < radius_int implies #[trigger] result@[j] == -1 by {
+                    assert(result@[j] == old_result[j]);
+                }
+                assert forall |j: int| radius_int <= j < center_int + 1 implies #[trigger] result@[j] as int == Self::window_sum(nums@, j - radius_int, window_len_int) / window_len_int by {
+                    if j < center_int {
+                        assert(result@[j] == old_result[j]);
+                    } else {
+                        assert(j == center_int);
+                    }
+                }
+                assert forall |j: int| center_int + 1 <= j < n_int implies #[trigger] result@[j] == -1 by {
+                    assert(result@[j] == old_result[j]);
+                }
+            }
+            if center + 1 < limit {
+                let ghost old_sum = sum as int;
+                sum += nums[center + radius + 1] as i64;
+                sum -= nums[center - radius] as i64;
+                proof {
+                    Self::lemma_window_slide(nums@, center_int - radius_int, window_len_int);
+                    assert(old_sum == Self::window_sum(nums@, center_int - radius_int, window_len_int));
+                    assert(sum as int == old_sum + nums[center_int + radius_int + 1] as int - nums[center_int - radius_int] as int);
+                    assert(sum as int == Self::window_sum(nums@, center_int + 1 - radius_int, window_len_int));
+                    Self::lemma_window_sum_nonneg(nums@, center_int + 1 - radius_int, window_len_int);
+                    Self::lemma_window_sum_upper(nums@, center_int + 1 - radius_int, window_len_int);
+                }
+            }
+            center += 1;
+        }
+
+        result
     }
 }
 

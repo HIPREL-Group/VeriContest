@@ -123,8 +123,8 @@ impl Solution {
                     Self::spec_gcd(x as int, y as int) == Self::spec_gcd(start_g, a@[i as int] as int),
                 decreases y,
             {
-                let prev_x = x;
-                let prev_y = y;
+                let ghost prev_x = x;
+                let ghost prev_y = y;
                 let t: i64 = y;
                 proof {
                     assert(1 <= prev_x as int);

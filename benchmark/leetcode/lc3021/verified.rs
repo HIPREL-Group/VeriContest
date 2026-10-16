@@ -18,8 +18,8 @@ impl Solution {
             result == (((n as u128) * (m as u128)) / 2) as i64,
             forall |x: int, y: int| 1 <= x <= n && 1 <= y <= m ==> (#[trigger] Self::alice_wins(x, y) <==> (x % 2 != y % 2)),
     {
-        let nu = n as u128;
-        let mu = m as u128;
+        let ghost nu = n as u128;
+        let ghost mu = m as u128;
         proof {
             assert(1 <= nu <= 100000);
             assert(1 <= mu <= 100000);

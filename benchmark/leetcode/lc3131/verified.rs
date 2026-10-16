@@ -111,7 +111,7 @@ impl Solution {
             }
             i += 1;
         }
-        let result = min2 - min1;
+        let ghost result = min2 - min1;
         proof {
             let x0 = choose |x: int| Self::is_shift(nums1@, nums2@, x);
             assert(Self::is_shift(nums1@, nums2@, x0));

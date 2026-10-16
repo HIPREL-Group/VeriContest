@@ -41,7 +41,7 @@ impl Solution {
         ensures
             result == Self::inc_prefix(nums@, p as int),
     {
-        let n = nums.len();
+        let ghost n = nums.len();
         let mut i: usize = 0;
         while i < p
             invariant
@@ -83,7 +83,7 @@ impl Solution {
         ensures
             result == Self::dec_mid(nums@, p as int, q as int),
     {
-        let n = nums.len();
+        let ghost n = nums.len();
         let mut i: usize = p;
         while i < q
             invariant

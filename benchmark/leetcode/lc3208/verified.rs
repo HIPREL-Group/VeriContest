@@ -97,7 +97,7 @@ impl Solution {
             }
             assert(Self::cnt_after(colors@, ku as int, i as int) == cnt as int);
             if cnt >= ku {
-                let old_ans = ans;
+                let ghost old_ans = ans;
                 ans = ans.checked_add(1).unwrap_or(ans);
                 assert(ans as int == Self::checked_add_i32_or(old_ans as int, 1, old_ans as int));
             } else {

@@ -102,7 +102,7 @@ impl Solution {
 
             if s > 0 {
                 let ghost old_out = out@;
-                let old_len = out.len();
+                let ghost old_len = out.len();
                 out.push(vec![id, s]);
                 assert(out[old_len as int][0] == id);
                 assert(out[old_len as int][1] == s);

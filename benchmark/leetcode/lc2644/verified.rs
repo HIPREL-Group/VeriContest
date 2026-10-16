@@ -66,8 +66,8 @@ impl Solution {
                 count as nat == Self::div_score_prefix(nums@, d as int, i as nat),
             decreases nums.len() - i,
         {
-            let old_i = i;
-            let old_count = count;
+            let ghost old_i = i;
+            let ghost old_count = count;
             if nums[i] % d == 0 {
                 count = count + 1;
             }

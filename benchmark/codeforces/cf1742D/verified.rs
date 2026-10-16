@@ -75,8 +75,8 @@ impl Solution {
                 Self::spec_gcd(a as nat, b as nat) == Self::spec_gcd(sx, sy),
             decreases b as int,
         {
-            let prev_a = a;
-            let prev_b = b;
+            let ghost prev_a = a;
+            let ghost prev_b = b;
             proof {
                 assert(Self::spec_gcd(prev_a as nat, prev_b as nat)
                     == Self::spec_gcd(prev_b as nat, (prev_a % prev_b) as nat));
@@ -200,7 +200,7 @@ impl Solution {
                         && Self::spec_pair_score(a@, wx, wy) == ans as int,
                 decreases 1001 - y,
             {
-                let old_ans = ans;
+                let ghost old_ans = ans;
                 let cop = Self::is_coprime_values(x, y);
                 let lx = last[x as usize];
                 let ly = last[y as usize];

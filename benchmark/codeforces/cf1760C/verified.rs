@@ -175,14 +175,12 @@ impl Solution {
             decreases n - i,
         {
             let best: i64;
-            let witness: usize;
             if i == idx1 {
                 best = max2;
-                witness = idx2;
             } else {
                 best = max1;
-                witness = idx1;
             }
+            let ghost witness: usize = if i == idx1 { idx2 } else { idx1 };
 
             assert(0 <= witness < n);
             assert(witness != i);

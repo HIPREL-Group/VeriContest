@@ -85,21 +85,10 @@ impl Solution {
             }
             i += 1;
         }
-        let result = Self::steps_from_diff(mx - mn);
         proof {
             assert(i == n);
             assert(is_min_max_of(a@, mn as int, mx as int));
-            assert(exists|mn0: int, mx0: int|
-                is_min_max_of(a@, mn0, mx0)
-                && result as int == halving_steps(mx0 - mn0)) by {
-                let mn0 = mn as int;
-                let mx0 = mx as int;
-                assert(is_min_max_of(a@, mn0, mx0));
-                assert(result as int == halving_steps((mx - mn) as int));
-                assert((mx - mn) as int == mx0 - mn0);
-            }
         }
-
         Self::steps_from_diff(mx - mn)
     }
 

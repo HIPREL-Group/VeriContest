@@ -71,7 +71,7 @@ impl Solution {
             decreases 8 - r,
         {
             let mut all_r: bool = true;
-            let mut bad_c: usize = 0;
+            let ghost mut bad_c: usize = 0;
             let mut c: usize = 0;
             while c < 8
                 invariant
@@ -83,7 +83,7 @@ impl Solution {
                 decreases 8 - c,
             {
                 if grid[r * 8 + c] != 0 {
-                    if all_r { bad_c = c; }
+                    proof { if all_r { bad_c = c; } }
                     all_r = false;
                 }
                 c += 1;

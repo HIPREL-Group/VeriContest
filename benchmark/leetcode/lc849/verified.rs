@@ -282,8 +282,8 @@ impl Solution {
                 } else {
                     ((len + 1) / 2) as i32
                 };
-                let old_ans = ans;
-                let old_have_witness = have_witness;
+                let ghost old_ans = ans;
+                let ghost old_have_witness = have_witness;
 
                 proof {
                     lemma_run_candidate_bounds(seats@, start as int, end as int);

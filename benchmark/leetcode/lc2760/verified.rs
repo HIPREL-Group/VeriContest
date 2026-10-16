@@ -101,10 +101,10 @@ impl Solution {
                     forall |k: int| 0 <= k < nums.len() ==> 1 <= #[trigger] nums[k] <= 100,
                 decreases n - j,
             {
-                let old_j = j;
-                let old_len = len;
-                let old_active = active;
-                let took_extend = old_active && nums[old_j] <= threshold && nums[old_j] % 2 != nums[old_j - 1] % 2;
+                let ghost old_j = j;
+                let ghost old_len = len;
+                let ghost old_active = active;
+                let ghost took_extend = old_active && nums[old_j as int] <= threshold && nums[old_j as int] % 2 != nums[(old_j - 1) as int] % 2;
                 let ghost old_k = old_j as int - (i as int + 1);
 
                 if active && nums[j] <= threshold && nums[j] % 2 != nums[j - 1] % 2 {
@@ -152,7 +152,7 @@ impl Solution {
                 assert(len as int == Self::start_len(nums@, threshold as int, i as int));
             }
 
-            let old_ans = ans;
+            let ghost old_ans = ans;
             if len > ans {
                 ans = len;
             }

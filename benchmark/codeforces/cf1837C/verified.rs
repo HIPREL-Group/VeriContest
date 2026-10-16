@@ -113,8 +113,8 @@ impl Solution {
             decreases n - i,
         {
             let ghost old_result = result@;
-            let i0: usize = i;
-            let old_last: i64 = last;
+            let ghost i0: usize = i;
+            let ghost old_last: i64 = last;
             if s[i] != 2 {
                 last = s[i];
             }

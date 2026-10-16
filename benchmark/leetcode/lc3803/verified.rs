@@ -107,8 +107,8 @@ impl Solution {
                 forall |t: int| 0 <= t < q as int ==> s@[t] != s@[p as int],
             decreases p - q,
         {
-            let cq = s.as_str().get_char(q);
-            let cp = s.as_str().get_char(p);
+            let ghost cq = s@[q as int];
+            let ghost cp = s@[p as int];
             if s.as_str().get_char(q) == s.as_str().get_char(p) {
                 assert(cq == cp);
                 proof {

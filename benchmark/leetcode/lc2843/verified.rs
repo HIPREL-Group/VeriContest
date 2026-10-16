@@ -64,7 +64,7 @@ impl Solution {
                 count as int == Self::count_symmetric_range(low as int, i as int - 1),
             decreases high - i + 1,
         {
-            let old_i = i;
+            let ghost old_i = i;
             let is_sym = Self::is_symmetric(i);
             if is_sym {
                 count = count + 1;

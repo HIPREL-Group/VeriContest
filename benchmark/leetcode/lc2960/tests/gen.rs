@@ -120,6 +120,7 @@ impl Rng {
     }
 }
 
+struct Solution;
 include!("../code.rs");
 
 fn mutate(bp: Vec<i32>, mutation_kind: u8) -> Vec<i32> {
@@ -160,7 +161,7 @@ fn main() {
         if !seen.insert(key) {
             return;
         }
-        let output = count_tested_devices(bp.clone());
+        let output = Solution::count_tested_devices(bp.clone());
         writeln!(out, "{}", json!({"input": {"batteryPercentages": bp}, "output": output})).unwrap();
         *count += 1;
     };

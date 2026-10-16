@@ -60,8 +60,8 @@ impl Solution {
                 assert(i as int <= a@.len() - 2);
             }
             let ai = a[i];
-            let prev_ans = ans;
-            let prev_started = started;
+            let ghost prev_ans = ans;
+            let ghost prev_started = started;
             if ai > 0 {
                 proof {
                     assert(0 <= (i as int));

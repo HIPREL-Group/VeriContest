@@ -62,12 +62,15 @@ impl Solution {
                 }
                 return true;
             }
-            let ox = x;
+            let ghost ox = x;
             x = x + 1;
             proof {
                 lemma_x_leq_c_div_implies_xa_leq_c(ox as int, a as int, c as int);
                 assert(x == ox + 1);
                 assert(x <= c + 1);
+                assert(c as int - a as int * (ox as int) == rem as int) by(nonlinear_arith)
+                    requires rem as int == c as int - (ox as int) * (a as int);
+                assert(((c as int - a as int * (ox as int)) % (b as int)) != 0);
             }
         }
         proof {

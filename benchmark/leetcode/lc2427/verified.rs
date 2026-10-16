@@ -26,7 +26,7 @@ impl Solution {
     {
         let mut count: i32 = 0;
         let mut i: i32 = if a < b { a } else { b };
-        let limit = i;
+        let ghost limit = i;
         
         while i > 0
             invariant

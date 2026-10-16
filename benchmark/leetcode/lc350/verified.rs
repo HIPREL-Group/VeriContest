@@ -181,7 +181,7 @@ impl Solution {
                 forall |x: int| 0 <= x <= 1000 ==> #[trigger] freq2[x] as nat == Solution::count_occ(nums2@, x as i32),
             decreases 1001 - v
         {
-            let copies: i32 = if freq1[v] < freq2[v] { freq1[v] } else { freq2[v] };
+            let ghost copies: i32 = if freq1[v as int] < freq2[v as int] { freq1[v as int] } else { freq2[v as int] };
             proof {
                 assert(0 <= freq1[v as int]);
                 assert(0 <= freq2[v as int]);

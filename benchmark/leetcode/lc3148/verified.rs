@@ -740,6 +740,7 @@ impl Solution {
                 assert(0 <= sr <= tr < grid.len());
                 assert(0 <= sc <= tc < n);
                 assert(grid[sr as int].len() == n);
+                assert(grid[tr as int].len() == n);
                 assert(sr < tr || sc < tc);
                 proof {
                     Self::lemma_score_bounds(grid@, sr as int, sc as int, tr as int, tc as int);
@@ -923,7 +924,7 @@ impl Solution {
                     }
                 }
 
-                let old_ans = ans;
+                let ghost old_ans = ans;
                 if best > ans {
                     ans = best;
                 }

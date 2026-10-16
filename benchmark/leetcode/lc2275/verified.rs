@@ -59,8 +59,8 @@ impl Solution {
                 forall |j: int| 0 <= j < candidates.len() ==> 1 <= #[trigger] candidates[j] <= 10_000_000,
             decreases candidates.len() - i,
         {
-            let old_i = i;
-            let old_count = count;
+            let ghost old_i = i;
+            let ghost old_count = count;
             if ((candidates[i] >> bit) & 1) == 1 {
                 assert(count <= i);
                 assert(i < candidates.len());
@@ -104,8 +104,8 @@ impl Solution {
                 forall |i: int| 0 <= i < candidates.len() ==> 1 <= #[trigger] candidates[i] <= 10_000_000,
             decreases 31 - bit,
         {
-            let old_bit = bit;
-            let old_best = best;
+            let ghost old_bit = bit;
+            let ghost old_best = best;
             let cur = Self::count_for_bit(&candidates, bit);
             if cur > best {
                 best = cur;

@@ -18,18 +18,24 @@ impl Solution {
 
 use std::io::{self, BufRead, Write, BufWriter};
 
+// Stand-ins for vstd's exec helpers when code.rs is compiled with rustc. Under
+// Verus (cfg verus_keep_ghost) vstd provides them and these would be ambiguous.
+#[cfg(not(verus_keep_ghost))]
 trait StrExt {
     fn unicode_len(&self) -> usize;
     fn get_char(&self, i: usize) -> char;
 }
+#[cfg(not(verus_keep_ghost))]
 impl StrExt for str {
     fn unicode_len(&self) -> usize { self.chars().count() }
     fn get_char(&self, i: usize) -> char { self.chars().nth(i).unwrap() }
 }
 
+#[cfg(not(verus_keep_ghost))]
 trait VecExt<T> {
     fn set(&mut self, i: usize, val: T);
 }
+#[cfg(not(verus_keep_ghost))]
 impl<T> VecExt<T> for Vec<T> {
     fn set(&mut self, i: usize, val: T) { self[i] = val; }
 }
@@ -270,10 +276,34 @@ fn main() {
         let line = line.expect("read line");
         let line = line.trim();
         if line.is_empty() || !line.starts_with('{') { continue; }
-        let mut s: Vec<char> = todo!("parse Vec<char>"); // MANUAL REVIEW
-        let _f0 = format!("\"s\": {}", format!("{:?}", s) /* MANUAL REVIEW */);
+        let mut s: Vec<char> = {
+            let key = "\"s\"";
+            let start = line.find(key).expect("key not found") + key.len();
+            let mut it = line[start..].chars().skip_while(|c| *c != '[').skip(1);
+            let mut v: Vec<char> = Vec::new();
+            while let Some(c) = it.next() {
+                if c == ']' { break; }
+                if c != '"' { continue; }
+                let mut ch = it.next().unwrap();
+                if ch == '\\' {
+                    ch = match it.next().unwrap() {
+                        'n' => '\n', 't' => '\t', 'r' => '\r', 'b' => '\u{8}', 'f' => '\u{c}',
+                        'u' => {
+                            let hex: String = (0..4).map(|_| it.next().unwrap()).collect();
+                            char::from_u32(u32::from_str_radix(&hex, 16).unwrap()).unwrap()
+                        }
+                        other => other,
+                    };
+                }
+                v.push(ch);
+                it.next();
+            }
+            v
+        };
+        let _f0 = format!("\"s\": {}", format!("[{}]", s.iter().map(|c| match c { '"' => String::from("\"\\\"\""), '\\' => String::from("\"\\\\\""), c if (*c as u32) < 0x20 => format!("\"\\u{:04x}\"", *c as u32), c => format!("\"{}\"", c) }).collect::<Vec<_>>().join(",")));
         Solution::reverse_string(&mut s);
-        let _out = String::from("\"output\": null");
+        let _mut_s = format!("\"s\": {}", format!("[{}]", s.iter().map(|c| match c { '"' => String::from("\"\\\"\""), '\\' => String::from("\"\\\\\""), c if (*c as u32) < 0x20 => format!("\"\\u{:04x}\"", *c as u32), c => format!("\"{}\"", c) }).collect::<Vec<_>>().join(",")));
+        let _out = format!("\"output\": {{{}}}", vec![_mut_s].join(", "));
         let _all = vec![_f0, _out];
         write!(out, "{{").unwrap();
         for (i, part) in _all.iter().enumerate() {

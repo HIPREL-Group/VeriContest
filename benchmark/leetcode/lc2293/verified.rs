@@ -82,7 +82,7 @@ impl Solution {
                     forall |k: int| 2 * i <= k < n ==> nums[k] == prev[k],
                 decreases n / 2 - i,
             {
-                let old_i = i;
+                let ghost old_i = i;
                 let left = nums[2 * i];
                 let right = nums[2 * i + 1];
                 let val = if i % 2 == 0 {

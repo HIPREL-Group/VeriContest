@@ -774,8 +774,8 @@ impl Solution {
                 j += 1;
             }
 
-            let old_i = i;
-            let old_min_idx = min_idx;
+            let ghost old_i = i;
+            let ghost old_min_idx = min_idx;
             let tmp_a = ages[i];
             let tmp_s = scores[i];
             let ghost old_perm = perm;

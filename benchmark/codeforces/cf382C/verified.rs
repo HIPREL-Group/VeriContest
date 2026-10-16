@@ -488,47 +488,46 @@ impl Solution {
                     }
                 }
                 return out;
-            } else {
-                let mut ans = Vec::new();
-                ans.push(a - d);
-                ans.push(b + d);
-                proof {
-                    assert(gap_pattern(nums@, d as int, 0));
-                    lemma_gap_pattern_implies_candidate(nums@, d as int, 0);
-                    assert(candidate_value_from_pattern(nums@, d as int, 0) == (a - d) as int);
-                    assert(gap_pattern(nums@, d as int, 2));
-                    lemma_gap_pattern_implies_candidate(nums@, d as int, 2);
-                    assert(candidate_value_from_pattern(nums@, d as int, 2) == (b + d) as int);
-                    assert forall|x: int| is_candidate(nums@, x) implies exists|i: int| 0 <= i < ans@.len() && ans@[i] as int == x by {
-                        lemma_two_element_candidates(nums@, x);
-                        if x == (a - d) as int {
-                            assert(0 <= 0 < ans@.len());
-                            assert(ans@[0] as int == x);
-                        } else {
-                            assert(x == (b + d) as int);
-                            assert(0 <= 1 < ans@.len());
-                            assert(ans@[1] as int == x);
-                        }
-                    }
-                }
-                let out = Some(ans);
-                proof {
-                    assert(out != None::<Vec<i64>>);
-                    assert(out->0@.len() == 2);
-                    assert(out->0@[0] == a - d);
-                    assert(out->0@[1] == b + d);
-                    assert forall|x: int| is_candidate(nums@, x) implies exists|i: int| 0 <= i < out->0@.len() && out->0@[i] as int == x by {
-                        lemma_two_element_candidates(nums@, x);
-                        if x == (a - d) as int {
-                            assert(0 <= 0 < out->0@.len());
-                        } else {
-                            assert(x == (b + d) as int);
-                            assert(0 <= 1 < out->0@.len());
-                        }
-                    }
-                }
-                return out;
             }
+            let mut ans = Vec::new();
+            ans.push(a - d);
+            ans.push(b + d);
+            proof {
+                assert(gap_pattern(nums@, d as int, 0));
+                lemma_gap_pattern_implies_candidate(nums@, d as int, 0);
+                assert(candidate_value_from_pattern(nums@, d as int, 0) == (a - d) as int);
+                assert(gap_pattern(nums@, d as int, 2));
+                lemma_gap_pattern_implies_candidate(nums@, d as int, 2);
+                assert(candidate_value_from_pattern(nums@, d as int, 2) == (b + d) as int);
+                assert forall|x: int| is_candidate(nums@, x) implies exists|i: int| 0 <= i < ans@.len() && ans@[i] as int == x by {
+                    lemma_two_element_candidates(nums@, x);
+                    if x == (a - d) as int {
+                        assert(0 <= 0 < ans@.len());
+                        assert(ans@[0] as int == x);
+                    } else {
+                        assert(x == (b + d) as int);
+                        assert(0 <= 1 < ans@.len());
+                        assert(ans@[1] as int == x);
+                    }
+                }
+            }
+            let out = Some(ans);
+            proof {
+                assert(out != None::<Vec<i64>>);
+                assert(out->0@.len() == 2);
+                assert(out->0@[0] == a - d);
+                assert(out->0@[1] == b + d);
+                assert forall|x: int| is_candidate(nums@, x) implies exists|i: int| 0 <= i < out->0@.len() && out->0@[i] as int == x by {
+                    lemma_two_element_candidates(nums@, x);
+                    if x == (a - d) as int {
+                        assert(0 <= 0 < out->0@.len());
+                    } else {
+                        assert(x == (b + d) as int);
+                        assert(0 <= 1 < out->0@.len());
+                    }
+                }
+            }
+            return out;
         }
 
         let mut min_diff = nums[1] - nums[0];

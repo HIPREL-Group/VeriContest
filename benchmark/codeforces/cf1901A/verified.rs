@@ -100,7 +100,7 @@ impl Solution {
                 assert((i as int) <= (n as int) - 2);
             }
             let d: i64 = a[i + 1] - a[i];
-            let old_ans = ans;
+            let ghost old_ans = ans;
             if d > ans {
                 ans = d;
             }
@@ -142,7 +142,7 @@ impl Solution {
             }
         }
         let d2: i64 = 2 * (x - a[n - 1]);
-        let mid = ans;
+        let ghost mid = ans;
         if d2 > ans {
             ans = d2;
         }

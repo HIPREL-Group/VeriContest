@@ -143,9 +143,9 @@ impl Solution {
                 result as int <= i as int * (i as int + 1) / 2,
             decreases n - i,
         {
-            let prev_bad = last_bad;
-            let prev_min = last_min;
-            let prev_max = last_max;
+            let ghost prev_bad = last_bad;
+            let ghost prev_min = last_min;
+            let ghost prev_max = last_max;
             let value = nums[i];
             if value < min_k || value > max_k {
                 last_bad = i as i64;

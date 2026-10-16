@@ -438,10 +438,10 @@ impl Solution {
                 !ok ==> !greedy_partition(a@, target as int, 0, 0, 0, g as int),
             decreases n - j
         {
-            let old_ok = ok;
-            let old_seg_sum = seg_sum;
-            let old_count = count;
-            let old_j = j;
+            let ghost old_ok = ok;
+            let ghost old_seg_sum = seg_sum;
+            let ghost old_count = count;
+            let ghost old_j = j;
             if ok {
                 seg_sum += a[j];
             }

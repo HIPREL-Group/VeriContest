@@ -44,7 +44,7 @@ impl Solution {
             decreases n - i,
         {
             let ghost old_i = i as int;
-            let old_result = result;
+            let ghost old_result = result;
 
             if nums[i] % 2 == 0 {
                 result = result | nums[i];

@@ -118,7 +118,7 @@ impl Solution {
                 }
                 let right_len: i32 = (n - i - 1) as i32;
                 let avg: i32 = sum / right_len;
-                let is_dom: bool = nums[i] > avg;
+                let ghost is_dom: bool = nums[i as int] > avg;
                 if nums[i] > avg {
                     ans = ans + 1;
                 }

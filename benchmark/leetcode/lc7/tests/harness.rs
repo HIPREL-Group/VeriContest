@@ -1,41 +1,61 @@
 pub struct Solution;
 
 impl Solution {
-    pub fn reverse(x: u32) -> u32 {
-        let mut res: u32 = 0;
-        let mut cur: u32 = x;
+    pub fn reverse(x: i32) -> i32
+    {
+        if x == i32::MIN {
+            return 0;
+        }
+        let neg = x < 0;
+        let mut cur: i32 = if neg { -x } else { x };
+        let mut res: i32 = 0;
 
-        while cur != 0 {
+        while cur != 0
+        {
             match res.checked_mul(10) {
-                None => return 0,
+                None => {
+                    return 0;
+                },
                 Some(tmp) => match tmp.checked_add(cur % 10) {
-                    None => return 0,
+                    None => {
+                        return 0;
+                    },
                     Some(fine) => {
                         res = fine;
-                    }
+                    },
                 },
             }
             cur = cur / 10;
         }
 
-        res
+        if neg {
+            -res
+        } else {
+            res
+        }
     }
 }
 
 use std::io::{self, BufRead, Write, BufWriter};
 
+// Stand-ins for vstd's exec helpers when code.rs is compiled with rustc. Under
+// Verus (cfg verus_keep_ghost) vstd provides them and these would be ambiguous.
+#[cfg(not(verus_keep_ghost))]
 trait StrExt {
     fn unicode_len(&self) -> usize;
     fn get_char(&self, i: usize) -> char;
 }
+#[cfg(not(verus_keep_ghost))]
 impl StrExt for str {
     fn unicode_len(&self) -> usize { self.chars().count() }
     fn get_char(&self, i: usize) -> char { self.chars().nth(i).unwrap() }
 }
 
+#[cfg(not(verus_keep_ghost))]
 trait VecExt<T> {
     fn set(&mut self, i: usize, val: T);
 }
+#[cfg(not(verus_keep_ghost))]
 impl<T> VecExt<T> for Vec<T> {
     fn set(&mut self, i: usize, val: T) { self[i] = val; }
 }
@@ -276,7 +296,7 @@ fn main() {
         let line = line.expect("read line");
         let line = line.trim();
         if line.is_empty() || !line.starts_with('{') { continue; }
-        let x: u32 = parse_number::<u32>(get_field(line, "x"));
+        let x: i32 = parse_number::<i32>(get_field(line, "x"));
         let _f0 = format!("\"x\": {}", x);
         let result = Solution::reverse(x);
         let _out = format!("\"output\": {}", result);

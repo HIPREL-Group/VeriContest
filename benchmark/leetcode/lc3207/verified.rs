@@ -99,7 +99,7 @@ impl Solution {
             if x < min_energy {
                 min_energy = x;
             }
-            let old_total = total_energy;
+            let ghost old_total = total_energy;
             total_energy = total_energy.checked_add(x).unwrap_or(total_energy);
             assert(total_energy as int == Self::checked_add_or(old_total as int, x as int, old_total as int));
             assert(Self::min_scanned(enemy_energies@, i as int + 1) ==
@@ -119,7 +119,7 @@ impl Solution {
             return 0;
         }
 
-        let old_total = total_energy;
+        let ghost old_total = total_energy;
         total_energy = total_energy.checked_sub(min_energy).unwrap_or(total_energy);
         assert(total_energy as int == Self::checked_sub_or(old_total as int, min_energy as int, old_total as int));
         if min_energy <= 0 || total_energy <= 0 {

@@ -56,7 +56,7 @@ impl Solution {
                             && Self::segment_has_color(cells@, l, r, 2),
             decreases n - i,
         {
-            let pre = i;
+            let ghost pre = i;
             while i < n && cells[i] == 0
                 invariant
                     n == cells.len(),
@@ -75,14 +75,16 @@ impl Solution {
 
             if i < n {
                 assert(cells[i as int] != 0);
-                if i == pre {
-                    assert(pre == 0);
-                } else {
-                    assert(pre < i);
-                    assert(cells[i as int - 1] == 0);
+                proof {
+                    if i == pre {
+                        assert(pre == 0);
+                    } else {
+                        assert(pre < i);
+                        assert(cells[i as int - 1] == 0);
+                    }
                 }
 
-                let start = i;
+                let ghost start = i;
                 let mut has_r = false;
                 let mut has_b = false;
 
@@ -112,7 +114,7 @@ impl Solution {
                     if cells[i] == 2 {
                         has_b = true;
                     }
-                    let x = cells[i];
+                    let ghost x = cells[i as int];
                     i = i + 1;
 
                     proof {

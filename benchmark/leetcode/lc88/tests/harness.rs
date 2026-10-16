@@ -24,18 +24,24 @@ impl Solution {
 
 use std::io::{self, BufRead, Write, BufWriter};
 
+// Stand-ins for vstd's exec helpers when code.rs is compiled with rustc. Under
+// Verus (cfg verus_keep_ghost) vstd provides them and these would be ambiguous.
+#[cfg(not(verus_keep_ghost))]
 trait StrExt {
     fn unicode_len(&self) -> usize;
     fn get_char(&self, i: usize) -> char;
 }
+#[cfg(not(verus_keep_ghost))]
 impl StrExt for str {
     fn unicode_len(&self) -> usize { self.chars().count() }
     fn get_char(&self, i: usize) -> char { self.chars().nth(i).unwrap() }
 }
 
+#[cfg(not(verus_keep_ghost))]
 trait VecExt<T> {
     fn set(&mut self, i: usize, val: T);
 }
+#[cfg(not(verus_keep_ghost))]
 impl<T> VecExt<T> for Vec<T> {
     fn set(&mut self, i: usize, val: T) { self[i] = val; }
 }
@@ -285,7 +291,9 @@ fn main() {
         let _f2 = format!("\"nums2\": {}", format_num_array(&nums2));
         let _f3 = format!("\"n\": {}", n);
         Solution::merge(&mut nums1, m, &mut nums2, n);
-        let _out = String::from("\"output\": null");
+        let _mut_nums1 = format!("\"nums1\": {}", format_num_array(&nums1));
+        let _mut_nums2 = format!("\"nums2\": {}", format_num_array(&nums2));
+        let _out = format!("\"output\": {{{}}}", vec![_mut_nums1, _mut_nums2].join(", "));
         let _all = vec![_f0, _f1, _f2, _f3, _out];
         write!(out, "{{").unwrap();
         for (i, part) in _all.iter().enumerate() {

@@ -505,8 +505,8 @@ impl Solution {
                 Self::spec_gcd(x as int, y as int) == Self::spec_gcd(start_x, start_y),
             decreases y,
         {
-            let prev_x = x;
-            let prev_y = y;
+            let ghost prev_x = x;
+            let ghost prev_y = y;
             proof {
                 assert(Self::spec_gcd(prev_x as int, prev_y as int) == Self::spec_gcd(
                     prev_y as int,
@@ -595,7 +595,7 @@ impl Solution {
             assert(g_odd as int == Self::spec_gcd_all_odd(a@));
         }
         let mut ok_a = true;
-        let mut wit_bad_odd: usize = 0;
+        let ghost mut wit_bad_odd: usize = 0;
         let mut j: usize = 1;
         while j < n
             invariant
@@ -614,9 +614,7 @@ impl Solution {
             decreases n + 2 - j,
         {
             if a[j] % g_even == 0 {
-                if ok_a {
-                    wit_bad_odd = j;
-                }
+                proof { if ok_a { wit_bad_odd = j; } }
                 ok_a = false;
             }
             j = j + 2;
@@ -663,7 +661,7 @@ impl Solution {
             return g_even;
         }
         let mut ok_b = true;
-        let mut wit_bad_even: usize = 0;
+        let ghost mut wit_bad_even: usize = 0;
         let mut j: usize = 0;
         while j < n
             invariant
@@ -682,9 +680,7 @@ impl Solution {
             decreases n + 2 - j,
         {
             if a[j] % g_odd == 0 {
-                if ok_b {
-                    wit_bad_even = j;
-                }
+                proof { if ok_b { wit_bad_even = j; } }
                 ok_b = false;
             }
             j = j + 2;

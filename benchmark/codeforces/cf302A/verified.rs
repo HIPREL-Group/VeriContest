@@ -73,7 +73,7 @@ impl Solution {
         proof {
             lemma_count_ones_bounds(a@, n as int);
         }
-        let total_pos = pos;
+        let ghost total_pos = pos;
         let neg = n - pos;
         let mut out: Vec<u8> = Vec::new();
         let mut k: usize = 0;

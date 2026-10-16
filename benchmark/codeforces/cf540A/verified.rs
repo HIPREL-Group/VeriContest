@@ -225,8 +225,8 @@ impl Solution {
                 assert(5 * i as int <= 5000) by (nonlinear_arith)
                     requires i <= n, n <= 1000 {}
             }
-            let ci = current[i];
-            let ti = target[i];
+            let ghost ci = current[i as int];
+            let ghost ti = target[i as int];
             proof {
                 lemma_u32_add_matches_spec(ci, ti);
             }

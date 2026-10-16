@@ -28,7 +28,6 @@ impl Solution {
         }
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn check_record(s: String) -> (res: bool)
         requires
             1 <= s@.len() <= 1_000,

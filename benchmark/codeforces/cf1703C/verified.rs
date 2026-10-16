@@ -172,7 +172,7 @@ impl Solution {
             }
             idx = idx - 1;
             let d = move_deltas[idx];
-            let old_x = x;
+            let ghost old_x = x;
             if d == 1 {
                 x = (x - 1 + 10) % 10;
             } else {

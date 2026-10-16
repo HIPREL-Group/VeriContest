@@ -8,13 +8,13 @@ pub fn generate_test_case(
 ) -> (result: (Vec<i64>, Vec<i64>))
     requires
         bits_a.len() == bits_b.len(),
-        bits_a.len() >= 1,
+        bits_a.len() >= 2,
         bits_a.len() <= 200_000,
         forall|i: int| 0 <= i < bits_a.len() ==> (#[trigger] bits_a[i]) <= 1,
         forall|i: int| 0 <= i < bits_b.len() ==> (#[trigger] bits_b[i]) <= 1,
     ensures
         result.0.len() == result.1.len(),
-        result.0.len() >= 1,
+        result.0.len() >= 2,
         result.0.len() == bits_a.len(),
         forall|i: int| 0 <= i < result.0.len() ==> (#[trigger] result.0@[i] == 0 || result.0@[i] == 1),
         forall|i: int| 0 <= i < result.1.len() ==> (#[trigger] result.1@[i] == 0 || result.1@[i] == 1),
@@ -169,19 +169,19 @@ fn main() {
     for t in 0..total {
         let mode = t % modes;
         let n = match mode {
-            0 => 1 + (t % 5),
+            0 => 2 + (t % 5),
             1 => 2 + (t % 8),
             2 => 10,
-            3 => rng.gen_range_usize(1, 50),
-            4 => rng.gen_range_usize(1, 50),
-            5 => rng.gen_range_usize(1, 200),
+            3 => rng.gen_range_usize(2, 50),
+            4 => rng.gen_range_usize(2, 50),
+            5 => rng.gen_range_usize(2, 200),
             6 => rng.gen_range_usize(2, 100),
             7 => 2 + (t % 20),
             8 => 2 + (t % 30),
             9 => rng.gen_range_usize(2, 100),
-            _ => rng.gen_range_usize(1, 100),
+            _ => rng.gen_range_usize(2, 100),
         };
-        let n = if n < 1 { 1 } else { n };
+        let n = if n < 2 { 2 } else { n };
         let (ba, bb) = make_case(&mut rng, mode, n);
         let ba_v: Vec<u8> = ba;
         let bb_v: Vec<u8> = bb;

@@ -54,36 +54,6 @@ impl Solution {
                 ==> k <= k2)
     }
 
-    fn max_i64(a: i64, b: i64) -> (r: i64)
-        ensures
-            r >= a,
-            r >= b,
-    {
-        if a >= b { a } else { b }
-    }
-
-    fn abs_i64(x: i64) -> (r: i64)
-        ensures
-            r >= 0,
-    {
-        if x >= 0 {
-            x
-        } else if x == -9223372036854775808i64 {
-            0
-        } else {
-            -x
-        }
-    }
-
-    fn nonneg_i32_to_usize(x: i32) -> (u: usize)
-        requires
-            x >= 0,
-        ensures
-            u as int == x as int,
-    {
-        x as usize
-    }
-
     proof fn lemma_sum_seq_prefix_step(s: Seq<i32>, i: int)
         requires
             0 <= i < s.len(),
@@ -130,8 +100,8 @@ impl Solution {
             decreases n - i,
         {
             proof { assert(i < n); }
-            let old_i = i;
-            let old_total = total;
+            let ghost old_i = i;
+            let ghost old_total = total;
             proof {
                 assert(0 <= old_i as int);
                 assert((old_i as int) < (n as int));
@@ -221,9 +191,9 @@ impl Solution {
                     ==> res as int <= k2,
             decreases n - i,
         {
-            let old_i = i;
-            let old_balance = balance;
-            let old_res = res;
+            let ghost old_i = i;
+            let ghost old_balance = balance;
+            let ghost old_res = res;
 
             let diff = machines[i] as i64 - avg;
             balance = balance + diff;

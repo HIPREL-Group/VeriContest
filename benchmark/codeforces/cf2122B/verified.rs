@@ -159,12 +159,12 @@ impl Solution {
                     0 <= j && j < d.len() ==> 0 <= #[trigger] d[j] && d[j] <= 1_000_000_000,
             decreases n - i
         {
-            let old_ans = ans;
+            let ghost old_ans = ans;
             let mut av: i64 = a[i];
             let bv: i64 = b[i];
             let cv: i64 = c[i];
             let dv: i64 = d[i];
-            let av0 = a[i];
+            let ghost av0 = a[i as int];
             if av > cv {
                 proof {
                     assert(i < n);
@@ -188,7 +188,7 @@ impl Solution {
                 }
                 ans = ans + (bv - dv + av);
             }
-            let delta = ans - old_ans;
+            let ghost delta: i64 = (ans - old_ans) as i64;
             proof {
                 assert(av0 == a@[i as int]);
                 if av0 > cv {

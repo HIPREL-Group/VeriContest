@@ -406,9 +406,9 @@ impl Solution {
             }
             let ghost diff0 = diff@;
             let ghost exact0 = exact@;
-            let old_left = diff[left];
-            let old_right = diff[right_plus_one];
-            let old_sum = exact[sum];
+            let ghost old_left = diff[left as int];
+            let ghost old_right = diff[right_plus_one as int];
+            let ghost old_sum = exact[sum as int];
             diff.set(left, diff[left] + 1);
             let ghost diff1 = diff@;
             diff.set(right_plus_one, diff[right_plus_one] - 1);

@@ -291,9 +291,9 @@ impl Solution {
             lemma_even_count_prefix_full(a@);
             lemma_odd_count_prefix_full(a@);
         }
-        let s0: i64 = sum;
-        let ce0: i64 = ce;
-        let co0: i64 = co;
+        let ghost s0: i64 = sum;
+        let ghost ce0: i64 = ce;
+        let ghost co0: i64 = co;
         let mut result: Vec<i64> = Vec::with_capacity(q);
         let mut k: usize = 0;
         
@@ -331,9 +331,9 @@ impl Solution {
         {
             let t = qtypes[k];
             let x = qxs[k] as i64;
-            let prev_sum = sum;
-            let prev_ce = ce;
-            let prev_co = co;
+            let ghost prev_sum = sum;
+            let ghost prev_ce = ce;
+            let ghost prev_co = co;
             assert(ce <= 100_000 && co <= 100_000 && x <= 10_000);
             assert(ce * x <= 1_000_000_000) by (nonlinear_arith)
                 requires 0 <= ce <= 100_000, 0 <= x <= 10_000;

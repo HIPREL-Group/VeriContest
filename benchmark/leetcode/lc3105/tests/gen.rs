@@ -102,6 +102,7 @@ impl Rng {
     }
 }
 
+struct Solution;
 include!("../code.rs");
 
 fn mutate(nums: Vec<i32>, mutation_kind: u8) -> Vec<i32> {
@@ -157,7 +158,7 @@ fn main() {
         if *count >= target || !seen.insert(key) {
             return;
         }
-        let output = longest_monotonic_subarray(nums.clone());
+        let output = Solution::longest_monotonic_subarray(nums.clone());
         writeln!(out, "{}", json!({"input": {"nums": nums}, "output": output})).unwrap();
         *count += 1;
     };

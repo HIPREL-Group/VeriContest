@@ -166,7 +166,7 @@ impl Solution {
                 result@ == Self::extend_with_zeros(nonz, result.len() as int),
             decreases n - result.len(),
         {
-            let old_len = result.len();
+            let ghost old_len = result.len();
             let ghost before = result@;
             result.push(0);
             proof {

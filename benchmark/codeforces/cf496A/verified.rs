@@ -208,7 +208,7 @@ impl Solution {
                 } else {
                     a[i + 1] - a[i]
                 };
-                let old_max_gap = max_gap;
+                let ghost old_max_gap = max_gap;
                 if gap > max_gap {
                     max_gap = gap;
                 }
@@ -238,7 +238,7 @@ impl Solution {
                 assert(max_gap as int ==
                     Self::max_gap_after_removal(a@, k as int));
             }
-            let old_min = min_result;
+            let ghost old_min = min_result;
             if max_gap < min_result {
                 min_result = max_gap;
             }

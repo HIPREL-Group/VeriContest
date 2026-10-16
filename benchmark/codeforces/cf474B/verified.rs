@@ -249,8 +249,8 @@ impl Solution {
                             1 <= j && j <= piles.len() && #[trigger] pile_index_is_answer(piles@, queries[k] as int, j) ==> j == (res[k] as int),
             decreases queries.len() - qi,
         {
-            let cur = qi;
-            let q = queries[qi];
+            let ghost cur = qi;
+            let ghost q = queries[qi as int];
             proof {
                 assert(1 <= (q as int));
                 assert((q as int) <= prefix[prefix.len() as int - 1] as int);
@@ -261,7 +261,9 @@ impl Solution {
                     lemma_prefix_sum_strict_mono(piles@, a + 1, b + 1);
                 }
             }
-            let answer = Self::locate_pile(&prefix, queries[qi]) + 1;
+            let ghost old_res = res@;
+            res.push(Self::locate_pile(&prefix, queries[qi]) + 1);
+            let ghost answer = res@[cur as int];
             proof {
                 let idx = answer - 1;
                 let pile = answer;
@@ -292,8 +294,6 @@ impl Solution {
                     assert(j - 1 == idx as int);
                 }
             }
-            let ghost old_res = res@;
-            res.push(Self::locate_pile(&prefix, queries[qi]) + 1);
             qi += 1;
             proof {
                 assert(res@ == old_res.push(answer));

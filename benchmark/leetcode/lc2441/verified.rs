@@ -84,7 +84,7 @@ impl Solution {
                     }
                 }
 
-                let prev_best = best;
+                let ghost prev_best = best;
                 proof {
                     assert(prev_best == -1 <==> !(exists |p: int, q: int|
                         0 <= p < i && 0 <= q < n && nums[p] > 0 && nums[q] == -nums[p]));

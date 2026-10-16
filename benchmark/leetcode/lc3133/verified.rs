@@ -57,9 +57,9 @@ impl Solution {
             assert(0 <= pos < 63);
             let position = 1i64 << pos;
             if (xx & position) == 0 {
-                let old_result = result;
-                let old_remaining = remaining;
-                let old_pos = pos;
+                let ghost old_result = result;
+                let ghost old_remaining = remaining;
+                let ghost old_pos = pos;
                 assert(((x as i64) & position) == 0);
                 if (remaining & 1) == 1 {
                     result = result | position;

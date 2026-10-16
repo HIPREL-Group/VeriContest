@@ -162,8 +162,8 @@ impl Solution {
                     && ((nums[i] ^ nums[j]) & mask) == max_xor,
             decreases bit as int + 1
         {
-            let old_mask = mask;
-            let old_max_xor = max_xor;
+            let ghost old_mask = mask;
+            let ghost old_max_xor = max_xor;
             mask = mask | (1i32 << bit as u32);
             let mut prefixes: std::collections::HashSet<i32> = std::collections::HashSet::new(); 
             

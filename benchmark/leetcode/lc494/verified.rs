@@ -414,7 +414,7 @@ impl Solution {
                         assert(i32::MIN <= (old_value as int) + (add_value as int) <= i32::MAX);
                     }
                     let ghost prev_dp = dp@;
-                    let value = old_value + add_value;
+                    let ghost value: i32 = (old_value + add_value) as i32;
                     dp[cur] = old_value + add_value;
                     proof {
                         assert(dp@ == prev_dp.update(cur as int, value));

@@ -117,7 +117,7 @@ impl Solution {
             let u = u_edges[i];
             let v = v_edges[i];
             
-            let old_degrees = degrees.clone();
+            let ghost old_degrees = degrees;
             
             degrees.set(u, degrees[u] + 1);
             degrees.set(v, degrees[v] + 1);
@@ -186,7 +186,7 @@ impl Solution {
                     }
                 decreases n + 1 - i
             {
-                let old_leaves = leaves.clone();
+                let ghost old_leaves = leaves;
                 if degrees[i] == 1 && i != center {
                     leaves.push(i);
                     proof {

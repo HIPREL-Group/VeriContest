@@ -268,8 +268,8 @@ impl Solution {
                                 ==> j == (res[k].0 as int),
             decreases queries.len() - qi,
         {
-            let cur = qi;
-            let q = queries[qi];
+            let ghost cur = qi;
+            let ghost q = queries[qi as int];
             proof {
                 assert(1 <= (q as int));
                 assert((q as int) <= prefix[prefix.len() as int - 1] as int);

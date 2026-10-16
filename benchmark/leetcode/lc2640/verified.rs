@@ -80,8 +80,8 @@ impl Solution {
                 0 <= sum as int <= i as int * 2000000000,
             decreases n - i,
         {
-            let old_i = i;
-            let old_sum = sum;
+            let ghost old_i = i;
+            let ghost old_sum = sum;
             if nums[i] > mx {
                 mx = nums[i];
             }

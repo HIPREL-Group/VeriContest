@@ -9,12 +9,13 @@ pub fn generate_test_case(
 ) -> (result: (Vec<i64>, Vec<i64>))
     requires
         a.len() == b.len(),
-        a.len() >= 1,
+        2 <= a.len() <= 200_000,
         forall|i: int| 0 <= i < a.len() ==> (#[trigger] a@[i] == 0 || a@[i] == 1),
         forall|i: int| 0 <= i < b.len() ==> (#[trigger] b@[i] == 0 || b@[i] == 1),
     ensures
         result.0.len() == result.1.len(),
-        result.0.len() >= 1,
+        result.0.len() == a.len(),
+        2 <= result.0.len() <= 200_000,
         forall|i: int| 0 <= i < result.0.len() ==> (#[trigger] result.0@[i] == 0 || result.0@[i] == 1),
         forall|i: int| 0 <= i < result.1.len() ==> (#[trigger] result.1@[i] == 0 || result.1@[i] == 1),
 {
@@ -187,11 +188,20 @@ fn main() {
         if !seen.insert(key) {
             return;
         }
-        let output = Solution::is_complementary_xor_possible(a.clone(), b.clone());
-        writeln!(out, "{}", json!({
-            "input": {"a": a, "b": b},
-            "output": output
-        })).unwrap();
+        // Contest stdin/stdout text, one test per case, as main.rs reads and prints it.
+        let bits = |v: &Vec<i64>| v.iter().map(|x| if *x == 1 { '1' } else { '0' }).collect::<String>();
+        let input = format!("1\n{}\n{}\n{}\n", a.len(), bits(&a), bits(&b));
+        let (possible, ops) = Solution::complementary_xor_ops(a.clone(), b.clone());
+        let mut output = String::new();
+        if possible {
+            output.push_str(&format!("YES\n{}\n", ops.len()));
+            for (l, r) in &ops {
+                output.push_str(&format!("{} {}\n", l, r));
+            }
+        } else {
+            output.push_str("NO\n");
+        }
+        writeln!(out, "{}", json!({"input": input, "output": output})).unwrap();
         *total += 1;
     };
 
@@ -211,10 +221,6 @@ fn main() {
 
     // Hand-crafted seed inputs
     let seeds: Vec<(Vec<i64>, Vec<i64>)> = vec![
-        (vec![0], vec![0]),
-        (vec![1], vec![1]),
-        (vec![0], vec![1]),
-        (vec![1], vec![0]),
         (vec![0, 0], vec![0, 0]),
         (vec![1, 1], vec![1, 1]),
         (vec![0, 1], vec![1, 0]),
@@ -234,8 +240,8 @@ fn main() {
     // Random inputs with random mutations across diverse size classes
     while total < count {
         let n: usize = match rng.gen_range_usize(0, 4) {
-            0 => rng.gen_range_usize(1, 3),
-            1 => rng.gen_range_usize(1, 10),
+            0 => rng.gen_range_usize(2, 3),
+            1 => rng.gen_range_usize(2, 10),
             2 => rng.gen_range_usize(11, 50),
             3 => rng.gen_range_usize(51, 200),
             _ => rng.gen_range_usize(201, 500),

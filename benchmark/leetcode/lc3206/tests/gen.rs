@@ -150,6 +150,7 @@ impl Rng {
     }
 }
 
+struct Solution;
 include!("../code.rs");
 
 fn mutate(colors: Vec<i32>, mutation_kind: u8) -> Vec<i32> {
@@ -190,7 +191,7 @@ fn main() {
         if !seen.insert(key) {
             return;
         }
-        let output = number_of_alternating_groups(colors.clone());
+        let output = Solution::number_of_alternating_groups(colors.clone());
         writeln!(out, "{}", json!({"input": {"colors": colors}, "output": output})).unwrap();
         *count += 1;
     };

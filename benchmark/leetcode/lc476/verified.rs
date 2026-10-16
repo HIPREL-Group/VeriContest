@@ -235,7 +235,7 @@ impl Solution {
                 assert(pow2(31) <= u32::MAX);
             }
 
-            let old_mask = mask;
+            let ghost old_mask = mask;
             mask = mask * 2;
 
             proof {

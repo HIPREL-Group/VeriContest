@@ -1,53 +1,83 @@
 pub struct Solution;
 
+fn merge_exec_desc(a: &Vec<i32>, b: &Vec<i32>) -> Vec<i32> {
+    let mut result: Vec<i32> = Vec::new();
+    let mut i: usize = 0;
+    let mut j: usize = 0;
+    while i < a.len() || j < b.len() {
+        if j >= b.len() || (i < a.len() && a[i] >= b[j]) {
+            result.push(a[i]);
+            i += 1;
+        } else {
+            result.push(b[j]);
+            j += 1;
+        }
+    }
+    result
+}
+
+fn merge_sort_exec_desc(v: &Vec<i32>) -> Vec<i32> {
+    if v.len() <= 1 {
+        v.clone()
+    } else {
+        let mid = v.len() / 2;
+        let mut left: Vec<i32> = Vec::new();
+        let mut i: usize = 0;
+        while i < mid {
+            left.push(v[i]);
+            i += 1;
+        }
+        let mut right: Vec<i32> = Vec::new();
+        let mut i2: usize = mid;
+        while i2 < v.len() {
+            right.push(v[i2]);
+            i2 += 1;
+        }
+        let sorted_left = merge_sort_exec_desc(&left);
+        let sorted_right = merge_sort_exec_desc(&right);
+        let result = merge_exec_desc(&sorted_left, &sorted_right);
+        result
+    }
+}
+
 impl Solution {
     pub fn maximum_happiness_sum(happiness: Vec<i32>, k: i32) -> i64 {
-        let mut a = happiness;
-        let n = a.len();
-        let ku = k as usize;
-
+        let sorted = merge_sort_exec_desc(&happiness);
         let mut ans: i64 = 0;
-        let mut taken: i32 = 0;
-        let mut round: usize = 0;
-        while round < ku {
-            let mut max_idx: usize = 0;
-            let mut j: usize = 1;
-            while j < n {
-                if a[j] >= a[max_idx] {
-                    max_idx = j;
-                }
-                j = j + 1;
-            }
-
-            let val = a[max_idx];
-            let gain = val - taken;
+        let mut i: usize = 0;
+        let ku = k as usize;
+        while i < ku {
+            let v = sorted[i] as i64;
+            let gain = v - i as i64;
             if gain > 0 {
-                ans = ans + gain as i64;
+                ans = ans + gain;
             }
-
-            a[max_idx] = -1;
-            taken = taken + 1;
-            round = round + 1;
+            i += 1;
         }
-
         ans
     }
 }
 
 use std::io::{self, BufRead, Write, BufWriter};
 
+// Stand-ins for vstd's exec helpers when code.rs is compiled with rustc. Under
+// Verus (cfg verus_keep_ghost) vstd provides them and these would be ambiguous.
+#[cfg(not(verus_keep_ghost))]
 trait StrExt {
     fn unicode_len(&self) -> usize;
     fn get_char(&self, i: usize) -> char;
 }
+#[cfg(not(verus_keep_ghost))]
 impl StrExt for str {
     fn unicode_len(&self) -> usize { self.chars().count() }
     fn get_char(&self, i: usize) -> char { self.chars().nth(i).unwrap() }
 }
 
+#[cfg(not(verus_keep_ghost))]
 trait VecExt<T> {
     fn set(&mut self, i: usize, val: T);
 }
+#[cfg(not(verus_keep_ghost))]
 impl<T> VecExt<T> for Vec<T> {
     fn set(&mut self, i: usize, val: T) { self[i] = val; }
 }
@@ -136,6 +166,10 @@ fn parse_string(s: &str) -> String {
     } else {
         s.to_string()
     }
+}
+
+fn parse_char_vec(s: &str) -> Vec<char> {
+    parse_string(s).chars().collect()
 }
 
 fn parse_num_array<T: ParseNum>(s: &str) -> Vec<T> {
@@ -270,6 +304,10 @@ fn format_string_array(v: &[String]) -> String {
     format!("[{}]", parts.join(","))
 }
 
+fn format_char_vec(v: &[char]) -> String {
+    format_json_string(&v.iter().collect::<String>())
+}
+
 fn format_2d_num_array<T: std::fmt::Display>(v: &[Vec<T>]) -> String {
     let parts: Vec<String> = v.iter().map(|row| format_num_array(row)).collect();
     format!("[{}]", parts.join(","))
@@ -277,6 +315,11 @@ fn format_2d_num_array<T: std::fmt::Display>(v: &[Vec<T>]) -> String {
 
 fn format_2d_bool_array(v: &[Vec<bool>]) -> String {
     let parts: Vec<String> = v.iter().map(|row| format_bool_array(row)).collect();
+    format!("[{}]", parts.join(","))
+}
+
+fn format_tuple2_array_json<T: std::fmt::Display, U: std::fmt::Display>(v: &[(T, U)]) -> String {
+    let parts: Vec<String> = v.iter().map(|(a, b)| format!("[{},{}]", a, b)).collect();
     format!("[{}]", parts.join(","))
 }
 

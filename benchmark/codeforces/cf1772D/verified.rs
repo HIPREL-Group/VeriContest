@@ -194,8 +194,8 @@ impl Solution {
         {
             let x = a[i] as i64;
             let y = a[i + 1] as i64;
-            let old_low = low;
-            let old_high = high;
+            let ghost old_low = low;
+            let ghost old_high = high;
             if x < y {
                 let ub = (x + y) / 2;
                 if ub < high {

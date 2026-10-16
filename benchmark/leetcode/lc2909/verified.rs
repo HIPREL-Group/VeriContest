@@ -173,7 +173,7 @@ impl Solution {
         {
             let left = left_idx[j - 1];
             let right = right_idx[j + 1];
-            let old_best = best_sum;
+            let ghost old_best = best_sum;
 
             if nums[left] < nums[j] && nums[right] < nums[j] {
                 let candidate = nums[left] + nums[j] + nums[right];

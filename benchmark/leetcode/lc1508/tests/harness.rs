@@ -5,55 +5,82 @@ impl Solution {
         let len: usize = n as usize;
         let mut sums: Vec<i32> = Vec::new();
         let mut i: usize = 0;
+
         while i < len {
             let mut sum: i32 = 0;
             let mut j: usize = i;
+
             while j < len {
                 sum = sum + nums[j];
                 sums.push(sum);
                 j = j + 1;
             }
+
             i = i + 1;
         }
+
         let m: usize = sums.len();
-        let mut a: usize = 1;
-        while a < m {
-            let key: i32 = sums[a];
-            let mut b: usize = a;
-            let mut cont: bool = if b > 0 { sums[b - 1] > key } else { false };
-            while cont {
-                sums[b] = sums[b - 1];
-                b = b - 1;
-                cont = if b > 0 { sums[b - 1] > key } else { false };
-            }
-            sums[b] = key;
-            a = a + 1;
+
+        let max_val: usize = 100001;
+        let mut counts: Vec<i32> = Vec::new();
+        let mut ci: usize = 0;
+        while ci < max_val {
+            counts.push(0i32);
+            ci = ci + 1;
         }
+
+        let mut si: usize = 0;
+        while si < m {
+            let v: usize = sums[si] as usize;
+            counts[v] = counts[v] + 1;
+            si = si + 1;
+        }
+
+        let mut sorted: Vec<i32> = Vec::new();
+        let mut vi: usize = 0;
+
+        while vi < max_val {
+            let mut c: i32 = 0;
+            while c < counts[vi] {
+                sorted.push(vi as i32);
+                c = c + 1;
+            }
+            vi = vi + 1;
+        }
+
         let modv: i64 = 1_000_000_007;
         let mut result: i64 = 0;
         let mut k: usize = (left - 1) as usize;
+
         while k < right as usize {
-            result = (result + sums[k] as i64) % modv;
+            result = (result + sorted[k] as i64) % modv;
             k = k + 1;
         }
+
         result as i32
     }
 }
 
 use std::io::{self, BufRead, Write, BufWriter};
 
+// Stand-ins for vstd's exec helpers when code.rs is compiled with rustc. Under
+// Verus (cfg verus_keep_ghost) vstd provides them and these would be ambiguous.
+#[cfg(not(verus_keep_ghost))]
 trait StrExt {
     fn unicode_len(&self) -> usize;
     fn get_char(&self, i: usize) -> char;
 }
+#[cfg(not(verus_keep_ghost))]
 impl StrExt for str {
     fn unicode_len(&self) -> usize { self.chars().count() }
     fn get_char(&self, i: usize) -> char { self.chars().nth(i).unwrap() }
 }
 
+#[cfg(not(verus_keep_ghost))]
 trait VecExt<T> {
     fn set(&mut self, i: usize, val: T);
 }
+#[cfg(not(verus_keep_ghost))]
 impl<T> VecExt<T> for Vec<T> {
     fn set(&mut self, i: usize, val: T) { self[i] = val; }
 }
@@ -142,6 +169,10 @@ fn parse_string(s: &str) -> String {
     } else {
         s.to_string()
     }
+}
+
+fn parse_char_vec(s: &str) -> Vec<char> {
+    parse_string(s).chars().collect()
 }
 
 fn parse_num_array<T: ParseNum>(s: &str) -> Vec<T> {
@@ -276,6 +307,10 @@ fn format_string_array(v: &[String]) -> String {
     format!("[{}]", parts.join(","))
 }
 
+fn format_char_vec(v: &[char]) -> String {
+    format_json_string(&v.iter().collect::<String>())
+}
+
 fn format_2d_num_array<T: std::fmt::Display>(v: &[Vec<T>]) -> String {
     let parts: Vec<String> = v.iter().map(|row| format_num_array(row)).collect();
     format!("[{}]", parts.join(","))
@@ -283,6 +318,11 @@ fn format_2d_num_array<T: std::fmt::Display>(v: &[Vec<T>]) -> String {
 
 fn format_2d_bool_array(v: &[Vec<bool>]) -> String {
     let parts: Vec<String> = v.iter().map(|row| format_bool_array(row)).collect();
+    format!("[{}]", parts.join(","))
+}
+
+fn format_tuple2_array_json<T: std::fmt::Display, U: std::fmt::Display>(v: &[(T, U)]) -> String {
+    let parts: Vec<String> = v.iter().map(|(a, b)| format!("[{},{}]", a, b)).collect();
     format!("[{}]", parts.join(","))
 }
 

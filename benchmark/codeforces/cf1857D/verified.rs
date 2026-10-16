@@ -70,7 +70,7 @@ impl Solution {
         {
             let d = a[i] - b[i];
             if d > max_d {
-                let old_max_d = max_d;
+                let ghost old_max_d = max_d;
                 max_d = d;
                 result = Vec::new();
                 result.push((i + 1) as i32);

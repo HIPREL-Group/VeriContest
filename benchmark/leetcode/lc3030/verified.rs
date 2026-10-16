@@ -248,8 +248,9 @@ impl Solution {
                 let row_hi = if r + 2 < rows { r } else { rows - 3 };
                 let col_lo = if c >= 2 { c - 2 } else { 0 };
                 let col_hi = if c + 2 < cols { c } else { cols - 3 };
-                let row_cnt = row_hi - row_lo + 1;
-                let col_cnt = col_hi - col_lo + 1;
+                assert(row_lo <= row_hi && col_lo <= col_hi);
+                let ghost row_cnt: usize = (row_hi - row_lo + 1) as usize;
+                let ghost col_cnt: usize = (col_hi - col_lo + 1) as usize;
 
                 proof {
                     assert(row_lo <= row_hi);

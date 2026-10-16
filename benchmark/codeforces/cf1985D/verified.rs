@@ -122,10 +122,10 @@ impl Solution {
         let mut min_c: usize = 0usize;
         let mut max_c: usize = 0usize;
 
-        let mut w_rmin_c: usize = 0usize;
-        let mut w_rmax_c: usize = 0usize;
-        let mut w_cmin_r: usize = 0usize;
-        let mut w_cmax_r: usize = 0usize;
+        let ghost mut w_rmin_c: usize = 0usize;
+        let ghost mut w_rmax_c: usize = 0usize;
+        let ghost mut w_cmin_r: usize = 0usize;
+        let ghost mut w_cmax_r: usize = 0usize;
 
         let mut i: usize = 0usize;
         while i < n
@@ -196,26 +196,26 @@ impl Solution {
                         max_r = i;
                         min_c = j;
                         max_c = j;
-                        w_rmin_c = j;
-                        w_rmax_c = j;
-                        w_cmin_r = i;
-                        w_cmax_r = i;
+                        proof { w_rmin_c = j; }
+                        proof { w_rmax_c = j; }
+                        proof { w_cmin_r = i; }
+                        proof { w_cmax_r = i; }
                     } else {
                         if i < min_r {
                             min_r = i;
-                            w_rmin_c = j;
+                            proof { w_rmin_c = j; }
                         }
                         if i > max_r {
                             max_r = i;
-                            w_rmax_c = j;
+                            proof { w_rmax_c = j; }
                         }
                         if j < min_c {
                             min_c = j;
-                            w_cmin_r = i;
+                            proof { w_cmin_r = i; }
                         }
                         if j > max_c {
                             max_c = j;
-                            w_cmax_r = i;
+                            proof { w_cmax_r = i; }
                         }
                     }
                 }

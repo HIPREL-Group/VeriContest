@@ -102,8 +102,8 @@ impl Solution {
                 Self::lemma_split_prefix_shape(nums@, i as int);
             }
             assert(i < nums.len());
-            let last1 = arr1[arr1.len() - 1];
-            let last2 = arr2[arr2.len() - 1];
+            let ghost last1 = arr1[(arr1.len() - 1) as int];
+            let ghost last2 = arr2[(arr2.len() - 1) as int];
             let ghost prev = Self::split_prefix(nums@, i as int);
             if arr1[arr1.len() - 1] > arr2[arr2.len() - 1] {
                 arr1.push(nums[i]);

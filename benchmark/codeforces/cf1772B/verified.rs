@@ -33,16 +33,10 @@ impl Solution {
         ensures
             res == can_make_beautiful_spec(a, b, c, d)
     {
-        let res = ({
-            (a < b && c < d && a < c && b < d)
-                || (c < a && d < b && c < d && a < b)
-                || (d < c && b < a && d < b && c < a)
-                || (b < d && a < c && b < a && d < c)
-        });
-        proof {
-            assert(res == can_make_beautiful_spec(a, b, c, d));
-        }
-        res
+        (a < b && c < d && a < c && b < d)
+            || (c < a && d < b && c < d && a < b)
+            || (d < c && b < a && d < b && c < a)
+            || (b < d && a < c && b < a && d < c)
     }
 }
 

@@ -55,7 +55,7 @@ impl Solution {
             decreases cols - col,
         {
             let mut bad = false;
-            let mut witness: usize = 1;
+            let ghost mut witness: usize = 1;
             let mut row: usize = 1;
 
             while row < rows
@@ -75,7 +75,7 @@ impl Solution {
             {
                 if strs[row - 1].as_str().get_char(col) > strs[row].as_str().get_char(col) {
                     bad = true;
-                    witness = row;
+                    proof { witness = row; }
                 }
                 row += 1;
             }

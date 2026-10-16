@@ -40,12 +40,15 @@ builds get pruned, so the archive in our release may become the only copy.
 ## Cutting a release
 
 1. Make sure the benchmark is committed and `benchmark/` has no uncommitted changes.
-2. Verify every problem with the pinned toolchain:
+2. Verify every problem with the pinned toolchain, under the file name the
+   scorer uses (`verify.rs`). The file name becomes the crate name, which is
+   part of the SMT encoding, so a brittle proof can pass under one name and
+   fail under another:
 
    ```bash
    mkdir -p /tmp/vc-verify
    find benchmark -name verified.rs | sort | xargs -P "$(nproc)" -I{} sh -c \
-     './verus/verus --no-cheating --expand-errors --rlimit 100000 "$1" >/tmp/vc-verify/$(echo "$1" | tr / _).log 2>&1 || echo "FAIL $1"' _ {}
+     'd=$(mktemp -d); cp "$1" "$d/verify.rs"; ./verus/verus --no-cheating --expand-errors --rlimit 100000 "$d/verify.rs" >/tmp/vc-verify/$(echo "$1" | tr / _).log 2>&1 || echo "FAIL $1"; rm -rf "$d"' _ {}
    grep -h "^verification results::" /tmp/vc-verify/*.log | grep -vc " 0 errors"   # must print 0
    ```
 

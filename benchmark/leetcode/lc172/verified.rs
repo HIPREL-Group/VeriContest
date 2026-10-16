@@ -34,7 +34,7 @@ impl Solution {
                 count as int + remaining as int <= n as int,
             decreases remaining,
         {
-            let old_remaining = remaining;
+            let ghost old_remaining = remaining;
             remaining = remaining / 5;
             proof {
                 assert(Self::trailing_zeroes_spec(old_remaining as int) == remaining as int

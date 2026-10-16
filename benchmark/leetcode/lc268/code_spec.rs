@@ -11,7 +11,6 @@ impl Solution {
         exists |j: int| 0 <= j < nums.len() && #[trigger] nums[j] == value
     }
 
-    #[verifier::exec_allows_no_decreases_clause]
     pub fn missing_number(nums: Vec<i32>) -> (res: i32) 
         requires
             1 <= nums.len() <= 10_000, 

@@ -492,7 +492,7 @@ impl Solution {
                 leg as int == leg_scan_upto_v(sticks@, (v - 1) as int),
             decreases 10 - v,
         {
-            let old_leg = leg;
+            let ghost old_leg = leg;
             proof {
                 assert(leg as int == leg_scan_upto_v(sticks@, (v - 1) as int));
                 assert(count_eq_prefix(sticks@, 6, v as i32) == cnt@[v as int]);
@@ -565,8 +565,8 @@ impl Solution {
         let mut x = 0i32;
         let mut y = 0i32;
         let mut nrem = 0usize;
-        let mut i0 = 6usize;
-        let mut i1 = 6usize;
+        let ghost mut i0 = 6usize;
+        let ghost mut i1 = 6usize;
         while ii < 6
             invariant
                 sticks.len() == 6,
@@ -600,7 +600,7 @@ impl Solution {
                     lemma_leg_eq_iff_not_nonleg(sticks@, leg as int, ii as int);
                 }
                 if nrem == 0 {
-                    i0 = ii;
+                    proof { i0 = ii; }
                     x = sticks[ii];
                     proof {
                         assert(i0 < 6);
@@ -612,7 +612,7 @@ impl Solution {
                         assert(nrem == 1);
                         assert(i0 < ii);
                     }
-                    i1 = ii;
+                    proof { i1 = ii; }
                     y = sticks[ii];
                     proof {
                         assert(i0 < i1);

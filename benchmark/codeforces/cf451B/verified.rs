@@ -180,21 +180,11 @@ impl Solution {
             result == None::<(usize, usize)> ==> !exists_sorting_segment(nums@),
     {
         let n = nums.len();
-        if n == 1 {
-            proof {
-                assert(reversal_sorts(nums@, 0, 0)) by {
-                    assert forall|i: int| 0 <= i < nums@.len() - 1 implies #[trigger] reversed_value(nums@, 0, 0, i) <= reversed_value(nums@, 0, 0, i + 1) by {
-                    }
-                };
-            }
-            return Some((1, 1));
-        }
-
         let mut left = 0usize;
         while left + 1 < n && nums[left] <= nums[left + 1]
             invariant
                 n == nums.len(),
-                2 <= n <= 100_000,
+                1 <= n <= 100_000,
                 forall|i: int| 0 <= i < nums.len() ==> 1 <= #[trigger] nums[i] <= 1_000_000_000,
                 distinct(nums@),
                 0 <= left < n,

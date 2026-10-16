@@ -376,24 +376,38 @@ def gen_output_expr(expr: str, rust_type: str) -> str:
 HARNESS_PRELUDE = r'''
 use std::io::{self, BufRead, Write, BufWriter};
 
+// Stand-ins for vstd's exec helpers when code.rs is compiled with rustc. Under
+// Verus (cfg verus_keep_ghost) vstd provides them and these would be ambiguous.
+#[cfg(not(verus_keep_ghost))]
 trait StrExt {
     fn unicode_len(&self) -> usize;
     fn get_char(&self, i: usize) -> char;
 }
+#[cfg(not(verus_keep_ghost))]
 impl StrExt for str {
     fn unicode_len(&self) -> usize { self.chars().count() }
     fn get_char(&self, i: usize) -> char { self.chars().nth(i).unwrap() }
 }
 
+#[cfg(not(verus_keep_ghost))]
 trait VecExt<T> {
     fn set(&mut self, i: usize, val: T);
 }
+#[cfg(not(verus_keep_ghost))]
 impl<T> VecExt<T> for Vec<T> {
     fn set(&mut self, i: usize, val: T) { self[i] = val; }
 }
 
 fn find_key<'a>(line: &'a str, key: &str) -> &'a str {
     let pat = format!("\"{}\"", key);
+    let pat = if line.contains(&pat) { pat } else {
+        let mut camel = String::new();
+        let mut upper = false;
+        for c in key.chars() {
+            if c == '_' { upper = true; } else if upper { camel.extend(c.to_uppercase()); upper = false; } else { camel.push(c); }
+        }
+        format!("\"{}\"", camel)
+    };
     let start = line.find(&pat).expect(&format!("key '{}' not found", key));
     let after_key = &line[start + pat.len()..];
     let colon = after_key.find(':').expect("no colon after key") + 1;
@@ -479,7 +493,30 @@ fn parse_string(s: &str) -> String {
 }
 
 fn parse_char_vec(s: &str) -> Vec<char> {
-    parse_string(s).chars().collect()
+    // Some interfaces use strings; in-place character arrays use JSON arrays.
+    if !s.trim_start().starts_with('[') {
+        return parse_string(s).chars().collect();
+    }
+    let mut chars = s.chars().skip_while(|c| *c != '[').skip(1);
+    let mut result = Vec::new();
+    while let Some(c) = chars.next() {
+        if c == ']' { break; }
+        if c != '"' { continue; }
+        let mut ch = chars.next().expect("missing character");
+        if ch == '\\' {
+            ch = match chars.next().expect("missing escape") {
+                'n' => '\n', 't' => '\t', 'r' => '\r', 'b' => '\u{8}', 'f' => '\u{c}',
+                'u' => {
+                    let hex: String = (0..4).map(|_| chars.next().unwrap()).collect();
+                    char::from_u32(u32::from_str_radix(&hex, 16).unwrap()).unwrap()
+                }
+                other => other,
+            };
+        }
+        assert_eq!(chars.next(), Some('"'), "expected a single-character string");
+        result.push(ch);
+    }
+    result
 }
 
 fn parse_num_array<T: ParseNum>(s: &str) -> Vec<T> {
@@ -618,6 +655,16 @@ fn format_char_vec(v: &[char]) -> String {
     format_json_string(&v.iter().collect::<String>())
 }
 
+fn format_char_array(v: &[char]) -> String {
+    let parts: Vec<String> = v.iter().map(|c| match c {
+        '"' => String::from("\"\\\"\""),
+        '\\' => String::from("\"\\\\\""),
+        c if (*c as u32) < 0x20 => format!("\"\\u{:04x}\"", *c as u32),
+        c => format!("\"{}\"", c),
+    }).collect();
+    format!("[{}]", parts.join(","))
+}
+
 fn format_2d_num_array<T: std::fmt::Display>(v: &[Vec<T>]) -> String {
     let parts: Vec<String> = v.iter().map(|row| format_num_array(row)).collect();
     format!("[{}]", parts.join(","))
@@ -740,10 +787,13 @@ def render_harness(code_rs_text: str, sig: Signature,
             si = structs[struct_type]
             for sf in si.fields:
                 field_var = f"_struct_{arg_name}_{sf.name}"
-                parse_lines = gen_parse_expr(field_var, f'get_field(line, "{sf.name}")', sf.rust_type)
+                # The published MountainArray input is the array parameter,
+                # not an object exposing the implementation's `data` field.
+                json_key = arg_name if struct_type == "MountainArray" and sf.name == "data" else sf.name
+                parse_lines = gen_parse_expr(field_var, f'get_field(line, "{json_key}")', sf.rust_type)
                 for pl in parse_lines:
                     lines.append(f"        {pl}")
-                json_fields.append((sf.name, field_var, sf.rust_type))
+                json_fields.append((json_key, field_var, sf.rust_type))
             field_inits = ", ".join(f"{sf.name}: _struct_{arg_name}_{sf.name}" for sf in si.fields)
             struct_constructions.append(
                 f"        let {arg_name} = {struct_type} {{ {field_inits} }};")
@@ -757,6 +807,8 @@ def render_harness(code_rs_text: str, sig: Signature,
     for i, (json_key, var_name, arg_type) in enumerate(json_fields):
         inner_type, _ = strip_ref(arg_type)
         ser = gen_output_expr(var_name, inner_type)
+        if inner_type == "Vec<char>" and arg_type.strip().startswith("&mut "):
+            ser = f"format_char_array(&{var_name})"
         lines.append(f'        let _f{i} = format!("\\"{json_key}\\\": {{}}", {ser});')
 
     # Now construct structs (after serialization to avoid use-after-move)
@@ -791,6 +843,23 @@ def render_harness(code_rs_text: str, sig: Signature,
         lines.append(f"        let result = {call_expr};")
         output_fmt = gen_output_expr("result", sig.ret)
         output_str = f'format!("\\\"output\\\": {{}}", {output_fmt})'
+
+    # In-place outputs contain the post-call arguments, not their input copies.
+    mutable_args = [(name, ty) for name, ty in sig.args if ty.strip().startswith("&mut ")]
+    if mutable_args:
+        output_fields = []
+        for name, ty in mutable_args:
+            expr = gen_output_expr(name, strip_ref(ty)[0])
+            if strip_ref(ty)[0] == "Vec<char>":
+                expr = f"format_char_array(&{name})"
+            field = f"_mut_{name}"
+            lines.append(f'        let {field} = format!("\\\"{name}\\\": {{}}", {expr});')
+            output_fields.append(field)
+        if sig.ret != "()":
+            lines.append(f'        let _return = format!("\\\"return\\\": {{}}", {output_fmt});')
+            output_fields.append("_return")
+        fields = f'[{", ".join(output_fields)}].join(", ")'
+        output_str = f'format!("\\\"output\\\": {{{{{{}}}}}}", {fields})'
 
     lines.append(f"        let _out = {output_str};")
 

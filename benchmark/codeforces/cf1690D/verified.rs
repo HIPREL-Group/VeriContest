@@ -264,7 +264,7 @@ impl Solution {
             let next = cur - s[left] + s[left + k];
             cur = next;
             left += 1;
-            let old_best = best;
+            let ghost old_best = best;
             if cur < best {
                 best = cur;
             }

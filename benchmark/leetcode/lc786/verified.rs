@@ -1614,9 +1614,9 @@ impl Solution {
                     == Self::count_le_upto(arr@, mid as int, scale as int, n as int));
             }
 
-            let width_before: i64 = hi - lo;
-            let half: i64 = width_before / 2;
-            let rest: i64 = width_before - half;
+            let ghost width_before: i64 = (hi - lo) as i64;
+            let ghost half: i64 = (width_before / 2) as i64;
+            let ghost rest: i64 = (width_before - half) as i64;
             proof {
                 assert(width_before == scale >> iter);
                 assert((scale >> iter) >> 1u32 == scale >> (iter + 1)) by (bit_vector);

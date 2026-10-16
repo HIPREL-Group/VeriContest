@@ -90,8 +90,8 @@ impl Solution {
                 forall |k: int| 0 <= k < nums.len() ==> 1 <= #[trigger] nums[k] <= 100,
             decreases n - i,
         {
-            let old_i = i;
-            let old_count = count;
+            let ghost old_i = i;
+            let ghost old_count = count;
 
             if nums[i] == nums[i - 1] {
                 i = i + 1;

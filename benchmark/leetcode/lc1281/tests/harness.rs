@@ -5,14 +5,12 @@ impl Solution {
         let mut num: i32 = n;
         let mut product: i64 = 1;
         let mut sum: i64 = 0;
-        let mut cnt: u32 = 0;
 
-        while cnt < 6 {
+        while num > 0 {
             let digit = num % 10;
             product = product * digit as i64;
             sum = sum + digit as i64;
             num = num / 10;
-            cnt = cnt + 1;
         }
 
         (product - sum) as i32
@@ -21,18 +19,24 @@ impl Solution {
 
 use std::io::{self, BufRead, Write, BufWriter};
 
+// Stand-ins for vstd's exec helpers when code.rs is compiled with rustc. Under
+// Verus (cfg verus_keep_ghost) vstd provides them and these would be ambiguous.
+#[cfg(not(verus_keep_ghost))]
 trait StrExt {
     fn unicode_len(&self) -> usize;
     fn get_char(&self, i: usize) -> char;
 }
+#[cfg(not(verus_keep_ghost))]
 impl StrExt for str {
     fn unicode_len(&self) -> usize { self.chars().count() }
     fn get_char(&self, i: usize) -> char { self.chars().nth(i).unwrap() }
 }
 
+#[cfg(not(verus_keep_ghost))]
 trait VecExt<T> {
     fn set(&mut self, i: usize, val: T);
 }
+#[cfg(not(verus_keep_ghost))]
 impl<T> VecExt<T> for Vec<T> {
     fn set(&mut self, i: usize, val: T) { self[i] = val; }
 }

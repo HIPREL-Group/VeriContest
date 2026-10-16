@@ -57,6 +57,44 @@ impl Solution {
         Self::spec_count_starts_prefix(nums, lower, upper, nums.len() as int)
     }
 
+    pub open spec fn count_matching(v: int, right: Seq<i64>, lower: int, upper: int) -> int
+        decreases right.len(),
+    {
+        if right.len() == 0 {
+            0
+        } else {
+            (if lower <= (right.last() as int) - v <= upper { 1int } else { 0int })
+                + Self::count_matching(v, right.drop_last(), lower, upper)
+        }
+    }
+
+    pub open spec fn cross_count(left: Seq<i64>, right: Seq<i64>, lower: int, upper: int) -> int
+        decreases left.len(),
+    {
+        if left.len() == 0 {
+            0
+        } else {
+            Self::count_matching(left[0] as int, right, lower, upper) + Self::cross_count(left.drop_first(), right, lower, upper)
+        }
+    }
+
+    pub open spec fn range_pair_count(sums: Seq<i64>, l: int, r: int, lower: int, upper: int) -> int
+        decreases r - l,
+    {
+        if r - l <= 1 {
+            0
+        } else {
+            let mid = l + (r - l) / 2;
+            Self::range_pair_count(sums, l, mid, lower, upper)
+                + Self::range_pair_count(sums, mid, r, lower, upper)
+                + Self::cross_count(sums.subrange(l, mid), sums.subrange(mid, r), lower, upper)
+        }
+    }
+
+    pub open spec fn sorted_range(sums: Seq<i64>, l: int, r: int) -> bool {
+        forall|i: int, j: int| l <= i <= j < r ==> sums[i] <= sums[j]
+    }
+
     fn sort_count(sums: &mut Vec<i64>, buf: &mut Vec<i64>, l: usize, r: usize, lower: i64, upper: i64) -> (count: i64)
         requires
             l <= r <= old(sums).len(),

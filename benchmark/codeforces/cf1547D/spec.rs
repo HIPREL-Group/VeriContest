@@ -6,7 +6,7 @@ verus! {
 
 pub open spec fn is_co_growing(x: Seq<u32>, y: Seq<u32>, n: usize) -> bool {
     x.len() == n && y.len() == n &&
-    forall|i: int| 0 <= i && i < n as int - 1 ==>
+    forall|i: int| #![trigger x[i]] 0 <= i && i < n as int - 1 ==>
         (x[i] ^ y[i]) & (x[i + 1] ^ y[i + 1]) == (x[i] ^ y[i])
 }
 

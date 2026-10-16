@@ -63,7 +63,7 @@ impl Solution {
             }
 
             let cur = tasks[i][0] + tasks[i][1];
-            let old_best = best;
+            let ghost old_best = best;
             let ghost old_i = i as int;
             let ghost old_best_idx = best_idx;
 

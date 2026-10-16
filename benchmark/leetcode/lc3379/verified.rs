@@ -153,8 +153,8 @@ impl Solution {
                         pos as int == Self::move_right(i as int, step as nat, n as int),
                     decreases delta - step,
                 {
-                    let old_pos = pos;
-                    let old_step = step;
+                    let ghost old_pos = pos;
+                    let ghost old_step = step;
                     if pos + 1 < n {
                         pos = pos + 1;
                     } else {
@@ -209,8 +209,8 @@ impl Solution {
                         pos as int == Self::move_left(i as int, step as nat, n as int),
                     decreases target - step,
                 {
-                    let old_pos = pos;
-                    let old_step = step;
+                    let ghost old_pos = pos;
+                    let ghost old_step = step;
                     if pos > 0 {
                         pos = pos - 1;
                     } else {
