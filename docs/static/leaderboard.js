@@ -262,7 +262,7 @@ async function initLeaderboard() {
         trajectories.append(trajectoryLink);
       } else {
         trajectories.textContent = ({private_by_arrangement: 'Private', pending: 'Pending'})[entry.trajectory_availability] || '—';
-        trajectories.title = 'See submission methodology for trajectory availability and redactions.';
+        trajectories.title = 'See the submission metadata for trajectory availability and redactions.';
       }
       row.append(trajectories);
       if (agentTrack) {

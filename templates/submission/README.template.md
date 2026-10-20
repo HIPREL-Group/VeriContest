@@ -1,7 +1,8 @@
 # Submission methodology
 
-Replace the prompts below with your methodology before submitting a registry PR.
-All files in this entry are public. Keep confidential artifacts in the agreed
+This file is optional. Replace the prompts below with your methodology, or delete
+the file to keep the methodology private; the disclosures in metadata.yaml are
+required either way. All files in this entry are public. Keep confidential artifacts in the agreed
 private channel and describe their availability in metadata.yaml.
 
 ## System

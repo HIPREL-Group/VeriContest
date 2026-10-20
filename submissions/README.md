@@ -20,10 +20,11 @@ for questions or to arrange private access to your artifacts.
 
    Use `--track agent` for the Agent track and `--release <id>` for an earlier
    release (default: the latest).
-3. **Fill in the templates.** Replace every `REPLACE_ME` in `metadata.yaml` and
-   `README.md`, and replace the generated records in `results.jsonl` with one
-   record per problem, including failures. To show a logo, set `system.logo` to an
-   HTTPS image URL or add the file under `docs/static/logos/`.
+3. **Fill in the templates.** Replace every `REPLACE_ME` in `metadata.yaml`, and
+   replace the generated records in `results.jsonl` with one record per problem,
+   including failures. `README.md` is an optional methodology write-up: complete
+   it, or delete it to keep your methodology private. To show a logo, set
+   `system.logo` to an HTTPS image URL or add the file under `docs/static/logos/`.
 4. **Publish your artifacts.** Put the generated programs, logs, and a trajectory
    for every attempted problem in an artifact bundle, and pin it in `metadata.yaml`
    with a full commit SHA or the archive's SHA-256. The bundle can be public or
@@ -49,8 +50,9 @@ builds one in a temporary directory and never touches this folder.
   output, repair step, and the final candidate selection. A `full` entry may also
   link the trajectories of its Lite problems alone (`artifacts.split_traces_urls`),
   which the Lite view then shows.
-- Proprietary systems are welcome; the methodology must be public, the pipeline
-  source need not be.
+- Proprietary systems are welcome. Neither the pipeline source nor a methodology
+  write-up is required, but `metadata.yaml` must still declare the models, the
+  inputs and feedback used, the budget, and any human intervention.
 
 Each entry is ranked only against entries evaluated under the same release and
 evaluation setting ([`leaderboard/protocols.json`](../leaderboard/protocols.json)).

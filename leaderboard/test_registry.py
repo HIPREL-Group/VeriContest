@@ -246,6 +246,17 @@ class RegistryTests(unittest.TestCase):
         with self.assertRaisesRegex(manage.Invalid, 'artifacts.traces_path'):
             self.validate()
 
+    def test_methodology_readme_is_optional(self):
+        (self.entry / 'README.md').unlink()
+        self.m['artifacts']['readme_path'] = None
+        self.save_metadata()
+        self.validate()
+        self.complete()
+        self.assertIsNotNone(self.validate()['score'])
+        (self.entry / 'README.md').write_text('REPLACE_ME: describe the system.\n')
+        with self.assertRaisesRegex(manage.Invalid, 'REPLACE_ME'):
+            self.validate()
+
     def test_metadata_paths_cannot_escape_bundle(self):
         for group, key in [('artifacts', 'readme_path'), ('artifacts', 'programs_path'),
                            ('artifacts', 'traces_path'), ('budget', 'measured_usage_path')]:

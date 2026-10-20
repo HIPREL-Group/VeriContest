@@ -133,6 +133,8 @@ def fingerprint(entry):
     digest = hashlib.sha256()
     for name in ENTRY_FILES:
         path = entry / name
+        if name == "README.md" and not (path.exists() or path.is_symlink()):
+            continue  # the methodology write-up is optional
         require(path.is_file() and not path.is_symlink(), f"missing or symlinked {path}")
         digest.update(name.encode() + b"\0" + hashlib.sha256(path.read_bytes()).digest())
     return digest.hexdigest()
@@ -220,7 +222,8 @@ def validate_entry(entry, release, releases, protocols):
     require(type(m.get("format_version")) is int and m["format_version"] == 1, "unsupported format_version")
     require(m.get("submission_id") == entry.name, "submission_id must match directory")
     iso_date(m.get("submitted_on"), "submitted_on")
-    text((entry / "README.md").read_text(), "methodology README")
+    if (entry / "README.md").exists():
+        text((entry / "README.md").read_text(), "methodology README")
     system = mapping(m.get("system"), "system")
     for key in ("name", "version", "team", "contact", "description"):
         text(system.get(key), f"system.{key}")
@@ -304,8 +307,10 @@ def validate_entry(entry, release, releases, protocols):
         url(artifacts["bundle_url"], "artifacts.bundle_url")
     require(artifacts["availability"] != "public" or artifacts.get("bundle_url"), "public artifacts need a URL")
     text(artifacts.get("missing_records_and_redactions"), "missing_records_and_redactions")
-    for key in ("readme_path", "results_path", "programs_path", "logs_path", "traces_path"):
+    for key in ("results_path", "programs_path", "logs_path", "traces_path"):
         relative(artifacts.get(key), f"artifacts.{key}")
+    if artifacts.get("readme_path") is not None:
+        relative(artifacts["readme_path"], "artifacts.readme_path")
     traces = {"traces_url": artifacts.get("traces_url")} if artifacts.get("traces_url") is not None else {}
     # A full-split entry may also link trajectories restricted to another split, such as Lite.
     split_traces = artifacts.get("split_traces_urls") or {}
@@ -471,7 +476,8 @@ def initialize(root, args, output_dir=None):
                                         for k in ("code_tests", "verus", "spec_tests")},
              "logs": {}, "notes": "No output supplied yet."} for p in ids]
     (entry / "results.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows))
-    print(f"Created {entry}. Fill metadata/README placeholders and replace result records before validation.")
+    print(f"Created {entry}. Fill metadata placeholders, complete or delete the optional README.md, "
+          "and replace result records before validation.")
     return entry
 
 

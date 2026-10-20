@@ -72,7 +72,7 @@ compute. The UI displays declared budgets alongside scores.
 
 ## Check a submission
 
-1. Validate the entry. Check that the methodology and all feedback comply with
+1. Validate the entry. Check that the declared inputs and feedback comply with
    the chosen protocol. Arrange any private bundle access.
 2. Retrieve the immutable bundle and check its integrity and complete artifact
    coverage. The metadata validator checks pin syntax, not remote availability.

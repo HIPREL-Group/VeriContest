@@ -15,7 +15,7 @@ system:
   logo: null # Optional; HTTPS image URL or a site file such as static/logos/openai.svg
   authors: []
   contact: "REPLACE_ME" # GitHub handle or public contact
-  description: "REPLACE_ME" # Brief methodology; details belong in bundle README.md
+  description: "REPLACE_ME" # Brief system summary; a methodology write-up (README.md) is optional
   report_url: null # Optional
   source_url: null # Optional; source release is not required for initial discussion
   source_availability: "REPLACE_ME" # public | private | unavailable
@@ -99,7 +99,7 @@ artifacts:
   revision: null # Full immutable revision
   archive_sha256: null
   availability: "REPLACE_ME" # public | private_by_arrangement | pending
-  readme_path: "README.md"
+  readme_path: "README.md" # Optional; null when the bundle has no README
   results_path: "results.jsonl"
   programs_path: "artifacts/" # Per-result artifact paths start at bundle root, not this directory
   logs_path: "logs/"
