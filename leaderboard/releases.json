@@ -1,0 +1,14 @@
+[
+  {
+    "id": "2026-10",
+    "git_tag": "v2026.10",
+    "benchmark_revision": "085481832fdfbd4f3d03ac7161e0e7938dbdae38",
+    "problem_ids_path": "problem_ids.txt",
+    "problem_ids_sha256": "30ce91cb076d26b5e40b26ea3fefa65beb62988e2576535dce54034bdc43ab6b",
+    "counts": {
+      "leetcode": 722,
+      "codeforces": 284,
+      "full": 1006
+    }
+  }
+]

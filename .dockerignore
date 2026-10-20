@@ -1,0 +1,8 @@
+.git
+**/__pycache__
+evaluation/tools
+evaluation/runs
+post2exe/tree-sitter-verus
+spec_validation
+submissions
+docs

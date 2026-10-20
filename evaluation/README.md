@@ -25,6 +25,9 @@ python3 evaluation/score.py --task End2End --input-mode nl \
   --outputs runs/my-model/programs --testcases <testcases> --out runs/my-model/eval
 ```
 
+Both scripts take `--split full` (the default), `leetcode`, `codeforces` or `lite`
+([VeriContest Lite](../leaderboard/LITE.md), 300 problems).
+
 The `--backend` values are `openai-chat` (any OpenAI-compatible server, including vLLM; set `--base-url`), `openai-responses`, and `anthropic`.
 
 - `--max-output-tokens` and `--temperature` set the output-token limit and the temperature. Without them, the request leaves these fields to the provider, and `run.json` records `null`. `anthropic` requires `--max-output-tokens`. `--no-temperature` is an alias for leaving the temperature out.

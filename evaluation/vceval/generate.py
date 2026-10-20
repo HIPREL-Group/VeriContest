@@ -21,7 +21,7 @@ from pathlib import Path
 from . import backends
 from .config import GENERATION, PROMPT_DIR, TASKS, release_info
 from .extract import extract_program
-from .problems import all_problem_ids, problem_dir, select
+from .problems import SPLITS, all_problem_ids, problem_dir, select
 from .request_settings import request_parameters, validate_extra_body, validate_temperature, validate_token_limit
 
 
@@ -82,7 +82,7 @@ def main(argv=None):
     ap.add_argument("--model", required=True, help="exact model ID sent to the API")
     ap.add_argument("--base-url", help="API base URL (e.g. a vLLM server)")
     ap.add_argument("--out", required=True, type=Path)
-    ap.add_argument("--split", default="full", choices=["full", "leetcode", "codeforces"])
+    ap.add_argument("--split", default="full", choices=SPLITS)
     ap.add_argument("--problems", help="comma-separated subset (debugging only; not a valid submission)")
     ap.add_argument("--concurrency", type=int, default=8)
     ap.add_argument("--max-output-tokens", type=int, default=GENERATION["max_output_tokens"],

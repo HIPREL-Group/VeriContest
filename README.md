@@ -15,9 +15,28 @@ Verus-checked proofs. All problems are organized by source platform. Some
 problems accept multiple feasible answers and require a problem-specific
 checker instead of comparison with a single expected output.
 
+[VeriContest Lite](leaderboard/LITE.md) is a fixed 300-problem subset for smaller
+evaluations, with the full benchmark's mix of sources, difficulty levels and proof
+sizes. It has its own leaderboard view.
+
 The complete dataset release, including positive and mutated negative testcase files, is
 available on Hugging Face:
 [Gax-c/VeriContest](https://huggingface.co/datasets/Gax-c/VeriContest).
+
+## Submitting Results
+
+Submission intake is open for Model and Agent tracks on the
+**1,006-problem releases** (v2026.10 and later); each submission names the release
+it used. See [submissions/README.md](submissions/README.md) for the steps, rules,
+and artifact requirements; submissions are pull requests. Use
+`python3 leaderboard/manage.py init --help` to create a submission record.
+
+Pending submissions have no official score or rank. SpecGen and End2End
+specifications that post2exe cannot test are reviewed under the
+[specification review standard](leaderboard/SPEC_REVIEW.md). The old 946-problem
+release is not accepted for new leaderboard entries. See
+[leaderboard/README.md](leaderboard/README.md) for validation, evaluation-status
+maintenance, and website publication.
 
 ## Repository Layout
 
@@ -31,6 +50,8 @@ skills/             # Authoring guides and scripts for adding new problems
 verus/              # Bundled Verus toolchain, 0.2026.04.10, Linux x86-64 (invoked as ./verus/verus)
 test_gen/           # Test case generation pipeline (positive and negative)
 post2exe/           # Postcondition-testing component
+leaderboard/        # Release manifest, submission validation, and website build
+submissions/        # Public metadata, component results, and maintainer reviews
 ```
 
 Each problem directory contains the verification artifacts for one problem:
@@ -70,8 +91,10 @@ stdin/stdout handling.
      benchmark files for completeness.
 - `code_spec.rs`: The code and specification artifact used for proof-generation
   task.
-- `verified.rs`: The full Verus-vefified programs with specifications, code, and 
-  proofs. It establishes that the code satisfies the specification.
+- `verified.rs`: Programs with specifications, code, and Verus-checked proofs.
+  Verification establishes the checked functions' contracts. See
+  [lc643's task description](benchmark/leetcode/lc643/description.md) for its floating-point adapter
+  used by `leetcode/lc643`; that adapter is tested but not verified by Verus.
 - `main.rs`: Codeforces-only executable entry point and stdin/stdout plumbing.
 - `tests/checker.py`: Problem-specific output judge, when supplied. Use it to
   accept any valid answer, not only the stored reference answer.
@@ -198,8 +221,8 @@ models on verifiable code generation.
 
 ```bibtex
 @article{xie2026vericontest,
-  title={VeriContest: A Competitive-Programming Benchmark for Verifiable Code Generation},
-  author={Xie, Zichen and Pawagi, Mrigank and Liu, Yuxin and Rai, Aaditi and Shao, Lize and Berberian Jr, John and Che, Sicong and Wang, Wenxi},
+  title={{VeriContest}: A Competitive-Programming Benchmark for Verifiable Code Generation},
+  author={Xie, Zichen and Pawagi, Mrigank and Liu, Yuxin and Rai, Aaditi and Shao, Lize and Berberian, Jr., John and Che, Sicong and Wang, Wenxi},
   journal={arXiv preprint arXiv:2605.08553},
   year={2026}
 }

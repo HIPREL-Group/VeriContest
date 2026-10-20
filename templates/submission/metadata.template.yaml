@@ -1,0 +1,116 @@
+# Registry submission format. See submissions/README.md.
+# Prefer leaderboard/manage.py init to populate the supported split and revision.
+# Replace REPLACE_ME. Explain null/unknown fields in notes; zero means zero.
+format_version: 1
+submission_id: "REPLACE_ME" # Suggested: YYYYMMDD_system_version_task_split
+submitted_on: "REPLACE_ME" # YYYY-MM-DD
+
+system:
+  name: "REPLACE_ME"
+  version: "REPLACE_ME" # Immutable source revision or declared proprietary version
+  release_url: null # Optional public HTTPS link to this exact system release or release notes
+  category: "REPLACE_ME" # fixed_prompt (Model track) | agent (Agent track)
+  team: "REPLACE_ME"
+  organization: null # Optional; shown in the Org column instead of team (Model track: the model's developer)
+  logo: null # Optional; HTTPS image URL or a site file such as static/logos/openai.svg
+  authors: []
+  contact: "REPLACE_ME" # GitHub handle or public contact
+  description: "REPLACE_ME" # Brief methodology; details belong in bundle README.md
+  report_url: null # Optional
+  source_url: null # Optional; source release is not required for initial discussion
+  source_availability: "REPLACE_ME" # public | private | unavailable
+  models:
+    - id: "REPLACE_ME" # Exact model/snapshot ID; list every model used
+      name: null # Optional display name shown on the leaderboard, e.g. GPT-5.5
+      role: "REPLACE_ME"
+      settings: {} # Temperature, sampling settings, reasoning effort, etc.
+
+experiment:
+  task: "REPLACE_ME" # SpecGen | CodeGen | ProofGen | End2End
+  input_mode: "REPLACE_ME" # SpecGen: nl | CodeGen: nl, spec, nl_spec | ProofGen: code_spec | End2End: nl
+  input_description: "REPLACE_ME"
+  independent_runs: 1
+  attempts_per_problem_per_run: 1 # One independent execution per problem for this entry
+  attempt_definition: "REPLACE_ME"
+  attempt_schedule: "REPLACE_ME" # State uniform count or link per-problem schedule
+  seeds: [] # Optional; leave empty when the API does not support seeds
+  candidate_selection: "REPLACE_ME"
+  human_intervention: "REPLACE_ME" # State none, or describe intervention
+  generation_access:
+    # Describe actual access during generation AND final-candidate selection.
+    # State none when absent; these disclosures do not establish eligibility.
+    official_positive_tests: "REPLACE_ME"
+    official_mutated_tests: "REPLACE_ME"
+    reference_code: "REPLACE_ME"
+    reference_specifications: "REPLACE_ME"
+    reference_proofs: "REPLACE_ME"
+    compiler_and_verus_feedback: "REPLACE_ME"
+    participant_created_tests: "REPLACE_ME"
+    web_and_other_retrieval: "REPLACE_ME"
+  budget:
+    scope: "REPLACE_ME" # per attempt | per problem; explain any mixed limits
+    max_internal_candidates: null
+    max_repair_iterations: null
+    max_llm_calls: null
+    max_input_tokens: null
+    max_output_tokens: null
+    max_wall_time_seconds: null
+    measured_usage_path: null # Optional bundle-relative path to usage records
+    total_cost_usd: null # Optional generation cost across ALL attempted problems, including failures/timeouts
+    cost_notes: null # Required when reporting cost: pricing date/basis, included services/compute, discounts or estimates
+    notes: "REPLACE_ME" # Identify unknown, unbounded, and inapplicable limits
+
+benchmark:
+  release: "REPLACE_ME" # Release ID used, e.g. 2026-10.1; see leaderboard/release.json and releases.json
+  repository: "https://github.com/HIPREL-Group/VeriContest"
+  revision: "REPLACE_ME" # Full commit SHA actually used
+  split: "REPLACE_ME" # leetcode | codeforces | full | lite | custom
+  problem_count: null
+  problem_ids_path: "problem_ids.txt"
+  selection_and_exclusions: "REPLACE_ME" # State complete split, or explain selection
+  testcases:
+    source: null # Dataset/repository/archive HTTPS URL, or null if not used
+    revision: null # Full immutable revision; supply this or archive_sha256 if used
+    archive_sha256: null
+    modifications: "REPLACE_ME" # State none, or explain changes
+
+evaluation:
+  protocol_id: null # Maintainer-published ID in leaderboard/protocols.json; pending until agreed
+  evaluator_source: null # URL to evaluator code, if available
+  evaluator_revision: null
+  commands: [] # Exact evaluation commands, flags, and relevant configuration
+  verus_version: null
+  rustc_version: null
+  environment: null # OS/architecture, dependency versions or pinned image digest
+  resource_limits: null # Compile/proof/test timeouts, memory/CPU limits
+  reported_metrics: [] # Optional while preparing artifacts; see example below
+  # - name: pass@1
+  #   value: 0.0
+  #   unit: percent
+  #   k: 1
+  #   denominator: 722
+  #   definition: "One final output per problem; all failures remain in denominator"
+  # Every value above is a submitter claim, not a maintainer-verified score.
+
+artifacts:
+  bundle_url: null # Link to frozen artifacts when ready
+  # This registry metadata links to a separate bundle. Pin available artifacts
+  # here with their immutable revision or archive checksum.
+  revision: null # Full immutable revision
+  archive_sha256: null
+  availability: "REPLACE_ME" # public | private_by_arrangement | pending
+  readme_path: "README.md"
+  results_path: "results.jsonl"
+  programs_path: "artifacts/" # Per-result artifact paths start at bundle root, not this directory
+  logs_path: "logs/"
+  traces_path: "traces/" # Required: one trajectory per attempted problem
+  traces_url: null # Optional HTTPS link to the trajectories, pinned by a full commit SHA or sha256 in the URL
+  split_traces_urls: {} # Optional, full split only: pinned links to the trajectories of one split, e.g. {lite: <URL>}
+  missing_records_and_redactions: "REPLACE_ME"
+
+rerun:
+  available: null # true | false; optional fresh-generation protocol discussion
+  method: null # e.g. hosted endpoint or runnable system
+  access_notes: null # No credentials; arrange confidential details privately
+
+notes: "REPLACE_ME" # Explain missing fields, deviations, and pending items

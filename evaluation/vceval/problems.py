@@ -21,8 +21,16 @@ def problem_dir(problem_id: str) -> Path:
     return BENCH_ROOT / problem_id
 
 
+# Lite is a fixed list of the release (leaderboard/LITE.md).
+SPLIT_LISTS = {"lite": "lite_problem_ids.txt"}
+SPLITS = ("full", *FAMILIES, *SPLIT_LISTS)
+
+
 def select(ids: list[str], problems: str | None, split: str) -> list[str]:
-    if split != "full":
+    if split in SPLIT_LISTS:
+        listed = (REPO_ROOT / "leaderboard" / SPLIT_LISTS[split]).read_text().split()
+        ids = [p for p in ids if p in set(listed)]
+    elif split != "full":
         ids = [p for p in ids if p.startswith(split + "/")]
     if problems:
         wanted = {p.strip() for p in problems.split(",") if p.strip()}

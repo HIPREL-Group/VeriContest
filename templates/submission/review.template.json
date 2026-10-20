@@ -1,0 +1,13 @@
+{
+  "status": "submitted",
+  "submission_sha256": null,
+  "reviewers": [],
+  "reviewed_on": null,
+  "report_url": null,
+  "checked_problem_ids": [],
+  "spec_review": "pending",
+  "verdicts": {},
+  "artifact_origin": "submitter",
+  "rerun_problem_ids": [],
+  "notes": "Maintainers complete this record after reviewing the pinned submission."
+}

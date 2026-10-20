@@ -1,0 +1,113 @@
+format_version: 1
+submission_id: 20261016_claude-sonnet-4-6_proofgen-code-spec_full
+submitted_on: '2026-10-16'
+system:
+  name: Claude Sonnet 4.6
+  version: claude-sonnet-4-6
+  release_url: null
+  category: fixed_prompt
+  team: VeriContest team
+  organization: Anthropic
+  logo: static/logos/anthropic.svg
+  authors:
+  - VeriContest team
+  contact: HIPREL-Group
+  description: 'Claude Sonnet 4.6 with the ProofGen prompt template: one response per problem, no tools
+    or feedback.'
+  report_url: https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md
+  source_url: null
+  source_availability: private
+  models:
+  - id: claude-sonnet-4-6
+    name: Claude Sonnet 4.6
+    role: generator
+    settings:
+      api: Anthropic Messages
+      max_tokens: 16384
+      temperature: 0
+experiment:
+  task: ProofGen
+  input_mode: code_spec
+  input_description: The task prompt template filled with the problem's code_spec.rs.
+  independent_runs: 1
+  attempts_per_problem_per_run: 1
+  attempt_definition: One model request per problem; the program extracted from its response is scored.
+  attempt_schedule: One attempt for every problem.
+  seeds: []
+  candidate_selection: None; the single response is the final answer.
+  human_intervention: none
+  generation_access:
+    official_positive_tests: none
+    official_mutated_tests: none
+    reference_code: code_spec.rs (the task input)
+    reference_specifications: code_spec.rs (the task input)
+    reference_proofs: none
+    compiler_and_verus_feedback: none
+    participant_created_tests: none
+    web_and_other_retrieval: none
+  budget:
+    scope: per problem
+    max_internal_candidates: 1
+    max_repair_iterations: 0
+    max_llm_calls: 1
+    max_input_tokens: null
+    max_output_tokens: 16384
+    max_wall_time_seconds: null
+    measured_usage_path: null
+    total_cost_usd: null
+    cost_notes: null
+    notes: One request per problem with the output-token setting listed under the model; input tokens
+      and wall time are not limited; cost is not reported.
+benchmark:
+  release: 2026-10.1
+  repository: https://github.com/HIPREL-Group/VeriContest
+  revision: 0fede470992d79acb7b376fa87a25f78a5ce4a0b
+  split: full
+  problem_count: 1006
+  problem_ids_path: problem_ids.txt
+  selection_and_exclusions: Complete full split (1,006 problems).
+  testcases:
+    source: https://huggingface.co/datasets/Gax-c/VeriContest
+    revision: 9d6cb8e6233790a0af59774e3c87b486f7e683db
+    archive_sha256: null
+    modifications: none
+evaluation:
+  protocol_id: model-proofgen-code-spec-2026-10-1
+  evaluator_source: https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation
+  evaluator_revision: ac7418f95dda0ad47b800ab872c60ace5ad1c907
+  commands:
+  - VCEVAL_RUSTC=<rustc 1.94.0> python3 evaluation/score.py --task ProofGen --input-mode code_spec --outputs
+    <programs> --testcases <Gax-c/VeriContest at 9d6cb8e> --out <eval>
+  verus_version: 0.2026.04.10.01bf489
+  rustc_version: 1.94.0
+  environment: Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu);
+    rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository
+  resource_limits: 'Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating
+    --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300
+    s checker compilation, 600 s checker run'
+  reported_metrics:
+  - name: pass@1
+    value: 13.52
+    unit: percent
+    k: 1
+    denominator: 1006
+    definition: One final output per problem; all failures remain in the denominator
+artifacts:
+  bundle_url: null
+  revision: null
+  archive_sha256: 5cfd84cd7f88bebd84abf2e9ada62285adb81e00caa8fa56f34c1ee7d307c9bc
+  availability: private_by_arrangement
+  readme_path: README.md
+  results_path: results.jsonl
+  programs_path: artifacts/
+  logs_path: logs/
+  traces_path: traces/
+  traces_url: https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_claude-sonnet-4-6_proofgen-code-spec_full.jsonl.gz
+  split_traces_urls:
+    lite: https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_claude-sonnet-4-6_proofgen-code-spec_full.jsonl.gz
+  missing_records_and_redactions: Model reasoning that the provider does not return is not included.
+rerun:
+  available: null
+  method: null
+  access_notes: null
+notes: Scored on the full split; every problem has a final verdict in review.json.

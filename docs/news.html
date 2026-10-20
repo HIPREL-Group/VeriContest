@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VeriContest News</title>
+  <meta name="description" content="News and releases of the VeriContest benchmark.">
+
+  <link rel="icon" href="./static/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="./static/favicon-32.png">
+  <link rel="apple-touch-icon" href="./static/apple-touch-icon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./static/style.css">
+</head>
+<body class="bench-page has-sidebar">
+
+<aside class="site-sidebar">
+  <div class="sidebar-head">
+    <a class="brand-text" href="./"><img class="brand-logo" src="./static/logos/vericontest-logo.png" alt="" width="34" height="34"><span>VeriContest</span></a>
+    <button type="button" class="navbar-burger" data-target="navMenu" aria-label="Toggle navigation" aria-controls="navMenu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="sidebar-menu" id="navMenu" aria-label="Main navigation">
+    <p class="sidebar-label">Leaderboards</p>
+    <a class="sidebar-link" href="./#leaderboard" data-lb-bench="full"><i class="fas fa-trophy" aria-hidden="true"></i><span>VeriContest</span><small data-lb-bench-count="full">1,006</small></a>
+    <a class="sidebar-link" href="./#lite" data-lb-bench="lite"><i class="fas fa-trophy" aria-hidden="true"></i><span>VeriContest Lite</span><small data-lb-bench-count="lite">300</small></a>
+    <p class="sidebar-label">Benchmarks</p>
+    <a class="sidebar-link" href="./about.html"><i class="fas fa-book-open" aria-hidden="true"></i><span>VeriContest</span></a>
+    <a class="sidebar-link" href="./lite.html"><i class="fas fa-feather" aria-hidden="true"></i><span>VeriContest Lite</span></a>
+    <p class="sidebar-label">Resources</p>
+    <a class="sidebar-link" href="https://arxiv.org/abs/2605.08553"><i class="fas fa-file-lines" aria-hidden="true"></i><span>Paper</span><i class="fas fa-arrow-up-right-from-square sidebar-ext" aria-hidden="true"></i><span class="is-sr-only"> (external site)</span></a>
+    <a class="sidebar-link" href="https://github.com/HIPREL-Group/VeriContest"><i class="fab fa-github" aria-hidden="true"></i><span>Code</span><i class="fas fa-arrow-up-right-from-square sidebar-ext" aria-hidden="true"></i><span class="is-sr-only"> (external site)</span></a>
+    <a class="sidebar-link" href="./data.html"><i class="fas fa-database" aria-hidden="true"></i><span>Data</span></a>
+    <a class="sidebar-link is-current" aria-current="page" href="./news.html"><i class="fas fa-bullhorn" aria-hidden="true"></i><span>News</span></a>
+    <a class="sidebar-link" href="./contact.html"><i class="fas fa-envelope" aria-hidden="true"></i><span>Contact</span></a>
+    <a class="sidebar-link" href="./cite.html"><i class="fas fa-quote-right" aria-hidden="true"></i><span>Cite</span></a>
+    <a class="sidebar-link sidebar-submit" href="./submit.html"><i class="fas fa-paper-plane" aria-hidden="true"></i><span>Submit</span></a>
+  </nav>
+</aside>
+
+<main id="top">
+<section class="section" id="news">
+  <div class="container is-max-desktop">
+    <div class="section-head">
+      <span class="section-icon"><i class="fas fa-bullhorn" aria-hidden="true"></i></span>
+      <h1 class="section-title">News</h1>
+    </div>
+    <div class="content bench-body news-intro">
+      <p>
+        VeriContest is actively maintained. We will keep adding problems and improving existing ones
+        in versioned releases, and we will extend VeriContest beyond Verus to other verification
+        languages, such as Lean and Dafny. Each leaderboard result is tied to the release it was evaluated on,
+        so results stay comparable over time. The changes in each release are listed in the
+        <a href="https://github.com/HIPREL-Group/VeriContest/blob/main/CHANGELOG.md">changelog</a>.
+      </p>
+    </div>
+    <ol class="news-list">
+      <li class="news-item">
+        <time class="news-date" datetime="2026-10-20">October 20, 2026</time>
+        <h2 class="news-title">VeriContest Leaderboard Released</h2>
+        <p>
+          The leaderboard is now live, with baseline results for 10 models on all six tasks, for both
+          VeriContest and VeriContest Lite. Submissions are open.
+          <a href="./#leaderboard">Leaderboard</a> &middot;
+          <a href="./submit.html">Submit</a>
+        </p>
+      </li>
+      <li class="news-item">
+        <time class="news-date" datetime="2026-10-19">October 19, 2026</time>
+        <h2 class="news-title">VeriContest Lite</h2>
+        <p>
+          A fixed 300-problem subset for smaller evaluations, with the full benchmark&rsquo;s mix of
+          sources, difficulty levels and proof sizes.
+          <a href="./lite.html">About Lite</a> &middot;
+          <a href="https://huggingface.co/datasets/Gax-c/VeriContest_Lite">Hugging Face</a>
+        </p>
+      </li>
+      <li class="news-item">
+        <time class="news-date" datetime="2026-10-15">October 15, 2026</time>
+        <h2 class="news-title">Release v2026.10.1</h2>
+        <p>
+          Revised problem files and the evaluation tools for generating and scoring programs.
+          <a href="https://github.com/HIPREL-Group/VeriContest/releases/tag/v2026.10.1">Release notes</a>
+        </p>
+      </li>
+      <li class="news-item">
+        <time class="news-date" datetime="2026-10-08">October 8, 2026</time>
+        <h2 class="news-title">Release v2026.10</h2>
+        <p>
+          The first versioned release of VeriContest, with 1,006 problems.
+          <a href="https://github.com/HIPREL-Group/VeriContest/releases/tag/v2026.10">Release notes</a>
+        </p>
+      </li>
+      <li class="news-item">
+        <time class="news-date" datetime="2026-05-08">May 8, 2026</time>
+        <h2 class="news-title">Paper on arXiv</h2>
+        <p>
+          VeriContest: A Competitive-Programming Benchmark for Verifiable Code Generation.
+          <a href="https://arxiv.org/abs/2605.08553">arXiv:2605.08553</a>
+        </p>
+      </li>
+    </ol>
+  </div>
+</section>
+</main>
+
+<footer class="footer site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-left">
+      <p class="footer-copy"><span>&copy; 2026 <a class="footer-lab" href="https://wenxiwang.github.io/lab.html"><img src="./static/logos/hiprel.png" alt="" width="40" height="39"><span>HIPREL Group</span></a>, VeriContest Team. Code under Apache-2.0; benchmark artifacts under CC BY 4.0.</span></p>
+      <p class="footer-credit">Problem statements derive from LeetCode and Codeforces and remain subject to their source terms. Website design inspired by <a href="https://www.swebench.com/">SWE-bench</a>.</p>
+    </div>
+    <nav class="site-footer-links" aria-label="Project links">
+      <a href="https://github.com/HIPREL-Group/VeriContest"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>
+      <a href="https://huggingface.co/collections/Gax-c/vericontest"><span aria-hidden="true">&#129303;</span><span>Hugging Face</span></a>
+      <a href="https://arxiv.org/abs/2605.08553"><i class="fas fa-file-lines" aria-hidden="true"></i><span>Paper</span></a>
+    </nav>
+  </div>
+</footer>
+<script src="./static/main.js"></script>
+</body>
+</html>

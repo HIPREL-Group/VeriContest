@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VeriContest Lite</title>
+  <meta name="description" content="VeriContest Lite: a fixed 300-problem subset of VeriContest for smaller, cheaper evaluations of verifiable code generation.">
+
+  <link rel="icon" href="./static/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="./static/favicon-32.png">
+  <link rel="apple-touch-icon" href="./static/apple-touch-icon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./static/style.css">
+</head>
+<body class="bench-page has-sidebar">
+
+<aside class="site-sidebar">
+  <div class="sidebar-head">
+    <a class="brand-text" href="./"><img class="brand-logo" src="./static/logos/vericontest-logo.png" alt="" width="34" height="34"><span>VeriContest</span></a>
+    <button type="button" class="navbar-burger" data-target="navMenu" aria-label="Toggle navigation" aria-controls="navMenu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="sidebar-menu" id="navMenu" aria-label="Main navigation">
+    <p class="sidebar-label">Leaderboards</p>
+    <a class="sidebar-link" href="./#leaderboard" data-lb-bench="full"><i class="fas fa-trophy" aria-hidden="true"></i><span>VeriContest</span><small data-lb-bench-count="full">1,006</small></a>
+    <a class="sidebar-link" href="./#lite" data-lb-bench="lite"><i class="fas fa-trophy" aria-hidden="true"></i><span>VeriContest Lite</span><small data-lb-bench-count="lite">300</small></a>
+    <p class="sidebar-label">Benchmarks</p>
+    <a class="sidebar-link" href="./about.html"><i class="fas fa-book-open" aria-hidden="true"></i><span>VeriContest</span></a>
+    <a class="sidebar-link is-current" aria-current="page" href="./lite.html"><i class="fas fa-feather" aria-hidden="true"></i><span>VeriContest Lite</span></a>
+    <p class="sidebar-label">Resources</p>
+    <a class="sidebar-link" href="https://arxiv.org/abs/2605.08553"><i class="fas fa-file-lines" aria-hidden="true"></i><span>Paper</span><i class="fas fa-arrow-up-right-from-square sidebar-ext" aria-hidden="true"></i><span class="is-sr-only"> (external site)</span></a>
+    <a class="sidebar-link" href="https://github.com/HIPREL-Group/VeriContest"><i class="fab fa-github" aria-hidden="true"></i><span>Code</span><i class="fas fa-arrow-up-right-from-square sidebar-ext" aria-hidden="true"></i><span class="is-sr-only"> (external site)</span></a>
+    <a class="sidebar-link" href="./data.html"><i class="fas fa-database" aria-hidden="true"></i><span>Data</span></a>
+    <a class="sidebar-link" href="./news.html"><i class="fas fa-bullhorn" aria-hidden="true"></i><span>News</span></a>
+    <a class="sidebar-link" href="./contact.html"><i class="fas fa-envelope" aria-hidden="true"></i><span>Contact</span></a>
+    <a class="sidebar-link" href="./cite.html"><i class="fas fa-quote-right" aria-hidden="true"></i><span>Cite</span></a>
+    <a class="sidebar-link sidebar-submit" href="./submit.html"><i class="fas fa-paper-plane" aria-hidden="true"></i><span>Submit</span></a>
+  </nav>
+</aside>
+
+<main id="top">
+<header class="hero-vc bench-hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="container is-max-desktop has-text-centered hero-inner">
+    <div class="hero-brand hero-brand-lite">
+      <img class="hero-logo" src="./static/logos/vericontest-logo.png" alt="" width="88" height="88">
+      <h1 class="title publication-title">VeriContest Lite</h1>
+    </div>
+    <p class="home-subtitle">A fixed 300-problem subset of VeriContest for smaller, cheaper evaluations.</p>
+    <div class="publication-links">
+      <a href="./#lite" class="button is-rounded link-btn">
+        <span class="icon"><i class="fas fa-trophy" aria-hidden="true"></i></span><span>Leaderboard</span>
+      </a>
+      <a href="https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/LITE.md" class="button is-rounded link-btn">
+        <span class="icon"><i class="fab fa-github" aria-hidden="true"></i></span><span>Code</span>
+      </a>
+      <a href="https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/lite_problem_ids.txt" class="button is-rounded link-btn">
+        <span class="icon"><i class="fas fa-list-ol" aria-hidden="true"></i></span><span>Problem list</span>
+      </a>
+      <a href="https://huggingface.co/datasets/Gax-c/VeriContest_Lite" class="button is-rounded link-btn">
+        <span class="icon">&#129303;</span><span>Dataset</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="overview">
+  <div class="container is-max-desktop">
+    <div class="section-head">
+      <span class="section-icon"><i class="fas fa-align-left" aria-hidden="true"></i></span>
+      <h2 class="section-title">Overview</h2>
+    </div>
+    <div class="content bench-body">
+      <p>
+        Running all 1,006 VeriContest problems with a frontier model or an agent is expensive.
+        VeriContest Lite is a fixed subset of 300 problems, 215 from LeetCode and 85 from
+        Codeforces in the full benchmark's ratio, so that a system can be evaluated, compared,
+        and iterated on at about 30% of the cost.
+      </p>
+      <p>
+        Lite keeps what makes the full benchmark hard. Each source and difficulty level keeps its
+        share of the full benchmark, and Lite follows the full benchmark's distribution of
+        reference proof sizes, including its largest proofs. It covers the same six task settings
+        (End2End, ProofGen, SpecGen, and CodeGen from three inputs), uses the same release, test
+        cases and evaluation, and is a leaderboard of its own: Lite submissions are ranked on Lite,
+        and every full-benchmark submission is also scored on the Lite problems.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section has-bg-tint" id="selection">
+  <div class="container is-max-desktop">
+    <div class="section-head">
+      <span class="section-icon"><i class="fas fa-filter" aria-hidden="true"></i></span>
+      <h2 class="section-title">Selection Criteria</h2>
+    </div>
+    <div class="content bench-body">
+      <p>
+        Lite should rank systems the way the full benchmark does, at a fraction of the cost. With
+        only 300 problems, every problem moves a score by a third of a point, so each one has to be
+        self-contained, unambiguous to score, and stable to evaluate. The selection therefore
+        removes the problems that do not meet that bar, then samples the rest so that Lite keeps the
+        full benchmark's mix.
+      </p>
+      <h3 class="bench-subhead">Filters</h3>
+      <p>Starting from the 1,006 problems of release 2026-10.1, a problem is removed when:</p>
+      <ul class="bench-reasons">
+        <li>
+          <strong>Its description contains an image or a hyperlink.</strong>
+          Models receive the description as text. An image or a linked page can carry information
+          the model never sees, and a link can change after the release.
+        </li>
+        <li>
+          <strong>Its description refers to another problem.</strong>
+          Each Lite problem should be understandable on its own, without knowledge of a different
+          problem.
+        </li>
+        <li>
+          <strong>Its outputs are judged by a problem-specific checker rather than by exact comparison.</strong>
+          These problems accept several valid answers. Keeping Lite to exact comparison makes its
+          results simple to reproduce with any evaluation harness.
+        </li>
+        <li>
+          <strong>Its reference solution uses more than half of the 1&nbsp;s per-case time limit on some test case.</strong>
+          Near the limit, whether a correct program finishes in time depends on the machine. The
+          margin keeps verdicts the same across hardware.
+        </li>
+      </ul>
+      <p>914 problems remain.</p>
+      <h3 class="bench-subhead">Sampling</h3>
+      <p>300 of these problems are sampled with a fixed seed:</p>
+      <ul class="bench-reasons">
+        <li>
+          <strong>Each source and difficulty level gets its full-benchmark share of the places.</strong>
+          Lite therefore keeps the original distributions of problem sources and difficulty levels:
+          LeetCode and Codeforces problems, each LeetCode difficulty, and each Codeforces rating band
+          make up the same share of Lite as of the full benchmark.
+        </li>
+        <li>
+          <strong>Within each group, problems are ranked by reference proof size and cut into one interval per place; one problem is drawn from each interval.</strong>
+          A plain random sample could happen to include few problems with large proofs. Drawing one
+          problem from each interval makes Lite cover the whole range of proof sizes in the same
+          proportions as the full benchmark, including the largest proofs.
+        </li>
+        <li>
+          <strong>When the drawn problem was removed by a filter, the remaining problem of the same group closest to it in proof size takes its place.</strong>
+          The replacement keeps both the group and the proof size of the problem it stands in for.
+        </li>
+      </ul>
+      <p>
+        The selection is reproducible with
+        <a href="https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/make_lite.py"><code>leaderboard/make_lite.py</code></a>,
+        and the list is pinned by its checksum in the release.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="composition">
+  <div class="container is-max-desktop">
+    <div class="section-head">
+      <span class="section-icon"><i class="fas fa-chart-pie" aria-hidden="true"></i></span>
+      <h2 class="section-title">Composition</h2>
+    </div>
+    <div class="columns bench-tables">
+      <div class="column">
+        <div class="lb-card lb-scroll">
+          <table class="table is-fullwidth bench-table">
+            <caption>Problems by source and difficulty</caption>
+            <thead><tr><th scope="col">Source</th><th scope="col">Level</th><th scope="col" class="num">Full</th><th scope="col" class="num">Lite</th></tr></thead>
+            <tbody>
+              <tr><th scope="row" rowspan="3">LeetCode</th><td>Easy</td><td class="num">359</td><td class="num">107</td></tr>
+              <tr><td>Medium</td><td class="num">302</td><td class="num">90</td></tr>
+              <tr><td>Hard</td><td class="num">61</td><td class="num">18</td></tr>
+              <tr><th scope="row" rowspan="5">Codeforces</th><td>Rating 800</td><td class="num">118</td><td class="num">35</td></tr>
+              <tr><td>900–1000</td><td class="num">40</td><td class="num">12</td></tr>
+              <tr><td>1100–1200</td><td class="num">49</td><td class="num">15</td></tr>
+              <tr><td>1300–1400</td><td class="num">40</td><td class="num">12</td></tr>
+              <tr><td>1500+</td><td class="num">37</td><td class="num">11</td></tr>
+              <tr class="bench-total"><th scope="row" colspan="2">Total</th><td class="num">1,006</td><td class="num">300</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="column">
+        <div class="lb-card lb-scroll">
+          <table class="table is-fullwidth bench-table">
+            <caption>Reference proof lines</caption>
+            <thead><tr><th scope="col"></th><th scope="col" class="num">Median</th><th scope="col" class="num">75th pct.</th><th scope="col" class="num">90th pct.</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">LeetCode · Full</th><td class="num">77</td><td class="num">180</td><td class="num">326</td></tr>
+              <tr><th scope="row">LeetCode · Lite</th><td class="num">76</td><td class="num">178</td><td class="num">312</td></tr>
+              <tr><th scope="row">Codeforces · Full</th><td class="num">110</td><td class="num">229</td><td class="num">351</td></tr>
+              <tr><th scope="row">Codeforces · Lite</th><td class="num">108</td><td class="num">218</td><td class="num">351</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="bench-note">
+          Proof size counts the non-blank lines a reference proof adds to the fixed code and
+          specification. 30 Lite problems are among the 10% of benchmark problems with the
+          largest proofs.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section has-bg-tint" id="citation">
+  <div class="container is-max-desktop">
+    <div class="section-head">
+      <span class="section-icon"><i class="fas fa-quote-right" aria-hidden="true"></i></span>
+      <h2 class="section-title">Citation</h2>
+    </div>
+    <p class="bench-note">If you use VeriContest Lite, please cite VeriContest.</p>
+    <div class="bibtex-wrap">
+      <button class="button is-small is-rounded copy-btn" id="copyBib">
+        <span class="icon"><i class="fas fa-copy" aria-hidden="true"></i></span><span>Copy</span>
+      </button>
+<pre id="bibtex"><code>@article{xie2026vericontest,
+  title   = {{VeriContest}: A Competitive-Programming Benchmark for Verifiable Code Generation},
+  author  = {Xie, Zichen and Pawagi, Mrigank and Liu, Yuxin and Rai, Aaditi and
+             Shao, Lize and Berberian, Jr., John and Che, Sicong and Wang, Wenxi},
+  journal = {arXiv preprint arXiv:2605.08553},
+  year    = {2026}
+}</code></pre>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-left">
+      <p class="footer-copy"><span>&copy; 2026 <a class="footer-lab" href="https://wenxiwang.github.io/lab.html"><img src="./static/logos/hiprel.png" alt="" width="40" height="39"><span>HIPREL Group</span></a>, VeriContest Team. Code under Apache-2.0; benchmark artifacts under CC BY 4.0.</span></p>
+      <p class="footer-credit">Problem statements derive from LeetCode and Codeforces and remain subject to their source terms. Website design inspired by <a href="https://www.swebench.com/">SWE-bench</a>.</p>
+    </div>
+    <nav class="site-footer-links" aria-label="Project links">
+      <a href="https://github.com/HIPREL-Group/VeriContest"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>
+      <a href="https://huggingface.co/collections/Gax-c/vericontest"><span aria-hidden="true">&#129303;</span><span>Hugging Face</span></a>
+      <a href="https://arxiv.org/abs/2605.08553"><i class="fas fa-file-lines" aria-hidden="true"></i><span>Paper</span></a>
+    </nav>
+  </div>
+</footer>
+<script src="./static/main.js"></script>
+</body>
+</html>

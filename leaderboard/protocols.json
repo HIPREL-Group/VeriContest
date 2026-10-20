@@ -1,0 +1,118 @@
+[
+  {
+    "id": "model-specgen-nl-2026-10-1",
+    "label": "Model track · SpecGen (nl)",
+    "release": "2026-10.1",
+    "track": "fixed_prompt",
+    "task": "SpecGen",
+    "input_mode": "nl",
+    "policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/README.md",
+    "testcases": {
+      "source": "https://huggingface.co/datasets/Gax-c/VeriContest",
+      "revision": "9d6cb8e6233790a0af59774e3c87b486f7e683db"
+    },
+    "evaluator_revision": "ac7418f95dda0ad47b800ab872c60ace5ad1c907",
+    "verus_version": "0.2026.04.10.01bf489",
+    "rustc_version": "1.94.0",
+    "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
+    "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
+    "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts",
+    "spec_review_policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/SPEC_REVIEW.md"
+  },
+  {
+    "id": "model-codegen-nl-2026-10-1",
+    "label": "Model track · CodeGen (nl)",
+    "release": "2026-10.1",
+    "track": "fixed_prompt",
+    "task": "CodeGen",
+    "input_mode": "nl",
+    "policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/README.md",
+    "testcases": {
+      "source": "https://huggingface.co/datasets/Gax-c/VeriContest",
+      "revision": "9d6cb8e6233790a0af59774e3c87b486f7e683db"
+    },
+    "evaluator_revision": "ac7418f95dda0ad47b800ab872c60ace5ad1c907",
+    "verus_version": "0.2026.04.10.01bf489",
+    "rustc_version": "1.94.0",
+    "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
+    "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
+    "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts"
+  },
+  {
+    "id": "model-codegen-spec-2026-10-1",
+    "label": "Model track · CodeGen (spec)",
+    "release": "2026-10.1",
+    "track": "fixed_prompt",
+    "task": "CodeGen",
+    "input_mode": "spec",
+    "policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/README.md",
+    "testcases": {
+      "source": "https://huggingface.co/datasets/Gax-c/VeriContest",
+      "revision": "9d6cb8e6233790a0af59774e3c87b486f7e683db"
+    },
+    "evaluator_revision": "ac7418f95dda0ad47b800ab872c60ace5ad1c907",
+    "verus_version": "0.2026.04.10.01bf489",
+    "rustc_version": "1.94.0",
+    "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
+    "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
+    "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts"
+  },
+  {
+    "id": "model-codegen-nl-spec-2026-10-1",
+    "label": "Model track · CodeGen (nl_spec)",
+    "release": "2026-10.1",
+    "track": "fixed_prompt",
+    "task": "CodeGen",
+    "input_mode": "nl_spec",
+    "policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/README.md",
+    "testcases": {
+      "source": "https://huggingface.co/datasets/Gax-c/VeriContest",
+      "revision": "9d6cb8e6233790a0af59774e3c87b486f7e683db"
+    },
+    "evaluator_revision": "ac7418f95dda0ad47b800ab872c60ace5ad1c907",
+    "verus_version": "0.2026.04.10.01bf489",
+    "rustc_version": "1.94.0",
+    "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
+    "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
+    "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts"
+  },
+  {
+    "id": "model-proofgen-code-spec-2026-10-1",
+    "label": "Model track · ProofGen (code_spec)",
+    "release": "2026-10.1",
+    "track": "fixed_prompt",
+    "task": "ProofGen",
+    "input_mode": "code_spec",
+    "policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/README.md",
+    "testcases": {
+      "source": "https://huggingface.co/datasets/Gax-c/VeriContest",
+      "revision": "9d6cb8e6233790a0af59774e3c87b486f7e683db"
+    },
+    "evaluator_revision": "ac7418f95dda0ad47b800ab872c60ace5ad1c907",
+    "verus_version": "0.2026.04.10.01bf489",
+    "rustc_version": "1.94.0",
+    "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
+    "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
+    "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts"
+  },
+  {
+    "id": "model-end2end-nl-2026-10-1",
+    "label": "Model track · End2End (nl)",
+    "release": "2026-10.1",
+    "track": "fixed_prompt",
+    "task": "End2End",
+    "input_mode": "nl",
+    "policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/README.md",
+    "testcases": {
+      "source": "https://huggingface.co/datasets/Gax-c/VeriContest",
+      "revision": "9d6cb8e6233790a0af59774e3c87b486f7e683db"
+    },
+    "evaluator_revision": "ac7418f95dda0ad47b800ab872c60ace5ad1c907",
+    "verus_version": "0.2026.04.10.01bf489",
+    "rustc_version": "1.94.0",
+    "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
+    "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
+    "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts",
+    "spec_review_policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/SPEC_REVIEW.md"
+  }
+]

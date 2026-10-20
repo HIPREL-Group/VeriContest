@@ -9,6 +9,11 @@
     "full": 1006
   },
   "problem_ids_sha256": "30ce91cb076d26b5e40b26ea3fefa65beb62988e2576535dce54034bdc43ab6b",
+  "lite": {
+    "problem_ids_path": "lite_problem_ids.txt",
+    "problem_ids_sha256": "7ec135ccfbfdc02cb171002b417fe4971a4b5dce8d2bb6a80e831dc161361a09",
+    "count": 300
+  },
   "verus": {
     "version": "0.2026.04.10.01bf489",
     "commit": "01bf489a0479ecb1f4278e9c82b3c0981684e7f6",

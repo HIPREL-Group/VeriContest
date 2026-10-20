@@ -20,7 +20,7 @@ from pathlib import Path
 
 from . import checks, spec_tests
 from .config import CHECK_KEYS, LIMITS, REPO_ROOT, TASKS, VERUS_BIN, VERUS_FLAGS, release_info
-from .problems import all_problem_ids, problem_dir, select
+from .problems import SPLITS, all_problem_ids, problem_dir, select
 
 
 def score_one(task_key: tuple[str, str], problem_id: str, program: str | None,
@@ -127,7 +127,7 @@ def main(argv=None):
     ap.add_argument("--testcases", type=Path, default=os.environ.get("VERICONTEST_TESTCASES"),
                     help="local copy of the Hugging Face dataset (<family>/<problem>/tests/*.jsonl)")
     ap.add_argument("--out", required=True, type=Path, help="directory for results.jsonl, eval_logs/, summary.json")
-    ap.add_argument("--split", default="full", choices=["full", "leetcode", "codeforces"])
+    ap.add_argument("--split", default="full", choices=SPLITS)
     ap.add_argument("--problems", help="comma-separated subset (debugging only; not a valid submission)")
     ap.add_argument("--workers", type=int, default=max(1, (os.cpu_count() or 2) // 2))
     ap.add_argument("--artifact-prefix", default="programs/",

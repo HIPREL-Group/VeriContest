@@ -30,6 +30,7 @@ results are only comparable within one release.
 | Problem list | `leaderboard/problem_ids.txt` and its sha256 in `release.json` |
 | Verus build | `verus` in `release.json`; `verus/version.json` |
 | Verus toolchain archive | GitHub Release asset; sha256 in `release.json` |
+| Benchmark archive | GitHub Release asset: `benchmark/` without the test cases |
 | Verification flags | `verus.flags` in `release.json` |
 | Test cases | Hugging Face dataset tag with the same name as the git tag |
 | What changed | `CHANGELOG.md` entry; GitHub Release notes |
@@ -53,30 +54,45 @@ builds get pruned, so the archive in our release may become the only copy.
    ```
 
    No `FAIL` line should be printed.
-3. Build the toolchain archive from the release commit. Archive the commit (not
-   the `<rev>:verus` tree) so file times are fixed and the hash is reproducible:
+3. Build the toolchain and benchmark archives from the release commit. Archive
+   the commit (not a `<rev>:<dir>` tree) so file times are fixed and the hashes
+   are reproducible:
 
    ```bash
    REV=<release commit>; VER=$(python3 -c 'import json;print(json.load(open("verus/version.json"))["verus"]["version"])')
    git archive --format=tar "$REV" verus | gzip -n -9 > "verus-$VER-x86-linux.tar.gz"
-   sha256sum "verus-$VER-x86-linux.tar.gz"
+   git archive --format=tar "$REV" benchmark | gzip -n -9 > "vericontest-benchmark-<tag>.tar.gz"
+   sha256sum "verus-$VER-x86-linux.tar.gz" "vericontest-benchmark-<tag>.tar.gz"
    ```
 
-4. Update `leaderboard/release.json` (`id`, `git_tag`, `benchmark_revision`,
-   `counts`, `problem_ids_sha256`, `verus`, `verus_archive`) and the protocol
-   `release` and `verus_version` fields. Run `python3 leaderboard/manage.py validate`
+4. Append the outgoing release to `leaderboard/releases.json` so its submissions
+   stay valid (`id`, `git_tag`, `benchmark_revision`, `counts`,
+   `problem_ids_sha256`, `problem_ids_path`). If the problem list changes, first
+   copy the old list to `leaderboard/problem_ids-<old id>.txt` and point
+   `problem_ids_path` at it. Keep the outgoing release's `lite` object too, with
+   its list copied to `leaderboard/lite_problem_ids-<old id>.txt` if Lite changes.
+   Carry Lite over to the new release as described in
+   [leaderboard/LITE.md](leaderboard/LITE.md). Then update `leaderboard/release.json` (`id`,
+   `git_tag`, `benchmark_revision`, `counts`, `problem_ids_sha256`, `verus`,
+   `verus_archive`) and add protocols for the new release; existing protocols
+   keep their `release`. Run `python3 leaderboard/manage.py validate`
    and `python3 -m unittest discover -s leaderboard -p 'test_*.py'`, then
    `python3 leaderboard/manage.py build` to refresh the website data.
 5. In `CHANGELOG.md`, rename **Unreleased** to the new tag, add the commit and
    Verus version, and start a new empty **Unreleased** section.
 6. Tag the commit and create the GitHub Release. Use that changelog entry as the
-   release notes and attach only the toolchain archive:
+   release notes and attach both archives:
 
    ```bash
    git tag -a <tag> "$REV" -m "VeriContest <tag>"
    git push origin <tag>
-   gh release create <tag> --title "VeriContest <tag>" --notes-file <notes.md> "verus-$VER-x86-linux.tar.gz"
+   gh release create <tag> --title "VeriContest <tag>" --notes-file <notes.md> \
+     "verus-$VER-x86-linux.tar.gz" "vericontest-benchmark-<tag>.tar.gz"
    ```
+
+   Without `gh`, create the release at
+   <https://github.com/HIPREL-Group/VeriContest/releases/new> after pushing the
+   tag, and upload both archives there.
 
 7. If the test cases changed, tag the matching Hugging Face dataset revision
    with the same name.

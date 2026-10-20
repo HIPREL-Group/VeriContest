@@ -1,0 +1,4985 @@
+{
+  "release": {
+    "id": "2026-10.1",
+    "label": "VeriContest \u00b7 1,006 problems",
+    "git_tag": "v2026.10.1",
+    "benchmark_revision": "0fede470992d79acb7b376fa87a25f78a5ce4a0b",
+    "counts": {
+      "leetcode": 722,
+      "codeforces": 284,
+      "full": 1006
+    },
+    "problem_ids_sha256": "30ce91cb076d26b5e40b26ea3fefa65beb62988e2576535dce54034bdc43ab6b",
+    "lite": {
+      "problem_ids_path": "lite_problem_ids.txt",
+      "problem_ids_sha256": "7ec135ccfbfdc02cb171002b417fe4971a4b5dce8d2bb6a80e831dc161361a09",
+      "count": 300
+    },
+    "verus": {
+      "version": "0.2026.04.10.01bf489",
+      "commit": "01bf489a0479ecb1f4278e9c82b3c0981684e7f6",
+      "toolchain": "1.94.0-x86_64-unknown-linux-gnu",
+      "platform": "x86_64-linux",
+      "flags": "--no-cheating --expand-errors --rlimit 100000"
+    },
+    "verus_archive": {
+      "url": "https://github.com/HIPREL-Group/VeriContest/releases/download/v2026.10.1/verus-0.2026.04.10.01bf489-x86-linux.tar.gz",
+      "sha256": "a776c931d5e9fd09714e9ee00edc0c245d9bc35fea701c01c5015c89ef06cc94"
+    }
+  },
+  "releases": [
+    {
+      "id": "2026-10.1",
+      "git_tag": "v2026.10.1",
+      "counts": {
+        "leetcode": 722,
+        "codeforces": 284,
+        "full": 1006
+      },
+      "lite": {
+        "problem_ids_path": "lite_problem_ids.txt",
+        "problem_ids_sha256": "7ec135ccfbfdc02cb171002b417fe4971a4b5dce8d2bb6a80e831dc161361a09",
+        "count": 300
+      }
+    },
+    {
+      "id": "2026-10",
+      "git_tag": "v2026.10",
+      "counts": {
+        "leetcode": 722,
+        "codeforces": 284,
+        "full": 1006
+      }
+    }
+  ],
+  "protocols": [
+    {
+      "id": "model-specgen-nl-2026-10-1",
+      "label": "Model track \u00b7 SpecGen (nl)",
+      "release": "2026-10.1",
+      "track": "fixed_prompt",
+      "task": "SpecGen",
+      "input_mode": "nl",
+      "policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/README.md",
+      "testcases": {
+        "source": "https://huggingface.co/datasets/Gax-c/VeriContest",
+        "revision": "9d6cb8e6233790a0af59774e3c87b486f7e683db"
+      },
+      "evaluator_revision": "ac7418f95dda0ad47b800ab872c60ace5ad1c907",
+      "verus_version": "0.2026.04.10.01bf489",
+      "rustc_version": "1.94.0",
+      "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
+      "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
+      "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts",
+      "spec_review_policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/SPEC_REVIEW.md"
+    },
+    {
+      "id": "model-codegen-nl-2026-10-1",
+      "label": "Model track \u00b7 CodeGen (nl)",
+      "release": "2026-10.1",
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl",
+      "policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/README.md",
+      "testcases": {
+        "source": "https://huggingface.co/datasets/Gax-c/VeriContest",
+        "revision": "9d6cb8e6233790a0af59774e3c87b486f7e683db"
+      },
+      "evaluator_revision": "ac7418f95dda0ad47b800ab872c60ace5ad1c907",
+      "verus_version": "0.2026.04.10.01bf489",
+      "rustc_version": "1.94.0",
+      "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
+      "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
+      "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts"
+    },
+    {
+      "id": "model-codegen-spec-2026-10-1",
+      "label": "Model track \u00b7 CodeGen (spec)",
+      "release": "2026-10.1",
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "spec",
+      "policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/README.md",
+      "testcases": {
+        "source": "https://huggingface.co/datasets/Gax-c/VeriContest",
+        "revision": "9d6cb8e6233790a0af59774e3c87b486f7e683db"
+      },
+      "evaluator_revision": "ac7418f95dda0ad47b800ab872c60ace5ad1c907",
+      "verus_version": "0.2026.04.10.01bf489",
+      "rustc_version": "1.94.0",
+      "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
+      "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
+      "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts"
+    },
+    {
+      "id": "model-codegen-nl-spec-2026-10-1",
+      "label": "Model track \u00b7 CodeGen (nl_spec)",
+      "release": "2026-10.1",
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl_spec",
+      "policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/README.md",
+      "testcases": {
+        "source": "https://huggingface.co/datasets/Gax-c/VeriContest",
+        "revision": "9d6cb8e6233790a0af59774e3c87b486f7e683db"
+      },
+      "evaluator_revision": "ac7418f95dda0ad47b800ab872c60ace5ad1c907",
+      "verus_version": "0.2026.04.10.01bf489",
+      "rustc_version": "1.94.0",
+      "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
+      "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
+      "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts"
+    },
+    {
+      "id": "model-proofgen-code-spec-2026-10-1",
+      "label": "Model track \u00b7 ProofGen (code_spec)",
+      "release": "2026-10.1",
+      "track": "fixed_prompt",
+      "task": "ProofGen",
+      "input_mode": "code_spec",
+      "policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/README.md",
+      "testcases": {
+        "source": "https://huggingface.co/datasets/Gax-c/VeriContest",
+        "revision": "9d6cb8e6233790a0af59774e3c87b486f7e683db"
+      },
+      "evaluator_revision": "ac7418f95dda0ad47b800ab872c60ace5ad1c907",
+      "verus_version": "0.2026.04.10.01bf489",
+      "rustc_version": "1.94.0",
+      "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
+      "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
+      "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts"
+    },
+    {
+      "id": "model-end2end-nl-2026-10-1",
+      "label": "Model track \u00b7 End2End (nl)",
+      "release": "2026-10.1",
+      "track": "fixed_prompt",
+      "task": "End2End",
+      "input_mode": "nl",
+      "policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/README.md",
+      "testcases": {
+        "source": "https://huggingface.co/datasets/Gax-c/VeriContest",
+        "revision": "9d6cb8e6233790a0af59774e3c87b486f7e683db"
+      },
+      "evaluator_revision": "ac7418f95dda0ad47b800ab872c60ace5ad1c907",
+      "verus_version": "0.2026.04.10.01bf489",
+      "rustc_version": "1.94.0",
+      "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
+      "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
+      "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts",
+      "spec_review_policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/SPEC_REVIEW.md"
+    }
+  ],
+  "entries": [
+    {
+      "id": "20261016_claude-opus-4-7_codegen-nl-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Claude Opus 4.7",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_claude-opus-4-7_codegen-nl-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_claude-opus-4-7_codegen-nl-spec_full.jsonl.gz"
+      },
+      "version": "claude-opus-4-7",
+      "team": "VeriContest team",
+      "org": "Anthropic",
+      "org_logo": "static/logos/anthropic.svg",
+      "models": [
+        "claude-opus-4-7"
+      ],
+      "model_names": [
+        "Claude Opus 4.7"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 80.61630218687873,
+      "split_scores": {
+        "full": 80.61630218687873,
+        "leetcode": 76.86980609418282,
+        "codeforces": 90.14084507042253,
+        "lite": 83.33333333333333
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "pass": 811,
+          "fail": 195
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_codegen-nl-spec_full"
+    },
+    {
+      "id": "20261016_claude-opus-4-7_codegen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Claude Opus 4.7",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_claude-opus-4-7_codegen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_claude-opus-4-7_codegen-nl_full.jsonl.gz"
+      },
+      "version": "claude-opus-4-7",
+      "team": "VeriContest team",
+      "org": "Anthropic",
+      "org_logo": "static/logos/anthropic.svg",
+      "models": [
+        "claude-opus-4-7"
+      ],
+      "model_names": [
+        "Claude Opus 4.7"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 95.42743538767395,
+      "split_scores": {
+        "full": 95.42743538767395,
+        "leetcode": 98.33795013850416,
+        "codeforces": 88.02816901408451,
+        "lite": 96.33333333333333
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "fail": 46,
+          "pass": 960
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_codegen-nl_full"
+    },
+    {
+      "id": "20261016_claude-opus-4-7_codegen-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Claude Opus 4.7",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_claude-opus-4-7_codegen-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_claude-opus-4-7_codegen-spec_full.jsonl.gz"
+      },
+      "version": "claude-opus-4-7",
+      "team": "VeriContest team",
+      "org": "Anthropic",
+      "org_logo": "static/logos/anthropic.svg",
+      "models": [
+        "claude-opus-4-7"
+      ],
+      "model_names": [
+        "Claude Opus 4.7"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 77.23658051689861,
+      "split_scores": {
+        "full": 77.23658051689861,
+        "leetcode": 74.93074792243767,
+        "codeforces": 83.09859154929578,
+        "lite": 78.33333333333333
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "pass": 777,
+          "fail": 229
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_codegen-spec_full"
+    },
+    {
+      "id": "20261016_claude-opus-4-7_end2end-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Claude Opus 4.7",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_claude-opus-4-7_end2end-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_claude-opus-4-7_end2end-nl_full.jsonl.gz"
+      },
+      "version": "claude-opus-4-7",
+      "team": "VeriContest team",
+      "org": "Anthropic",
+      "org_logo": "static/logos/anthropic.svg",
+      "models": [
+        "claude-opus-4-7"
+      ],
+      "model_names": [
+        "Claude Opus 4.7"
+      ],
+      "track": "fixed_prompt",
+      "task": "End2End",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-end2end-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 3.5785288270377733,
+      "split_scores": {
+        "full": 3.5785288270377733,
+        "leetcode": 3.601108033240997,
+        "codeforces": 3.5211267605633805,
+        "lite": 2.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_run": 782,
+          "pass": 207,
+          "fail": 17
+        },
+        "verus": {
+          "fail": 782,
+          "pass": 224
+        },
+        "spec_tests": {
+          "not_run": 799,
+          "unsupported": 136,
+          "pass": 31,
+          "fail": 40
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_end2end-nl_full"
+    },
+    {
+      "id": "20261016_claude-opus-4-7_proofgen-code-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Claude Opus 4.7",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_claude-opus-4-7_proofgen-code-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_claude-opus-4-7_proofgen-code-spec_full.jsonl.gz"
+      },
+      "version": "claude-opus-4-7",
+      "team": "VeriContest team",
+      "org": "Anthropic",
+      "org_logo": "static/logos/anthropic.svg",
+      "models": [
+        "claude-opus-4-7"
+      ],
+      "model_names": [
+        "Claude Opus 4.7"
+      ],
+      "track": "fixed_prompt",
+      "task": "ProofGen",
+      "input_mode": "code_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-proofgen-code-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 12.524850894632207,
+      "split_scores": {
+        "full": 12.524850894632207,
+        "leetcode": 10.249307479224377,
+        "codeforces": 18.309859154929576,
+        "lite": 14.666666666666666
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "fail": 880,
+          "pass": 126
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_proofgen-code-spec_full"
+    },
+    {
+      "id": "20261016_claude-opus-4-7_specgen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Claude Opus 4.7",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_claude-opus-4-7_specgen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_claude-opus-4-7_specgen-nl_full.jsonl.gz"
+      },
+      "version": "claude-opus-4-7",
+      "team": "VeriContest team",
+      "org": "Anthropic",
+      "org_logo": "static/logos/anthropic.svg",
+      "models": [
+        "claude-opus-4-7"
+      ],
+      "model_names": [
+        "Claude Opus 4.7"
+      ],
+      "track": "fixed_prompt",
+      "task": "SpecGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-specgen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 27.23658051689861,
+      "split_scores": {
+        "full": 27.23658051689861,
+        "leetcode": 31.994459833795013,
+        "codeforces": 15.140845070422536,
+        "lite": 29.333333333333332
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "fail": 474,
+          "unsupported": 360,
+          "pass": 171,
+          "timeout": 1
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_specgen-nl_full"
+    },
+    {
+      "id": "20261016_claude-sonnet-4-6_codegen-nl-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Claude Sonnet 4.6",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_claude-sonnet-4-6_codegen-nl-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_claude-sonnet-4-6_codegen-nl-spec_full.jsonl.gz"
+      },
+      "version": "claude-sonnet-4-6",
+      "team": "VeriContest team",
+      "org": "Anthropic",
+      "org_logo": "static/logos/anthropic.svg",
+      "models": [
+        "claude-sonnet-4-6"
+      ],
+      "model_names": [
+        "Claude Sonnet 4.6"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 83.7972166998012,
+      "split_scores": {
+        "full": 83.7972166998012,
+        "leetcode": 81.16343490304709,
+        "codeforces": 90.49295774647888,
+        "lite": 86.33333333333333
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "pass": 843,
+          "fail": 163
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_codegen-nl-spec_full"
+    },
+    {
+      "id": "20261016_claude-sonnet-4-6_codegen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Claude Sonnet 4.6",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_claude-sonnet-4-6_codegen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_claude-sonnet-4-6_codegen-nl_full.jsonl.gz"
+      },
+      "version": "claude-sonnet-4-6",
+      "team": "VeriContest team",
+      "org": "Anthropic",
+      "org_logo": "static/logos/anthropic.svg",
+      "models": [
+        "claude-sonnet-4-6"
+      ],
+      "model_names": [
+        "Claude Sonnet 4.6"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 93.83697813121272,
+      "split_scores": {
+        "full": 93.83697813121272,
+        "leetcode": 96.67590027700831,
+        "codeforces": 86.61971830985915,
+        "lite": 93.66666666666667
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "pass": 944,
+          "fail": 62
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_codegen-nl_full"
+    },
+    {
+      "id": "20261016_claude-sonnet-4-6_codegen-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Claude Sonnet 4.6",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_claude-sonnet-4-6_codegen-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_claude-sonnet-4-6_codegen-spec_full.jsonl.gz"
+      },
+      "version": "claude-sonnet-4-6",
+      "team": "VeriContest team",
+      "org": "Anthropic",
+      "org_logo": "static/logos/anthropic.svg",
+      "models": [
+        "claude-sonnet-4-6"
+      ],
+      "model_names": [
+        "Claude Sonnet 4.6"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 82.0079522862823,
+      "split_scores": {
+        "full": 82.0079522862823,
+        "leetcode": 81.4404432132964,
+        "codeforces": 83.45070422535211,
+        "lite": 81.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "pass": 825,
+          "fail": 181
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_codegen-spec_full"
+    },
+    {
+      "id": "20261016_claude-sonnet-4-6_end2end-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Claude Sonnet 4.6",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_claude-sonnet-4-6_end2end-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_claude-sonnet-4-6_end2end-nl_full.jsonl.gz"
+      },
+      "version": "claude-sonnet-4-6",
+      "team": "VeriContest team",
+      "org": "Anthropic",
+      "org_logo": "static/logos/anthropic.svg",
+      "models": [
+        "claude-sonnet-4-6"
+      ],
+      "model_names": [
+        "Claude Sonnet 4.6"
+      ],
+      "track": "fixed_prompt",
+      "task": "End2End",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-end2end-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 3.479125248508946,
+      "split_scores": {
+        "full": 3.479125248508946,
+        "leetcode": 3.3240997229916895,
+        "codeforces": 3.8732394366197185,
+        "lite": 2.6666666666666665
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_run": 925,
+          "pass": 69,
+          "fail": 12
+        },
+        "verus": {
+          "fail": 925,
+          "pass": 81
+        },
+        "spec_tests": {
+          "not_run": 937,
+          "unsupported": 27,
+          "pass": 24,
+          "fail": 18
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_end2end-nl_full"
+    },
+    {
+      "id": "20261016_claude-sonnet-4-6_proofgen-code-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Claude Sonnet 4.6",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_claude-sonnet-4-6_proofgen-code-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_claude-sonnet-4-6_proofgen-code-spec_full.jsonl.gz"
+      },
+      "version": "claude-sonnet-4-6",
+      "team": "VeriContest team",
+      "org": "Anthropic",
+      "org_logo": "static/logos/anthropic.svg",
+      "models": [
+        "claude-sonnet-4-6"
+      ],
+      "model_names": [
+        "Claude Sonnet 4.6"
+      ],
+      "track": "fixed_prompt",
+      "task": "ProofGen",
+      "input_mode": "code_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-proofgen-code-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 13.518886679920477,
+      "split_scores": {
+        "full": 13.518886679920477,
+        "leetcode": 11.357340720221607,
+        "codeforces": 19.014084507042252,
+        "lite": 12.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "fail": 869,
+          "pass": 136,
+          "timeout": 1
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_proofgen-code-spec_full"
+    },
+    {
+      "id": "20261016_claude-sonnet-4-6_specgen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Claude Sonnet 4.6",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_claude-sonnet-4-6_specgen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_claude-sonnet-4-6_specgen-nl_full.jsonl.gz"
+      },
+      "version": "claude-sonnet-4-6",
+      "team": "VeriContest team",
+      "org": "Anthropic",
+      "org_logo": "static/logos/anthropic.svg",
+      "models": [
+        "claude-sonnet-4-6"
+      ],
+      "model_names": [
+        "Claude Sonnet 4.6"
+      ],
+      "track": "fixed_prompt",
+      "task": "SpecGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-specgen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 17.296222664015904,
+      "split_scores": {
+        "full": 17.296222664015904,
+        "leetcode": 20.3601108033241,
+        "codeforces": 9.507042253521126,
+        "lite": 16.333333333333332
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "fail": 652,
+          "unsupported": 242,
+          "pass": 103,
+          "timeout": 9
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_specgen-nl_full"
+    },
+    {
+      "id": "20261016_deepseek-v4-flash_codegen-nl-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "DeepSeek V4 Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_deepseek-v4-flash_codegen-nl-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_deepseek-v4-flash_codegen-nl-spec_full.jsonl.gz"
+      },
+      "version": "deepseek-v4-flash",
+      "team": "VeriContest team",
+      "org": "DeepSeek",
+      "org_logo": "static/logos/deepseek.svg",
+      "models": [
+        "deepseek-v4-flash"
+      ],
+      "model_names": [
+        "DeepSeek V4 Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 64.51292246520875,
+      "split_scores": {
+        "full": 64.51292246520875,
+        "leetcode": 68.5595567867036,
+        "codeforces": 54.225352112676056,
+        "lite": 62.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "fail": 357,
+          "pass": 649
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_codegen-nl-spec_full"
+    },
+    {
+      "id": "20261016_deepseek-v4-flash_codegen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "DeepSeek V4 Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_deepseek-v4-flash_codegen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_deepseek-v4-flash_codegen-nl_full.jsonl.gz"
+      },
+      "version": "deepseek-v4-flash",
+      "team": "VeriContest team",
+      "org": "DeepSeek",
+      "org_logo": "static/logos/deepseek.svg",
+      "models": [
+        "deepseek-v4-flash"
+      ],
+      "model_names": [
+        "DeepSeek V4 Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 82.20675944333996,
+      "split_scores": {
+        "full": 82.20675944333996,
+        "leetcode": 85.45706371191136,
+        "codeforces": 73.94366197183099,
+        "lite": 85.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "pass": 827,
+          "fail": 179
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_codegen-nl_full"
+    },
+    {
+      "id": "20261016_deepseek-v4-flash_codegen-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "DeepSeek V4 Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_deepseek-v4-flash_codegen-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_deepseek-v4-flash_codegen-spec_full.jsonl.gz"
+      },
+      "version": "deepseek-v4-flash",
+      "team": "VeriContest team",
+      "org": "DeepSeek",
+      "org_logo": "static/logos/deepseek.svg",
+      "models": [
+        "deepseek-v4-flash"
+      ],
+      "model_names": [
+        "DeepSeek V4 Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 64.31411530815109,
+      "split_scores": {
+        "full": 64.31411530815109,
+        "leetcode": 62.880886426592795,
+        "codeforces": 67.95774647887323,
+        "lite": 62.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "fail": 359,
+          "pass": 647
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_codegen-spec_full"
+    },
+    {
+      "id": "20261016_deepseek-v4-flash_end2end-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "DeepSeek V4 Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_deepseek-v4-flash_end2end-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_deepseek-v4-flash_end2end-nl_full.jsonl.gz"
+      },
+      "version": "deepseek-v4-flash",
+      "team": "VeriContest team",
+      "org": "DeepSeek",
+      "org_logo": "static/logos/deepseek.svg",
+      "models": [
+        "deepseek-v4-flash"
+      ],
+      "model_names": [
+        "DeepSeek V4 Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "End2End",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-end2end-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 1.1928429423459244,
+      "split_scores": {
+        "full": 1.1928429423459244,
+        "leetcode": 1.3850415512465375,
+        "codeforces": 0.704225352112676,
+        "lite": 0.3333333333333333
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_run": 981,
+          "fail": 4,
+          "pass": 21
+        },
+        "verus": {
+          "fail": 981,
+          "pass": 25
+        },
+        "spec_tests": {
+          "not_run": 985,
+          "unsupported": 8,
+          "pass": 9,
+          "fail": 4
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_end2end-nl_full"
+    },
+    {
+      "id": "20261016_deepseek-v4-flash_proofgen-code-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "DeepSeek V4 Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_deepseek-v4-flash_proofgen-code-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_deepseek-v4-flash_proofgen-code-spec_full.jsonl.gz"
+      },
+      "version": "deepseek-v4-flash",
+      "team": "VeriContest team",
+      "org": "DeepSeek",
+      "org_logo": "static/logos/deepseek.svg",
+      "models": [
+        "deepseek-v4-flash"
+      ],
+      "model_names": [
+        "DeepSeek V4 Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "ProofGen",
+      "input_mode": "code_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-proofgen-code-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 6.361829025844931,
+      "split_scores": {
+        "full": 6.361829025844931,
+        "leetcode": 4.986149584487535,
+        "codeforces": 9.859154929577464,
+        "lite": 5.333333333333333
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "fail": 941,
+          "timeout": 1,
+          "pass": 64
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_proofgen-code-spec_full"
+    },
+    {
+      "id": "20261016_deepseek-v4-flash_specgen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "DeepSeek V4 Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_deepseek-v4-flash_specgen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_deepseek-v4-flash_specgen-nl_full.jsonl.gz"
+      },
+      "version": "deepseek-v4-flash",
+      "team": "VeriContest team",
+      "org": "DeepSeek",
+      "org_logo": "static/logos/deepseek.svg",
+      "models": [
+        "deepseek-v4-flash"
+      ],
+      "model_names": [
+        "DeepSeek V4 Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "SpecGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-specgen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 9.74155069582505,
+      "split_scores": {
+        "full": 9.74155069582505,
+        "leetcode": 11.911357340720222,
+        "codeforces": 4.225352112676056,
+        "lite": 9.333333333333334
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "fail": 767,
+          "unsupported": 161,
+          "pass": 78
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_specgen-nl_full"
+    },
+    {
+      "id": "20261016_deepseek-v4-pro_codegen-nl-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "DeepSeek V4 Pro",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_deepseek-v4-pro_codegen-nl-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_deepseek-v4-pro_codegen-nl-spec_full.jsonl.gz"
+      },
+      "version": "deepseek-v4-pro",
+      "team": "VeriContest team",
+      "org": "DeepSeek",
+      "org_logo": "static/logos/deepseek.svg",
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "model_names": [
+        "DeepSeek V4 Pro"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 73.06163021868787,
+      "split_scores": {
+        "full": 73.06163021868787,
+        "leetcode": 70.08310249307479,
+        "codeforces": 80.63380281690141,
+        "lite": 73.66666666666667
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "fail": 271,
+          "pass": 735
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_codegen-nl-spec_full"
+    },
+    {
+      "id": "20261016_deepseek-v4-pro_codegen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "DeepSeek V4 Pro",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_deepseek-v4-pro_codegen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_deepseek-v4-pro_codegen-nl_full.jsonl.gz"
+      },
+      "version": "deepseek-v4-pro",
+      "team": "VeriContest team",
+      "org": "DeepSeek",
+      "org_logo": "static/logos/deepseek.svg",
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "model_names": [
+        "DeepSeek V4 Pro"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 92.04771371769384,
+      "split_scores": {
+        "full": 92.04771371769384,
+        "leetcode": 95.98337950138504,
+        "codeforces": 82.04225352112677,
+        "lite": 94.33333333333333
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "pass": 926,
+          "fail": 80
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_codegen-nl_full"
+    },
+    {
+      "id": "20261016_deepseek-v4-pro_codegen-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "DeepSeek V4 Pro",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_deepseek-v4-pro_codegen-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_deepseek-v4-pro_codegen-spec_full.jsonl.gz"
+      },
+      "version": "deepseek-v4-pro",
+      "team": "VeriContest team",
+      "org": "DeepSeek",
+      "org_logo": "static/logos/deepseek.svg",
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "model_names": [
+        "DeepSeek V4 Pro"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 66.79920477137176,
+      "split_scores": {
+        "full": 66.79920477137176,
+        "leetcode": 65.51246537396122,
+        "codeforces": 70.07042253521126,
+        "lite": 65.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "fail": 334,
+          "pass": 672
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_codegen-spec_full"
+    },
+    {
+      "id": "20261016_deepseek-v4-pro_end2end-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "DeepSeek V4 Pro",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_deepseek-v4-pro_end2end-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_deepseek-v4-pro_end2end-nl_full.jsonl.gz"
+      },
+      "version": "deepseek-v4-pro",
+      "team": "VeriContest team",
+      "org": "DeepSeek",
+      "org_logo": "static/logos/deepseek.svg",
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "model_names": [
+        "DeepSeek V4 Pro"
+      ],
+      "track": "fixed_prompt",
+      "task": "End2End",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-end2end-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 1.2922465208747516,
+      "split_scores": {
+        "full": 1.2922465208747516,
+        "leetcode": 1.2465373961218837,
+        "codeforces": 1.408450704225352,
+        "lite": 1.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_run": 982,
+          "pass": 22,
+          "fail": 2
+        },
+        "verus": {
+          "fail": 982,
+          "pass": 24
+        },
+        "spec_tests": {
+          "not_run": 984,
+          "pass": 11,
+          "unsupported": 7,
+          "fail": 4
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_end2end-nl_full"
+    },
+    {
+      "id": "20261016_deepseek-v4-pro_proofgen-code-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "DeepSeek V4 Pro",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_deepseek-v4-pro_proofgen-code-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_deepseek-v4-pro_proofgen-code-spec_full.jsonl.gz"
+      },
+      "version": "deepseek-v4-pro",
+      "team": "VeriContest team",
+      "org": "DeepSeek",
+      "org_logo": "static/logos/deepseek.svg",
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "model_names": [
+        "DeepSeek V4 Pro"
+      ],
+      "track": "fixed_prompt",
+      "task": "ProofGen",
+      "input_mode": "code_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-proofgen-code-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 5.467196819085487,
+      "split_scores": {
+        "full": 5.467196819085487,
+        "leetcode": 4.7091412742382275,
+        "codeforces": 7.394366197183099,
+        "lite": 5.333333333333333
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "fail": 950,
+          "pass": 55,
+          "timeout": 1
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_proofgen-code-spec_full"
+    },
+    {
+      "id": "20261016_deepseek-v4-pro_specgen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "DeepSeek V4 Pro",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_deepseek-v4-pro_specgen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_deepseek-v4-pro_specgen-nl_full.jsonl.gz"
+      },
+      "version": "deepseek-v4-pro",
+      "team": "VeriContest team",
+      "org": "DeepSeek",
+      "org_logo": "static/logos/deepseek.svg",
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "model_names": [
+        "DeepSeek V4 Pro"
+      ],
+      "track": "fixed_prompt",
+      "task": "SpecGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-specgen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 12.127236580516898,
+      "split_scores": {
+        "full": 12.127236580516898,
+        "leetcode": 13.71191135734072,
+        "codeforces": 8.098591549295774,
+        "lite": 12.333333333333334
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "fail": 653,
+          "unsupported": 257,
+          "pass": 96
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_specgen-nl_full"
+    },
+    {
+      "id": "20261016_gemini-3-1-pro_codegen-nl-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Gemini 3.1 Pro",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gemini-3-1-pro_codegen-nl-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gemini-3-1-pro_codegen-nl-spec_full.jsonl.gz"
+      },
+      "version": "gemini-3.1-pro-preview",
+      "team": "VeriContest team",
+      "org": "Google",
+      "org_logo": "static/logos/google.svg",
+      "models": [
+        "gemini-3.1-pro-preview"
+      ],
+      "model_names": [
+        "Gemini 3.1 Pro"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 89.86083499005964,
+      "split_scores": {
+        "full": 89.86083499005964,
+        "leetcode": 87.25761772853186,
+        "codeforces": 96.47887323943662,
+        "lite": 87.66666666666667
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "pass": 904,
+          "fail": 102
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_codegen-nl-spec_full"
+    },
+    {
+      "id": "20261016_gemini-3-1-pro_codegen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Gemini 3.1 Pro",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gemini-3-1-pro_codegen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gemini-3-1-pro_codegen-nl_full.jsonl.gz"
+      },
+      "version": "gemini-3.1-pro-preview",
+      "team": "VeriContest team",
+      "org": "Google",
+      "org_logo": "static/logos/google.svg",
+      "models": [
+        "gemini-3.1-pro-preview"
+      ],
+      "model_names": [
+        "Gemini 3.1 Pro"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 94.13518886679921,
+      "split_scores": {
+        "full": 94.13518886679921,
+        "leetcode": 95.01385041551247,
+        "codeforces": 91.90140845070422,
+        "lite": 92.33333333333333
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "pass": 947,
+          "fail": 59
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_codegen-nl_full"
+    },
+    {
+      "id": "20261016_gemini-3-1-pro_codegen-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Gemini 3.1 Pro",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gemini-3-1-pro_codegen-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gemini-3-1-pro_codegen-spec_full.jsonl.gz"
+      },
+      "version": "gemini-3.1-pro-preview",
+      "team": "VeriContest team",
+      "org": "Google",
+      "org_logo": "static/logos/google.svg",
+      "models": [
+        "gemini-3.1-pro-preview"
+      ],
+      "model_names": [
+        "Gemini 3.1 Pro"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 80.61630218687873,
+      "split_scores": {
+        "full": 80.61630218687873,
+        "leetcode": 79.3628808864266,
+        "codeforces": 83.80281690140845,
+        "lite": 82.66666666666667
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "pass": 811,
+          "fail": 195
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_codegen-spec_full"
+    },
+    {
+      "id": "20261016_gemini-3-1-pro_end2end-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Gemini 3.1 Pro",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gemini-3-1-pro_end2end-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gemini-3-1-pro_end2end-nl_full.jsonl.gz"
+      },
+      "version": "gemini-3.1-pro-preview",
+      "team": "VeriContest team",
+      "org": "Google",
+      "org_logo": "static/logos/google.svg",
+      "models": [
+        "gemini-3.1-pro-preview"
+      ],
+      "model_names": [
+        "Gemini 3.1 Pro"
+      ],
+      "track": "fixed_prompt",
+      "task": "End2End",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-end2end-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 3.6779324055666005,
+      "split_scores": {
+        "full": 3.6779324055666005,
+        "leetcode": 3.3240997229916895,
+        "codeforces": 4.577464788732394,
+        "lite": 2.6666666666666665
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_run": 922,
+          "pass": 82,
+          "fail": 2
+        },
+        "verus": {
+          "fail": 893,
+          "pass": 84,
+          "not_run": 29
+        },
+        "spec_tests": {
+          "not_run": 924,
+          "unsupported": 39,
+          "pass": 28,
+          "fail": 15
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_end2end-nl_full"
+    },
+    {
+      "id": "20261016_gemini-3-1-pro_proofgen-code-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Gemini 3.1 Pro",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gemini-3-1-pro_proofgen-code-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gemini-3-1-pro_proofgen-code-spec_full.jsonl.gz"
+      },
+      "version": "gemini-3.1-pro-preview",
+      "team": "VeriContest team",
+      "org": "Google",
+      "org_logo": "static/logos/google.svg",
+      "models": [
+        "gemini-3.1-pro-preview"
+      ],
+      "model_names": [
+        "Gemini 3.1 Pro"
+      ],
+      "track": "fixed_prompt",
+      "task": "ProofGen",
+      "input_mode": "code_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-proofgen-code-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 12.922465208747514,
+      "split_scores": {
+        "full": 12.922465208747514,
+        "leetcode": 11.634349030470915,
+        "codeforces": 16.197183098591548,
+        "lite": 13.666666666666666
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "fail": 870,
+          "pass": 130,
+          "not_run": 6
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_proofgen-code-spec_full"
+    },
+    {
+      "id": "20261016_gemini-3-1-pro_specgen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Gemini 3.1 Pro",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gemini-3-1-pro_specgen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gemini-3-1-pro_specgen-nl_full.jsonl.gz"
+      },
+      "version": "gemini-3.1-pro-preview",
+      "team": "VeriContest team",
+      "org": "Google",
+      "org_logo": "static/logos/google.svg",
+      "models": [
+        "gemini-3.1-pro-preview"
+      ],
+      "model_names": [
+        "Gemini 3.1 Pro"
+      ],
+      "track": "fixed_prompt",
+      "task": "SpecGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-specgen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 22.564612326043736,
+      "split_scores": {
+        "full": 22.564612326043736,
+        "leetcode": 23.9612188365651,
+        "codeforces": 19.014084507042252,
+        "lite": 22.333333333333332
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "fail": 682,
+          "unsupported": 193,
+          "pass": 131
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_specgen-nl_full"
+    },
+    {
+      "id": "20261016_gemini-3-flash_codegen-nl-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Gemini 3 Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gemini-3-flash_codegen-nl-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gemini-3-flash_codegen-nl-spec_full.jsonl.gz"
+      },
+      "version": "gemini-3-flash-preview",
+      "team": "VeriContest team",
+      "org": "Google",
+      "org_logo": "static/logos/google.svg",
+      "models": [
+        "gemini-3-flash-preview"
+      ],
+      "model_names": [
+        "Gemini 3 Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 36.58051689860835,
+      "split_scores": {
+        "full": 36.58051689860835,
+        "leetcode": 36.56509695290859,
+        "codeforces": 36.61971830985915,
+        "lite": 37.666666666666664
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "fail": 638,
+          "pass": 368
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_codegen-nl-spec_full"
+    },
+    {
+      "id": "20261016_gemini-3-flash_codegen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Gemini 3 Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gemini-3-flash_codegen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gemini-3-flash_codegen-nl_full.jsonl.gz"
+      },
+      "version": "gemini-3-flash-preview",
+      "team": "VeriContest team",
+      "org": "Google",
+      "org_logo": "static/logos/google.svg",
+      "models": [
+        "gemini-3-flash-preview"
+      ],
+      "model_names": [
+        "Gemini 3 Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 53.08151093439364,
+      "split_scores": {
+        "full": 53.08151093439364,
+        "leetcode": 45.42936288088643,
+        "codeforces": 72.53521126760563,
+        "lite": 56.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "pass": 534,
+          "fail": 472
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_codegen-nl_full"
+    },
+    {
+      "id": "20261016_gemini-3-flash_codegen-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Gemini 3 Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gemini-3-flash_codegen-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gemini-3-flash_codegen-spec_full.jsonl.gz"
+      },
+      "version": "gemini-3-flash-preview",
+      "team": "VeriContest team",
+      "org": "Google",
+      "org_logo": "static/logos/google.svg",
+      "models": [
+        "gemini-3-flash-preview"
+      ],
+      "model_names": [
+        "Gemini 3 Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 32.50497017892644,
+      "split_scores": {
+        "full": 32.50497017892644,
+        "leetcode": 31.994459833795013,
+        "codeforces": 33.80281690140845,
+        "lite": 30.666666666666668
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "fail": 679,
+          "pass": 327
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_codegen-spec_full"
+    },
+    {
+      "id": "20261016_gemini-3-flash_end2end-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Gemini 3 Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gemini-3-flash_end2end-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gemini-3-flash_end2end-nl_full.jsonl.gz"
+      },
+      "version": "gemini-3-flash-preview",
+      "team": "VeriContest team",
+      "org": "Google",
+      "org_logo": "static/logos/google.svg",
+      "models": [
+        "gemini-3-flash-preview"
+      ],
+      "model_names": [
+        "Gemini 3 Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "End2End",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-end2end-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 1.2922465208747516,
+      "split_scores": {
+        "full": 1.2922465208747516,
+        "leetcode": 1.5235457063711912,
+        "codeforces": 0.704225352112676,
+        "lite": 1.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_run": 989,
+          "pass": 17
+        },
+        "verus": {
+          "fail": 989,
+          "pass": 17
+        },
+        "spec_tests": {
+          "not_run": 989,
+          "unsupported": 4,
+          "pass": 11,
+          "fail": 2
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_end2end-nl_full"
+    },
+    {
+      "id": "20261016_gemini-3-flash_proofgen-code-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Gemini 3 Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gemini-3-flash_proofgen-code-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gemini-3-flash_proofgen-code-spec_full.jsonl.gz"
+      },
+      "version": "gemini-3-flash-preview",
+      "team": "VeriContest team",
+      "org": "Google",
+      "org_logo": "static/logos/google.svg",
+      "models": [
+        "gemini-3-flash-preview"
+      ],
+      "model_names": [
+        "Gemini 3 Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "ProofGen",
+      "input_mode": "code_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-proofgen-code-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 6.163021868787276,
+      "split_scores": {
+        "full": 6.163021868787276,
+        "leetcode": 5.401662049861496,
+        "codeforces": 8.098591549295774,
+        "lite": 6.333333333333333
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "fail": 944,
+          "pass": 62
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_proofgen-code-spec_full"
+    },
+    {
+      "id": "20261016_gemini-3-flash_specgen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Gemini 3 Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gemini-3-flash_specgen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gemini-3-flash_specgen-nl_full.jsonl.gz"
+      },
+      "version": "gemini-3-flash-preview",
+      "team": "VeriContest team",
+      "org": "Google",
+      "org_logo": "static/logos/google.svg",
+      "models": [
+        "gemini-3-flash-preview"
+      ],
+      "model_names": [
+        "Gemini 3 Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "SpecGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-specgen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 22.664015904572565,
+      "split_scores": {
+        "full": 22.664015904572565,
+        "leetcode": 27.285318559556785,
+        "codeforces": 10.915492957746478,
+        "lite": 21.333333333333332
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "fail": 612,
+          "unsupported": 260,
+          "pass": 132,
+          "timeout": 2
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_specgen-nl_full"
+    },
+    {
+      "id": "20261016_glm-4-7-flash_codegen-nl-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GLM-4.7-Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_glm-4-7-flash_codegen-nl-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_glm-4-7-flash_codegen-nl-spec_full.jsonl.gz"
+      },
+      "version": "zai-org/GLM-4.7-Flash",
+      "team": "VeriContest team",
+      "org": "Z.ai",
+      "org_logo": "static/logos/zai.svg",
+      "models": [
+        "zai-org/GLM-4.7-Flash"
+      ],
+      "model_names": [
+        "GLM-4.7-Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 22.16699801192843,
+      "split_scores": {
+        "full": 22.16699801192843,
+        "leetcode": 20.221606648199447,
+        "codeforces": 27.112676056338028,
+        "lite": 19.666666666666668
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "fail": 783,
+          "pass": 223
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_codegen-nl-spec_full"
+    },
+    {
+      "id": "20261016_glm-4-7-flash_codegen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GLM-4.7-Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_glm-4-7-flash_codegen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_glm-4-7-flash_codegen-nl_full.jsonl.gz"
+      },
+      "version": "zai-org/GLM-4.7-Flash",
+      "team": "VeriContest team",
+      "org": "Z.ai",
+      "org_logo": "static/logos/zai.svg",
+      "models": [
+        "zai-org/GLM-4.7-Flash"
+      ],
+      "model_names": [
+        "GLM-4.7-Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 43.33996023856859,
+      "split_scores": {
+        "full": 43.33996023856859,
+        "leetcode": 51.10803324099723,
+        "codeforces": 23.591549295774648,
+        "lite": 42.666666666666664
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "fail": 570,
+          "pass": 436
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_codegen-nl_full"
+    },
+    {
+      "id": "20261016_glm-4-7-flash_codegen-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GLM-4.7-Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_glm-4-7-flash_codegen-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_glm-4-7-flash_codegen-spec_full.jsonl.gz"
+      },
+      "version": "zai-org/GLM-4.7-Flash",
+      "team": "VeriContest team",
+      "org": "Z.ai",
+      "org_logo": "static/logos/zai.svg",
+      "models": [
+        "zai-org/GLM-4.7-Flash"
+      ],
+      "model_names": [
+        "GLM-4.7-Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 17.09741550695825,
+      "split_scores": {
+        "full": 17.09741550695825,
+        "leetcode": 17.174515235457065,
+        "codeforces": 16.901408450704224,
+        "lite": 15.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "fail": 834,
+          "pass": 172
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_codegen-spec_full"
+    },
+    {
+      "id": "20261016_glm-4-7-flash_end2end-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GLM-4.7-Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_glm-4-7-flash_end2end-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_glm-4-7-flash_end2end-nl_full.jsonl.gz"
+      },
+      "version": "zai-org/GLM-4.7-Flash",
+      "team": "VeriContest team",
+      "org": "Z.ai",
+      "org_logo": "static/logos/zai.svg",
+      "models": [
+        "zai-org/GLM-4.7-Flash"
+      ],
+      "model_names": [
+        "GLM-4.7-Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "End2End",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-end2end-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 0.6958250497017893,
+      "split_scores": {
+        "full": 0.6958250497017893,
+        "leetcode": 0.6925207756232687,
+        "codeforces": 0.704225352112676,
+        "lite": 0.3333333333333333
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_run": 987,
+          "fail": 10,
+          "pass": 9
+        },
+        "verus": {
+          "fail": 987,
+          "pass": 19
+        },
+        "spec_tests": {
+          "not_run": 997,
+          "pass": 7,
+          "unsupported": 2
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_end2end-nl_full"
+    },
+    {
+      "id": "20261016_glm-4-7-flash_proofgen-code-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GLM-4.7-Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_glm-4-7-flash_proofgen-code-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_glm-4-7-flash_proofgen-code-spec_full.jsonl.gz"
+      },
+      "version": "zai-org/GLM-4.7-Flash",
+      "team": "VeriContest team",
+      "org": "Z.ai",
+      "org_logo": "static/logos/zai.svg",
+      "models": [
+        "zai-org/GLM-4.7-Flash"
+      ],
+      "model_names": [
+        "GLM-4.7-Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "ProofGen",
+      "input_mode": "code_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-proofgen-code-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 5.268389662027833,
+      "split_scores": {
+        "full": 5.268389662027833,
+        "leetcode": 3.8781163434903045,
+        "codeforces": 8.80281690140845,
+        "lite": 5.333333333333333
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "fail": 953,
+          "pass": 53
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_proofgen-code-spec_full"
+    },
+    {
+      "id": "20261016_glm-4-7-flash_specgen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GLM-4.7-Flash",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_glm-4-7-flash_specgen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_glm-4-7-flash_specgen-nl_full.jsonl.gz"
+      },
+      "version": "zai-org/GLM-4.7-Flash",
+      "team": "VeriContest team",
+      "org": "Z.ai",
+      "org_logo": "static/logos/zai.svg",
+      "models": [
+        "zai-org/GLM-4.7-Flash"
+      ],
+      "model_names": [
+        "GLM-4.7-Flash"
+      ],
+      "track": "fixed_prompt",
+      "task": "SpecGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-specgen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 3.6779324055666005,
+      "split_scores": {
+        "full": 3.6779324055666005,
+        "leetcode": 4.293628808864266,
+        "codeforces": 2.112676056338028,
+        "lite": 3.6666666666666665
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "fail": 890,
+          "unsupported": 84,
+          "pass": 32
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_specgen-nl_full"
+    },
+    {
+      "id": "20261016_gpt-5-4-mini_codegen-nl-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GPT-5.4 mini",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gpt-5-4-mini_codegen-nl-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gpt-5-4-mini_codegen-nl-spec_full.jsonl.gz"
+      },
+      "version": "gpt-5.4-mini-2026-03-17",
+      "team": "VeriContest team",
+      "org": "OpenAI",
+      "org_logo": "static/logos/openai.svg",
+      "models": [
+        "gpt-5.4-mini-2026-03-17"
+      ],
+      "model_names": [
+        "GPT-5.4 mini"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 63.02186878727634,
+      "split_scores": {
+        "full": 63.02186878727634,
+        "leetcode": 61.634349030470915,
+        "codeforces": 66.54929577464789,
+        "lite": 61.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": null,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "fail": 372,
+          "pass": 634
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_codegen-nl-spec_full"
+    },
+    {
+      "id": "20261016_gpt-5-4-mini_codegen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GPT-5.4 mini",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gpt-5-4-mini_codegen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gpt-5-4-mini_codegen-nl_full.jsonl.gz"
+      },
+      "version": "gpt-5.4-mini-2026-03-17",
+      "team": "VeriContest team",
+      "org": "OpenAI",
+      "org_logo": "static/logos/openai.svg",
+      "models": [
+        "gpt-5.4-mini-2026-03-17"
+      ],
+      "model_names": [
+        "GPT-5.4 mini"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 83.89662027833002,
+      "split_scores": {
+        "full": 83.89662027833002,
+        "leetcode": 93.62880886426593,
+        "codeforces": 59.15492957746479,
+        "lite": 84.66666666666667
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": null,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "pass": 844,
+          "fail": 162
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_codegen-nl_full"
+    },
+    {
+      "id": "20261016_gpt-5-4-mini_codegen-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GPT-5.4 mini",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gpt-5-4-mini_codegen-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gpt-5-4-mini_codegen-spec_full.jsonl.gz"
+      },
+      "version": "gpt-5.4-mini-2026-03-17",
+      "team": "VeriContest team",
+      "org": "OpenAI",
+      "org_logo": "static/logos/openai.svg",
+      "models": [
+        "gpt-5.4-mini-2026-03-17"
+      ],
+      "model_names": [
+        "GPT-5.4 mini"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 54.57256461232604,
+      "split_scores": {
+        "full": 54.57256461232604,
+        "leetcode": 53.46260387811634,
+        "codeforces": 57.394366197183096,
+        "lite": 53.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": null,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "fail": 457,
+          "pass": 549
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_codegen-spec_full"
+    },
+    {
+      "id": "20261016_gpt-5-4-mini_end2end-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GPT-5.4 mini",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gpt-5-4-mini_end2end-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gpt-5-4-mini_end2end-nl_full.jsonl.gz"
+      },
+      "version": "gpt-5.4-mini-2026-03-17",
+      "team": "VeriContest team",
+      "org": "OpenAI",
+      "org_logo": "static/logos/openai.svg",
+      "models": [
+        "gpt-5.4-mini-2026-03-17"
+      ],
+      "model_names": [
+        "GPT-5.4 mini"
+      ],
+      "track": "fixed_prompt",
+      "task": "End2End",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-end2end-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 1.4910536779324055,
+      "split_scores": {
+        "full": 1.4910536779324055,
+        "leetcode": 1.6620498614958448,
+        "codeforces": 1.056338028169014,
+        "lite": 0.6666666666666666
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": null,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_run": 969,
+          "fail": 14,
+          "pass": 23
+        },
+        "verus": {
+          "fail": 969,
+          "pass": 37
+        },
+        "spec_tests": {
+          "not_run": 983,
+          "pass": 13,
+          "unsupported": 8,
+          "fail": 2
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_end2end-nl_full"
+    },
+    {
+      "id": "20261016_gpt-5-4-mini_proofgen-code-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GPT-5.4 mini",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gpt-5-4-mini_proofgen-code-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gpt-5-4-mini_proofgen-code-spec_full.jsonl.gz"
+      },
+      "version": "gpt-5.4-mini-2026-03-17",
+      "team": "VeriContest team",
+      "org": "OpenAI",
+      "org_logo": "static/logos/openai.svg",
+      "models": [
+        "gpt-5.4-mini-2026-03-17"
+      ],
+      "model_names": [
+        "GPT-5.4 mini"
+      ],
+      "track": "fixed_prompt",
+      "task": "ProofGen",
+      "input_mode": "code_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-proofgen-code-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 6.361829025844931,
+      "split_scores": {
+        "full": 6.361829025844931,
+        "leetcode": 4.847645429362881,
+        "codeforces": 10.211267605633802,
+        "lite": 6.333333333333333
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": null,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "fail": 942,
+          "pass": 64
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_proofgen-code-spec_full"
+    },
+    {
+      "id": "20261016_gpt-5-4-mini_specgen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GPT-5.4 mini",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gpt-5-4-mini_specgen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gpt-5-4-mini_specgen-nl_full.jsonl.gz"
+      },
+      "version": "gpt-5.4-mini-2026-03-17",
+      "team": "VeriContest team",
+      "org": "OpenAI",
+      "org_logo": "static/logos/openai.svg",
+      "models": [
+        "gpt-5.4-mini-2026-03-17"
+      ],
+      "model_names": [
+        "GPT-5.4 mini"
+      ],
+      "track": "fixed_prompt",
+      "task": "SpecGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-specgen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 7.852882703777336,
+      "split_scores": {
+        "full": 7.852882703777336,
+        "leetcode": 10.110803324099724,
+        "codeforces": 2.112676056338028,
+        "lite": 7.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": null,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "unsupported": 233,
+          "fail": 650,
+          "pass": 73,
+          "timeout": 50
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_specgen-nl_full"
+    },
+    {
+      "id": "20261016_gpt-5-5_codegen-nl-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GPT-5.5",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gpt-5-5_codegen-nl-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gpt-5-5_codegen-nl-spec_full.jsonl.gz"
+      },
+      "version": "gpt-5.5-2026-04-23",
+      "team": "VeriContest team",
+      "org": "OpenAI",
+      "org_logo": "static/logos/openai.svg",
+      "models": [
+        "gpt-5.5-2026-04-23",
+        "gpt-5.5"
+      ],
+      "model_names": [
+        "GPT-5.5"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 84.49304174950298,
+      "split_scores": {
+        "full": 84.49304174950298,
+        "leetcode": 83.10249307479225,
+        "codeforces": 88.02816901408451,
+        "lite": 82.66666666666667
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "pass": 850,
+          "fail": 156
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_codegen-nl-spec_full"
+    },
+    {
+      "id": "20261016_gpt-5-5_codegen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GPT-5.5",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gpt-5-5_codegen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gpt-5-5_codegen-nl_full.jsonl.gz"
+      },
+      "version": "gpt-5.5-2026-04-23",
+      "team": "VeriContest team",
+      "org": "OpenAI",
+      "org_logo": "static/logos/openai.svg",
+      "models": [
+        "gpt-5.5-2026-04-23",
+        "gpt-5.5"
+      ],
+      "model_names": [
+        "GPT-5.5"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 97.51491053677933,
+      "split_scores": {
+        "full": 97.51491053677933,
+        "leetcode": 97.09141274238227,
+        "codeforces": 98.59154929577464,
+        "lite": 97.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "pass": 981,
+          "fail": 25
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_codegen-nl_full"
+    },
+    {
+      "id": "20261016_gpt-5-5_codegen-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GPT-5.5",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gpt-5-5_codegen-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gpt-5-5_codegen-spec_full.jsonl.gz"
+      },
+      "version": "gpt-5.5-2026-04-23",
+      "team": "VeriContest team",
+      "org": "OpenAI",
+      "org_logo": "static/logos/openai.svg",
+      "models": [
+        "gpt-5.5-2026-04-23",
+        "gpt-5.5"
+      ],
+      "model_names": [
+        "GPT-5.5"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 77.43538767395626,
+      "split_scores": {
+        "full": 77.43538767395626,
+        "leetcode": 76.73130193905817,
+        "codeforces": 79.22535211267606,
+        "lite": 75.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "pass": 779,
+          "fail": 227
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_codegen-spec_full"
+    },
+    {
+      "id": "20261016_gpt-5-5_end2end-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GPT-5.5",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gpt-5-5_end2end-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gpt-5-5_end2end-nl_full.jsonl.gz"
+      },
+      "version": "gpt-5.5-2026-04-23",
+      "team": "VeriContest team",
+      "org": "OpenAI",
+      "org_logo": "static/logos/openai.svg",
+      "models": [
+        "gpt-5.5-2026-04-23",
+        "gpt-5.5"
+      ],
+      "model_names": [
+        "GPT-5.5"
+      ],
+      "track": "fixed_prompt",
+      "task": "End2End",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-end2end-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 6.759443339960239,
+      "split_scores": {
+        "full": 6.759443339960239,
+        "leetcode": 7.06371191135734,
+        "codeforces": 5.985915492957746,
+        "lite": 6.333333333333333
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_run": 917,
+          "pass": 89
+        },
+        "verus": {
+          "fail": 917,
+          "pass": 89
+        },
+        "spec_tests": {
+          "not_run": 917,
+          "pass": 56,
+          "unsupported": 33
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_end2end-nl_full"
+    },
+    {
+      "id": "20261016_gpt-5-5_proofgen-code-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GPT-5.5",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gpt-5-5_proofgen-code-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gpt-5-5_proofgen-code-spec_full.jsonl.gz"
+      },
+      "version": "gpt-5.5-2026-04-23",
+      "team": "VeriContest team",
+      "org": "OpenAI",
+      "org_logo": "static/logos/openai.svg",
+      "models": [
+        "gpt-5.5-2026-04-23",
+        "gpt-5.5"
+      ],
+      "model_names": [
+        "GPT-5.5"
+      ],
+      "track": "fixed_prompt",
+      "task": "ProofGen",
+      "input_mode": "code_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-proofgen-code-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 13.817097415506959,
+      "split_scores": {
+        "full": 13.817097415506959,
+        "leetcode": 11.634349030470915,
+        "codeforces": 19.366197183098592,
+        "lite": 14.666666666666666
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "fail": 867,
+          "pass": 139
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_proofgen-code-spec_full"
+    },
+    {
+      "id": "20261016_gpt-5-5_specgen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "GPT-5.5",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_gpt-5-5_specgen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_gpt-5-5_specgen-nl_full.jsonl.gz"
+      },
+      "version": "gpt-5.5-2026-04-23",
+      "team": "VeriContest team",
+      "org": "OpenAI",
+      "org_logo": "static/logos/openai.svg",
+      "models": [
+        "gpt-5.5-2026-04-23",
+        "gpt-5.5"
+      ],
+      "model_names": [
+        "GPT-5.5"
+      ],
+      "track": "fixed_prompt",
+      "task": "SpecGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-specgen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 57.157057654075544,
+      "split_scores": {
+        "full": 57.157057654075544,
+        "leetcode": 60.80332409972299,
+        "codeforces": 47.88732394366197,
+        "lite": 57.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "fail": 308,
+          "unsupported": 428,
+          "pass": 253,
+          "timeout": 17
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_specgen-nl_full"
+    },
+    {
+      "id": "20261016_qwen3-6-27b_codegen-nl-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Qwen3.6-27B",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_qwen3-6-27b_codegen-nl-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_qwen3-6-27b_codegen-nl-spec_full.jsonl.gz"
+      },
+      "version": "Qwen/Qwen3.6-27B",
+      "team": "VeriContest team",
+      "org": "Alibaba",
+      "org_logo": "static/logos/alibaba.svg",
+      "models": [
+        "Qwen/Qwen3.6-27B"
+      ],
+      "model_names": [
+        "Qwen3.6-27B"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 51.590457256461235,
+      "split_scores": {
+        "full": 51.590457256461235,
+        "leetcode": 47.50692520775623,
+        "codeforces": 61.971830985915496,
+        "lite": 51.333333333333336
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "fail": 487,
+          "pass": 519
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_codegen-nl-spec_full"
+    },
+    {
+      "id": "20261016_qwen3-6-27b_codegen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Qwen3.6-27B",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_qwen3-6-27b_codegen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_qwen3-6-27b_codegen-nl_full.jsonl.gz"
+      },
+      "version": "Qwen/Qwen3.6-27B",
+      "team": "VeriContest team",
+      "org": "Alibaba",
+      "org_logo": "static/logos/alibaba.svg",
+      "models": [
+        "Qwen/Qwen3.6-27B"
+      ],
+      "model_names": [
+        "Qwen3.6-27B"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 82.50497017892644,
+      "split_scores": {
+        "full": 82.50497017892644,
+        "leetcode": 84.62603878116343,
+        "codeforces": 77.11267605633803,
+        "lite": 83.66666666666667
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "fail": 176,
+          "pass": 830
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_codegen-nl_full"
+    },
+    {
+      "id": "20261016_qwen3-6-27b_codegen-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Qwen3.6-27B",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_qwen3-6-27b_codegen-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_qwen3-6-27b_codegen-spec_full.jsonl.gz"
+      },
+      "version": "Qwen/Qwen3.6-27B",
+      "team": "VeriContest team",
+      "org": "Alibaba",
+      "org_logo": "static/logos/alibaba.svg",
+      "models": [
+        "Qwen/Qwen3.6-27B"
+      ],
+      "model_names": [
+        "Qwen3.6-27B"
+      ],
+      "track": "fixed_prompt",
+      "task": "CodeGen",
+      "input_mode": "spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-codegen-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 43.93638170974155,
+      "split_scores": {
+        "full": 43.93638170974155,
+        "leetcode": 42.38227146814405,
+        "codeforces": 47.88732394366197,
+        "lite": 45.333333333333336
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "fail": 564,
+          "pass": 442
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_codegen-spec_full"
+    },
+    {
+      "id": "20261016_qwen3-6-27b_end2end-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Qwen3.6-27B",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_qwen3-6-27b_end2end-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_qwen3-6-27b_end2end-nl_full.jsonl.gz"
+      },
+      "version": "Qwen/Qwen3.6-27B",
+      "team": "VeriContest team",
+      "org": "Alibaba",
+      "org_logo": "static/logos/alibaba.svg",
+      "models": [
+        "Qwen/Qwen3.6-27B"
+      ],
+      "model_names": [
+        "Qwen3.6-27B"
+      ],
+      "track": "fixed_prompt",
+      "task": "End2End",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-end2end-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 0.1988071570576541,
+      "split_scores": {
+        "full": 0.1988071570576541,
+        "leetcode": 0.0,
+        "codeforces": 0.704225352112676,
+        "lite": 0.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_run": 998,
+          "pass": 7,
+          "fail": 1
+        },
+        "verus": {
+          "fail": 998,
+          "pass": 8
+        },
+        "spec_tests": {
+          "not_run": 999,
+          "pass": 2,
+          "unsupported": 5
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_end2end-nl_full"
+    },
+    {
+      "id": "20261016_qwen3-6-27b_proofgen-code-spec_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Qwen3.6-27B",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_qwen3-6-27b_proofgen-code-spec_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_qwen3-6-27b_proofgen-code-spec_full.jsonl.gz"
+      },
+      "version": "Qwen/Qwen3.6-27B",
+      "team": "VeriContest team",
+      "org": "Alibaba",
+      "org_logo": "static/logos/alibaba.svg",
+      "models": [
+        "Qwen/Qwen3.6-27B"
+      ],
+      "model_names": [
+        "Qwen3.6-27B"
+      ],
+      "track": "fixed_prompt",
+      "task": "ProofGen",
+      "input_mode": "code_spec",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-proofgen-code-spec-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 4.572564612326044,
+      "split_scores": {
+        "full": 4.572564612326044,
+        "leetcode": 3.185595567867036,
+        "codeforces": 8.098591549295774,
+        "lite": 4.666666666666667
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "not_required",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "fail": 960,
+          "pass": 46
+        },
+        "spec_tests": {
+          "not_applicable": 1006
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_proofgen-code-spec_full"
+    },
+    {
+      "id": "20261016_qwen3-6-27b_specgen-nl_full",
+      "date": "2026-10-16",
+      "benchmark_release": "2026-10.1",
+      "system": "Qwen3.6-27B",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/0a19f73b22fe461fc2f68a3c355930c38dba9e80/2026-10.1/20261016_qwen3-6-27b_specgen-nl_full.jsonl.gz",
+      "trajectory_path": null,
+      "split_trajectory_urls": {
+        "lite": "https://github.com/HIPREL-Group/VeriContest-trajectories/blob/9618058ced2f9cfa8dfaae76a7b57ded7dfc4dbe/2026-10.1/lite/20261016_qwen3-6-27b_specgen-nl_full.jsonl.gz"
+      },
+      "version": "Qwen/Qwen3.6-27B",
+      "team": "VeriContest team",
+      "org": "Alibaba",
+      "org_logo": "static/logos/alibaba.svg",
+      "models": [
+        "Qwen/Qwen3.6-27B"
+      ],
+      "model_names": [
+        "Qwen3.6-27B"
+      ],
+      "track": "fixed_prompt",
+      "task": "SpecGen",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "model-specgen-nl-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 0.3976143141153082,
+      "split_scores": {
+        "full": 0.3976143141153082,
+        "leetcode": 0.554016620498615,
+        "codeforces": 0.0,
+        "lite": 0.0
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 1,
+        "max_repair_iterations": 0,
+        "max_llm_calls": 1,
+        "max_input_tokens": null,
+        "max_output_tokens": 16384,
+        "max_wall_time_seconds": null,
+        "measured_usage_path": null,
+        "total_cost_usd": null,
+        "cost_notes": null,
+        "notes": "One request per problem with the output-token setting listed under the model; input tokens and wall time are not limited; cost is not reported."
+      },
+      "avg_cost_usd": null,
+      "cost_problem_count": null,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/baselines-2026-10-1.md",
+      "artifact_origin": "team_endpoint",
+      "rerun_count": 1006,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "not_applicable": 1006
+        },
+        "verus": {
+          "not_applicable": 1006
+        },
+        "spec_tests": {
+          "fail": 1002,
+          "pass": 4
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_specgen-nl_full"
+    }
+  ]
+}

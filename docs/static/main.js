@@ -9,8 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initScalingCharts();
   initCompositionChart();
   initExplorer();
-  initLeaderboard();
+  if (typeof initLeaderboard === 'function') initLeaderboard();
   initCopyBibtex();
+  initCitations();
 });
 
 /* ------------------------------------------------------------------ */
@@ -23,16 +24,18 @@ function initNav() {
     burger.addEventListener('click', () => {
       burger.classList.toggle('is-active');
       menu.classList.toggle('is-active');
+      burger.setAttribute('aria-expanded', String(menu.classList.contains('is-active')));
     });
     menu.querySelectorAll('a').forEach((a) =>
       a.addEventListener('click', () => {
         burger.classList.remove('is-active');
         menu.classList.remove('is-active');
+        burger.setAttribute('aria-expanded', 'false');
       })
     );
   }
 
-  const links = [...document.querySelectorAll('.nav-link')];
+  const links = [...document.querySelectorAll('.nav-link[href^="#"]')];
   const sections = links
     .map((l) => document.querySelector(l.getAttribute('href')))
     .filter(Boolean);
@@ -50,6 +53,44 @@ function initNav() {
     { rootMargin: '-45% 0px -50% 0px' }
   );
   sections.forEach((s) => spy.observe(s));
+}
+
+/* ------------------------------------------------------------------ */
+/* Citation page: format tabs and copy buttons                         */
+/* ------------------------------------------------------------------ */
+function initCitations() {
+  const tabs = [...document.querySelectorAll('.cite-tab')];
+  const select = (tab, focus) => {
+    tabs.forEach((t) => {
+      const active = t === tab;
+      t.classList.toggle('is-active', active);
+      t.setAttribute('aria-selected', String(active));
+      t.tabIndex = active ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !active;
+    });
+    if (focus) tab.focus();
+  };
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => select(tab, false));
+    tab.addEventListener('keydown', (e) => {
+      const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (step) { e.preventDefault(); select(tabs[(i + step + tabs.length) % tabs.length], true); }
+    });
+  });
+  document.querySelectorAll('[data-copy]').forEach((btn) => {
+    const label = btn.querySelector('span:last-child');
+    btn.addEventListener('click', () => {
+      const target = document.getElementById(btn.dataset.copy);
+      const done = () => { label.textContent = 'Copied!'; setTimeout(() => { label.textContent = 'Copy'; }, 1600); };
+      const text = target.textContent.trim();
+      const fallback = () => {
+        const range = document.createRange(); range.selectNodeContents(target);
+        const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+        if (document.execCommand && document.execCommand('copy')) done();
+      };
+      if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+    });
+  });
 }
 
 /* ------------------------------------------------------------------ */
@@ -78,9 +119,9 @@ function initGapChart() {
   const canvas = document.getElementById('gapChart');
   const select = document.getElementById('gapModel');
   const compare = document.getElementById('gapCompare');
-  if (!canvas || !window.Chart || !window.VC_LEADERBOARD) return;
+  if (!canvas || !window.Chart || !window.VC_RESULTS) return;
 
-  const data = window.VC_LEADERBOARD;
+  const data = window.VC_RESULTS;
   const tasks = window.VC_GAP_TASKS;
   data.forEach((m, i) => {
     const o = document.createElement('option');
@@ -216,11 +257,11 @@ function initCompositionChart() {
   new Chart(canvas, {
     type: 'doughnut',
     data: {
-      labels: ['LeetCode (690)', 'Codeforces (256)', 'Extended (61)'],
+      labels: ['LeetCode (722)', 'Codeforces (284)'],
       datasets: [
         {
-          data: [690, 256, 61],
-          backgroundColor: ['#b5121b', '#e08a2e', '#c9c9d1'],
+          data: [722, 284],
+          backgroundColor: ['#b5121b', '#e08a2e'],
           borderWidth: 2,
           borderColor: '#fff',
         },
@@ -364,120 +405,6 @@ function initExplorer() {
     );
     highlightIn(detailEl);
   }
-}
-
-/* ------------------------------------------------------------------ */
-/* Leaderboard: sort + provider filter + search                        */
-/* ------------------------------------------------------------------ */
-function initLeaderboard() {
-  const body = document.getElementById('lbBody');
-  const table = document.getElementById('lbTable');
-  const search = document.getElementById('lbSearch');
-  const provWrap = document.getElementById('lbProviders');
-  if (!body || !window.VC_LEADERBOARD) return;
-
-  const rows = window.VC_LEADERBOARD;
-  const cols = ['nl2spec', 'nl2code', 'spec2code', 'nlspec2code', 'proof', 'e2e'];
-  const best = {};
-  cols.forEach((c) => (best[c] = Math.max(...rows.map((r) => r[c]))));
-
-  const state = { key: 'nl2code', dir: -1, provider: 'all', q: '' };
-
-  // provider chips
-  const providers = ['all', ...new Set(rows.map((r) => r.provider))];
-  provWrap.innerHTML = providers
-    .map(
-      (p) =>
-        `<span class="chip ${p === 'all' ? 'is-active' : ''}" data-val="${p}">${p === 'all' ? 'All' : p}</span>`
-    )
-    .join('');
-  provWrap.addEventListener('click', (e) => {
-    const chip = e.target.closest('.chip');
-    if (!chip) return;
-    provWrap.querySelectorAll('.chip').forEach((c) => c.classList.remove('is-active'));
-    chip.classList.add('is-active');
-    state.provider = chip.dataset.val;
-    render();
-  });
-
-  search.addEventListener('input', () => {
-    state.q = search.value.trim().toLowerCase();
-    render();
-  });
-
-  table.querySelectorAll('th.sortable').forEach((th) => {
-    th.addEventListener('click', () => {
-      const key = th.dataset.key;
-      if (state.key === key) state.dir *= -1;
-      else {
-        state.key = key;
-        state.dir = key === 'model' ? 1 : -1;
-      }
-      render();
-    });
-  });
-
-  function render() {
-    // sort indicators
-    table.querySelectorAll('th.sortable').forEach((th) => {
-      const ic = th.querySelector('.sort-ic');
-      if (!ic) return;
-      if (th.dataset.key === state.key) {
-        ic.className = 'fas sort-ic ' + (state.dir === 1 ? 'fa-sort-up' : 'fa-sort-down') + ' is-active-sort';
-      } else {
-        ic.className = 'fas fa-sort sort-ic';
-      }
-    });
-
-    let view = rows.filter((r) => {
-      if (state.provider !== 'all' && r.provider !== state.provider) return false;
-      if (state.q && !r.model.toLowerCase().includes(state.q)) return false;
-      return true;
-    });
-    view = view.slice().sort((a, b) => {
-      if (state.key === 'model') return state.dir * a.model.localeCompare(b.model);
-      return state.dir * (a[state.key] - b[state.key]);
-    });
-
-    const medals = ['🥇', '🥈', '🥉'];
-    const colorOf = (p) =>
-      (window.VC_PROVIDER_COLORS && window.VC_PROVIDER_COLORS[p]) || '#888';
-    // columns that begin a task group get a vertical separator
-    const sep = new Set(['nl2spec', 'nl2code', 'proof', 'e2e']);
-
-    body.innerHTML = view
-      .map((r, i) => {
-        const color = colorOf(r.provider);
-        const rankCell =
-          i < 3
-            ? `<span class="medal">${medals[i]}</span>`
-            : `<span class="rank-num">${i + 1}</span>`;
-        const cell = (c) => {
-          const isBest = r[c] === best[c];
-          const cls = ['num', isBest ? 'is-best' : '', sep.has(c) ? 'col-sep' : '']
-            .filter(Boolean)
-            .join(' ');
-          return `<td class="${cls}"><span class="v">${r[c].toFixed(2)}</span></td>`;
-        };
-        return `<tr class="lb-row ${i === 0 ? 'is-champion' : ''}">
-          <td class="rank-cell">${rankCell}</td>
-          <td class="model-cell col-sep">
-            <span class="prov-avatar" style="background:${color}">${escapeHtml(r.provider[0])}</span>
-            <span class="model-info">
-              <span class="model-name">${escapeHtml(r.model)}</span>
-              <span class="model-prov">${escapeHtml(r.provider)}</span>
-            </span>
-          </td>
-          ${cols.map(cell).join('')}
-        </tr>`;
-      })
-      .join('');
-    if (!view.length) {
-      body.innerHTML =
-        '<tr><td colspan="8" class="has-text-centered has-text-grey p-4">No models match.</td></tr>';
-    }
-  }
-  render();
 }
 
 /* ------------------------------------------------------------------ */

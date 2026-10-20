@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VeriContest Data</title>
+  <meta name="description" content="The VeriContest and VeriContest Lite datasets on Hugging Face: problems, specifications, code, proofs, and test cases.">
+
+  <link rel="icon" href="./static/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="./static/favicon-32.png">
+  <link rel="apple-touch-icon" href="./static/apple-touch-icon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./static/style.css">
+</head>
+<body class="bench-page has-sidebar">
+
+<aside class="site-sidebar">
+  <div class="sidebar-head">
+    <a class="brand-text" href="./"><img class="brand-logo" src="./static/logos/vericontest-logo.png" alt="" width="34" height="34"><span>VeriContest</span></a>
+    <button type="button" class="navbar-burger" data-target="navMenu" aria-label="Toggle navigation" aria-controls="navMenu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="sidebar-menu" id="navMenu" aria-label="Main navigation">
+    <p class="sidebar-label">Leaderboards</p>
+    <a class="sidebar-link" href="./#leaderboard" data-lb-bench="full"><i class="fas fa-trophy" aria-hidden="true"></i><span>VeriContest</span><small data-lb-bench-count="full">1,006</small></a>
+    <a class="sidebar-link" href="./#lite" data-lb-bench="lite"><i class="fas fa-trophy" aria-hidden="true"></i><span>VeriContest Lite</span><small data-lb-bench-count="lite">300</small></a>
+    <p class="sidebar-label">Benchmarks</p>
+    <a class="sidebar-link" href="./about.html"><i class="fas fa-book-open" aria-hidden="true"></i><span>VeriContest</span></a>
+    <a class="sidebar-link" href="./lite.html"><i class="fas fa-feather" aria-hidden="true"></i><span>VeriContest Lite</span></a>
+    <p class="sidebar-label">Resources</p>
+    <a class="sidebar-link" href="https://arxiv.org/abs/2605.08553"><i class="fas fa-file-lines" aria-hidden="true"></i><span>Paper</span><i class="fas fa-arrow-up-right-from-square sidebar-ext" aria-hidden="true"></i><span class="is-sr-only"> (external site)</span></a>
+    <a class="sidebar-link" href="https://github.com/HIPREL-Group/VeriContest"><i class="fab fa-github" aria-hidden="true"></i><span>Code</span><i class="fas fa-arrow-up-right-from-square sidebar-ext" aria-hidden="true"></i><span class="is-sr-only"> (external site)</span></a>
+    <a class="sidebar-link is-current" aria-current="page" href="./data.html"><i class="fas fa-database" aria-hidden="true"></i><span>Data</span></a>
+    <a class="sidebar-link" href="./news.html"><i class="fas fa-bullhorn" aria-hidden="true"></i><span>News</span></a>
+    <a class="sidebar-link" href="./contact.html"><i class="fas fa-envelope" aria-hidden="true"></i><span>Contact</span></a>
+    <a class="sidebar-link" href="./cite.html"><i class="fas fa-quote-right" aria-hidden="true"></i><span>Cite</span></a>
+    <a class="sidebar-link sidebar-submit" href="./submit.html"><i class="fas fa-paper-plane" aria-hidden="true"></i><span>Submit</span></a>
+  </nav>
+</aside>
+
+<main id="top">
+<section class="section" id="datasets">
+  <div class="container is-max-desktop">
+    <div class="section-head">
+      <span class="section-icon"><i class="fas fa-database" aria-hidden="true"></i></span>
+      <h1 class="section-title">Datasets</h1>
+    </div>
+    <div class="data-cards">
+      <article class="data-card">
+        <p class="data-card-kicker">Full benchmark</p>
+        <h2 class="data-card-title">VeriContest</h2>
+        <p class="data-card-id"><code>Gax-c/VeriContest</code></p>
+        <p>All problems of the benchmark, for full evaluations and leaderboard submissions.</p>
+        <ul class="data-facts">
+          <li><strong>1,006</strong> problems: 722 LeetCode, 284 Codeforces</li>
+          <li>About <strong>49 GiB</strong> of test cases</li>
+          <li>80 problems with an output checker</li>
+          <li>Release <code>v2026.10.1</code></li>
+        </ul>
+        <div class="data-actions">
+          <a class="button is-rounded link-btn" href="https://huggingface.co/datasets/Gax-c/VeriContest">
+            <span class="icon">&#129303;</span><span>Hugging Face</span>
+            <span class="icon is-small"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+          </a>
+          <a class="button is-rounded is-light" href="./about.html">About VeriContest</a>
+        </div>
+      </article>
+      <article class="data-card">
+        <p class="data-card-kicker">300-problem subset</p>
+        <h2 class="data-card-title">VeriContest Lite</h2>
+        <p class="data-card-id"><code>Gax-c/VeriContest_Lite</code></p>
+        <p>A fixed subset with the full benchmark's mix of sources, difficulty levels and proof sizes, for smaller evaluations.</p>
+        <ul class="data-facts">
+          <li><strong>300</strong> problems: 215 LeetCode, 85 Codeforces</li>
+          <li>About <strong>17 GiB</strong> of test cases</li>
+          <li>All outputs judged by exact comparison</li>
+          <li>Release <code>v2026.10.1</code></li>
+        </ul>
+        <div class="data-actions">
+          <a class="button is-rounded link-btn" href="https://huggingface.co/datasets/Gax-c/VeriContest_Lite">
+            <span class="icon">&#129303;</span><span>Hugging Face</span>
+            <span class="icon is-small"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+          </a>
+          <a class="button is-rounded is-light" href="./lite.html">About VeriContest Lite</a>
+        </div>
+      </article>
+    </div>
+    <p class="bench-note">
+      The Lite problems and test cases are identical to the corresponding problems of VeriContest.
+      The problem files without test cases are also in the
+      <a href="https://github.com/HIPREL-Group/VeriContest/tree/main/benchmark">GitHub repository</a>.
+    </p>
+  </div>
+</section>
+
+<section class="section has-bg-tint" id="contents">
+  <div class="container is-max-desktop">
+    <div class="section-head">
+      <span class="section-icon"><i class="fas fa-folder-tree" aria-hidden="true"></i></span>
+      <h2 class="section-title">What Each Problem Contains</h2>
+    </div>
+    <div class="content bench-body">
+      <ul>
+        <li><code>description.md</code>: the natural-language problem statement, with starter code</li>
+        <li><code>spec.rs</code>: the formal specification (preconditions and postconditions)</li>
+        <li><code>code.rs</code>: judge-accepted Rust code</li>
+        <li><code>code_spec.rs</code>: the fixed code and specification given for proof generation</li>
+        <li><code>verified.rs</code>: the full Verus-verified program with specification, code and proofs</li>
+        <li><code>main.rs</code>: the stdin/stdout entry point, for Codeforces problems</li>
+        <li><code>tests/testcases.jsonl</code> and <code>tests/mutated_testcases.jsonl</code>: positive and negative test cases</li>
+        <li><code>tests/checker.py</code>: the output checker, for problems with several valid answers</li>
+      </ul>
+      <p>
+        Each dataset also has <code>problems.jsonl</code>, one row per problem without the test cases,
+        which is what the Hugging Face Dataset Viewer shows.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="loading">
+  <div class="container is-max-desktop">
+    <div class="section-head">
+      <span class="section-icon"><i class="fas fa-download" aria-hidden="true"></i></span>
+      <h2 class="section-title">Loading</h2>
+    </div>
+    <div class="content bench-body">
+      <pre><code>from datasets import load_dataset
+
+problems = load_dataset("Gax-c/VeriContest", split="test")       # 1,006 problems
+lite = load_dataset("Gax-c/VeriContest_Lite", split="test")      # 300 problems</code></pre>
+      <p>To evaluate, download a dataset and pass its folder to the scorer:</p>
+      <pre><code>hf download Gax-c/VeriContest_Lite --repo-type dataset --local-dir VeriContest_Lite
+python3 evaluation/score.py --split lite --testcases VeriContest_Lite ...</code></pre>
+      <p>
+        See the <a href="https://github.com/HIPREL-Group/VeriContest/blob/main/evaluation/README.md">evaluation guide</a>
+        for the full commands.
+      </p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-left">
+      <p class="footer-copy"><span>&copy; 2026 <a class="footer-lab" href="https://wenxiwang.github.io/lab.html"><img src="./static/logos/hiprel.png" alt="" width="40" height="39"><span>HIPREL Group</span></a>, VeriContest Team. Code under Apache-2.0; benchmark artifacts under CC BY 4.0.</span></p>
+      <p class="footer-credit">Problem statements derive from LeetCode and Codeforces and remain subject to their source terms. Website design inspired by <a href="https://www.swebench.com/">SWE-bench</a>.</p>
+    </div>
+    <nav class="site-footer-links" aria-label="Project links">
+      <a href="https://github.com/HIPREL-Group/VeriContest"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>
+      <a href="https://huggingface.co/collections/Gax-c/vericontest"><span aria-hidden="true">&#129303;</span><span>Hugging Face</span></a>
+      <a href="https://arxiv.org/abs/2605.08553"><i class="fas fa-file-lines" aria-hidden="true"></i><span>Paper</span></a>
+    </nav>
+  </div>
+</footer>
+<script src="./static/main.js"></script>
+</body>
+</html>

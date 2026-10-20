@@ -1,0 +1,82 @@
+name: Result submission
+description: Ask a question or arrange artifact access for a leaderboard submission.
+title: "[Submission] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for evaluating VeriContest!
+        Submissions are pull requests; see the [submission instructions](https://github.com/HIPREL-Group/VeriContest/tree/main/submissions).
+        Use this issue for questions or to arrange private access to your artifacts.
+        You can open a discussion before artifacts are ready. The external
+        evaluation protocol, including human specification review, is still
+        under development. Submitted scores remain provisional until the
+        applicable evaluation is agreed and completed.
+        Do not post credentials or confidential material in this public issue.
+  - type: input
+    id: system
+    attributes:
+      label: System and team
+      description: Give the system name/version, team, and a contact GitHub handle.
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Leaderboard track
+      description: Evaluation settings must be agreed before a submission can be ranked.
+      options:
+        - Agent system
+        - Fixed prompting setup
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Task, split, and versions
+      description: Name the benchmark release you used (2026-10.1 or 2026-10; 1,006 problems), the task/input mode, split, testcase revision, and problem-list link. The old 946-problem release is not accepted.
+      placeholder: "End2End, nl input, leetcode (722 problems), benchmark commit ..., testcase revision ..."
+    validations:
+      required: true
+  - type: textarea
+    id: methodology
+    attributes:
+      label: Models, method, and budget
+      description: List exact model IDs, independent runs/attempts, internal candidates, repair limits, selection method, resource budgets, and human intervention. A linked completed metadata file can supply these details. Registry entries contain one independent run with one final output per problem.
+    validations:
+      required: true
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Inputs and feedback used
+      description: Describe access during generation and selection to official tests, reference code/specs/proofs, compiler/Verus feedback, participant-created tests, and web or other retrieval. State none where absent.
+    validations:
+      required: true
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: Metadata and artifacts
+      description: Link metadata.yaml and available programs, results, logs, and execution records. Include immutable revisions or SHA-256 archive checksums. If pending or private, describe what can be shared and how access could be arranged.
+    validations:
+      required: true
+  - type: textarea
+    id: results
+    attributes:
+      label: Reported results and evaluation method
+      description: If available, provide component results, metric definitions/denominators, evaluator version/commands, and treatment of failures, missing outputs, and unsupported cases. These are provisional claims.
+    validations:
+      required: false
+  - type: textarea
+    id: protocol
+    attributes:
+      label: Protocol questions and fresh-run availability
+      description: Describe unresolved questions, any proposed endpoint or rerun method, and publication/access constraints. Keep credentials private.
+    validations:
+      required: false
+  - type: checkboxes
+    id: acknowledgement
+    attributes:
+      label: Submission status
+      options:
+        - label: I understand that this issue starts a submission discussion and does not establish an official score or leaderboard acceptance.
+          required: true
