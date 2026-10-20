@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="docs/static/logos/vericontest-logo.png" alt="VeriContest logo" width="72" align="center">
+  <img src="docs/static/logos/vericontest-logo.png" alt="VeriContest logo" width="72" align="absmiddle">
   VeriContest
 </h1>
 
