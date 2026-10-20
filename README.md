@@ -1,12 +1,24 @@
-# VeriContest
+<h1 align="center">
+  <img src="docs/static/logos/vericontest-logo.png" alt="VeriContest logo" width="72" align="center">
+  VeriContest
+</h1>
+
+<p align="center">
+  <b>A Competitive-Programming Benchmark for Verifiable Code Generation</b><br>
+  Accepted at NeurIPS 2026, Evaluations &amp; Datasets Track
+</p>
+
+<p align="center">
+  <a href="https://arxiv.org/abs/2605.08553">Paper</a> ·
+  <a href="https://hiprel-group.github.io/VeriContest/">Website &amp; Leaderboard</a> ·
+  <a href="https://huggingface.co/collections/Gax-c/vericontest">Dataset</a>
+</p>
 
 VeriContest is a competitive-programming benchmark for verifiable code
 generation in Rust with Verus. It accompanies the paper **"VeriContest: A
 Competitive-Programming Benchmark for Verifiable Code Generation"**
-([arXiv:2605.08553](https://arxiv.org/abs/2605.08553)).
-
-Project website:
-[hiprel-group.github.io/VeriContest](https://hiprel-group.github.io/VeriContest/).
+([arXiv:2605.08553](https://arxiv.org/abs/2605.08553)), accepted at NeurIPS 2026
+in the Evaluations & Datasets Track.
 
 The current benchmark contains 1,006 problems: 722 from LeetCode and 284
 from Codeforces. Each problem pairs a natural-language description with
@@ -27,9 +39,14 @@ available on Hugging Face:
 
 Submission intake is open for Model and Agent tracks on the
 **1,006-problem releases** (v2026.10 and later); each submission names the release
-it used. See [submissions/README.md](submissions/README.md) for the steps, rules,
-and artifact requirements; submissions are pull requests. Use
-`python3 leaderboard/manage.py init --help` to create a submission record.
+it used. An entry covers the full benchmark, its LeetCode or Codeforces problems,
+or [VeriContest Lite](leaderboard/LITE.md) (v2026.10.1 and later). Lite has its own
+leaderboard: Lite entries are ranked there, and every full-benchmark entry also
+appears there, scored on the 300 Lite problems. See
+[submissions/README.md](submissions/README.md) for the steps, rules, and artifact
+requirements; submissions are pull requests. Use
+`python3 leaderboard/manage.py init --help` to create a submission record
+(`--split lite` for a Lite entry).
 
 Pending submissions have no official score or rank. SpecGen and End2End
 specifications that post2exe cannot test are reviewed under the
@@ -92,9 +109,7 @@ stdin/stdout handling.
 - `code_spec.rs`: The code and specification artifact used for proof-generation
   task.
 - `verified.rs`: Programs with specifications, code, and Verus-checked proofs.
-  Verification establishes the checked functions' contracts. See
-  [lc643's task description](benchmark/leetcode/lc643/description.md) for its floating-point adapter
-  used by `leetcode/lc643`; that adapter is tested but not verified by Verus.
+  Verification establishes the checked functions' contracts. 
 - `main.rs`: Codeforces-only executable entry point and stdin/stdout plumbing.
 - `tests/checker.py`: Problem-specific output judge, when supplied. Use it to
   accept any valid answer, not only the stored reference answer.
@@ -205,17 +220,6 @@ to their respective source terms.
 See [LICENSE](LICENSE) for the Apache-2.0 software license and
 [DATA_LICENSE.md](DATA_LICENSE.md) for the CC-BY-4.0 benchmark data license and
 source-content caveats.
-
-## Paper
-
-VeriContest is described in:
-
-**VeriContest: A Competitive-Programming Benchmark for Verifiable Code
-Generation**
-
-The paper introduces the benchmark construction pipeline, quality-assurance
-checks, evaluation tasks, and empirical results for state-of-the-art language
-models on verifiable code generation.
 
 ## Citation
 
