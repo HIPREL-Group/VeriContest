@@ -150,6 +150,56 @@ body.has-sidebar { padding-left: var(--sidebar-w); }
   background: #fff; color: var(--accent); border: 1px solid var(--line);
   font-weight: 600; letter-spacing: 0.03em; margin-bottom: 1.2rem;
 }
+/* Leaderboard page only: deep contest red with white text, over faint Verus code from benchmark proofs */
+.hero-vc.leaderboard-hero {
+  background: radial-gradient(ellipse 85% 140% at 50% 35%, #c92f38 0%, #b5121b 50%, #870a11 100%);
+  border-bottom: 0;
+}
+.leaderboard-hero .hero-bg {
+  background-image: radial-gradient(ellipse 45% 70% at 50% 40%, rgba(255,255,255,0.12), transparent 70%);
+  background-size: 100% 100%;
+  mask-image: none;
+}
+.hero-code {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 3rem;
+  padding: .75rem 2rem 0;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,.3) 34%, rgba(0,0,0,.3) 66%, #000 100%);
+          mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,.3) 34%, rgba(0,0,0,.3) 66%, #000 100%);
+}
+.hero-code .hero-code-col {
+  flex: 0 1 auto; min-width: 0; margin: 0; padding: 0; overflow: visible;
+  font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: .74rem; line-height: 1.7;
+  white-space: pre; text-align: left;
+  /* a bright band passes down the code, like a verifier checking it line by line */
+  color: transparent;
+  background: linear-gradient(180deg, rgba(255,255,255,0.13) 42%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0.13) 58%) 0 100% / 100% 320% no-repeat;
+  -webkit-background-clip: text; background-clip: text;
+  animation: hero-code-drift 48s ease-in-out infinite alternate, hero-code-scan 7s ease-in-out infinite;
+}
+.hero-code .k { color: rgba(255,206,150,0.42); }
+.hero-code .t { color: rgba(255,255,255,0.22); }
+.hero-code .hero-code-col:nth-child(2) { animation-duration: 56s, 7s; animation-delay: -20s, -2.3s; }
+.hero-code .hero-code-col:nth-child(3) { animation-duration: 52s, 7s; animation-delay: -36s, -4.6s; }
+@keyframes hero-code-drift { from { transform: translateY(0); } to { transform: translateY(-9rem); } }
+@keyframes hero-code-scan { 0% { background-position: 0 100%; } 70%, 100% { background-position: 0 0; } }
+/* gold rule along the bottom edge */
+.hero-vc.leaderboard-hero::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; z-index: 2;
+  background: linear-gradient(90deg, rgba(224,138,46,0.55), #ffd08a 50%, rgba(224,138,46,0.55));
+}
+@keyframes hero-logo-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -5px; } }
+@media (max-width: 900px) { .hero-code .hero-code-col:nth-child(n+2) { display: none; } }
+.leaderboard-hero .title { color: #fff; text-shadow: 0 2px 18px rgba(60,0,6,0.35); }
+.leaderboard-hero .home-subtitle { color: rgba(255,255,255,0.92); }
+.leaderboard-hero .hero-logo {
+  filter: drop-shadow(0 0 20px rgba(255,255,255,0.30)) drop-shadow(0 8px 16px rgba(40,0,4,0.45));
+  animation: hero-logo-float 6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-code .hero-code-col, .leaderboard-hero .hero-logo { animation: none; }
+  .hero-code .hero-code-col { background: none; color: rgba(255,255,255,0.13); }
+}
 .publication-title {
   max-width: 840px; margin: 0 auto 1.3rem; line-height: 1.18;
   letter-spacing: -0.02em;

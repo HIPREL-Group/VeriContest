@@ -47,6 +47,76 @@
 <main id="top">
 <header class="hero-vc leaderboard-hero">
   <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-code" aria-hidden="true">
+      <pre class="hero-code-col">pub fn search(nums: Vec&lt;i32&gt;, target: i32) -&gt; (res: i32)
+    <span class="k">requires</span>
+        1 &lt;= nums.len() &lt;= 10_000,
+        -10_000 &lt; target &lt; 10_000,
+        <span class="k">forall</span> |i: int| 0 &lt;= i &lt; nums.len() ==&gt; -10_000 &lt; <span class="t">#[trigger]</span> nums[i] &lt; 10_000,
+        <span class="k">forall</span>|i: int, j: int| 0 &lt;= i &lt; j &lt; nums.len() ==&gt; nums[i] &lt; nums[j],
+    <span class="k">ensures</span>
+        -1 &lt;= res &lt; nums.len(),
+        res == -1 ==&gt; (<span class="k">forall</span> |i: int| 0 &lt;= i &lt; nums.len() ==&gt; nums[i] != target),
+        res != -1 ==&gt; nums[res as int] == target,
+{
+    let mut i1: usize = 0;
+    let mut i2: usize = nums.len() - 1;
+
+    while i1 != i2
+        <span class="k">invariant</span>
+            1 &lt;= nums.len() &lt;= 10_000,
+            <span class="k">forall</span> |i: int| 0 &lt;= i &lt; nums.len() ==&gt; -10_000 &lt; <span class="t">#[trigger]</span> nums[i] &lt; 10_000,
+            <span class="k">forall</span>|i: int, j: int| 0 &lt;= i &lt; j &lt; nums.len() ==&gt; nums[i] &lt; nums[j],
+            i1 &lt;= i2 &lt; nums.len(),
+            <span class="k">forall</span> |t: int| 0 &lt;= t &lt; i1 ==&gt; nums[t] &lt; target,
+            nums[i2 as int] &gt;= target || i2 == nums.len() - 1,</pre>
+      <pre class="hero-code-col">pub open <span class="k">spec</span> fn count_occurrences(s: Seq&lt;i32&gt;, value: i32) -&gt; nat
+    <span class="k">decreases</span> s.len()
+{
+    if s.len() == 0 {
+        0
+    } else {
+        Self::count_occurrences(s.drop_last(), value) +
+            if s.last() == value { 1 as nat } else { 0 as nat}
+    }
+}
+
+pub fn majority_element(nums: Vec&lt;i32&gt;) -&gt; (res: i32)
+    <span class="k">requires</span>
+        1 &lt;= nums.len() &lt;= 50_000,
+        <span class="k">forall</span> |i: int| 0 &lt;= i &lt; nums.len()
+            ==&gt; -1_000_000_000 &lt;= <span class="t">#[trigger]</span> nums[i] &lt;= 1_000_000_000,
+        <span class="k">exists</span> |i: int| 0 &lt;= i &lt; nums.len() &amp;&amp;
+            <span class="t">#[trigger]</span> Self::count_occurrences(nums@, nums[i]) &gt; nums.len() / 2,
+    <span class="k">ensures</span>
+        Self::count_occurrences(nums@, res) &gt; nums.len() / 2,</pre>
+      <pre class="hero-code-col">pub fn max_profit(prices: Vec&lt;i32&gt;) -&gt; (res: i32)
+    <span class="k">requires</span>
+        1 &lt;= prices.len() &lt;= 100_000,
+        <span class="k">forall</span> |i: int| 0 &lt;= i &lt; prices.len() ==&gt; 0 &lt;= <span class="t">#[trigger]</span> prices[i] &lt;= 10_000,
+    <span class="k">ensures</span>
+        res &gt;= 0,
+        <span class="k">forall</span> |i: int, j: int| 0 &lt;= i &lt; j &lt; prices.len()
+            ==&gt; prices[j] - prices[i] &lt;= res,
+        (res == 0) ||
+            (<span class="k">exists</span> |i: int, j: int| (0 &lt;= i &lt; j &lt; prices.len()) &amp;&amp;
+                (prices[j] - prices[i] == res)),
+{
+    let mut buy = prices[0];
+    let mut profit = 0;
+    for i in 1..prices.len()
+        <span class="k">invariant</span>
+            1 &lt;= prices.len() &lt;= 100_000,
+            <span class="k">forall</span> |k: int| 0 &lt;= k &lt; prices.len() ==&gt; 0 &lt;= <span class="t">#[trigger]</span> prices[k] &lt;= 10_000,
+            0 &lt;= buy &lt;= 10_000,
+            <span class="k">forall</span> |k: int| 0 &lt;= k &lt; i ==&gt; buy &lt;= prices[k],
+            <span class="k">exists</span> |k: int| 0 &lt;= k &lt; i &amp;&amp; prices[k] == buy,
+            0 &lt;= profit,
+            <span class="k">forall</span> |ii: int, jj: int| 0 &lt;= ii &lt; jj &lt; i
+                ==&gt; prices[jj] - prices[ii] &lt;= profit,
+            profit &gt; 0 ==&gt; <span class="k">exists</span> |ii: int, jj: int| (0 &lt;= ii &lt; jj &lt; i)
+                &amp;&amp; (prices[jj] - prices[ii] == profit),</pre>
+  </div>
   <div class="container is-max-widescreen has-text-centered hero-inner">
     <div class="hero-brand">
       <img class="hero-logo" src="./static/logos/vericontest-logo.png" alt="" width="88" height="88">
