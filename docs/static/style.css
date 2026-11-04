@@ -188,16 +188,14 @@ body.has-sidebar { padding-left: var(--sidebar-w); }
   content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; z-index: 2;
   background: linear-gradient(90deg, rgba(224,138,46,0.55), #ffd08a 50%, rgba(224,138,46,0.55));
 }
-@keyframes hero-logo-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -5px; } }
 @media (max-width: 900px) { .hero-code .hero-code-col:nth-child(n+2) { display: none; } }
 .leaderboard-hero .title { color: #fff; text-shadow: 0 2px 18px rgba(60,0,6,0.35); }
 .leaderboard-hero .home-subtitle { color: rgba(255,255,255,0.92); }
 .leaderboard-hero .hero-logo {
   filter: drop-shadow(0 0 20px rgba(255,255,255,0.30)) drop-shadow(0 8px 16px rgba(40,0,4,0.45));
-  animation: hero-logo-float 6s ease-in-out infinite;
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-code .hero-code-col, .leaderboard-hero .hero-logo { animation: none; }
+  .hero-code .hero-code-col { animation: none; }
   .hero-code .hero-code-col { background: none; color: rgba(255,255,255,0.13); }
 }
 .publication-title {
