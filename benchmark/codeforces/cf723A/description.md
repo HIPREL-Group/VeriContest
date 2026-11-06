@@ -62,7 +62,7 @@ fn main() {
     let x1: i32 = it.next().unwrap().parse().unwrap();
     let x2: i32 = it.next().unwrap().parse().unwrap();
     let x3: i32 = it.next().unwrap().parse().unwrap();
-    let ans = Solution::min_total_meeting_distance(x_1, x_2, x_3);
+    let ans = Solution::min_total_meeting_distance(x1, x2, x3);
     println!("{}", ans);
 }
 ```

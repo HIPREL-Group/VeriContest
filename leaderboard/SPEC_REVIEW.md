@@ -7,6 +7,23 @@ A problem whose specification post2exe cannot test, because the translation is
 unsupported or exceeds its time limits, is reviewed against the problem's
 reference `spec.rs` under the standard below.
 
+## Preconditions
+
+The test cases check a precondition in one direction only. Every positive test
+case input must satisfy it, so a precondition that rejects a valid input fails
+the spec tests. One that admits inputs the reference rejects passes them, since
+every test case input is valid. So the answer's precondition is checked on every
+problem:
+
+1. **Proof.** The checker tries to prove that the answer's precondition and the
+   reference precondition imply each other, over the inputs the parameter types
+   can represent. If both implications are proved, the precondition passes.
+2. **Review.** Otherwise the precondition is reviewed under the standard below.
+   A failed proof does not mean the preconditions differ.
+
+Postconditions are checked by the spec tests. A postcondition that cannot be
+tested is reviewed under the standard below.
+
 ## Standard
 
 - **Precondition:** the answer's precondition must be equivalent to the

@@ -282,6 +282,27 @@ fn pick_k(rng: &mut Rng, mode: usize) -> i32 {
     }
 }
 
+/// Whether an answer exists ("The input is generated such that an answer always
+/// exists"): merging the two smallest values until all are >= k must not run out
+/// of pairs first.
+fn has_answer(nums: &[i32], k: i32) -> bool {
+    use std::cmp::Reverse;
+    use std::collections::BinaryHeap;
+    let mut h: BinaryHeap<Reverse<i64>> = nums.iter().map(|&v| Reverse(v as i64)).collect();
+    while let Some(&Reverse(x)) = h.peek() {
+        if x >= k as i64 {
+            return true;
+        }
+        if h.len() < 2 {
+            return false;
+        }
+        h.pop();
+        let Reverse(y) = h.pop().unwrap();
+        h.push(Reverse(2 * x.min(y) + x.max(y)));
+    }
+    true
+}
+
 fn print_json(nums: &[i32], k: i32) {
     print!("{{\"nums\":[");
     for i in 0..nums.len() {
@@ -322,6 +343,8 @@ fn main() {
         let k = pick_k(&mut rng, mode);
         let mutation_kind = ((t / modes) % 8) as u8;
         let nums = generate_test_case(seed_nums, k, mutation_kind);
-        print_json(&nums, k);
+        if has_answer(&nums, k) {
+            print_json(&nums, k);
+        }
     }
 }

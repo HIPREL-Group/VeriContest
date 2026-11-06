@@ -223,6 +223,27 @@ impl Rng {
     }
 }
 
+/// Whether an answer exists ("The input is generated such that an answer always
+/// exists"): merging the two smallest values until all are >= k must not run out
+/// of pairs first.
+fn has_answer(nums: &[i32], k: i32) -> bool {
+    use std::cmp::Reverse;
+    use std::collections::BinaryHeap;
+    let mut h: BinaryHeap<Reverse<i64>> = nums.iter().map(|&v| Reverse(v as i64)).collect();
+    while let Some(&Reverse(x)) = h.peek() {
+        if x >= k as i64 {
+            return true;
+        }
+        if h.len() < 2 {
+            return false;
+        }
+        h.pop();
+        let Reverse(y) = h.pop().unwrap();
+        h.push(Reverse(2 * x.min(y) + x.max(y)));
+    }
+    true
+}
+
 struct Solution;
 include!("../code.rs");
 
@@ -258,6 +279,9 @@ fn main() {
 
     let mut emit = |nums: Vec<i32>, k: i32, seen: &mut HashSet<String>, out: &mut std::io::BufWriter<std::fs::File>, count: &mut usize| {
         if *count >= target_count {
+            return;
+        }
+        if !has_answer(&nums, k) {
             return;
         }
         let key = format!("{:?}_{}", nums, k);
