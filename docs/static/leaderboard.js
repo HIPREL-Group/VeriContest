@@ -54,7 +54,7 @@ function selectLeaderboardEntries(entries, filters) {
 // Column sorting. Rows arrive in rank order, and the sort is stable, so ties keep it;
 // missing values stay last in both directions. Each verifier's rows stay together.
 const LEADERBOARD_SORT_KEYS = {
-  'RANK': 'rank', 'AGENT': 'system', 'MODEL': 'models', 'PASS@1': 'score', 'TRAJS': 'trajs',
+  'RANK': 'rank', 'AGENT': 'system', 'MODEL': 'models', 'PASS@1': 'score', 'ACCURACY': 'score', 'TRAJS': 'trajs',
   'AVG. $': 'cost', 'ORG': 'org', 'DATE': 'date', 'RELEASE': 'release'
 };
 const LEADERBOARD_FIRST_DIRECTION = { score: 'desc', date: 'desc', trajs: 'asc', cost: 'asc' };
@@ -203,18 +203,20 @@ async function initLeaderboard() {
   }
   function render() {
     const agentTrack = state.track === 'agent';
-    const columns = ['RANK', ...(agentTrack ? ['AGENT'] : []), 'MODEL', 'PASS@1', 'TRAJS', ...(agentTrack ? ['AVG. $'] : []), 'ORG', 'DATE', 'RELEASE'];
+    // The Agent track reports the score as accuracy; the Model track as pass@1.
+    const columns = ['RANK', ...(agentTrack ? ['AGENT'] : []), 'MODEL', agentTrack ? 'ACCURACY' : 'PASS@1', 'TRAJS', ...(agentTrack ? ['AVG. $'] : []), 'ORG', 'DATE', 'RELEASE'];
     const titles = {
       'PASS@1': 'Official checked score; pending submissions have no score',
+      'ACCURACY': 'Official checked score: the share of problems solved; pending submissions have no score',
       'TRAJS': 'Execution trajectories: tool calls, repair steps, and candidate selection',
       'AVG. $': 'Submitter-reported average generation cost in USD per attempted problem, including failures and timeouts',
-      'ORG': 'Organization; for Model-track entries, the developer of the model',
+      'ORG': 'Organization; for Model-track entries, the developer of the model. A logo links to the organization\'s website',
       'DATE': 'Submission date',
       'RELEASE': 'Benchmark release the entry was evaluated on'
     };
     const columnClasses = {
       'RANK': 'lb-col-rank', 'AGENT': 'lb-col-name', 'MODEL': agentTrack ? 'lb-col-models' : 'lb-col-name',
-      'PASS@1': 'lb-col-score', 'TRAJS': 'lb-col-trajs', 'AVG. $': 'lb-col-cost', 'ORG': 'lb-col-org',
+      'PASS@1': 'lb-col-score', 'ACCURACY': 'lb-col-score', 'TRAJS': 'lb-col-trajs', 'AVG. $': 'lb-col-cost', 'ORG': 'lb-col-org',
       'DATE': 'lb-col-date', 'RELEASE': 'lb-col-release'
     };
     if (!columns.some((label) => LEADERBOARD_SORT_KEYS[label] === state.sort.key)) state.sort = { key: 'rank', dir: 'asc' };
@@ -224,6 +226,12 @@ async function initLeaderboard() {
       const key = LEADERBOARD_SORT_KEYS[label];
       const active = state.sort.key === key;
       const button = node('button', label, 'lb-sort');
+      if (label === 'ORG') {
+        // The logos in this column link to the organizations' websites.
+        const ext = node('i', undefined, 'fas fa-arrow-up-right-from-square lb-ext');
+        ext.setAttribute('aria-hidden', 'true');
+        button.append(ext);
+      }
       button.type = 'button';
       button.title = `${titles[label] ? titles[label] + '. ' : ''}Click to sort`;
       if (active) {
@@ -340,12 +348,18 @@ async function initLeaderboard() {
       const org = node('td', undefined, 'lb-org');
       const orgName = entry.org || entry.team;
       const logoSrc = leaderboardLogoSrc(entry.org_logo);
+      // The logo, or the name, links to the organization's website when it has one.
+      const orgUrl = leaderboardSafeUrl(entry.org_url);
+      const orgLabel = orgUrl ? `${orgName} website (external site)` : orgName;
+      const orgTarget = orgUrl ? node('a', undefined, 'lb-org-link') : org;
+      if (orgUrl) { orgTarget.href = orgUrl; orgTarget.rel = 'noopener noreferrer'; orgTarget.title = orgLabel; }
       if (logoSrc) {
         const logo = node('img', undefined, 'lb-org-logo');
-        logo.src = logoSrc; logo.alt = orgName; logo.title = orgName; logo.loading = 'lazy';
+        logo.src = logoSrc; logo.alt = orgName; logo.title = orgLabel; logo.loading = 'lazy';
         logo.addEventListener('error', () => logo.replaceWith(document.createTextNode(orgName)), { once: true });
-        org.append(logo);
-      } else org.textContent = orgName;
+        orgTarget.append(logo);
+      } else orgTarget.append(document.createTextNode(orgName));
+      if (orgUrl) { orgTarget.append(node('span', ' (external site)', 'is-sr-only')); org.append(orgTarget); }
       row.append(org);
       const submitted = node('td', entry.date || '—', 'lb-date');
       submitted.title = 'Submission date'; row.append(submitted);

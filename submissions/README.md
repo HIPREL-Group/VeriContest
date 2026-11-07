@@ -25,6 +25,8 @@ for questions or to arrange private access to your artifacts.
    including failures. `README.md` is an optional methodology write-up: complete
    it, or delete it to keep your methodology private. To show a logo, set
    `system.logo` to an HTTPS image URL or add the file under `docs/static/logos/`.
+   The maintainers link the logo to your organization's website
+   ([`leaderboard/organizations.json`](../leaderboard/organizations.json)).
 4. **Publish your artifacts.** Put the generated programs, logs, and a trajectory
    for every attempted problem in an artifact bundle, and pin it in `metadata.yaml`
    with a full commit SHA or the archive's SHA-256. The bundle can be public or

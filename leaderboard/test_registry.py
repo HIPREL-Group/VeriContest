@@ -573,6 +573,20 @@ class RegistryTests(unittest.TestCase):
         (self.root / 'benchmarks' / 'dafny' / 'problems' / self.ids[2]).mkdir(parents=True)
         self.validate()
 
+    def test_organization_website_links_the_logo(self):
+        self.write(self.root / 'leaderboard/organizations.json', {'Test Org': 'https://example.org/'})
+        self.m['system']['organization'] = 'Test Org'
+        self.save_metadata()
+        self.assertEqual(self.validate()['org_url'], 'https://example.org/')
+
+    def test_organization_without_website_has_no_link(self):
+        self.assertIsNone(self.validate()['org_url'])
+
+    def test_organization_website_must_be_https(self):
+        self.write(self.root / 'leaderboard/organizations.json', {'Test Org': 'javascript:alert(1)'})
+        with self.assertRaisesRegex(manage.Invalid, 'HTTPS URL'):
+            self.validate()
+
     def test_scaffolder_refuses_overwrite(self):
         with self.assertRaisesRegex(manage.Invalid, 'refusing to overwrite'):
             manage.initialize(self.root, argparse.Namespace(id='test-system', track='agent', task='End2End', input_mode='nl', split='full'))

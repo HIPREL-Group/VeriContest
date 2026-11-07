@@ -493,6 +493,11 @@ body.has-sidebar { padding-left: var(--sidebar-w); }
 .lb-bar { height: 6px; margin: .35rem auto 0; max-width: 140px; border-radius: 999px; background: var(--line); overflow: hidden; }
 .lb-bar > span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent-soft), var(--accent)); }
 .lb-org-logo { display: block; margin: 0 auto; width: 1.6rem; height: 1.6rem; object-fit: contain; }
+/* A logo links to the organization's website; the ORG heading carries the external-link mark. */
+.lb-org-link { display: inline-block; border-radius: 6px; color: inherit; }
+.lb-org-link:hover .lb-org-logo { opacity: .7; }
+.lb-org-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.lb-sort .lb-ext { margin-left: .3rem; font-size: .7em; color: var(--muted); vertical-align: .1em; }
 #lbTable .lb-release { text-align: right; }
 #lbTable .lb-row td { overflow-wrap: anywhere; }
 .lb-release > a, .lb-release > span { display: inline-block; max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: middle; }

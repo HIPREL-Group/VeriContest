@@ -174,6 +174,26 @@
       "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts",
       "spec_review_policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/SPEC_REVIEW.md",
       "verifier": "verus"
+    },
+    {
+      "id": "agent-end2end-nl-dafny-2026-10-1",
+      "label": "Agent track \u00b7 End2End (nl) \u00b7 Dafny",
+      "release": "2026-10.1",
+      "track": "agent",
+      "verifier": "dafny",
+      "task": "End2End",
+      "input_mode": "nl",
+      "policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/36118d2a892831cb15f990b484d6ce709961e319/benchmarks/dafny/evaluation/README.md",
+      "testcases": {
+        "source": "https://huggingface.co/datasets/Gax-c/VeriContest",
+        "revision": "55a87f82f3d8edfb7b802c6fdb9bba389f9cc571"
+      },
+      "evaluator_revision": "36118d2a892831cb15f990b484d6ce709961e319",
+      "verifier_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
+      "rustc_version": "1.95.0",
+      "environment": "Linux x86-64; Python 3.10; Dafny 4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2; rustc 1.95.0 and cargo 1.95.0 (Dafny's Rust backend, release builds); reference specifications translated from the Verus version (currently hidden)",
+      "resource_limits": "Test case: 1 s (LeetCode: one call of the compiled method; Codeforces: one run of the program, wall clock); dafny audit: 300 s; dafny verify: 600 s with --enforce-determinism --verification-time-limit 0; dafny build and cargo build --release: 600 s each; code tests: 3600 s per problem; spec tests: 1800 s per problem; precondition proof: 60 s per lemma, 300 s per dafny verify run",
+      "spec_review_policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/SPEC_REVIEW.md"
     }
   ],
   "entries": [
@@ -255,7 +275,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_codegen-nl-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_codegen-nl-spec_full",
+      "org_url": "https://www.anthropic.com/"
     },
     {
       "id": "20261016_claude-opus-4-7_codegen-nl_full",
@@ -335,7 +356,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_codegen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_codegen-nl_full",
+      "org_url": "https://www.anthropic.com/"
     },
     {
       "id": "20261016_claude-opus-4-7_codegen-spec_full",
@@ -415,7 +437,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_codegen-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_codegen-spec_full",
+      "org_url": "https://www.anthropic.com/"
     },
     {
       "id": "20261016_claude-opus-4-7_end2end-nl_full",
@@ -500,7 +523,8 @@
           "fail": 40
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_end2end-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_end2end-nl_full",
+      "org_url": "https://www.anthropic.com/"
     },
     {
       "id": "20261016_claude-opus-4-7_proofgen-code-spec_full",
@@ -580,7 +604,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_proofgen-code-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_proofgen-code-spec_full",
+      "org_url": "https://www.anthropic.com/"
     },
     {
       "id": "20261016_claude-opus-4-7_specgen-nl_full",
@@ -662,7 +687,8 @@
           "timeout": 1
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_specgen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-opus-4-7_specgen-nl_full",
+      "org_url": "https://www.anthropic.com/"
     },
     {
       "id": "20261016_claude-sonnet-4-6_codegen-nl-spec_full",
@@ -742,7 +768,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_codegen-nl-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_codegen-nl-spec_full",
+      "org_url": "https://www.anthropic.com/"
     },
     {
       "id": "20261016_claude-sonnet-4-6_codegen-nl_full",
@@ -822,7 +849,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_codegen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_codegen-nl_full",
+      "org_url": "https://www.anthropic.com/"
     },
     {
       "id": "20261016_claude-sonnet-4-6_codegen-spec_full",
@@ -902,7 +930,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_codegen-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_codegen-spec_full",
+      "org_url": "https://www.anthropic.com/"
     },
     {
       "id": "20261016_claude-sonnet-4-6_end2end-nl_full",
@@ -987,7 +1016,8 @@
           "fail": 18
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_end2end-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_end2end-nl_full",
+      "org_url": "https://www.anthropic.com/"
     },
     {
       "id": "20261016_claude-sonnet-4-6_proofgen-code-spec_full",
@@ -1068,7 +1098,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_proofgen-code-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_proofgen-code-spec_full",
+      "org_url": "https://www.anthropic.com/"
     },
     {
       "id": "20261016_claude-sonnet-4-6_specgen-nl_full",
@@ -1150,7 +1181,8 @@
           "timeout": 9
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_specgen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_claude-sonnet-4-6_specgen-nl_full",
+      "org_url": "https://www.anthropic.com/"
     },
     {
       "id": "20261016_deepseek-v4-flash_codegen-nl-spec_full",
@@ -1230,7 +1262,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_codegen-nl-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_codegen-nl-spec_full",
+      "org_url": "https://www.deepseek.com/"
     },
     {
       "id": "20261016_deepseek-v4-flash_codegen-nl_full",
@@ -1310,7 +1343,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_codegen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_codegen-nl_full",
+      "org_url": "https://www.deepseek.com/"
     },
     {
       "id": "20261016_deepseek-v4-flash_codegen-spec_full",
@@ -1390,7 +1424,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_codegen-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_codegen-spec_full",
+      "org_url": "https://www.deepseek.com/"
     },
     {
       "id": "20261016_deepseek-v4-flash_end2end-nl_full",
@@ -1475,7 +1510,8 @@
           "fail": 4
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_end2end-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_end2end-nl_full",
+      "org_url": "https://www.deepseek.com/"
     },
     {
       "id": "20261016_deepseek-v4-flash_proofgen-code-spec_full",
@@ -1556,7 +1592,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_proofgen-code-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_proofgen-code-spec_full",
+      "org_url": "https://www.deepseek.com/"
     },
     {
       "id": "20261016_deepseek-v4-flash_specgen-nl_full",
@@ -1637,7 +1674,8 @@
           "pass": 78
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_specgen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-flash_specgen-nl_full",
+      "org_url": "https://www.deepseek.com/"
     },
     {
       "id": "20261016_deepseek-v4-pro_codegen-nl-spec_full",
@@ -1717,7 +1755,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_codegen-nl-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_codegen-nl-spec_full",
+      "org_url": "https://www.deepseek.com/"
     },
     {
       "id": "20261016_deepseek-v4-pro_codegen-nl_full",
@@ -1797,7 +1836,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_codegen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_codegen-nl_full",
+      "org_url": "https://www.deepseek.com/"
     },
     {
       "id": "20261016_deepseek-v4-pro_codegen-spec_full",
@@ -1877,7 +1917,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_codegen-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_codegen-spec_full",
+      "org_url": "https://www.deepseek.com/"
     },
     {
       "id": "20261016_deepseek-v4-pro_end2end-nl_full",
@@ -1962,7 +2003,8 @@
           "fail": 4
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_end2end-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_end2end-nl_full",
+      "org_url": "https://www.deepseek.com/"
     },
     {
       "id": "20261016_deepseek-v4-pro_proofgen-code-spec_full",
@@ -2043,7 +2085,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_proofgen-code-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_proofgen-code-spec_full",
+      "org_url": "https://www.deepseek.com/"
     },
     {
       "id": "20261016_deepseek-v4-pro_specgen-nl_full",
@@ -2124,7 +2167,8 @@
           "pass": 96
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_specgen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_deepseek-v4-pro_specgen-nl_full",
+      "org_url": "https://www.deepseek.com/"
     },
     {
       "id": "20261016_gemini-3-1-pro_codegen-nl-spec_full",
@@ -2204,7 +2248,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_codegen-nl-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_codegen-nl-spec_full",
+      "org_url": "https://deepmind.google/"
     },
     {
       "id": "20261016_gemini-3-1-pro_codegen-nl_full",
@@ -2284,7 +2329,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_codegen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_codegen-nl_full",
+      "org_url": "https://deepmind.google/"
     },
     {
       "id": "20261016_gemini-3-1-pro_codegen-spec_full",
@@ -2364,7 +2410,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_codegen-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_codegen-spec_full",
+      "org_url": "https://deepmind.google/"
     },
     {
       "id": "20261016_gemini-3-1-pro_end2end-nl_full",
@@ -2450,7 +2497,8 @@
           "fail": 15
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_end2end-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_end2end-nl_full",
+      "org_url": "https://deepmind.google/"
     },
     {
       "id": "20261016_gemini-3-1-pro_proofgen-code-spec_full",
@@ -2531,7 +2579,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_proofgen-code-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_proofgen-code-spec_full",
+      "org_url": "https://deepmind.google/"
     },
     {
       "id": "20261016_gemini-3-1-pro_specgen-nl_full",
@@ -2612,7 +2661,8 @@
           "pass": 131
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_specgen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-1-pro_specgen-nl_full",
+      "org_url": "https://deepmind.google/"
     },
     {
       "id": "20261016_gemini-3-flash_codegen-nl-spec_full",
@@ -2692,7 +2742,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_codegen-nl-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_codegen-nl-spec_full",
+      "org_url": "https://deepmind.google/"
     },
     {
       "id": "20261016_gemini-3-flash_codegen-nl_full",
@@ -2772,7 +2823,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_codegen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_codegen-nl_full",
+      "org_url": "https://deepmind.google/"
     },
     {
       "id": "20261016_gemini-3-flash_codegen-spec_full",
@@ -2852,7 +2904,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_codegen-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_codegen-spec_full",
+      "org_url": "https://deepmind.google/"
     },
     {
       "id": "20261016_gemini-3-flash_end2end-nl_full",
@@ -2936,7 +2989,8 @@
           "fail": 2
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_end2end-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_end2end-nl_full",
+      "org_url": "https://deepmind.google/"
     },
     {
       "id": "20261016_gemini-3-flash_proofgen-code-spec_full",
@@ -3016,7 +3070,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_proofgen-code-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_proofgen-code-spec_full",
+      "org_url": "https://deepmind.google/"
     },
     {
       "id": "20261016_gemini-3-flash_specgen-nl_full",
@@ -3098,7 +3153,8 @@
           "timeout": 2
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_specgen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gemini-3-flash_specgen-nl_full",
+      "org_url": "https://deepmind.google/"
     },
     {
       "id": "20261016_glm-4-7-flash_codegen-nl-spec_full",
@@ -3178,7 +3234,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_codegen-nl-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_codegen-nl-spec_full",
+      "org_url": "https://z.ai/"
     },
     {
       "id": "20261016_glm-4-7-flash_codegen-nl_full",
@@ -3258,7 +3315,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_codegen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_codegen-nl_full",
+      "org_url": "https://z.ai/"
     },
     {
       "id": "20261016_glm-4-7-flash_codegen-spec_full",
@@ -3338,7 +3396,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_codegen-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_codegen-spec_full",
+      "org_url": "https://z.ai/"
     },
     {
       "id": "20261016_glm-4-7-flash_end2end-nl_full",
@@ -3422,7 +3481,8 @@
           "unsupported": 2
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_end2end-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_end2end-nl_full",
+      "org_url": "https://z.ai/"
     },
     {
       "id": "20261016_glm-4-7-flash_proofgen-code-spec_full",
@@ -3502,7 +3562,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_proofgen-code-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_proofgen-code-spec_full",
+      "org_url": "https://z.ai/"
     },
     {
       "id": "20261016_glm-4-7-flash_specgen-nl_full",
@@ -3583,7 +3644,8 @@
           "pass": 32
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_specgen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_glm-4-7-flash_specgen-nl_full",
+      "org_url": "https://z.ai/"
     },
     {
       "id": "20261016_gpt-5-4-mini_codegen-nl-spec_full",
@@ -3663,7 +3725,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_codegen-nl-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_codegen-nl-spec_full",
+      "org_url": "https://openai.com/"
     },
     {
       "id": "20261016_gpt-5-4-mini_codegen-nl_full",
@@ -3743,7 +3806,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_codegen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_codegen-nl_full",
+      "org_url": "https://openai.com/"
     },
     {
       "id": "20261016_gpt-5-4-mini_codegen-spec_full",
@@ -3823,7 +3887,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_codegen-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_codegen-spec_full",
+      "org_url": "https://openai.com/"
     },
     {
       "id": "20261016_gpt-5-4-mini_end2end-nl_full",
@@ -3908,7 +3973,8 @@
           "fail": 2
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_end2end-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_end2end-nl_full",
+      "org_url": "https://openai.com/"
     },
     {
       "id": "20261016_gpt-5-4-mini_proofgen-code-spec_full",
@@ -3988,7 +4054,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_proofgen-code-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_proofgen-code-spec_full",
+      "org_url": "https://openai.com/"
     },
     {
       "id": "20261016_gpt-5-4-mini_specgen-nl_full",
@@ -4070,7 +4137,8 @@
           "timeout": 50
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_specgen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-4-mini_specgen-nl_full",
+      "org_url": "https://openai.com/"
     },
     {
       "id": "20261016_gpt-5-5_codegen-nl-spec_full",
@@ -4151,7 +4219,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_codegen-nl-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_codegen-nl-spec_full",
+      "org_url": "https://openai.com/"
     },
     {
       "id": "20261016_gpt-5-5_codegen-nl_full",
@@ -4232,7 +4301,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_codegen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_codegen-nl_full",
+      "org_url": "https://openai.com/"
     },
     {
       "id": "20261016_gpt-5-5_codegen-spec_full",
@@ -4313,7 +4383,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_codegen-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_codegen-spec_full",
+      "org_url": "https://openai.com/"
     },
     {
       "id": "20261016_gpt-5-5_end2end-nl_full",
@@ -4397,7 +4468,8 @@
           "unsupported": 33
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_end2end-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_end2end-nl_full",
+      "org_url": "https://openai.com/"
     },
     {
       "id": "20261016_gpt-5-5_proofgen-code-spec_full",
@@ -4478,7 +4550,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_proofgen-code-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_proofgen-code-spec_full",
+      "org_url": "https://openai.com/"
     },
     {
       "id": "20261016_gpt-5-5_specgen-nl_full",
@@ -4561,7 +4634,8 @@
           "timeout": 17
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_specgen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_gpt-5-5_specgen-nl_full",
+      "org_url": "https://openai.com/"
     },
     {
       "id": "20261016_qwen3-6-27b_codegen-nl-spec_full",
@@ -4641,7 +4715,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_codegen-nl-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_codegen-nl-spec_full",
+      "org_url": "https://qwen.ai/"
     },
     {
       "id": "20261016_qwen3-6-27b_codegen-nl_full",
@@ -4721,7 +4796,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_codegen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_codegen-nl_full",
+      "org_url": "https://qwen.ai/"
     },
     {
       "id": "20261016_qwen3-6-27b_codegen-spec_full",
@@ -4801,7 +4877,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_codegen-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_codegen-spec_full",
+      "org_url": "https://qwen.ai/"
     },
     {
       "id": "20261016_qwen3-6-27b_end2end-nl_full",
@@ -4885,7 +4962,8 @@
           "unsupported": 5
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_end2end-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_end2end-nl_full",
+      "org_url": "https://qwen.ai/"
     },
     {
       "id": "20261016_qwen3-6-27b_proofgen-code-spec_full",
@@ -4965,7 +5043,8 @@
           "not_applicable": 1006
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_proofgen-code-spec_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_proofgen-code-spec_full",
+      "org_url": "https://qwen.ai/"
     },
     {
       "id": "20261016_qwen3-6-27b_specgen-nl_full",
@@ -5045,7 +5124,92 @@
           "pass": 4
         }
       },
-      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_specgen-nl_full"
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261016_qwen3-6-27b_specgen-nl_full",
+      "org_url": "https://qwen.ai/"
+    },
+    {
+      "id": "20261105_vcg_end2end_dafny",
+      "date": "2026-11-05",
+      "benchmark_release": "2026-10.1",
+      "system": "Emergence-VCG",
+      "release_url": null,
+      "trajectory_availability": "private_by_arrangement",
+      "trajectory_url": null,
+      "trajectory_path": null,
+      "split_trajectory_urls": {},
+      "version": "vcg-2026.11",
+      "team": "Emergence AI",
+      "org": "Emergence AI",
+      "org_logo": "static/logos/emergence-ai.png",
+      "models": [
+        "claude-opus-5-5"
+      ],
+      "model_names": [
+        "Claude Opus 5.5"
+      ],
+      "track": "agent",
+      "verifier": "dafny",
+      "task": "End2End",
+      "input_mode": "nl",
+      "split": "full",
+      "problem_count": 1006,
+      "protocol_id": "agent-end2end-nl-dafny-2026-10-1",
+      "status": "evaluation_checked",
+      "score": 96.3220675944334,
+      "split_scores": {
+        "full": 96.3220675944334,
+        "leetcode": 97.22991689750693,
+        "codeforces": 94.01408450704226,
+        "lite": 96.66666666666667
+      },
+      "split_problem_counts": {
+        "full": 1006,
+        "leetcode": 722,
+        "codeforces": 284,
+        "lite": 300
+      },
+      "rankable": true,
+      "budget": {
+        "scope": "per problem",
+        "max_internal_candidates": 2,
+        "max_repair_iterations": 16,
+        "max_llm_calls": null,
+        "max_input_tokens": null,
+        "max_output_tokens": null,
+        "max_wall_time_seconds": 7200,
+        "measured_usage_path": "usage.jsonl",
+        "total_cost_usd": 595.78,
+        "cost_notes": "Sum over every LLM call of the run, including failed attempts: 45482452 input and 20692575 output tokens (10983 calls, 1006 problems, no cached tokens), at $4/$20 per million input/output tokens (Claude Opus 5.5 on Google Vertex AI, models.dev). Dafny, cargo and compute costs are not included.",
+        "notes": "Per problem: up to 2 generations of at most 3600 s each; per generation up to 8 verify-repair rounds (4 base, up to 2 more after example-check failures, up to 2 adaptive extensions). LLM calls and tokens are not capped directly; they are bounded by these limits."
+      },
+      "avg_cost_usd": 0.5922266401590457,
+      "cost_problem_count": 1006,
+      "artifact_url": null,
+      "artifact_availability": "private_by_arrangement",
+      "review_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/reports/20261105_vcg_end2end_dafny.md",
+      "artifact_origin": "submitter",
+      "rerun_count": 0,
+      "checked_count": 1006,
+      "spec_review": "complete",
+      "component_counts": {
+        "code_tests": {
+          "pass": 984,
+          "not_run": 11,
+          "fail": 11
+        },
+        "verus": {
+          "pass": 995,
+          "not_run": 11
+        },
+        "spec_tests": {
+          "pass": 948,
+          "unsupported": 34,
+          "not_run": 22,
+          "fail": 2
+        }
+      },
+      "entry_url": "https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/20261105_vcg_end2end_dafny",
+      "org_url": "https://www.emergence.ai/"
     }
   ]
 }

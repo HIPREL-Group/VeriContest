@@ -14,6 +14,8 @@ specification review standard is [SPEC_REVIEW.md](SPEC_REVIEW.md). See
 - `lite_problem_ids.txt` lists the 300 problems of VeriContest Lite, also pinned in
   `release.json`. `make_lite.py` selects it using `lite_measurements.jsonl`.
   See [LITE.md](LITE.md).
+- `organizations.json` maps each organization name (`system.organization`, or the team)
+  to its website; the leaderboard links the organization's logo to it.
 - `protocols.json` lists the published evaluation settings: for release 2026-10.1,
   one Model-track setting per task and input mode.
 - `manage.py` scaffolds/validates entries and builds `docs/static/leaderboard.json`.

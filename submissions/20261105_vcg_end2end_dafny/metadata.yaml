@@ -1,0 +1,127 @@
+format_version: 1
+submission_id: 20261105_vcg_end2end_dafny
+submitted_on: '2026-11-05'
+system:
+  name: Emergence-VCG
+  version: vcg-2026.11
+  release_url: null
+  category: agent
+  team: Emergence AI
+  organization: Emergence AI
+  logo: static/logos/emergence-ai.png
+  authors:
+  - Emergence AI
+  contact: aditya@emergence.ai
+  description: 'VCG (Verifiable Code Generation): a multi-stage agent that writes a Dafny specification,
+    implementation and proof, repairs them with verifier feedback, and checks the assembled program before
+    it is accepted.'
+  report_url: null
+  source_url: null
+  source_availability: private
+  models:
+  - id: claude-opus-5-5
+    name: Claude Opus 5.5
+    role: all LLM stages
+    settings:
+      provider: Vertex AI
+      temperature: 0.2
+experiment:
+  task: End2End
+  input_mode: nl
+  input_description: Problem description and the VeriContest-Dafny starter file with the fixed entry header
+    and predicate declarations; for Codeforces problems, also the Verus main shown in the description
+    (how the input is read).
+  independent_runs: 1
+  attempts_per_problem_per_run: 1
+  attempt_definition: One run of the agent per problem, with up to 2 internal generations; the first whose
+    program passes the agent's own program gate is the final output.
+  attempt_schedule: uniform
+  seeds: []
+  candidate_selection: First internal generation whose program passes the agent's gate (fixed header,
+    dafny audit, dafny verify --enforce-determinism, Rust build). No official testcases are used.
+  human_intervention: none
+  generation_access:
+    official_positive_tests: none
+    official_mutated_tests: none
+    reference_code: none
+    reference_specifications: none
+    reference_proofs: none
+    compiler_and_verus_feedback: Dafny 4.11.0 resolver/verifier/audit output, Dafny-to-Python and Dafny-to-Rust
+      compilation, cargo build errors
+    participant_created_tests: Example inputs/outputs parsed from the problem description and LLM-written
+      test inputs, run on the compiled program
+    web_and_other_retrieval: none
+  budget:
+    scope: per problem
+    max_internal_candidates: 2
+    max_repair_iterations: 16
+    max_llm_calls: null
+    max_input_tokens: null
+    max_output_tokens: null
+    max_wall_time_seconds: 7200
+    measured_usage_path: usage.jsonl
+    total_cost_usd: 595.78
+    cost_notes: 'Sum over every LLM call of the run, including failed attempts: 45482452 input and 20692575
+      output tokens (10983 calls, 1006 problems, no cached tokens), at $4/$20 per million input/output
+      tokens (Claude Opus 5.5 on Google Vertex AI, models.dev). Dafny, cargo and compute costs are not
+      included.'
+    notes: 'Per problem: up to 2 generations of at most 3600 s each; per generation up to 8 verify-repair
+      rounds (4 base, up to 2 more after example-check failures, up to 2 adaptive extensions). LLM calls
+      and tokens are not capped directly; they are bounded by these limits.'
+benchmark:
+  release: 2026-10.1
+  verifier: dafny
+  repository: https://github.com/HIPREL-Group/VeriContest
+  revision: 0fede470992d79acb7b376fa87a25f78a5ce4a0b
+  split: full
+  problem_count: 1006
+  problem_ids_path: problem_ids.txt
+  selection_and_exclusions: complete split
+  testcases:
+    source: https://huggingface.co/datasets/Gax-c/VeriContest
+    revision: 55a87f82f3d8edfb7b802c6fdb9bba389f9cc571
+    archive_sha256: null
+    modifications: none
+evaluation:
+  protocol_id: agent-end2end-nl-dafny-2026-10-1
+  evaluator_source: https://github.com/HIPREL-Group/VeriContest/tree/36118d2a892831cb15f990b484d6ce709961e319/benchmarks/dafny/evaluation
+  evaluator_revision: 36118d2a892831cb15f990b484d6ce709961e319
+  commands:
+  - VERICONTEST_DAFNY_TRANSLATOR=<translator> python3 benchmarks/dafny/evaluation/score.py --outputs programs
+    --ref <LeetCode reference specs> --ref <Codeforces reference specs> --vir-dir <VIR> --tests-root <test
+    cases at the pinned revision> --cf-tests-root <function-level Codeforces test cases> --out eval --jobs
+    16
+  - 'Problems whose code tests failed only by the 1 s per-case limit, or whose verification failed only
+    under load: the same command with --jobs 1, at low load'
+  verifier_version: 4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2
+  rustc_version: 1.95.0
+  environment: Linux x86-64; Python 3.10; Dafny 4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2; rustc
+    1.95.0 and cargo 1.95.0 (Dafny's Rust backend, release builds); reference specifications translated
+    from the Verus version (currently hidden)
+  resource_limits: 'Test case: 1 s (LeetCode: one call of the compiled method; Codeforces: one run of
+    the program, wall clock); dafny audit: 300 s; dafny verify: 600 s with --enforce-determinism --verification-time-limit
+    0; dafny build and cargo build --release: 600 s each; code tests: 3600 s per problem; spec tests:
+    1800 s per problem; precondition proof: 60 s per lemma, 300 s per dafny verify run'
+  reported_metrics: []
+artifacts:
+  bundle_url: null
+  revision: null
+  archive_sha256: ea7df6f115bfda8d1c738da7862c50f60094b0b55daa032822694077d5a56d44
+  availability: private_by_arrangement
+  readme_path: README.md
+  results_path: results.jsonl
+  programs_path: programs/
+  logs_path: logs/
+  traces_path: traces/
+  traces_url: null
+  split_traces_urls: {}
+  missing_records_and_redactions: Prompt text in traces is replaced by its SHA-256 and length; responses,
+    usage and tool calls are complete.
+rerun:
+  available: null
+  method: null
+  access_notes: null
+notes: 'Dafny version of VeriContest. results.jsonl holds the maintainers'' evaluation of the submitted
+  programs: the `verus` check records Dafny''s form, audit and verification checks, and `unsupported`
+  spec tests are specifications decided by human review. Each record''s notes give the verdict, the stage
+  that decided it, and the reason.'

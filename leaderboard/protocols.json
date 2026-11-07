@@ -114,5 +114,25 @@
     "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
     "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts",
     "spec_review_policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/SPEC_REVIEW.md"
+  },
+  {
+    "id": "agent-end2end-nl-dafny-2026-10-1",
+    "label": "Agent track · End2End (nl) · Dafny",
+    "release": "2026-10.1",
+    "track": "agent",
+    "verifier": "dafny",
+    "task": "End2End",
+    "input_mode": "nl",
+    "policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/36118d2a892831cb15f990b484d6ce709961e319/benchmarks/dafny/evaluation/README.md",
+    "testcases": {
+      "source": "https://huggingface.co/datasets/Gax-c/VeriContest",
+      "revision": "55a87f82f3d8edfb7b802c6fdb9bba389f9cc571"
+    },
+    "evaluator_revision": "36118d2a892831cb15f990b484d6ce709961e319",
+    "verifier_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
+    "rustc_version": "1.95.0",
+    "environment": "Linux x86-64; Python 3.10; Dafny 4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2; rustc 1.95.0 and cargo 1.95.0 (Dafny's Rust backend, release builds); reference specifications translated from the Verus version (currently hidden)",
+    "resource_limits": "Test case: 1 s (LeetCode: one call of the compiled method; Codeforces: one run of the program, wall clock); dafny audit: 300 s; dafny verify: 600 s with --enforce-determinism --verification-time-limit 0; dafny build and cargo build --release: 600 s each; code tests: 3600 s per problem; spec tests: 1800 s per problem; precondition proof: 60 s per lemma, 300 s per dafny verify run",
+    "spec_review_policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/SPEC_REVIEW.md"
   }
 ]

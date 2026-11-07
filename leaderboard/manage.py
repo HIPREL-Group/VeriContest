@@ -448,15 +448,27 @@ def validate_entry(entry, release, releases, protocols):
             "entry_url": f"https://github.com/HIPREL-Group/VeriContest/tree/main/submissions/{entry.name}"}
 
 
+def load_organizations(root):
+    """leaderboard/organizations.json: each organization's website, which its logo links to."""
+    path = root / "leaderboard/organizations.json"
+    organizations = mapping(load_json(path), "organizations.json") if path.is_file() else {}
+    for name, link in organizations.items():
+        url(link, f"organizations.json: {name}")
+    return organizations
+
+
 def build(root):
     release, releases, protocols = load_config(root)
+    organizations = load_organizations(root)
     entries = []
     for entry in sorted((root / "submissions").iterdir()):
         if entry.is_dir():
             try:
-                entries.append(validate_entry(entry, release, releases, protocols))
+                record = validate_entry(entry, release, releases, protocols)
             except (ValueError, TypeError, KeyError, OSError, yaml.YAMLError) as exc:
                 raise Invalid(f"{entry.name}: {exc}") from exc
+            record["org_url"] = organizations.get(record["org"])
+            entries.append(record)
     return {"release": release,
             "releases": [{k: r[k] for k in ("id", "git_tag", "counts", "lite") if k in r} for r, _ in releases.values()],
             "protocols": list(protocols.values()), "entries": entries}
