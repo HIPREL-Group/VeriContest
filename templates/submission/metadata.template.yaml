@@ -64,6 +64,7 @@ benchmark:
   release: "REPLACE_ME" # Release ID used, e.g. 2026-10.1; see leaderboard/release.json and releases.json
   repository: "https://github.com/HIPREL-Group/VeriContest"
   revision: "REPLACE_ME" # Full commit SHA actually used
+  verifier: "verus" # verus, or dafny for the Dafny version (benchmarks/dafny/)
   split: "REPLACE_ME" # leetcode | codeforces | full | lite | custom
   problem_count: null
   problem_ids_path: "problem_ids.txt"
@@ -79,7 +80,7 @@ evaluation:
   evaluator_source: null # URL to evaluator code, if available
   evaluator_revision: null
   commands: [] # Exact evaluation commands, flags, and relevant configuration
-  verus_version: null
+  verus_version: null # For the Dafny version, verifier_version: the Dafny version
   rustc_version: null
   environment: null # OS/architecture, dependency versions or pinned image digest
   resource_limits: null # Compile/proof/test timeouts, memory/CPU limits

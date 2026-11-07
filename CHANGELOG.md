@@ -15,6 +15,16 @@ problem IDs when a change touches benchmark artifacts.
   `skills/`, `test_gen/` and `post2exe/` in `benchmarks/verus/`. Commands in
   `benchmarks/verus/` run from that folder. No problem, test case, prompt or
   scoring rule changed, so entries for v2026.10.1 are unaffected.
+- cf1862D: removed the test case with n = 2^63 - 1, outside the stated bound
+  n <= 10^18 (one positive and its 11 negative test cases in the Hugging Face test
+  cases), and removed that value from the generator's edge cases (`tests/gen.rs`).
+- Added the Dafny version in `benchmarks/dafny/`: the descriptions of the 1,006
+  problems with Dafny starter code, and the scorer of End2End solutions
+  (`benchmarks/dafny/evaluation/`). Its reference specifications are currently
+  hidden, so the maintainers score Dafny entries.
+- Leaderboard: entries and evaluation settings name the verifier
+  (`benchmark.verifier`, default `verus`). Entries on the Dafny version are shown
+  after the Verus entries, ranked separately, with a footnote.
 
 ## v2026.10.1
 

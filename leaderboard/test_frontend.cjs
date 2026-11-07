@@ -61,3 +61,21 @@ test('reject unsafe links and embedded credentials', () => {
   for (const value of ['javascript:alert(1)','data:text/html,test','http://example.org','https://user:password@example.org',null]) assert.equal(safeUrl(value),null);
   assert.equal(safeUrl('https://example.org/artifacts'),'https://example.org/artifacts');
 });
+test('other verifiers are ranked on their own, after the Verus entries', () => {
+  const dafny = (id, score) => entry(id, score, {verifier:'dafny', protocol_id:'dafny-setting'});
+  const input = [dafny('d1',90), entry('a',20), dafny('d2',95), entry('b',10)];
+  const rows = select(input, {...filters, verifierProtocols:{dafny:'dafny-setting'}});
+  assert.deepEqual(rows.map(r=>[r.id,r.verifier,r.rank]), [['a','verus',1],['b','verus',2],['d2','dafny',1],['d1','dafny',2]]);
+});
+test('the Verus setting never hides or ranks other verifiers', () => {
+  const input = [entry('a',20), entry('d',90,{verifier:'dafny',protocol_id:'dafny-setting'})];
+  const rows = select(input, {...filters, protocol:'', verifierProtocols:{dafny:'dafny-setting'}});
+  assert.deepEqual(rows.map(r=>[r.id,r.rank]), [['a',null],['d',1]]);
+  assert.deepEqual(select(input, {...filters, verifierProtocols:{}}).map(r=>[r.id,r.rank]), [['a',1],['d',null]]);
+});
+test('column sorting keeps each verifier\'s rows together', () => {
+  const input = [entry('a',20), entry('b',10), entry('d',90,{verifier:'dafny',protocol_id:'dafny-setting'})];
+  const rows = select(input, {...filters, verifierProtocols:{dafny:'dafny-setting'}});
+  assert.deepEqual(sortRows(rows,{key:'score',dir:'desc'}).map(r=>r.id), ['a','b','d']);
+  assert.deepEqual(sortRows(rows,{key:'score',dir:'asc'}).map(r=>r.id), ['b','a','d']);
+});

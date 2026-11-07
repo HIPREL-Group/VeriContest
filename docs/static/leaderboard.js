@@ -12,24 +12,47 @@ function leaderboardSplitView(entry, split) {
     submitted_problem_count: entry.problem_count, ...(traces ? { trajectory_url: traces } : {}) };
 }
 
+// Each verification tool's version of the benchmark has its own ranking, shown after the
+// Verus entries and marked with its footnote sign.
+const LEADERBOARD_VERIFIERS = {
+  dafny: {
+    name: 'Dafny', mark: '†',
+    note: (version) => 'These entries solve the same problems, but write the specification, code and proof in Dafny ' +
+      `and verify them with Dafny${version ? ` ${version}` : ''}. Their code and specifications are checked against ` +
+      'the VeriContest test cases and reviewed under the same standard as Verus entries. Because the verifier ' +
+      'differs, Dafny entries are ranked separately from Verus entries. ',
+    policy: 'https://github.com/HIPREL-Group/VeriContest/blob/main/benchmarks/dafny/evaluation/README.md'
+  }
+};
+const leaderboardVerifier = (entry) => entry.verifier || 'verus';
+// Verus first, then the other versions in name order.
+const leaderboardGroupOrder = (a, b) =>
+  (leaderboardVerifier(a) === 'verus' ? '' : leaderboardVerifier(a)).localeCompare(leaderboardVerifier(b) === 'verus' ? '' : leaderboardVerifier(b));
+
+// filters.protocol is the Verus evaluation setting; filters.verifierProtocols names the
+// setting each other version is ranked under.
 function selectLeaderboardEntries(entries, filters) {
+  const setting = (verifier) => (verifier === 'verus' ? filters.protocol : (filters.verifierProtocols || {})[verifier]) || '';
   const group = entries.map((e) => leaderboardSplitView(e, filters.split)).filter((e) => e &&
     e.track === filters.track && e.task === filters.task && e.input_mode === filters.inputMode &&
-    (!filters.protocol || e.protocol_id === filters.protocol || e.status !== 'evaluation_checked'));
-  const ranked = group.filter((e) => e.rankable && e.status === 'evaluation_checked' &&
-    Number.isFinite(e.score) && filters.protocol && e.protocol_id === filters.protocol)
-    .sort((a, b) => b.score - a.score || a.system.localeCompare(b.system));
+    (!setting(leaderboardVerifier(e)) || e.protocol_id === setting(leaderboardVerifier(e)) || e.status !== 'evaluation_checked'));
   const ranks = new Map();
-  ranked.forEach((entry, i) => ranks.set(entry.id,
-    i && entry.score === ranked[i - 1].score ? ranks.get(ranked[i - 1].id) : i + 1));
+  new Set(group.map(leaderboardVerifier)).forEach((verifier) => {
+    const ranked = group.filter((e) => leaderboardVerifier(e) === verifier && e.rankable && e.status === 'evaluation_checked' &&
+      Number.isFinite(e.score) && setting(verifier) && e.protocol_id === setting(verifier))
+      .sort((a, b) => b.score - a.score || a.system.localeCompare(b.system));
+    ranked.forEach((entry, i) => ranks.set(entry.id,
+      i && entry.score === ranked[i - 1].score ? ranks.get(ranked[i - 1].id) : i + 1));
+  });
   const query = (filters.query || '').toLowerCase();
-  return group.map((entry) => ({ ...entry, rank: ranks.get(entry.id) || null }))
+  return group.map((entry) => ({ ...entry, verifier: leaderboardVerifier(entry), rank: ranks.get(entry.id) || null }))
     .filter((e) => [e.system, e.team, e.org || '', ...e.models, ...(e.model_names || [])].join(' ').toLowerCase().includes(query))
-    .sort((a, b) => (a.rank ?? Infinity) - (b.rank ?? Infinity) || a.system.localeCompare(b.system) || a.id.localeCompare(b.id));
+    .sort((a, b) => leaderboardGroupOrder(a, b) || (a.rank ?? Infinity) - (b.rank ?? Infinity) ||
+      a.system.localeCompare(b.system) || a.id.localeCompare(b.id));
 }
 
 // Column sorting. Rows arrive in rank order, and the sort is stable, so ties keep it;
-// missing values stay last in both directions.
+// missing values stay last in both directions. Each verifier's rows stay together.
 const LEADERBOARD_SORT_KEYS = {
   'RANK': 'rank', 'AGENT': 'system', 'MODEL': 'models', 'PASS@1': 'score', 'TRAJS': 'trajs',
   'AVG. $': 'cost', 'ORG': 'org', 'DATE': 'date', 'RELEASE': 'release'
@@ -55,6 +78,8 @@ function sortLeaderboardRows(rows, sort) {
   if (!sort || sort.key === 'rank' && sort.dir === 'asc') return rows.slice();
   const sign = sort.dir === 'desc' ? -1 : 1;
   return rows.slice().sort((a, b) => {
+    const group = leaderboardGroupOrder(a, b);
+    if (group) return group;
     const x = leaderboardSortValue(a, sort.key), y = leaderboardSortValue(b, sort.key);
     if (x === null || x === undefined) return y === null || y === undefined ? 0 : 1;
     if (y === null || y === undefined) return -1;
@@ -88,7 +113,7 @@ async function initLeaderboard() {
   const trackButtons = Array.from(document.querySelectorAll('[data-lb-track]'));
   const benchButtons = Array.from(document.querySelectorAll('[data-lb-bench]'));
   const state = { bench: 'full', track: 'fixed_prompt', task: 'End2End', inputMode: 'nl', split: 'full', protocol: '', query: '',
-    sort: { key: 'rank', dir: 'asc' } };
+    verifierProtocols: {}, sort: { key: 'rank', dir: 'asc' } };
   const labels = { submitted: 'Submitted', automated_checks_complete: 'Automated checks complete', evaluation_checked: 'Evaluation checked' };
   let data;
   const node = (tag, content, className) => {
@@ -156,7 +181,15 @@ async function initLeaderboard() {
   }
 
   function settings() {
-    const matches = data.protocols.filter((p) => p.task === state.task && p.input_mode === state.inputMode && p.track === state.track);
+    const view = data.protocols.filter((p) => p.task === state.task && p.input_mode === state.inputMode && p.track === state.track);
+    // The selector chooses the Verus setting; another version is ranked under its own
+    // setting when it has exactly one in this view.
+    const matches = view.filter((p) => leaderboardVerifier(p) === 'verus');
+    state.verifierProtocols = {};
+    new Set(view.map(leaderboardVerifier)).forEach((verifier) => {
+      const own = view.filter((p) => leaderboardVerifier(p) === verifier);
+      if (verifier !== 'verus' && own.length === 1) state.verifierProtocols[verifier] = own[0].id;
+    });
     const old = state.protocol;
     protocolSelect.replaceChildren();
     const all = node('option', matches.length ? 'All settings (no combined ranking)' : 'Evaluation setting pending');
@@ -215,17 +248,42 @@ async function initLeaderboard() {
     status.textContent = rows.length ? '' :
       'No submissions in this view yet. Submissions are open.';
     status.hidden = !status.textContent;
+    const verusRows = rows.filter((entry) => entry.verifier === 'verus');
     const settingNote = document.getElementById('lbSettingNote');
     settingNote.textContent = state.split === 'custom' ?
       'Custom subsets are partial evaluations and are not ranked.' : state.protocol ? '' :
-      protocolSelect.disabled ? 'Official scores will appear after an evaluation protocol is published and the required reviews are complete.' :
+      protocolSelect.disabled ? (verusRows.length || !rows.length ?
+        'Official scores will appear after an evaluation protocol is published and the required reviews are complete.' : '') :
       'Select an evaluation setting to compare ranks. Settings with different tests or evaluation rules are kept separate.';
     settingNote.hidden = !settingNote.textContent;
+    const footnote = document.getElementById('lbFootnote');
+    footnote.replaceChildren();
+    new Set(rows.map((entry) => entry.verifier)).forEach((verifier) => {
+      const info = LEADERBOARD_VERIFIERS[verifier];
+      if (!info) return;
+      const protocol = data.protocols.find((p) => p.id === state.verifierProtocols[verifier]);
+      const version = protocol && protocol.verifier_version ? String(protocol.verifier_version).split('+')[0] : '';
+      const note = node('p');
+      note.append(document.createTextNode(`${info.mark} `), node('strong', `${info.name} version of VeriContest.`),
+        document.createTextNode(` ${info.note(version)}`), link(`How ${info.name} entries are scored`, info.policy),
+        document.createTextNode('.'));
+      footnote.append(note);
+    });
+    footnote.hidden = !footnote.childElementCount;
     if (!rows.length) {
       const row = node('tr'); const cell = node('td', 'Be the first to submit a system in this view.', 'lb-empty');
       cell.colSpan = columnCount; row.append(cell); body.append(row); return;
     }
+    const groupRow = (text, className) => {
+      const row = node('tr', undefined, className); const cell = node('td', text);
+      cell.colSpan = columnCount; row.append(cell); body.append(row);
+    };
+    if (!verusRows.length) groupRow('No Verus entries in this view yet. Submissions are open.', 'lb-group lb-group-empty');
     rows.forEach((entry, index) => {
+      const info = LEADERBOARD_VERIFIERS[entry.verifier];
+      if (entry.verifier !== 'verus' && (index === 0 || rows[index - 1].verifier !== entry.verifier)) {
+        groupRow(`${info ? `${info.name} version ${info.mark}` : entry.verifier}, ranked separately`, 'lb-group');
+      }
       const row = node('tr', undefined, 'lb-row');
       row.append(node('td', entry.rank === null ? '—' : String(entry.rank), 'rank-cell'));
       const identity = node('td');
@@ -240,7 +298,14 @@ async function initLeaderboard() {
         toggle.setAttribute('aria-expanded', String(!disclosure.hidden));
       });
       const heading = node('div', undefined, 'lb-identity');
-      heading.append(link(agentTrack ? entry.system : modelNames, entry.entry_url), toggle);
+      const name = node('span');
+      name.append(link(agentTrack ? entry.system : modelNames, entry.entry_url));
+      if (info) {
+        const mark = node('sup', info.mark, 'lb-mark');
+        mark.title = `${info.name} version of VeriContest, ranked separately`;
+        name.append(mark);
+      }
+      heading.append(name, toggle);
       identity.append(heading);
       row.append(identity);
       if (agentTrack) row.append(node('td', modelNames));
@@ -303,13 +368,16 @@ async function initLeaderboard() {
       const systemVersion = node('p', 'System version: ');
       systemVersion.append(link(entry.version, entry.release_url), document.createTextNode('.'));
       disclosure.append(systemVersion);
-      disclosure.append(node('p', `Submitted ${entry.date}. Benchmark release: ${benchmarkRelease}. Setting: ${entry.protocol_id || 'pending'}.`));
+      disclosure.append(node('p', `Submitted ${entry.date}. Benchmark release: ${benchmarkRelease}` +
+        `${info ? ` (${info.name} version)` : ''}. Setting: ${entry.protocol_id || 'pending'}.`));
       disclosure.append(node('p', `Artifacts: ${entry.artifact_origin === 'team_endpoint' ? 'team-initiated generation' : 'provided by submitter'}. Fresh-run scope: ${entry.rerun_count}/${submittedCount}. Checked scope: ${entry.checked_count}/${submittedCount}.`));
       const budget = entry.budget;
       if (Number.isFinite(entry.avg_cost_usd)) disclosure.append(node('p', `Reported generation cost: $${budget.total_cost_usd} across ${entry.cost_problem_count} attempted problems. ${budget.cost_notes || ''}`));
       disclosure.append(node('p', `Budget (${budget.scope}): ${budget.max_llm_calls ?? 'undeclared'} LLM calls, ${budget.max_repair_iterations ?? 'undeclared'} repair iterations, ${budget.max_wall_time_seconds ?? 'undeclared'} seconds. ${budget.notes}`));
       disclosure.append(node('p', 'Submitter-reported component checks (not final task scores):'));
-      Object.entries(entry.component_counts).forEach(([key, values]) => disclosure.append(node('p', `${key}: ${Object.entries(values).map(([k, v]) => `${v} ${k}`).join(', ')}`)));
+      // The `verus` check records the verifier's check, Dafny's for the Dafny version.
+      Object.entries(entry.component_counts).forEach(([key, values]) => disclosure.append(node('p',
+        `${key === 'verus' && info ? info.name.toLowerCase() : key}: ${Object.entries(values).map(([k, v]) => `${v} ${k}`).join(', ')}`)));
       const links = node('p'); links.append(link('Submission', entry.entry_url));
       if (entry.artifact_url) links.append(document.createTextNode(' · '), link('Artifacts', entry.artifact_url));
       else links.append(document.createTextNode(` · Artifacts: ${entry.artifact_availability.replaceAll('_', ' ')}`));
@@ -335,4 +403,4 @@ async function initLeaderboard() {
   benchmark(hashBench()); settings(); render();
 }
 
-if (typeof module !== 'undefined') module.exports = { selectLeaderboardEntries, sortLeaderboardRows, leaderboardSafeUrl, leaderboardLogoSrc };
+if (typeof module !== 'undefined') module.exports = { selectLeaderboardEntries, sortLeaderboardRows, leaderboardSafeUrl, leaderboardLogoSrc, LEADERBOARD_VERIFIERS };

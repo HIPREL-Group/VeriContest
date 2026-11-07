@@ -498,6 +498,81 @@ class RegistryTests(unittest.TestCase):
         with self.assertRaisesRegex(manage.Invalid, 'entire submission'):
             self.validate()
 
+    def make_dafny(self):
+        """complete(), evaluated on the Dafny version under a Dafny protocol."""
+        self.complete()
+        protocol = manage.load_json(self.root / 'leaderboard/protocols.json')[0]
+        del protocol['verus_version']
+        protocol.update(verifier='dafny', verifier_version='test-dafny')
+        self.write(self.root / 'leaderboard/protocols.json', [protocol])
+        self.m['benchmark']['verifier'] = 'dafny'
+        del self.m['evaluation']['verus_version']
+        self.m['evaluation']['verifier_version'] = 'test-dafny'
+        self.save_metadata()
+        self.review['submission_sha256'] = manage.fingerprint(self.entry)
+        self.save_review()
+
+    def test_entries_and_protocols_default_to_verus(self):
+        self.complete()
+        data = manage.build(self.root)
+        self.assertEqual(data['entries'][0]['verifier'], 'verus')
+        self.assertEqual(data['protocols'][0]['verifier'], 'verus')
+
+    def test_dafny_entry_is_scored_under_a_dafny_protocol(self):
+        self.make_dafny()
+        result = self.validate()
+        self.assertEqual(result['verifier'], 'dafny')
+        self.assertTrue(result['rankable'])
+        self.assertAlmostEqual(result['score'], 100 / 3)
+
+    def test_verifier_must_match_protocol(self):
+        self.make_dafny()
+        del self.m['benchmark']['verifier']
+        self.save_metadata()
+        self.review['submission_sha256'] = manage.fingerprint(self.entry)
+        self.save_review()
+        with self.assertRaisesRegex(manage.Invalid, 'protocol verifier mismatch'):
+            self.validate()
+
+    def test_dafny_version_must_match_protocol(self):
+        self.make_dafny()
+        self.m['evaluation']['verifier_version'] = 'other-dafny'
+        self.save_metadata()
+        self.review['submission_sha256'] = manage.fingerprint(self.entry)
+        self.save_review()
+        with self.assertRaisesRegex(manage.Invalid, 'protocol verifier_version mismatch'):
+            self.validate()
+
+    def test_dafny_protocol_pins_dafny_not_verus(self):
+        self.make_dafny()
+        protocol = manage.load_json(self.root / 'leaderboard/protocols.json')[0]
+        protocol['verus_version'] = 'test-verus'
+        self.write(self.root / 'leaderboard/protocols.json', [protocol])
+        with self.assertRaisesRegex(manage.Invalid, 'pins verifier_version'):
+            self.validate()
+
+    def test_dafny_has_only_end2end(self):
+        self.make_dafny()
+        protocol = manage.load_json(self.root / 'leaderboard/protocols.json')[0]
+        protocol.update(task='CodeGen', input_mode='nl')
+        self.write(self.root / 'leaderboard/protocols.json', [protocol])
+        with self.assertRaisesRegex(manage.Invalid, 'invalid protocol verifier'):
+            self.validate()
+
+    def test_unknown_verifier_rejected(self):
+        self.m['benchmark']['verifier'] = 'coq'
+        self.save_metadata()
+        with self.assertRaisesRegex(manage.Invalid, 'invalid benchmark.verifier'):
+            self.validate()
+
+    def test_every_verifier_benchmark_must_match_the_release(self):
+        for pid in self.ids[:2]:
+            (self.root / 'benchmarks' / 'dafny' / 'problems' / pid).mkdir(parents=True)
+        with self.assertRaisesRegex(manage.Invalid, r'membership differs from supported release \(dafny\)'):
+            self.validate()
+        (self.root / 'benchmarks' / 'dafny' / 'problems' / self.ids[2]).mkdir(parents=True)
+        self.validate()
+
     def test_scaffolder_refuses_overwrite(self):
         with self.assertRaisesRegex(manage.Invalid, 'refusing to overwrite'):
             manage.initialize(self.root, argparse.Namespace(id='test-system', track='agent', task='End2End', input_mode='nl', split='full'))

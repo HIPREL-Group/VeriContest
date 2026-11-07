@@ -501,6 +501,14 @@ body.has-sidebar { padding-left: var(--sidebar-w); }
 .lb-status { display: inline-block; padding: .2rem .5rem; border-radius: 5px; background: #f0f0f4; font-size: .75rem; }
 .lb-status.evaluation_checked { background: #e5f3e9; color: #216138; }
 .lb-empty { text-align: center !important; padding: 2rem !important; color: var(--muted); }
+/* Other verifiers' versions of the benchmark: a heading row, a mark after the name, and the footnote. */
+#lbTable .lb-group td { padding: .55rem .5rem .35rem; border-bottom: 1px solid var(--line); background: var(--tint);
+  color: var(--muted); font-size: .8rem; font-weight: 600; }
+#lbTable .lb-group-empty td { font-weight: 400; text-align: center; padding: .9rem .5rem; }
+.lb-mark { margin-left: .1rem; color: var(--accent); font-weight: 700; cursor: help; }
+.lb-footnote { margin-top: .6rem; color: var(--muted); font-size: .8rem; line-height: 1.5; }
+.lb-footnote p + p { margin-top: .4rem; }
+.lb-footnote a { color: var(--accent); }
 .lb-identity { display: flex; flex-wrap: wrap; align-items: baseline; gap: .15rem .6rem; }
 .lb-details-toggle { padding: 0; border: 0; background: none; font: inherit; font-size: .8rem; color: var(--accent); cursor: pointer; }
 .lb-details-toggle::after { content: " \25B8"; }

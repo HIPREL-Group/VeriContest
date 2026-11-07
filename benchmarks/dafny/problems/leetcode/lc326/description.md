@@ -1,0 +1,37 @@
+# 326. Power of Three
+Given an integer n, return `true` if it is a power of three. Otherwise, return `false`.
+
+An integer `n` is a power of three, if there exists an integer `x` such that `n == 3**x`.
+
+## Example 1:
+> **Input:** n = 27  
+> **Output:** true  
+> **Explanation:**  27 = 3**3
+
+
+## Example 2:
+> **Input:** n = 0  
+> **Output:** false  
+> **Explanation:** There is no x where 3**x = 0.  
+
+## Example 3:
+> **Input:** n = -1  
+> **Output:** false  
+> **Explanation:** There is no x where 3x = (-1).
+
+## Constraints:
+
+- $-2^{31} <= n <= 2^{31} - 1$
+
+## Starter Code
+
+```dafny
+predicate is_power_of_three_pre(n: int)
+
+predicate is_power_of_three_post(n: int, res: bool)
+  requires is_power_of_three_pre(n)
+
+method is_power_of_three(n: int) returns (res: bool)
+  requires is_power_of_three_pre(n)
+  ensures is_power_of_three_post(n, res)
+```

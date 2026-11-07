@@ -1,0 +1,40 @@
+# Sqrt(x)
+
+Given a non-negative integer `x`, return *the square root* of `x` *rounded down to the nearest integer*. The returned integer should be **non-negative** as well.
+
+You **must not use** any built-in exponent function or operator.
+
+- For example, do not use `pow(x, 0.5)` in c++ or `x ** 0.5` in python.
+
+## Example 1:
+
+```
+Input: x = 4
+Output: 2
+Explanation: The square root of 4 is 2, so we return 2.
+```
+
+## Example 2:
+
+```
+Input: x = 8
+Output: 2
+Explanation: The square root of 8 is 2.82842..., and since we round it down to the nearest integer, 2 is returned.
+```
+
+## Constraints:
+
+- 0 <= x <= $2^{31} - 1$
+
+## Starter Code
+
+```dafny
+predicate my_sqrt_pre(x: int)
+
+predicate my_sqrt_post(x: int, res: int)
+  requires my_sqrt_pre(x)
+
+method my_sqrt(x: int) returns (res: int)
+  requires my_sqrt_pre(x)
+  ensures my_sqrt_post(x, res)
+```

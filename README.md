@@ -64,10 +64,12 @@ files, its evaluator and its toolchain.
 | Folder | Verifier | Tasks |
 |---|---|---|
 | [`benchmarks/verus/`](benchmarks/verus/README.md) | Verus (Rust) | SpecGen, CodeGen, ProofGen, End2End |
+| [`benchmarks/dafny/`](benchmarks/dafny/README.md) | Dafny | End2End |
 
 ```text
 benchmarks/
   verus/            # Verus version: problems, evaluation, toolchain and tools
+  dafny/            # Dafny version: problem descriptions and scorer
 leaderboard/        # Release manifest, problem lists, submission validation, and website build
 submissions/        # Public metadata, component results, and maintainer reviews
 templates/          # Submission templates

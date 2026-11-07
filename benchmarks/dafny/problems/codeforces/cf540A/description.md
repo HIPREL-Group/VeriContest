@@ -1,0 +1,78 @@
+# Combination Lock
+
+Time limit: 2 seconds | Memory limit: 256 megabytes
+
+Scrooge McDuck keeps his most treasured savings in a home safe with a combination lock. Each time he wants to put there the treasures that he's earned fair and square, he has to open the lock.
+  
+The combination lock is represented by $n$ rotating disks with digits from 0 to 9 written on them. Scrooge McDuck has to turn some disks so that the combination of digits on the disks forms a secret combination. In one move, he can rotate one disk one digit forwards or backwards. In particular, in one move he can go from digit 0 to digit 9 and vice versa. What minimum number of actions does he need for that?
+
+## Input
+
+The first line contains a single integer $n$ ($1 ≤ n ≤ 1000$) — the number of disks on the combination lock.
+
+The second line contains a string of $n$ digits — the original state of the disks.
+
+The third line contains a string of $n$ digits — Scrooge McDuck's combination that opens the lock.
+
+## Output
+
+Print a single integer — the minimum number of moves Scrooge McDuck needs to open the lock.
+
+## Example
+
+**Input:**
+```
+5
+82195
+64723
+```
+**Output:**
+```
+13
+```
+
+## Note
+
+In the sample he needs 13 moves:
+ - 1 disk:  
+- 2 disk:  
+- 3 disk:  
+- 4 disk:  
+- 5 disk:
+
+## Starter Code
+
+```dafny
+predicate min_lock_moves_pre(n: nat, current: seq<nat>, target: seq<nat>)
+
+predicate min_lock_moves_post(n: nat, current: seq<nat>, target: seq<nat>, result: nat)
+  requires min_lock_moves_pre(n, current, target)
+
+method min_lock_moves(n: nat, current: seq<nat>, target: seq<nat>) returns (result: nat)
+  requires min_lock_moves_pre(n, current, target)
+  ensures min_lock_moves_post(n, current, target, result)
+```
+
+The testcases give the input and the expected output of the program below, the Verus version's `main`, in which `Solution::min_lock_moves` is the method `min_lock_moves`. It reads the input, calls the method, and prints what it returns.
+
+```rust
+fn main() {
+    let stdin = io::stdin();
+    let mut lines = stdin.lock().lines();
+    let n: usize = lines.next().unwrap().unwrap().trim().parse().unwrap();
+    let mut current = Vec::with_capacity(n);
+    let s = lines.next().unwrap().unwrap();
+    let sb = s.trim().as_bytes();
+    for j in 0..n {
+        current.push(sb[j] - b'0');
+    }
+    let mut target = Vec::with_capacity(n);
+    let t = lines.next().unwrap().unwrap();
+    let tb = t.trim().as_bytes();
+    for j in 0..n {
+        target.push(tb[j] - b'0');
+    }
+    let ans = Solution::min_lock_moves(n, current, target);
+    println!("{}", ans);
+}
+```

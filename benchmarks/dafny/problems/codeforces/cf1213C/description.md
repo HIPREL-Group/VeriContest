@@ -1,0 +1,77 @@
+# Book Reading
+
+Time limit: 1 second | Memory limit: 256 megabytes
+
+Polycarp is reading a book consisting of $$$n$$$ pages numbered from $$$1$$$ to $$$n$$$. Every time he finishes the page with the number divisible by $$$m$$$, he writes down the last digit of this page number. For example, if $$$n=15$$$ and $$$m=5$$$, pages divisible by $$$m$$$ are $$$5, 10, 15$$$. Their last digits are $$$5, 0, 5$$$ correspondingly, their sum is $$$10$$$.
+
+Your task is to calculate the sum of all digits Polycarp has written down.
+
+You have to answer $$$q$$$ independent queries.
+
+## Input
+
+The first line of the input contains one integer $$$q$$$ ($$$1 \le q \le 1000$$$) — the number of queries.
+
+The following $$$q$$$ lines contain queries, one per line. Each query is given as two integers $$$n$$$ and $$$m$$$ ($$$1 \le n, m \le 10^{16}$$$) — the number of pages in the book and required divisor, respectively.
+
+## Output
+
+For each query print the answer for it — the sum of digits written down by Polycarp.
+
+## Example
+
+**Input:**
+```
+7
+1 1
+10 1
+100 3
+1024 14
+998244353 1337
+123 144
+1234312817382646 13
+```
+**Output:**
+```
+1
+45
+153
+294
+3359835
+0
+427262129093995
+```
+
+## Starter Code
+
+```dafny
+predicate book_reading_digit_sum_pre(n: nat, m: nat)
+
+predicate book_reading_digit_sum_post(n: nat, m: nat, r: nat)
+  requires book_reading_digit_sum_pre(n, m)
+
+method book_reading_digit_sum(n: nat, m: nat) returns (r: nat)
+  requires book_reading_digit_sum_pre(n, m)
+  ensures book_reading_digit_sum_post(n, m, r)
+```
+
+The testcases give the input and the expected output of the program below, the Verus version's `main`, in which `Solution::book_reading_digit_sum` is the method `book_reading_digit_sum`. It reads the input, calls the method, and prints what it returns.
+
+```rust
+fn main() {
+    let stdin = io::stdin();
+    let mut lines = stdin.lock().lines();
+    let q_line = lines.next().unwrap().unwrap();
+    let q: u64 = q_line.trim().parse().unwrap();
+    let mut qi: u64 = 0;
+    while qi < q {
+        let line = lines.next().unwrap().unwrap();
+        let mut parts = line.split_whitespace();
+        let n: u64 = parts.next().unwrap().parse().unwrap();
+        let m: u64 = parts.next().unwrap().parse().unwrap();
+        let ans = Solution::book_reading_digit_sum(n, m);
+        println!("{}", ans);
+        qi = qi + 1;
+    }
+}
+```

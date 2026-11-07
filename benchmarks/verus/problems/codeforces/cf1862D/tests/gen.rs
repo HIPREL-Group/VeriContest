@@ -125,7 +125,7 @@ fn main() {
     }
 
     // Edge cases - triangle numbers
-    let edges: Vec<u64> = vec![1, 2, 3, 4, 5, 6, 10, 15, 21, 28, 36, 45, 55, 100, 1000, 1_000_000_000, u64::MAX / 2, 1_000_000_000_000_000_000];
+    let edges: Vec<u64> = vec![1, 2, 3, 4, 5, 6, 10, 15, 21, 28, 36, 45, 55, 100, 1000, 1_000_000_000, 1_000_000_000_000_000_000];
     for &n in &edges {
         if count >= target { break; }
         let cases = vec![n];

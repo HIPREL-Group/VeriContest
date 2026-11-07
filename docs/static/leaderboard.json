@@ -71,7 +71,8 @@
       "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
       "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
       "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts",
-      "spec_review_policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/SPEC_REVIEW.md"
+      "spec_review_policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/SPEC_REVIEW.md",
+      "verifier": "verus"
     },
     {
       "id": "model-codegen-nl-2026-10-1",
@@ -90,7 +91,8 @@
       "rustc_version": "1.94.0",
       "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
       "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
-      "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts"
+      "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts",
+      "verifier": "verus"
     },
     {
       "id": "model-codegen-spec-2026-10-1",
@@ -109,7 +111,8 @@
       "rustc_version": "1.94.0",
       "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
       "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
-      "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts"
+      "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts",
+      "verifier": "verus"
     },
     {
       "id": "model-codegen-nl-spec-2026-10-1",
@@ -128,7 +131,8 @@
       "rustc_version": "1.94.0",
       "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
       "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
-      "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts"
+      "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts",
+      "verifier": "verus"
     },
     {
       "id": "model-proofgen-code-spec-2026-10-1",
@@ -147,7 +151,8 @@
       "rustc_version": "1.94.0",
       "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
       "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
-      "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts"
+      "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts",
+      "verifier": "verus"
     },
     {
       "id": "model-end2end-nl-2026-10-1",
@@ -167,7 +172,8 @@
       "environment": "Linux x86-64; Python 3.13; Verus 0.2026.04.10.01bf489 (toolchain 1.94.0-x86_64-unknown-linux-gnu); rustc 1.94.0; lynette built by evaluation/setup_tools.sh; post2exe from the repository",
       "resource_limits": "Test case: 1 s wall clock; compilation: 120 s; verification: 600 s with --no-cheating --rlimit 100000; SpecGen typecheck: 120 s; lynette compare: 30 s; post2exe: 120 s generation, 300 s checker compilation, 600 s checker run",
       "prompt_policy_url": "https://github.com/HIPREL-Group/VeriContest/tree/ac7418f95dda0ad47b800ab872c60ace5ad1c907/evaluation/prompts",
-      "spec_review_policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/SPEC_REVIEW.md"
+      "spec_review_policy_url": "https://github.com/HIPREL-Group/VeriContest/blob/main/leaderboard/SPEC_REVIEW.md",
+      "verifier": "verus"
     }
   ],
   "entries": [
@@ -194,6 +200,7 @@
         "Claude Opus 4.7"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl_spec",
       "split": "full",
@@ -273,6 +280,7 @@
         "Claude Opus 4.7"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl",
       "split": "full",
@@ -352,6 +360,7 @@
         "Claude Opus 4.7"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "spec",
       "split": "full",
@@ -431,6 +440,7 @@
         "Claude Opus 4.7"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "End2End",
       "input_mode": "nl",
       "split": "full",
@@ -515,6 +525,7 @@
         "Claude Opus 4.7"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "ProofGen",
       "input_mode": "code_spec",
       "split": "full",
@@ -594,6 +605,7 @@
         "Claude Opus 4.7"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "SpecGen",
       "input_mode": "nl",
       "split": "full",
@@ -675,6 +687,7 @@
         "Claude Sonnet 4.6"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl_spec",
       "split": "full",
@@ -754,6 +767,7 @@
         "Claude Sonnet 4.6"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl",
       "split": "full",
@@ -833,6 +847,7 @@
         "Claude Sonnet 4.6"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "spec",
       "split": "full",
@@ -912,6 +927,7 @@
         "Claude Sonnet 4.6"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "End2End",
       "input_mode": "nl",
       "split": "full",
@@ -996,6 +1012,7 @@
         "Claude Sonnet 4.6"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "ProofGen",
       "input_mode": "code_spec",
       "split": "full",
@@ -1076,6 +1093,7 @@
         "Claude Sonnet 4.6"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "SpecGen",
       "input_mode": "nl",
       "split": "full",
@@ -1157,6 +1175,7 @@
         "DeepSeek V4 Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl_spec",
       "split": "full",
@@ -1236,6 +1255,7 @@
         "DeepSeek V4 Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl",
       "split": "full",
@@ -1315,6 +1335,7 @@
         "DeepSeek V4 Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "spec",
       "split": "full",
@@ -1394,6 +1415,7 @@
         "DeepSeek V4 Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "End2End",
       "input_mode": "nl",
       "split": "full",
@@ -1478,6 +1500,7 @@
         "DeepSeek V4 Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "ProofGen",
       "input_mode": "code_spec",
       "split": "full",
@@ -1558,6 +1581,7 @@
         "DeepSeek V4 Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "SpecGen",
       "input_mode": "nl",
       "split": "full",
@@ -1638,6 +1662,7 @@
         "DeepSeek V4 Pro"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl_spec",
       "split": "full",
@@ -1717,6 +1742,7 @@
         "DeepSeek V4 Pro"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl",
       "split": "full",
@@ -1796,6 +1822,7 @@
         "DeepSeek V4 Pro"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "spec",
       "split": "full",
@@ -1875,6 +1902,7 @@
         "DeepSeek V4 Pro"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "End2End",
       "input_mode": "nl",
       "split": "full",
@@ -1959,6 +1987,7 @@
         "DeepSeek V4 Pro"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "ProofGen",
       "input_mode": "code_spec",
       "split": "full",
@@ -2039,6 +2068,7 @@
         "DeepSeek V4 Pro"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "SpecGen",
       "input_mode": "nl",
       "split": "full",
@@ -2119,6 +2149,7 @@
         "Gemini 3.1 Pro"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl_spec",
       "split": "full",
@@ -2198,6 +2229,7 @@
         "Gemini 3.1 Pro"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl",
       "split": "full",
@@ -2277,6 +2309,7 @@
         "Gemini 3.1 Pro"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "spec",
       "split": "full",
@@ -2356,6 +2389,7 @@
         "Gemini 3.1 Pro"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "End2End",
       "input_mode": "nl",
       "split": "full",
@@ -2441,6 +2475,7 @@
         "Gemini 3.1 Pro"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "ProofGen",
       "input_mode": "code_spec",
       "split": "full",
@@ -2521,6 +2556,7 @@
         "Gemini 3.1 Pro"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "SpecGen",
       "input_mode": "nl",
       "split": "full",
@@ -2601,6 +2637,7 @@
         "Gemini 3 Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl_spec",
       "split": "full",
@@ -2680,6 +2717,7 @@
         "Gemini 3 Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl",
       "split": "full",
@@ -2759,6 +2797,7 @@
         "Gemini 3 Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "spec",
       "split": "full",
@@ -2838,6 +2877,7 @@
         "Gemini 3 Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "End2End",
       "input_mode": "nl",
       "split": "full",
@@ -2921,6 +2961,7 @@
         "Gemini 3 Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "ProofGen",
       "input_mode": "code_spec",
       "split": "full",
@@ -3000,6 +3041,7 @@
         "Gemini 3 Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "SpecGen",
       "input_mode": "nl",
       "split": "full",
@@ -3081,6 +3123,7 @@
         "GLM-4.7-Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl_spec",
       "split": "full",
@@ -3160,6 +3203,7 @@
         "GLM-4.7-Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl",
       "split": "full",
@@ -3239,6 +3283,7 @@
         "GLM-4.7-Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "spec",
       "split": "full",
@@ -3318,6 +3363,7 @@
         "GLM-4.7-Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "End2End",
       "input_mode": "nl",
       "split": "full",
@@ -3401,6 +3447,7 @@
         "GLM-4.7-Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "ProofGen",
       "input_mode": "code_spec",
       "split": "full",
@@ -3480,6 +3527,7 @@
         "GLM-4.7-Flash"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "SpecGen",
       "input_mode": "nl",
       "split": "full",
@@ -3560,6 +3608,7 @@
         "GPT-5.4 mini"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl_spec",
       "split": "full",
@@ -3639,6 +3688,7 @@
         "GPT-5.4 mini"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl",
       "split": "full",
@@ -3718,6 +3768,7 @@
         "GPT-5.4 mini"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "spec",
       "split": "full",
@@ -3797,6 +3848,7 @@
         "GPT-5.4 mini"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "End2End",
       "input_mode": "nl",
       "split": "full",
@@ -3881,6 +3933,7 @@
         "GPT-5.4 mini"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "ProofGen",
       "input_mode": "code_spec",
       "split": "full",
@@ -3960,6 +4013,7 @@
         "GPT-5.4 mini"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "SpecGen",
       "input_mode": "nl",
       "split": "full",
@@ -4042,6 +4096,7 @@
         "GPT-5.5"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl_spec",
       "split": "full",
@@ -4122,6 +4177,7 @@
         "GPT-5.5"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl",
       "split": "full",
@@ -4202,6 +4258,7 @@
         "GPT-5.5"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "spec",
       "split": "full",
@@ -4282,6 +4339,7 @@
         "GPT-5.5"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "End2End",
       "input_mode": "nl",
       "split": "full",
@@ -4365,6 +4423,7 @@
         "GPT-5.5"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "ProofGen",
       "input_mode": "code_spec",
       "split": "full",
@@ -4445,6 +4504,7 @@
         "GPT-5.5"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "SpecGen",
       "input_mode": "nl",
       "split": "full",
@@ -4526,6 +4586,7 @@
         "Qwen3.6-27B"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl_spec",
       "split": "full",
@@ -4605,6 +4666,7 @@
         "Qwen3.6-27B"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "nl",
       "split": "full",
@@ -4684,6 +4746,7 @@
         "Qwen3.6-27B"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "CodeGen",
       "input_mode": "spec",
       "split": "full",
@@ -4763,6 +4826,7 @@
         "Qwen3.6-27B"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "End2End",
       "input_mode": "nl",
       "split": "full",
@@ -4846,6 +4910,7 @@
         "Qwen3.6-27B"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "ProofGen",
       "input_mode": "code_spec",
       "split": "full",
@@ -4925,6 +4990,7 @@
         "Qwen3.6-27B"
       ],
       "track": "fixed_prompt",
+      "verifier": "verus",
       "task": "SpecGen",
       "input_mode": "nl",
       "split": "full",

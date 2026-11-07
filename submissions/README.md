@@ -58,3 +58,12 @@ Each entry is ranked only against entries evaluated under the same release and
 evaluation setting ([`leaderboard/protocols.json`](../leaderboard/protocols.json)).
 SpecGen and End2End specifications that cannot be tested automatically are
 reviewed under the [specification review standard](../leaderboard/SPEC_REVIEW.md).
+
+## Dafny version
+
+End2End entries can also solve the [Dafny version](../benchmarks/dafny/README.md) of
+the problems. Set `benchmark.verifier` to `dafny` and the Dafny version in
+`evaluation.verifier_version`; in `results.jsonl`, the `verus` check records the
+Dafny checks. The reference specifications of the Dafny version are currently
+hidden, so the maintainers score Dafny entries. They are ranked separately from
+Verus entries.

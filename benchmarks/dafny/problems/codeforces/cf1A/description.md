@@ -1,0 +1,56 @@
+# Theatre Square
+
+Time limit: 1 second | Memory limit: 256 megabytes
+
+Theatre Square in the capital city of Berland has a rectangular shape with the size $n × m$ meters. On the occasion of the city's anniversary, a decision was taken to pave the Square with square granite flagstones. Each flagstone is of the size $a × a$.
+
+What is the least number of flagstones needed to pave the Square? It's allowed to cover the surface larger than the Theatre Square, but the Square has to be covered. It's not allowed to break the flagstones. The sides of flagstones should be parallel to the sides of the Square.
+
+## Input
+
+The input contains three positive integer numbers in the first line: $n,  m$ and $a$ ($1 ≤  n, m, a ≤ 10^9$).
+
+## Output
+
+Write the needed number of flagstones.
+
+## Example
+
+**Input:**
+```
+6 6 4
+```
+**Output:**
+```
+4
+```
+
+## Starter Code
+
+```dafny
+predicate min_flagstones_pre(n: nat, m: nat, a: nat)
+
+predicate min_flagstones_post(n: nat, m: nat, a: nat, result: nat)
+  requires min_flagstones_pre(n, m, a)
+
+method min_flagstones(n: nat, m: nat, a: nat) returns (result: nat)
+  requires min_flagstones_pre(n, m, a)
+  ensures min_flagstones_post(n, m, a, result)
+```
+
+The testcases give the input and the expected output of the program below, the Verus version's `main`, in which `Solution::min_flagstones` is the method `min_flagstones`. It reads the input, calls the method, and prints what it returns.
+
+```rust
+fn main() {
+    let mut line = String::new();
+    io::stdin().read_line(&mut line).expect("read line");
+    let parts: Vec<u64> = line
+        .split_whitespace()
+        .map(|s| s.parse().expect("integer"))
+        .collect();
+    let n = parts[0];
+    let m = parts[1];
+    let a = parts[2];
+    println!("{}", Solution::min_flagstones(n, m, a));
+}
+```

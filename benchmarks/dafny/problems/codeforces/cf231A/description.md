@@ -1,0 +1,83 @@
+# Team
+
+Time limit: 2 seconds | Memory limit: 256 megabytes
+
+One day three best friends Petya, Vasya and Tonya decided to form a team and take part in programming contests. Participants are usually offered several problems during programming contests. Long before the start the friends decided that they will implement a problem if at least two of them are sure about the solution. Otherwise, the friends won't write the problem's solution.
+
+This contest offers $n$ problems to the participants. For each problem we know, which friend is sure about the solution. Help the friends find the number of problems for which they will write a solution.
+
+## Input
+
+The first input line contains a single integer $n$ ($1 ≤ n ≤ 1000$) — the number of problems in the contest. Then $n$ lines contain three integers each, each integer is either $0$ or $1$. If the first number in the line equals $1$, then Petya is sure about the problem's solution, otherwise he isn't sure. The second number shows Vasya's view on the solution, the third number shows Tonya's view. The numbers on the lines are separated by spaces.
+
+## Output
+
+Print a single integer — the number of problems the friends will implement on the contest.
+
+## Examples
+
+### Example 1
+
+**Input:**
+```
+3
+1 1 0
+1 1 1
+1 0 0
+```
+**Output:**
+```
+2
+```
+
+### Example 2
+
+**Input:**
+```
+2
+1 0 0
+0 1 1
+```
+**Output:**
+```
+1
+```
+
+## Note
+
+In the first sample Petya and Vasya are sure that they know how to solve the first problem and all three of them know how to solve the second problem. That means that they will write solutions for these problems. Only Petya is sure about the solution for the third problem, but that isn't enough, so the friends won't take it. 
+
+In the second sample the friends will only implement the second problem, as Vasya and Tonya are sure about the solution.
+
+## Starter Code
+
+```dafny
+predicate count_teams_implement_pre(grid: seq<int>, n: nat)
+
+predicate count_teams_implement_post(grid: seq<int>, n: nat, result: nat)
+  requires count_teams_implement_pre(grid, n)
+
+method count_teams_implement(grid: seq<int>, n: nat) returns (result: nat)
+  requires count_teams_implement_pre(grid, n)
+  ensures count_teams_implement_post(grid, n, result)
+```
+
+The testcases give the input and the expected output of the program below, the Verus version's `main`, in which `Solution::count_teams_implement` is the method `count_teams_implement`. It reads the input, calls the method, and prints what it returns.
+
+```rust
+fn main() {
+    let stdin = io::stdin();
+    let mut lines = stdin.lock().lines();
+    let n: usize = lines.next().unwrap().unwrap().trim().parse().unwrap();
+    let mut grid: Vec<i32> = Vec::with_capacity(3 * n);
+    for _ in 0..n {
+        let line = lines.next().unwrap().unwrap();
+        let parts: Vec<i32> = line.split_whitespace().map(|s| s.parse().unwrap()).collect();
+        grid.push(parts[0]);
+        grid.push(parts[1]);
+        grid.push(parts[2]);
+    }
+    let ans = Solution::count_teams_implement(grid, n);
+    println!("{}", ans);
+}
+```

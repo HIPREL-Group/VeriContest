@@ -1,0 +1,67 @@
+# Yet Another Meme Problem
+
+Time limit: 1 second | Memory limit: 256 megabytes
+
+You are given two integers $$$A$$$ and $$$B$$$, calculate the number of pairs $$$(a, b)$$$ such that $$$1 \le a \le A$$$, $$$1 \le b \le B$$$, and the equation $$$a \cdot b + a + b = conc(a, b)$$$ is true; $$$conc(a, b)$$$ is the concatenation of $$$a$$$ and $$$b$$$ (for example, $$$conc(12, 23) = 1223$$$, $$$conc(100, 11) = 10011$$$). **$$$a$$$ and $$$b$$$ should not contain leading zeroes**.
+
+## Input
+
+The first line contains $$$t$$$ ($$$1 \le t \le 100$$$) — the number of test cases.
+
+Each test case contains two integers $$$A$$$ and $$$B$$$ $$$(1 \le A, B \le 10^9)$$$.
+
+## Output
+
+Print one integer — the number of pairs $$$(a, b)$$$ such that $$$1 \le a \le A$$$, $$$1 \le b \le B$$$, and the equation $$$a \cdot b + a + b = conc(a, b)$$$ is true.
+
+## Example
+
+**Input:**
+```
+3
+1 11
+4 2
+191 31415926
+```
+**Output:**
+```
+1
+0
+1337
+```
+
+## Note
+
+There is only one suitable pair in the first test case: $$$a = 1$$$, $$$b = 9$$$ ($$$1 + 9 + 1 \cdot 9 = 19$$$).
+
+## Starter Code
+
+```dafny
+predicate meme_pair_count_pre(a_max: int, b_max: int)
+
+predicate meme_pair_count_post(a_max: int, b_max: int, res: int)
+  requires meme_pair_count_pre(a_max, b_max)
+
+method meme_pair_count(a_max: int, b_max: int) returns (res: int)
+  requires meme_pair_count_pre(a_max, b_max)
+  ensures meme_pair_count_post(a_max, b_max, res)
+```
+
+The testcases give the input and the expected output of the program below, the Verus version's `main`, in which `Solution::meme_pair_count` is the method `meme_pair_count`. It reads the input, calls the method, and prints what it returns.
+
+```rust
+fn main() {
+    let mut input = String::new();
+    io::stdin().read_to_string(&mut input).unwrap();
+    let mut it = input.split_whitespace();
+    let t: usize = it.next().unwrap().parse().unwrap();
+    let mut i: usize = 0;
+    while i < t {
+        let a_max: i64 = it.next().unwrap().parse().unwrap();
+        let b_max: i64 = it.next().unwrap().parse().unwrap();
+        let answer = Solution::meme_pair_count(a_max, b_max);
+        println!("{}", answer);
+        i += 1;
+    }
+}
+```

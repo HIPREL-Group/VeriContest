@@ -39,6 +39,10 @@ and Codeforces coverage, and VeriContest Lite. It shows complete splits only; a
 full-split entry also appears in the other three views, scored on their problems. Protocols remain
 recorded for every checked result; the setting selector is hidden for zero or one
 matching protocol and appears when multiple protocols need to be distinguished.
+Entries on another verifier's version of the benchmark (`benchmark.verifier`, such
+as `dafny`) are ranked on their own, after the Verus entries, with a footnote; the
+selector chooses among Verus settings, and such a version is ranked under its
+setting when it has exactly one in the view.
 
 ## Publish an evaluation setting
 
@@ -51,11 +55,12 @@ Before promoting an entry to `evaluation_checked`, add its agreed protocol to
 | `label` | Optional display name |
 | `release` | A release ID from `release.json` or `releases.json`, e.g. `2026-10.1` |
 | `track` | `fixed_prompt` or `agent` |
+| `verifier` | Optional; `verus` (default) or `dafny`: the version of the benchmark the setting scores (`VERIFIERS` in `manage.py` lists each one's tasks) |
 | `task`, `input_mode` | An allowed pair from `MODES` in `manage.py` |
 | `policy_url` | HTTPS link to the frozen evaluation/generation policy |
 | `testcases` | Object with `source`, `revision` and/or `archive_sha256`; immutable testcase pin |
 | `evaluator_revision` | Full evaluator commit SHA |
-| `verus_version`, `rustc_version` | Exact versions used |
+| `verus_version`, `rustc_version` | Exact versions used; a non-Verus setting gives `verifier_version` instead of `verus_version` |
 | `environment`, `resource_limits` | Pinned environment and compile/proof/test limits |
 | `spec_review_policy_url` | Required for SpecGen/End2End; documented human review procedure |
 | `prompt_policy_url` | Required for the Model track; standardized prompts/generation settings |

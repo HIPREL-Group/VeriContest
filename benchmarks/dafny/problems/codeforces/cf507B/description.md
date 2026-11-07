@@ -1,0 +1,88 @@
+# Amr and Pins
+
+Time limit: 1 second | Memory limit: 256 megabytes
+
+Amr loves Geometry. One day he came up with a very interesting problem.
+
+Amr has a circle of radius $r$ and center in point $(x, y)$. He wants the circle center to be in new position $(x', y')$.
+
+In one step Amr can put a pin to the border of the circle in a certain point, then rotate the circle around that pin by any angle and finally remove the pin.
+
+Help Amr to achieve his goal in minimum number of steps.
+
+## Input
+
+Input consists of 5 space-separated integers $r$, $x$, $y$, $x'$ $y'$ ($1 ≤ r ≤ 10^5$, $ - 10^5 ≤ x, y, x', y' ≤ 10^5$), circle radius, coordinates of original center of the circle and coordinates of destination center of the circle respectively.
+
+## Output
+
+Output a single integer — minimum number of steps required to move the center of the circle to the destination point.
+
+## Examples
+
+### Example 1
+
+**Input:**
+```
+2 0 0 0 4
+```
+**Output:**
+```
+1
+```
+
+### Example 2
+
+**Input:**
+```
+1 1 1 4 4
+```
+**Output:**
+```
+3
+```
+
+### Example 3
+
+**Input:**
+```
+4 5 6 5 6
+```
+**Output:**
+```
+0
+```
+
+## Note
+
+In the first sample test the optimal way is to put a pin at point $(0, 2)$ and rotate the circle by $180$ degrees counter-clockwise (or clockwise, no matter).
+
+## Starter Code
+
+```dafny
+predicate min_steps_to_target_pre(r: int, x: int, y: int, x2: int, y2: int)
+
+predicate min_steps_to_target_post(r: int, x: int, y: int, x2: int, y2: int, res: int)
+  requires min_steps_to_target_pre(r, x, y, x2, y2)
+
+method min_steps_to_target(r: int, x: int, y: int, x2: int, y2: int) returns (res: int)
+  requires min_steps_to_target_pre(r, x, y, x2, y2)
+  ensures min_steps_to_target_post(r, x, y, x2, y2, res)
+```
+
+The testcases give the input and the expected output of the program below, the Verus version's `main`, in which `Solution::min_steps_to_target` is the method `min_steps_to_target`. It reads the input, calls the method, and prints what it returns.
+
+```rust
+fn main() {
+    let mut input = String::new();
+    io::stdin().read_to_string(&mut input).unwrap();
+    let mut it = input.split_whitespace();
+    let r: i128 = it.next().unwrap().parse().unwrap();
+    let x: i128 = it.next().unwrap().parse().unwrap();
+    let y: i128 = it.next().unwrap().parse().unwrap();
+    let x2: i128 = it.next().unwrap().parse().unwrap();
+    let y2: i128 = it.next().unwrap().parse().unwrap();
+    let ans = Solution::min_steps_to_target(r, x, y, x2, y2);
+    println!("{}", ans);
+}
+```

@@ -1,0 +1,77 @@
+# T-primes
+
+Time limit: 2 seconds | Memory limit: 256 megabytes
+
+We know that prime numbers are positive integers that have exactly two distinct positive divisors. Similarly, we'll call a positive integer $t$ Т-prime, if $t$ has exactly three distinct positive divisors.
+
+You are given an array of $n$ positive integers. For each of them determine whether it is Т-prime or not.
+
+## Input
+
+The first line contains a single positive integer, $n$ ($1 ≤ n ≤ 10^5$), showing how many numbers are in the array. The next line contains $n$ space-separated integers $x_i$ ($1 ≤ x_i ≤ 10^12$).
+
+Please, do not use the `%lld` specifier to read or write 64-bit integers in С++. It is advised to use the `cin`, `cout` streams or the `%I64d` specifier.
+
+## Output
+
+Print $n$ lines: the $i$-th line should contain "`YES`" (without the quotes), if number $x_i$ is Т-prime, and "`NO`" (without the quotes), if it isn't.
+
+## Example
+
+**Input:**
+```
+3
+4 5 6
+```
+**Output:**
+```
+YES
+NO
+NO
+```
+
+## Note
+
+The given test has three numbers. The first number 4 has exactly three divisors — 1, 2 and 4, thus the answer for this number is "`YES`". The second number 5 has two divisors (1 and 5), and the third number 6 has four divisors (1, 2, 3, 6), hence the answer for them is "`NO`".
+
+## Starter Code
+
+```dafny
+predicate classify_t_primes_pre(nums: seq<nat>)
+
+predicate classify_t_primes_post(nums: seq<nat>, res: seq<bool>)
+  requires classify_t_primes_pre(nums)
+
+method classify_t_primes(nums: seq<nat>) returns (res: seq<bool>)
+  requires classify_t_primes_pre(nums)
+  ensures classify_t_primes_post(nums, res)
+```
+
+The testcases give the input and the expected output of the program below, the Verus version's `main`, in which `Solution::classify_t_primes` is the method `classify_t_primes`. It reads the input, calls the method, and prints what it returns.
+
+```rust
+fn main() {
+    let mut input = String::new();
+    io::stdin().read_to_string(&mut input).expect("read input");
+    let mut tokens = input.split_whitespace();
+    let n: usize = tokens.next().expect("n").parse().expect("valid n");
+    let mut nums = Vec::with_capacity(n);
+    let mut i = 0usize;
+    while i < n {
+        nums.push(tokens.next().expect("x").parse::<u64>().expect("valid u64"));
+        i += 1;
+    }
+    let ans = Solution::classify_t_primes(nums);
+    let mut out = String::new();
+    i = 0;
+    while i < ans.len() {
+        if ans[i] {
+            out.push_str("YES\n");
+        } else {
+            out.push_str("NO\n");
+        }
+        i += 1;
+    }
+    print!("{}", out);
+}
+```

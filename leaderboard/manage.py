@@ -29,6 +29,8 @@ ENTRY_FILES = ("metadata.yaml", "README.md", "problem_ids.txt", "results.jsonl")
 SHA = re.compile(r"[0-9a-f]{40}|[0-9a-f]{64}")
 ID = re.compile(r"[a-z0-9][a-z0-9_-]{0,119}")
 LOGO = re.compile(r"static/logos/[a-z0-9][a-z0-9_-]*\.(svg|png|webp)")
+# Each verification tool's version of the benchmark (benchmarks/<verifier>/) and its tasks.
+VERIFIERS = {"verus": set(MODES), "dafny": {"End2End"}}
 
 
 class Invalid(ValueError):
@@ -166,6 +168,11 @@ def load_release(release, path):
     return release, splits
 
 
+def version_key(verifier):
+    """The protocol and evaluation field that pins the verifier's version."""
+    return "verus_version" if verifier == "verus" else "verifier_version"
+
+
 def load_config(root):
     """Return the current release, every accepted release by ID, and the protocols.
 
@@ -173,10 +180,13 @@ def load_config(root):
     earlier releases that still accept submissions, each naming its problem list.
     """
     release, splits = load_release(load_json(root / "leaderboard/release.json"), root / "leaderboard/problem_ids.txt")
-    # Detect accidental changes to the supported collection without a release update.
-    actual = {f"{family}/{p.name}" for family in ("leetcode", "codeforces")
-              for p in (root / "benchmarks" / "verus" / "problems" / family).iterdir() if p.is_dir()}
-    require(actual == set(splits["full"]), "current benchmark membership differs from supported release")
+    # Detect accidental changes to the supported collection without a release update,
+    # in every verification tool's version of the benchmark.
+    for problems in sorted((root / "benchmarks").glob("*/problems")):
+        actual = {f"{family}/{p.name}" for family in ("leetcode", "codeforces") if (problems / family).is_dir()
+                  for p in (problems / family).iterdir() if p.is_dir()}
+        require(actual == set(splits["full"]),
+                f"current benchmark membership differs from supported release ({problems.parent.name})")
     releases = {release["id"]: (release, splits)}
     archive = root / "leaderboard/releases.json"
     earlier = load_json(archive) if archive.is_file() else []
@@ -198,18 +208,21 @@ def load_config(root):
         require(p.get("task") in MODES and p.get("input_mode") in MODES[p["task"]], "invalid protocol task/input")
         require(p.get("track") in {"fixed_prompt", "agent"}, "invalid protocol track")
         require(p.get("release") in releases, "protocol names an unknown release")
+        verifier = p.get("verifier", "verus")
+        require(verifier in VERIFIERS and p["task"] in VERIFIERS[verifier], "invalid protocol verifier or task for it")
+        require(verifier == "verus" or "verus_version" not in p, "a non-Verus protocol pins verifier_version")
         url(p.get("policy_url"), "protocol.policy_url")
         pin(p.get("testcases"), "protocol.testcases")
         url(p["testcases"].get("source"), "protocol.testcases.source")
         for name in ("evaluator_revision",):
             pin({"revision": p.get(name)}, f"protocol.{name}")
-        for name in ("verus_version", "rustc_version", "environment", "resource_limits"):
+        for name in (version_key(verifier), "rustc_version", "environment", "resource_limits"):
             text(p.get(name), f"protocol.{name}")
         if p["task"] in {"SpecGen", "End2End"}:
             url(p.get("spec_review_policy_url"), "protocol.spec_review_policy_url")
         if p["track"] == "fixed_prompt":
             url(p.get("prompt_policy_url"), "protocol.prompt_policy_url")
-        protocols[pid] = p
+        protocols[pid] = {**p, "verifier": verifier}
     return release, releases, protocols
 
 
@@ -280,6 +293,8 @@ def validate_entry(entry, release, releases, protocols):
     benchmark = mapping(m.get("benchmark"), "benchmark")
     require(benchmark.get("release") in releases, f"benchmark.release must be one of: {', '.join(releases)}")
     entry_release, release_splits = releases[benchmark["release"]]
+    verifier = benchmark.get("verifier", "verus")
+    require(verifier in VERIFIERS and task in VERIFIERS[verifier], "invalid benchmark.verifier or task for it")
     require(benchmark.get("revision") == entry_release["benchmark_revision"], "benchmark.revision does not match the declared release")
     require(benchmark.get("problem_ids_path") == "problem_ids.txt", "use local problem_ids.txt")
     ids = problem_ids(entry / "problem_ids.txt")
@@ -331,9 +346,10 @@ def validate_entry(entry, release, releases, protocols):
         p = protocols[setting]
         require((p["task"], p["input_mode"], p["track"]) == (task, mode, system["category"]), "protocol task/input/track mismatch")
         require(p["release"] == benchmark["release"], "protocol release mismatch")
+        require(p["verifier"] == verifier, "protocol verifier mismatch")
         for key in ("source", "revision", "archive_sha256"):
             require(tests.get(key) == p["testcases"].get(key), f"protocol testcase {key} mismatch")
-        for key in ("evaluator_revision", "verus_version", "rustc_version", "environment", "resource_limits"):
+        for key in ("evaluator_revision", version_key(verifier), "rustc_version", "environment", "resource_limits"):
             require(evaluation.get(key) == p[key], f"protocol {key} mismatch")
     records = []
     for line in (entry / "results.jsonl").read_text().splitlines():
@@ -381,7 +397,7 @@ def validate_entry(entry, release, releases, protocols):
         require(artifacts["availability"] != "pending", "review requires pinned available artifacts")
         require(evaluation["commands"], "review requires evaluation commands")
         pin({"revision": evaluation.get("evaluator_revision")}, "evaluator")
-        for key in ("verus_version", "rustc_version", "environment", "resource_limits"):
+        for key in (version_key(verifier), "rustc_version", "environment", "resource_limits"):
             text(evaluation.get(key), f"evaluation.{key}")
         if task != "ProofGen":
             url(tests.get("source"), "testcases.source")
@@ -418,7 +434,7 @@ def validate_entry(entry, release, releases, protocols):
             "version": system["version"], "team": system["team"],
             "org": system.get("organization") or system["team"], "org_logo": logo, "models": [v["id"] for v in models],
             "model_names": list(dict.fromkeys(v.get("name") or v["id"] for v in models)),
-            "track": system["category"], "task": task, "input_mode": mode, "split": split,
+            "track": system["category"], "verifier": verifier, "task": task, "input_mode": mode, "split": split,
             "problem_count": len(ids), "protocol_id": setting, "status": status, "score": score,
             "split_scores": split_scores, "split_problem_counts": split_counts,
             "rankable": score is not None and split != "custom", "budget": budget,
