@@ -17,14 +17,14 @@ ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 # LeetCode: 2 Easy, 2 Medium, 1 Hard — recognizable, compact problems.
 # Codeforces: an even spread across the rating spectrum (~800 / ~1300 / ~1800).
 PICK = [
-    ("benchmark/leetcode/lc121", "LeetCode"),    # Easy — Best Time to Buy and Sell Stock
-    ("benchmark/leetcode/lc169", "LeetCode"),    # Easy — Majority Element (Boyer–Moore)
-    ("benchmark/leetcode/lc343", "LeetCode"),    # Medium — Integer Break
-    ("benchmark/leetcode/lc1492", "LeetCode"),   # Medium — The kth Factor of n
-    ("benchmark/leetcode/lc1250", "LeetCode"),   # Hard — Check If It Is a Good Array
-    ("benchmark/codeforces/cf617A", "Codeforces"),  # Rating 800 — Elephant
-    ("benchmark/codeforces/cf1826C", "Codeforces"), # Rating 1300 — Dreaming of Freedom
-    ("benchmark/codeforces/cf478C", "Codeforces"),  # Rating 1800 — Table Decorations
+    ("benchmarks/verus/problems/leetcode/lc121", "LeetCode"),    # Easy — Best Time to Buy and Sell Stock
+    ("benchmarks/verus/problems/leetcode/lc169", "LeetCode"),    # Easy — Majority Element (Boyer–Moore)
+    ("benchmarks/verus/problems/leetcode/lc343", "LeetCode"),    # Medium — Integer Break
+    ("benchmarks/verus/problems/leetcode/lc1492", "LeetCode"),   # Medium — The kth Factor of n
+    ("benchmarks/verus/problems/leetcode/lc1250", "LeetCode"),   # Hard — Check If It Is a Good Array
+    ("benchmarks/verus/problems/codeforces/cf617A", "Codeforces"),  # Rating 800 — Elephant
+    ("benchmarks/verus/problems/codeforces/cf1826C", "Codeforces"), # Rating 1300 — Dreaming of Freedom
+    ("benchmarks/verus/problems/codeforces/cf478C", "Codeforces"),  # Rating 1800 — Table Decorations
 ]
 
 

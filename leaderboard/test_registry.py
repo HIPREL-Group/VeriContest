@@ -27,7 +27,7 @@ class RegistryTests(unittest.TestCase):
         shutil.copytree(manage.ROOT / 'templates', self.root / 'templates')
         self.ids = ['codeforces/cf1A', 'leetcode/lc1', 'leetcode/lc2']
         for pid in self.ids:
-            (self.root / 'benchmark' / pid).mkdir(parents=True)
+            (self.root / 'benchmarks' / 'verus' / 'problems' / pid).mkdir(parents=True)
         content = '\n'.join(self.ids) + '\n'
         (self.root / 'leaderboard/problem_ids.txt').write_text(content)
         self.release = {'id': 'test-release', 'benchmark_revision': 'a' * 40,

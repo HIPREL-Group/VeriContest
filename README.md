@@ -57,69 +57,27 @@ maintenance, and website publication.
 
 ## Repository Layout
 
+The problem set, test cases and leaderboard are shared. Each verification tool
+has its own version of the benchmark under `benchmarks/`, with its problem
+files, its evaluator and its toolchain.
+
+| Folder | Verifier | Tasks |
+|---|---|---|
+| [`benchmarks/verus/`](benchmarks/verus/README.md) | Verus (Rust) | SpecGen, CodeGen, ProofGen, End2End |
+
 ```text
-benchmark/
-  codeforces/       # 284 Codeforces problems
-  leetcode/         # 722 LeetCode problems
-  CHECKERS.md       # Problem-specific judging rules and input/output schemas
-lemmas/             # Reusable Verus proof lemmas (arithmetic, bits, sequences)
-skills/             # Authoring guides and scripts for adding new problems
-verus/              # Bundled Verus toolchain, 0.2026.04.10, Linux x86-64 (invoked as ./verus/verus)
-test_gen/           # Test case generation pipeline (positive and negative)
-post2exe/           # Postcondition-testing component
-leaderboard/        # Release manifest, submission validation, and website build
+benchmarks/
+  verus/            # Verus version: problems, evaluation, toolchain and tools
+leaderboard/        # Release manifest, problem lists, submission validation, and website build
 submissions/        # Public metadata, component results, and maintainer reviews
+templates/          # Submission templates
+docs/               # Website and leaderboard (GitHub Pages)
 ```
-
-Each problem directory contains the verification artifacts for one problem:
-
-```text
-benchmark/codeforces/cf1006C/
-  description.md
-  tags
-  code.rs
-  spec.rs
-  code_spec.rs
-  verified.rs
-  main.rs
-```
-
-LeetCode problems generally expose function-style interfaces and usually do not
-include `main.rs`. Codeforces problems include `main.rs` for contest-style
-stdin/stdout handling.
-
-## File Meanings
-
-- `description.md`: Natural-language problem statement sourced from LeetCode or
-  Codeforces, supplemented with starter code to support evaluation.
-- `tags`: Metadata such as problem ID, difficulty level, acceptance rate, and
-  algorithm tags, when available.
-- `spec.rs`: The ground-truth formal specification. It contains preconditions,
-  which state the properties inputs must satisfy, and postconditions, which
-  specify the desired relationship between inputs and outputs.
-- `code.rs`: Ground-truth Rust code accepted by the online judge. Since the
-  benchmark is built to align with Verus, `code.rs` is not always directly
-  compilable if submitted as-is to the LeetCode platform:
-  1. Some syntax that Verus accepts is not plain-Rust compatible (for example
-     certain string operations, and `.set()` on arrays/vectors in place of index
-     assignment).
-  2. Some LeetCode problems reference self-defined data structures that cannot
-     be reused directly from the reference; these are re-declared in the
-     benchmark files for completeness.
-- `code_spec.rs`: The code and specification artifact used for proof-generation
-  task.
-- `verified.rs`: Programs with specifications, code, and Verus-checked proofs.
-  Verification establishes the checked functions' contracts. 
-- `main.rs`: Codeforces-only executable entry point and stdin/stdout plumbing.
-- `tests/checker.py`: Problem-specific output judge, when supplied. Use it to
-  accept any valid answer, not only the stored reference answer.
 
 ## Benchmark
 
-All problems are under:
-
-- `benchmark/codeforces/`
-- `benchmark/leetcode/`
+The Verus problems are under `benchmarks/verus/problems/codeforces/` and
+`benchmarks/verus/problems/leetcode/`.
 
 The paper's primary evaluation used 946 problems (690 LeetCode and 256
 Codeforces). The current unified collection contains 1,006 problems; its full
@@ -173,7 +131,7 @@ instance reviewed by at least two human experts:
 
 ## Test Case Generation
 
-`test_gen/` holds the pipeline that produces the test suites described above,
+`benchmarks/verus/test_gen/` holds the pipeline that produces the test suites described above,
 covering Phase 3 of the construction pipeline.
 
 Positive cases (`testcases.jsonl`) come from two Verus-verified input generators
@@ -202,7 +160,7 @@ unbounded quantifiers, are reviewed manually.
 Post2Exe depends on the external open-source parser
 [`secure-foundations/tree-sitter-verus`](https://github.com/secure-foundations/tree-sitter-verus).
 We do not vendor that repository here. See
-[post2exe/EXTERNAL_DEPS.md](post2exe/EXTERNAL_DEPS.md) for the expected local
+[benchmarks/verus/post2exe/EXTERNAL_DEPS.md](benchmarks/verus/post2exe/EXTERNAL_DEPS.md) for the expected local
 checkout path and the commit used during development.
 
 ## License

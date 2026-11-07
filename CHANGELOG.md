@@ -8,6 +8,14 @@ problem IDs when a change touches benchmark artifacts.
 
 ## Unreleased
 
+- Moved the Verus benchmark and its tooling into `benchmarks/verus/` so that
+  versions for other verification tools can sit beside it. Problem folders are
+  now in `benchmarks/verus/problems/` (was `benchmark/`), the bundled toolchain
+  in `benchmarks/verus/toolchain/` (was `verus/`), and `evaluation/`, `lemmas/`,
+  `skills/`, `test_gen/` and `post2exe/` in `benchmarks/verus/`. Commands in
+  `benchmarks/verus/` run from that folder. No problem, test case, prompt or
+  scoring rule changed, so entries for v2026.10.1 are unaffected.
+
 ## v2026.10.1
 
 Commit `0fede47`. Verus `0.2026.04.10.01bf489`.

@@ -90,7 +90,7 @@
     <p class="bench-note">
       The Lite problems and test cases are identical to the corresponding problems of VeriContest.
       The problem files without test cases are also in the
-      <a href="https://github.com/HIPREL-Group/VeriContest/tree/main/benchmark">GitHub repository</a>.
+      <a href="https://github.com/HIPREL-Group/VeriContest/tree/main/benchmarks/verus/problems">GitHub repository</a>.
     </p>
   </div>
 </section>
@@ -133,9 +133,9 @@ problems = load_dataset("Gax-c/VeriContest", split="test")       # 1,006 problem
 lite = load_dataset("Gax-c/VeriContest_Lite", split="test")      # 300 problems</code></pre>
       <p>To evaluate, download a dataset and pass its folder to the scorer:</p>
       <pre><code>hf download Gax-c/VeriContest_Lite --repo-type dataset --local-dir VeriContest_Lite
-python3 evaluation/score.py --split lite --testcases VeriContest_Lite ...</code></pre>
+python3 benchmarks/verus/evaluation/score.py --split lite --testcases VeriContest_Lite ...</code></pre>
       <p>
-        See the <a href="https://github.com/HIPREL-Group/VeriContest/blob/main/evaluation/README.md">evaluation guide</a>
+        See the <a href="https://github.com/HIPREL-Group/VeriContest/blob/main/benchmarks/verus/evaluation/README.md">evaluation guide</a>
         for the full commands.
       </p>
     </div>

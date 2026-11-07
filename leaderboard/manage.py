@@ -175,7 +175,7 @@ def load_config(root):
     release, splits = load_release(load_json(root / "leaderboard/release.json"), root / "leaderboard/problem_ids.txt")
     # Detect accidental changes to the supported collection without a release update.
     actual = {f"{family}/{p.name}" for family in ("leetcode", "codeforces")
-              for p in (root / "benchmark" / family).iterdir() if p.is_dir()}
+              for p in (root / "benchmarks" / "verus" / "problems" / family).iterdir() if p.is_dir()}
     require(actual == set(splits["full"]), "current benchmark membership differs from supported release")
     releases = {release["id"]: (release, splits)}
     archive = root / "leaderboard/releases.json"

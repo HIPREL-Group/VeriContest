@@ -7,9 +7,9 @@ for questions or to arrange private access to your artifacts.
 
 ## Steps
 
-1. **Run the evaluation.** Follow the [evaluation guide](../evaluation/README.md).
-   Model-track entries use `evaluation/generate.py` with the fixed prompts; every
-   entry is scored with `evaluation/score.py`.
+1. **Run the evaluation.** Follow the [evaluation guide](../benchmarks/verus/evaluation/README.md).
+   Model-track entries use `benchmarks/verus/evaluation/generate.py` with the fixed prompts; every
+   entry is scored with `benchmarks/verus/evaluation/score.py`.
 2. **Create your entry.** Fork this repository and run
 
    ```bash

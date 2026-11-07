@@ -2,7 +2,7 @@
 
 SpecGen and End2End answers are first tested with post2exe: the answer's
 specification is lowered into an executable checker and run on the problem's
-positive test cases and mutated negative test cases (see `evaluation/README.md`).
+positive test cases and mutated negative test cases (see `benchmarks/verus/evaluation/README.md`).
 A problem whose specification post2exe cannot test, because the translation is
 unsupported or exceeds its time limits, is reviewed against the problem's
 reference `spec.rs` under the standard below.

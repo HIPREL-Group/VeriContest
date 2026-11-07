@@ -1,5 +1,5 @@
-# Local external dependency checkout. See post2exe/EXTERNAL_DEPS.md.
-post2exe/tree-sitter-verus/
+# Local external dependency checkout. See benchmarks/verus/post2exe/EXTERNAL_DEPS.md.
+benchmarks/verus/post2exe/tree-sitter-verus/
 
 # Python caches and generated local artifacts.
 __pycache__/
@@ -18,18 +18,18 @@ build/
 *.rlib
 
 # Per-problem test sources are versioned; generated datasets and binaries are not.
-/benchmark/**/tests/*
-!/benchmark/**/tests/*.rs
-!/benchmark/**/tests/checker.py
-!/benchmark/**/tests/README.md
+/benchmarks/verus/problems/**/tests/*
+!/benchmarks/verus/problems/**/tests/*.rs
+!/benchmarks/verus/problems/**/tests/checker.py
+!/benchmarks/verus/problems/**/tests/README.md
 
 # Exception: the bundled Verus toolchain ships prebuilt runtime libraries that
-# ./verus/verus needs to run. Keep them tracked.
-!verus/*.so
-!verus/*.rlib
+# benchmarks/verus/toolchain/verus needs to run. Keep them tracked.
+!benchmarks/verus/toolchain/*.so
+!benchmarks/verus/toolchain/*.rlib
 
 spec_validation/
 
-# Evaluation: tools built by evaluation/setup_tools.sh and local run outputs.
-evaluation/tools/
-evaluation/runs/
+# Evaluation: tools built by benchmarks/verus/evaluation/setup_tools.sh and local run outputs.
+benchmarks/verus/evaluation/tools/
+benchmarks/verus/evaluation/runs/

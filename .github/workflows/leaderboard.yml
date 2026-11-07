@@ -7,7 +7,7 @@ on:
       - 'leaderboard/**'
       - 'templates/submission/**'
       - 'docs/**'
-      - 'benchmark/**'
+      - 'benchmarks/verus/problems/**'
       - '.github/**'
   push:
     branches: [main]

@@ -1,8 +1,8 @@
 .git
 **/__pycache__
-evaluation/tools
-evaluation/runs
-post2exe/tree-sitter-verus
+benchmarks/verus/evaluation/tools
+benchmarks/verus/evaluation/runs
+benchmarks/verus/post2exe/tree-sitter-verus
 spec_validation
 submissions
 docs

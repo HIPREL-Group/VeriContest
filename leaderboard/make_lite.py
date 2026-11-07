@@ -32,7 +32,7 @@ import tempfile
 import time
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "evaluation"))
+sys.path.insert(0, str(ROOT / "benchmarks" / "verus" / "evaluation"))
 from vceval import checks, harness  # noqa: E402
 from vceval.config import LIMITS, VERUS_BIN  # noqa: E402
 from vceval.problems import load_checker, load_jsonl, testcase_file  # noqa: E402
@@ -46,7 +46,7 @@ DUPLICATE = re.compile(r"\b(?:question|problem) is the same as\b|\b(?:easy|hard)
 
 
 def benchmark(pid):
-    return ROOT / "benchmark" / pid
+    return ROOT / "benchmarks" / "verus" / "problems" / pid
 
 
 def difficulty(pid):

@@ -1,7 +1,7 @@
 # Leaderboard maintenance
 
 This directory holds the submission registry and builds the website's leaderboard
-data. Generation and scoring are in [evaluation/](../evaluation/README.md), and the
+data. Generation and scoring are in [benchmarks/verus/evaluation/](../benchmarks/verus/evaluation/README.md), and the
 specification review standard is [SPEC_REVIEW.md](SPEC_REVIEW.md). See
 [submissions/README.md](../submissions/README.md) for participant instructions.
 

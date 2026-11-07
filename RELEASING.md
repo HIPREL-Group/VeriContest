@@ -28,9 +28,9 @@ results are only comparable within one release.
 |---|---|
 | Source revision | git tag; `benchmark_revision` in `leaderboard/release.json` |
 | Problem list | `leaderboard/problem_ids.txt` and its sha256 in `release.json` |
-| Verus build | `verus` in `release.json`; `verus/version.json` |
+| Verus build | `verus` in `release.json`; `benchmarks/verus/toolchain/version.json` |
 | Verus toolchain archive | GitHub Release asset; sha256 in `release.json` |
-| Benchmark archive | GitHub Release asset: `benchmark/` without the test cases |
+| Benchmark archive | GitHub Release asset: `benchmarks/verus/problems/` without the test cases |
 | Verification flags | `verus.flags` in `release.json` |
 | Test cases | Hugging Face dataset tag with the same name as the git tag |
 | What changed | `CHANGELOG.md` entry; GitHub Release notes |
@@ -40,7 +40,7 @@ builds get pruned, so the archive in our release may become the only copy.
 
 ## Cutting a release
 
-1. Make sure the benchmark is committed and `benchmark/` has no uncommitted changes.
+1. Make sure the benchmark is committed and `benchmarks/verus/problems/` has no uncommitted changes.
 2. Verify every problem with the pinned toolchain, under the file name the
    scorer uses (`verify.rs`). The file name becomes the crate name, which is
    part of the SMT encoding, so a brittle proof can pass under one name and
@@ -48,8 +48,8 @@ builds get pruned, so the archive in our release may become the only copy.
 
    ```bash
    mkdir -p /tmp/vc-verify
-   find benchmark -name verified.rs | sort | xargs -P "$(nproc)" -I{} sh -c \
-     'd=$(mktemp -d); cp "$1" "$d/verify.rs"; ./verus/verus --no-cheating --expand-errors --rlimit 100000 "$d/verify.rs" >/tmp/vc-verify/$(echo "$1" | tr / _).log 2>&1 || echo "FAIL $1"; rm -rf "$d"' _ {}
+   find benchmarks/verus/problems -name verified.rs | sort | xargs -P "$(nproc)" -I{} sh -c \
+     'd=$(mktemp -d); cp "$1" "$d/verify.rs"; ./benchmarks/verus/toolchain/verus --no-cheating --expand-errors --rlimit 100000 "$d/verify.rs" >/tmp/vc-verify/$(echo "$1" | tr / _).log 2>&1 || echo "FAIL $1"; rm -rf "$d"' _ {}
    grep -h "^verification results::" /tmp/vc-verify/*.log | grep -vc " 0 errors"   # must print 0
    ```
 
@@ -59,9 +59,9 @@ builds get pruned, so the archive in our release may become the only copy.
    are reproducible:
 
    ```bash
-   REV=<release commit>; VER=$(python3 -c 'import json;print(json.load(open("verus/version.json"))["verus"]["version"])')
-   git archive --format=tar "$REV" verus | gzip -n -9 > "verus-$VER-x86-linux.tar.gz"
-   git archive --format=tar "$REV" benchmark | gzip -n -9 > "vericontest-benchmark-<tag>.tar.gz"
+   REV=<release commit>; VER=$(python3 -c 'import json;print(json.load(open("benchmarks/verus/toolchain/version.json"))["verus"]["version"])')
+   git archive --format=tar "$REV" benchmarks/verus/toolchain | gzip -n -9 > "verus-$VER-x86-linux.tar.gz"
+   git archive --format=tar "$REV" benchmarks/verus/problems | gzip -n -9 > "vericontest-benchmark-<tag>.tar.gz"
    sha256sum "verus-$VER-x86-linux.tar.gz" "vericontest-benchmark-<tag>.tar.gz"
    ```
 
@@ -101,7 +101,7 @@ builds get pruned, so the archive in our release may become the only copy.
 
 1. Download the new build from
    [verus-lang/verus releases](https://github.com/verus-lang/verus/releases)
-   and replace `verus/`.
+   and replace `benchmarks/verus/toolchain/`.
 2. Run the full verification from step 2 above and fix every failure.
    Also re-check the other Verus-checked artifacts (`code_spec.rs`, `spec.rs`,
    test generators under `tests/`), since syntax and `vstd` changes can break
