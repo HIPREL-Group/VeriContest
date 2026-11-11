@@ -627,6 +627,7 @@ pre { overflow-x: auto; }
 
 /* ---------- data page ---------- */
 .data-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+.data-card-wide { grid-column: 1 / -1; }
 .data-card { display: flex; flex-direction: column; gap: .6rem; padding: 1.5rem; background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: var(--radius); box-shadow: var(--shadow); }
 .data-card-kicker { font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .data-card-title { font-size: 1.5rem; font-weight: 800; color: var(--ink); line-height: 1.2; }

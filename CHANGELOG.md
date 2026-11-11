@@ -8,6 +8,12 @@ problem IDs when a change touches benchmark artifacts.
 
 ## Unreleased
 
+- Moved the test cases out of the Hugging Face datasets `Gax-c/VeriContest` and
+  `Gax-c/VeriContest_Lite` into one dataset of their own,
+  [`Gax-c/VeriContest_Tests`](https://huggingface.co/datasets/Gax-c/VeriContest_Tests), so that the problem datasets
+  stay small. The file paths are unchanged, and the tag `v2026.10.1` of
+  `Gax-c/VeriContest_Tests` holds the test cases of release v2026.10.1. Earlier
+  revisions of the two problem datasets still contain the test cases.
 - Moved the Verus benchmark and its tooling into `benchmarks/verus/` so that
   versions for other verification tools can sit beside it. Problem folders are
   now in `benchmarks/verus/problems/` (was `benchmark/`), the bundled toolchain

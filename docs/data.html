@@ -55,7 +55,7 @@
         <p>All problems of the benchmark, for full evaluations and leaderboard submissions.</p>
         <ul class="data-facts">
           <li><strong>1,006</strong> problems: 722 LeetCode, 284 Codeforces</li>
-          <li>About <strong>49 GiB</strong> of test cases</li>
+          <li>Test cases in VeriContest Tests (about 49 GiB)</li>
           <li>80 problems with an output checker</li>
           <li>Release <code>v2026.10.1</code></li>
         </ul>
@@ -74,7 +74,7 @@
         <p>A fixed subset with the full benchmark's mix of sources, difficulty levels and proof sizes, for smaller evaluations.</p>
         <ul class="data-facts">
           <li><strong>300</strong> problems: 215 LeetCode, 85 Codeforces</li>
-          <li>About <strong>17 GiB</strong> of test cases</li>
+          <li>Test cases in VeriContest Tests (about 17 GiB)</li>
           <li>All outputs judged by exact comparison</li>
           <li>Release <code>v2026.10.1</code></li>
         </ul>
@@ -84,6 +84,23 @@
             <span class="icon is-small"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
           </a>
           <a class="button is-rounded is-light" href="./lite.html">About VeriContest Lite</a>
+        </div>
+      </article>
+      <article class="data-card data-card-wide">
+        <p class="data-card-kicker">Test cases</p>
+        <h2 class="data-card-title">VeriContest Tests</h2>
+        <p class="data-card-id"><code>Gax-c/VeriContest_Tests</code></p>
+        <p>The positive and negative test cases of every problem, shared by VeriContest and VeriContest Lite. Download them only when you run tests; the problem datasets stay small without them.</p>
+        <ul class="data-facts">
+          <li><strong>2,012</strong> files, about 49 GiB (17 GiB for the Lite problems)</li>
+          <li>Same paths as in the problem tables</li>
+          <li>Tag <code>v2026.10.1</code> holds the release's test cases</li>
+        </ul>
+        <div class="data-actions">
+          <a class="button is-rounded link-btn" href="https://huggingface.co/datasets/Gax-c/VeriContest_Tests">
+            <span class="icon">&#129303;</span><span>Hugging Face</span>
+            <span class="icon is-small"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+          </a>
         </div>
       </article>
     </div>
@@ -109,7 +126,7 @@
         <li><code>code_spec.rs</code>: the fixed code and specification given for proof generation</li>
         <li><code>verified.rs</code>: the full Verus-verified program with specification, code and proofs</li>
         <li><code>main.rs</code>: the stdin/stdout entry point, for Codeforces problems</li>
-        <li><code>tests/testcases.jsonl</code> and <code>tests/mutated_testcases.jsonl</code>: positive and negative test cases</li>
+        <li><code>tests/testcases.jsonl</code> and <code>tests/mutated_testcases.jsonl</code>: positive and negative test cases, in VeriContest Tests</li>
         <li><code>tests/checker.py</code>: the output checker, for problems with several valid answers</li>
       </ul>
       <p>
@@ -131,9 +148,13 @@
 
 problems = load_dataset("Gax-c/VeriContest", split="test")       # 1,006 problems
 lite = load_dataset("Gax-c/VeriContest_Lite", split="test")      # 300 problems</code></pre>
-      <p>To evaluate, download a dataset and pass its folder to the scorer:</p>
-      <pre><code>hf download Gax-c/VeriContest_Lite --repo-type dataset --local-dir VeriContest_Lite
-python3 benchmarks/verus/evaluation/score.py --split lite --testcases VeriContest_Lite ...</code></pre>
+      <p>To evaluate, download the test cases and pass their folder to the scorer:</p>
+      <pre><code>hf download Gax-c/VeriContest_Tests --repo-type dataset --local-dir vericontest-tests
+python3 benchmarks/verus/evaluation/score.py --testcases vericontest-tests ...</code></pre>
+      <p>
+        For Lite, you only need the test cases of its 300 problems; the
+        <a href="https://huggingface.co/datasets/Gax-c/VeriContest_Tests">VeriContest Tests card</a> shows how to download just those.
+      </p>
       <p>
         See the <a href="https://github.com/HIPREL-Group/VeriContest/blob/main/benchmarks/verus/evaluation/README.md">evaluation guide</a>
         for the full commands.

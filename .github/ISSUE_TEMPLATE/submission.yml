@@ -34,7 +34,7 @@ body:
     id: scope
     attributes:
       label: Task, split, and versions
-      description: Name the benchmark release you used (2026-10.1 or 2026-10; 1,006 problems), the task/input mode, split, testcase revision, and problem-list link. The old 946-problem release is not accepted.
+      description: Name the benchmark release you used (2026-10.1 or 2026-10; 1,006 problems), the task/input mode, split, testcase revision, and problem-list link.
       placeholder: "End2End, nl input, leetcode (722 problems), benchmark commit ..., testcase revision ..."
     validations:
       required: true

@@ -13,7 +13,7 @@ python3 benchmarks/dafny/evaluation/score.py --outputs SOLUTIONS --ref REF [--re
 ```
 
 `SOLUTIONS/<family>/<pid>.dfy` is the solution, and `TESTS` holds the test
-cases of the [Hugging Face release](https://huggingface.co/datasets/Gax-c/VeriContest),
+cases of [Gax-c/VeriContest_Tests](https://huggingface.co/datasets/Gax-c/VeriContest_Tests),
 the same test cases as the Verus version's. `REF` (the reference specs, one per
 family), `VIR` and `CF_TESTS` (the function-level Codeforces test cases) come
 from the hidden translator. `EVAL` gets `results.jsonl` (one record per

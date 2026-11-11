@@ -8,7 +8,7 @@ Track / task / split:
 
 Paste the output of `python3 leaderboard/manage.py validate --entry submissions/<id>`.
 
-- [ ] This submission uses the supported 1,006-problem benchmark revision.
+- [ ] This submission uses a supported benchmark release (v2026.10 or later).
 - [ ] Every problem in the declared scope is represented, including failures and missing outputs.
 - [ ] There is one independent execution and one final output per problem; internal search/repair and budgets are documented.
 - [ ] Official scoring tests and reference answers were not used during generation/selection, except task-provided inputs.

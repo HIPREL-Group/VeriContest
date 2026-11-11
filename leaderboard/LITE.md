@@ -5,6 +5,10 @@ evaluations. It keeps the full benchmark's mix of sources, difficulty levels and
 proof sizes. Lite is a leaderboard split of its own: Lite entries are ranked on
 Lite, and every full-split entry is also scored on the Lite problems.
 
+The paper describes Lite in Appendix D and reports the results of ten models on
+it. Those results are the Lite scores of the v2026.10.1 baseline entries on the
+leaderboard.
+
 | File | Contents |
 |---|---|
 | `lite_problem_ids.txt` | The 300 Lite problems (215 LeetCode, 85 Codeforces) |
@@ -65,9 +69,11 @@ and GPT-5.5 on CodeGen from a description and specification (80.6 and 84.5).
 
 ## Running Lite
 
-The Lite problems and their test cases are also published on their own, as the
-[VeriContest_Lite](https://huggingface.co/datasets/Gax-c/VeriContest_Lite) dataset
-(about 17 GiB, against 49 GiB for the full benchmark). Pass its folder as `--testcases`.
+The Lite problems are also published on their own, as the
+[VeriContest_Lite](https://huggingface.co/datasets/Gax-c/VeriContest_Lite) dataset.
+Their test cases are in [VeriContest_Tests](https://huggingface.co/datasets/Gax-c/VeriContest_Tests), shared with the full
+benchmark; download only the Lite ones (about 17 GiB, against 49 GiB for all) as
+its card shows, and pass the folder as `--testcases`.
 
 ```bash
 python3 benchmarks/verus/evaluation/generate.py --split lite ...

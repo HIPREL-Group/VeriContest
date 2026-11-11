@@ -32,7 +32,7 @@ results are only comparable within one release.
 | Verus toolchain archive | GitHub Release asset; sha256 in `release.json` |
 | Benchmark archive | GitHub Release asset: `benchmarks/verus/problems/` without the test cases |
 | Verification flags | `verus.flags` in `release.json` |
-| Test cases | Hugging Face dataset tag with the same name as the git tag |
+| Test cases | `Gax-c/VeriContest_Tests` tag with the same name as the git tag |
 | What changed | `CHANGELOG.md` entry; GitHub Release notes |
 
 Always attach the Verus toolchain to the GitHub Release. Upstream rolling
@@ -94,8 +94,8 @@ builds get pruned, so the archive in our release may become the only copy.
    <https://github.com/HIPREL-Group/VeriContest/releases/new> after pushing the
    tag, and upload both archives there.
 
-7. If the test cases changed, tag the matching Hugging Face dataset revision
-   with the same name.
+7. If the test cases changed, tag the matching revision of the
+   `Gax-c/VeriContest_Tests` dataset with the same name.
 
 ## Bumping Verus
 

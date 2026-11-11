@@ -125,7 +125,7 @@ def main(argv=None):
     ap.add_argument("--input-mode", required=True)
     ap.add_argument("--outputs", required=True, type=Path, help="directory with <family>/<problem>.rs")
     ap.add_argument("--testcases", type=Path, default=os.environ.get("VERICONTEST_TESTCASES"),
-                    help="local copy of the Hugging Face dataset (<family>/<problem>/tests/*.jsonl)")
+                    help="local copy of the Gax-c/VeriContest_Tests dataset (<family>/<problem>/tests/*.jsonl)")
     ap.add_argument("--out", required=True, type=Path, help="directory for results.jsonl, eval_logs/, summary.json")
     ap.add_argument("--split", default="full", choices=SPLITS)
     ap.add_argument("--problems", help="comma-separated subset (debugging only; not a valid submission)")

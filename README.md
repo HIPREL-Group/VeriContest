@@ -20,7 +20,7 @@ Competitive-Programming Benchmark for Verifiable Code Generation"**
 ([arXiv:2605.08553](https://arxiv.org/abs/2605.08553)), accepted at NeurIPS 2026
 in the Evaluations & Datasets Track.
 
-The current benchmark contains 1,006 problems: 722 from LeetCode and 284
+The benchmark contains 1,006 problems: 722 from LeetCode and 284
 from Codeforces. Each problem pairs a natural-language description with
 expert-validated formal specifications, judge-accepted Rust code, and
 Verus-checked proofs. All problems are organized by source platform. Some
@@ -29,29 +29,29 @@ checker instead of comparison with a single expected output.
 
 [VeriContest Lite](leaderboard/LITE.md) is a fixed 300-problem subset for smaller
 evaluations, with the full benchmark's mix of sources, difficulty levels and proof
-sizes. It has its own leaderboard view.
+sizes. It has its own leaderboard view, and the paper describes it in Appendix D.
 
-The complete dataset release, including positive and mutated negative testcase files, is
-available on Hugging Face:
-[Gax-c/VeriContest](https://huggingface.co/datasets/Gax-c/VeriContest).
+The datasets are on Hugging Face:
+[Gax-c/VeriContest](https://huggingface.co/datasets/Gax-c/VeriContest) and
+[Gax-c/VeriContest_Lite](https://huggingface.co/datasets/Gax-c/VeriContest_Lite) hold
+the problems, and [Gax-c/VeriContest_Tests](https://huggingface.co/datasets/Gax-c/VeriContest_Tests) holds the
+positive and mutated negative test cases of both (about 49 GiB).
 
 ## Submitting Results
 
-Submission intake is open for Model and Agent tracks on the
-**1,006-problem releases** (v2026.10 and later); each submission names the release
-it used. An entry covers the full benchmark, its LeetCode or Codeforces problems,
-or [VeriContest Lite](leaderboard/LITE.md) (v2026.10.1 and later). Lite has its own
-leaderboard: Lite entries are ranked there, and every full-benchmark entry also
-appears there, scored on the 300 Lite problems. See
+Submission intake is open for Model and Agent tracks on **releases v2026.10 and
+later**; each submission names the release it used. An entry covers the full
+benchmark, its LeetCode or Codeforces problems, or [VeriContest
+Lite](leaderboard/LITE.md) (v2026.10.1 and later). Lite has its own leaderboard:
+Lite entries are ranked there, and every full-benchmark entry also appears there,
+scored on the 300 Lite problems. See
 [submissions/README.md](submissions/README.md) for the steps, rules, and artifact
-requirements; submissions are pull requests. Use
-`python3 leaderboard/manage.py init --help` to create a submission record
-(`--split lite` for a Lite entry).
+requirements; submissions are pull requests. Use `python3 leaderboard/manage.py
+init --help` to create a submission record (`--split lite` for a Lite entry).
 
 Pending submissions have no official score or rank. SpecGen and End2End
 specifications that post2exe cannot test are reviewed under the
-[specification review standard](leaderboard/SPEC_REVIEW.md). The old 946-problem
-release is not accepted for new leaderboard entries. See
+[specification review standard](leaderboard/SPEC_REVIEW.md). See
 [leaderboard/README.md](leaderboard/README.md) for validation, evaluation-status
 maintenance, and website publication.
 
@@ -81,11 +81,6 @@ docs/               # Website and leaderboard (GitHub Pages)
 The Verus problems are under `benchmarks/verus/problems/codeforces/` and
 `benchmarks/verus/problems/leetcode/`.
 
-The paper's primary evaluation used 946 problems (690 LeetCode and 256
-Codeforces). The current unified collection contains 1,006 problems; its full
-set is not the same evaluation scope as the paper. Pin the repository revision
-and explicit problem list when reporting results.
-
 VeriContest supports isolated and compositional evaluation of:
 
 - **SpecGen**: generate formal specifications from natural-language problem
@@ -97,12 +92,19 @@ VeriContest supports isolated and compositional evaluation of:
 - **End2End**: generate the full verified Verus program, including
   specification, executable code, and proofs.
 
+The paper evaluates ten state-of-the-art models on all 1,006 problems and on
+VeriContest Lite. The strongest model, GPT-5.5, reaches 97.51% on
+natural-language-to-code generation, but only 57.16% on SpecGen, 13.82% on
+ProofGen, and 6.76% on End2End. These results are the baseline entries of
+release v2026.10.1 on the [leaderboard](https://hiprel-group.github.io/VeriContest/).
+When reporting results, name the release and the problem list you used.
+
 The generated testcase files, `testcases.jsonl` and
 `mutated_testcases.jsonl`, are too large to include directly in this GitHub
 repository. The GitHub repository is intended to make the problem artifacts,
-specifications, code, proofs, and tooling easy to inspect and version. The
-complete release is available on Hugging Face:
-[Gax-c/VeriContest](https://huggingface.co/datasets/Gax-c/VeriContest).
+specifications, code, proofs, and tooling easy to inspect and version. The test
+cases are on Hugging Face, in
+[Gax-c/VeriContest_Tests](https://huggingface.co/datasets/Gax-c/VeriContest_Tests).
 
 ## Benchmark Construction
 
@@ -110,13 +112,13 @@ VeriContest is constructed through a three-phase pipeline:
 
 1. **Manually verified seed problems**: 91 verified seed problems are manually
    built with sound and complete specifications, Rust code, and Verus proofs.
-2. **Semi-automated expansion**: the benchmark is expanded to 946 problems
+2. **Semi-automated expansion**: the benchmark is expanded to 1,006 problems
    through semi-automated generation with human-in-the-loop review.
 3. **Testcase generation and validation**: positive and negative test cases are
    generated from the verified programs to further validate postcondition
    completeness and evaluate model-generated code and specifications.
 
-This enchmark enforces quality along five dimensions, with each benchmark
+The benchmark enforces quality along five dimensions, with each benchmark
 instance reviewed by at least two human experts:
 
 - **Code correctness and efficiency**: all code is submitted to the online judge

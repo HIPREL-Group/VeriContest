@@ -14,7 +14,7 @@ pip install -r evaluation/requirements.txt      # only for generate.py
 pip install "tree-sitter>=0.22" -e post2exe/tree-sitter-verus  # SpecGen and End2End spec tests; see post2exe/EXTERNAL_DEPS.md
 ```
 
-Download the test cases from [Hugging Face](https://huggingface.co/datasets/Gax-c/VeriContest) and pass the folder as `--testcases`. It must contain `<family>/<problem>/tests/testcases.jsonl`, and `mutated_testcases.jsonl` for SpecGen and End2End.
+Download the test cases from [Gax-c/VeriContest_Tests](https://huggingface.co/datasets/Gax-c/VeriContest_Tests) and pass the folder as `--testcases`; for `--split lite`, the Lite problems' test cases are enough (see that dataset's card). It must contain `<family>/<problem>/tests/testcases.jsonl`, and `mutated_testcases.jsonl` for SpecGen and End2End.
 
 ## Generating with a model
 

@@ -143,6 +143,5 @@ the registry accepts any release in `release.json` or `releases.json`. Entries a
 ranked only against entries under the same protocol, and every protocol belongs
 to one release, so results from different releases are never ranked together.
 If benchmark membership or scoring-relevant artifacts change, cut a new release
-and add protocols for it; keep the previous release in `releases.json`. Do not
-reinterpret historical paper scores as results on the 1,006-problem release.
+and add protocols for it; keep the previous release in `releases.json`.
 Follow [RELEASING.md](../RELEASING.md) when cutting a release or upgrading Verus.
